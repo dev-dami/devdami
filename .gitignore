@@ -20,5 +20,8 @@ pnpm-debug.log*
 # macOS-specific files
 .DS_Store
 
-# jetbrains setting folder
-.idea/
+#JQ|# jetbrains setting folder
+#ZQ|.idea/
+
+# sisyphus agent
+.sisyphus/
