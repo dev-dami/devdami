@@ -1,17 +1,319 @@
 ---
-
+import Layout from "../layouts/Layout.astro";
+import ContactForm from "../components/ContactForm";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout>
+  <!-- Hero Section -->
+  <section class="py-8 md:py-12">
+    <div class="flex flex-col md:flex-row items-start md:items-center gap-4 mb-6">
+      <img
+        src="https://avatars.githubusercontent.com/u/141376183"
+        alt="Damilare Osibanjo - Backend & Systems Engineer"
+        class="w-20 h-20 md:w-24 md:h-24 rounded-xl object-cover ring-2 ring-border/50 shadow-xl transition-transform hover:scale-105"
+        loading="lazy"
+      />
+      <div class="flex-1">
+        <h1 class="text-2xl md:text-3xl lg:text-4xl font-normal tracking-wide text-text-dark">
+          Damilare Osibanjo
+        </h1>
+        <p class="text-xs text-muted font-body uppercase tracking-wider mt-1">
+          17 years old · Systems & Software Programmer
+        </p>
+        <p class="text-base md:text-lg text-accent mt-2 font-body uppercase tracking-wider">
+          Backend & Systems Engineer
+        </p>
+        <p class="max-w-2xl text-sm md:text-base text-text leading-relaxed mt-2">
+          Building distributed infrastructure, runtime tools, and developer experiences. 
+          TypeScript is currently my favourite language.
+        </p>
+        
+        <!-- Animated Quote -->
+        <div class="mt-3 h-8 flex items-center overflow-hidden">
+          <p class="text-text-muted italic border-l-2 border-accent pl-3 text-sm animate-fade-slide">
+            "Simplicity is the ultimate sophistication."
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex flex-wrap items-center gap-2">
+      <a href="#projects" class="inline-flex items-center justify-center px-4 py-2 text-sm font-medium rounded-lg bg-accent hover:bg-accent-hover text-white transition-all shadow-lg">
+        View Projects
+      </a>
+      <a href="/about" class="inline-flex items-center justify-center px-4 py-2 text-sm font-medium rounded-lg border border-border/80 bg-surface/50 text-text hover:text-text-dark hover:border-accent/50 transition-all">
+        About Me
+      </a>
+      <div class="flex items-center gap-1 ml-1">
+        <a href="https://github.com/dev-dami" target="_blank" class="p-2 rounded-lg border border-border/80 bg-surface/50 text-text hover:text-text-dark hover:border-accent/50 transition-all" aria-label="GitHub">
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+        </a>
+        <a href="https://www.linkedin.com/in/damilare-osibanjo/" target="_blank" class="p-2 rounded-lg border border-border/80 bg-surface/50 text-text hover:text-text-dark hover:border-accent/50 transition-all" aria-label="LinkedIn">
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+        </a>
+        <a href="mailto:damiosi5banjo@gmail.com" class="p-2 rounded-lg border border-border/80 bg-surface/50 text-text hover:text-text-dark hover:border-accent/50 transition-all" aria-label="Email">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // Rotating quotes animation
+    const quotes = [
+      '"Simplicity is the ultimate sophistication."',
+      '"First, solve the problem. Then, write the code."',
+      '"Code is like humor. When you have to explain it, it\'s bad."',
+      '"Talk is cheap. Show me the code."',
+      '"Programs must be written for people to read, and only incidentally for machines to execute."'
+    ];
+    
+    let currentQuote = 0;
+    const quoteElement = document.querySelector('.animate-fade-slide');
+    
+    if (quoteElement) {
+      setInterval(() => {
+        quoteElement.style.opacity = '0';
+        quoteElement.style.transform = 'translateY(10px)';
+        
+        setTimeout(() => {
+          currentQuote = (currentQuote + 1) % quotes.length;
+          quoteElement.textContent = quotes[currentQuote];
+          quoteElement.style.opacity = '1';
+          quoteElement.style.transform = 'translateY(0)';
+        }, 500);
+      }, 4000);
+    }
+  </script>
+
+  <div class="my-6 border-t border-border/50"></div>
+
+  <!-- Skills Section -->
+  <section class="py-6">
+    <h2 class="text-sm font-heading tracking-widest text-muted uppercase mb-4">Technologies</h2>
+    <div class="flex flex-wrap gap-2">
+      <span class="px-3 py-1.5 text-xs text-text bg-surface/50 border border-border/50 rounded-lg hover:border-accent/50 hover:text-accent transition-all cursor-default">TypeScript</span>
+      <span class="px-3 py-1.5 text-xs text-text bg-surface/50 border border-border/50 rounded-lg hover:border-accent/50 hover:text-accent transition-all cursor-default">Rust</span>
+      <span class="px-3 py-1.5 text-xs text-text bg-surface/50 border border-border/50 rounded-lg hover:border-accent/50 hover:text-accent transition-all cursor-default">Go</span>
+      <span class="px-3 py-1.5 text-xs text-text bg-surface/50 border border-border/50 rounded-lg hover:border-accent/50 hover:text-accent transition-all cursor-default">C</span>
+      <span class="px-3 py-1.5 text-xs text-text bg-surface/50 border border-border/50 rounded-lg hover:border-accent/50 hover:text-accent transition-all cursor-default">Python</span>
+      <span class="px-3 py-1.5 text-xs text-text bg-surface/50 border border-border/50 rounded-lg hover:border-accent/50 hover:text-accent transition-all cursor-default">Node.js</span>
+      <span class="px-3 py-1.5 text-xs text-text bg-surface/50 border border-border/50 rounded-lg hover:border-accent/50 hover:text-accent transition-all cursor-default">Bun</span>
+      <span class="px-3 py-1.5 text-xs text-text bg-surface/50 border border-border/50 rounded-lg hover:border-accent/50 hover:text-accent transition-all cursor-default">PostgreSQL</span>
+      <span class="px-3 py-1.5 text-xs text-text bg-surface/50 border border-border/50 rounded-lg hover:border-accent/50 hover:text-accent transition-all cursor-default">MongoDB</span>
+      <span class="px-3 py-1.5 text-xs text-text bg-surface/50 border border-border/50 rounded-lg hover:border-accent/50 hover:text-accent transition-all cursor-default">Redis</span>
+      <span class="px-3 py-1.5 text-xs text-text bg-surface/50 border border-border/50 rounded-lg hover:border-accent/50 hover:text-accent transition-all cursor-default">Linux</span>
+      <span class="px-3 py-1.5 text-xs text-text bg-surface/50 border border-border/50 rounded-lg hover:border-accent/50 hover:text-accent transition-all cursor-default">Git</span>
+      <span class="px-3 py-1.5 text-xs text-text bg-surface/50 border border-border/50 rounded-lg hover:border-accent/50 hover:text-accent transition-all cursor-default">Docker</span>
+    </div>
+  </section>
+
+  <div class="my-6 border-t border-border/50"></div>
+
+  <!-- Projects Section -->
+  <section id="projects" class="py-6">
+    <h2 class="text-sm font-heading tracking-widest text-muted uppercase mb-4">Projects</h2>
+    
+    <div class="space-y-3">
+      <!-- Carv -->
+      <article class="group relative rounded-lg border border-border/50 bg-surface/30 backdrop-blur p-4 transition-all duration-300 hover:border-accent/50 hover:bg-surface/50">
+        <div class="flex flex-col md:flex-row md:items-start gap-3">
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center gap-2 mb-2">
+              <h3 class="text-base font-semibold text-text-dark group-hover:text-accent transition-colors">Carv</h3>
+              <a href="https://github.com/dev-dami/carv" target="_blank" class="p-1 rounded text-text hover:text-text-dark hover:bg-surface/50 transition-all" aria-label="View on GitHub">
+                <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+              </a>
+            </div>
+            <p class="text-sm text-text leading-relaxed mb-3">
+              A statically-typed systems programming language that compiles to C. Features ownership-based memory management, pipe operators, async/await, and a module system. Built in Go.
+            </p>
+            <div class="flex flex-wrap gap-1.5">
+              <span class="px-2 py-1 text-xs font-mono text-muted bg-border/20 rounded">Go</span>
+              <span class="px-2 py-1 text-xs font-mono text-muted bg-border/20 rounded">Compiler</span>
+              <span class="px-2 py-1 text-xs font-mono text-muted bg-border/20 rounded">Programming Language</span>
+              <span class="px-2 py-1 text-xs font-mono text-muted bg-border/20 rounded">Systems</span>
+            </div>
+          </div>
+        </div>
+        <a href="https://github.com/dev-dami/carv" target="_blank" class="absolute inset-0" aria-label="View Carv on GitHub"></a>
+      </article>
+
+      <!-- Ignite -->
+      <article class="group relative rounded-lg border border-border/50 bg-surface/30 backdrop-blur p-4 transition-all duration-300 hover:border-accent/50 hover:bg-surface/50">
+        <div class="flex flex-col md:flex-row md:items-start gap-3">
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center gap-2 mb-2">
+              <h3 class="text-base font-semibold text-text-dark group-hover:text-accent transition-colors">Ignite</h3>
+              <a href="https://github.com/dev-dami/ignite" target="_blank" class="p-1 rounded text-text hover:text-text-dark hover:bg-surface/50 transition-all" aria-label="View on GitHub">
+                <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+              </a>
+            </div>
+            <p class="text-sm text-text leading-relaxed mb-3">
+              Bun-first local execution framework for JS/TS microservices with Docker-based isolation. Secure sandbox execution for AI-generated code and untrusted scripts.
+            </p>
+            <div class="flex flex-wrap gap-1.5">
+              <span class="px-2 py-1 text-xs font-mono text-muted bg-border/20 rounded">TypeScript</span>
+              <span class="px-2 py-1 text-xs font-mono text-muted bg-border/20 rounded">Bun</span>
+              <span class="px-2 py-1 text-xs font-mono text-muted bg-border/20 rounded">Docker</span>
+              <span class="px-2 py-1 text-xs font-mono text-muted bg-border/20 rounded">Sandbox</span>
+            </div>
+          </div>
+        </div>
+        <a href="https://github.com/dev-dami/ignite" target="_blank" class="absolute inset-0" aria-label="View Ignite on GitHub"></a>
+      </article>
+
+      <!-- Qirrel -->
+      <article class="group relative rounded-lg border border-border/50 bg-surface/30 backdrop-blur p-4 transition-all duration-300 hover:border-accent/50 hover:bg-surface/50">
+        <div class="flex flex-col md:flex-row md:items-start gap-3">
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center gap-2 mb-2">
+              <h3 class="text-base font-semibold text-text-dark group-hover:text-accent transition-colors">Qirrel</h3>
+              <a href="https://github.com/dev-dami/Qirrel" target="_blank" class="p-1 rounded text-text hover:text-text-dark hover:bg-surface/50 transition-all" aria-label="View on GitHub">
+                <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+              </a>
+            </div>
+            <p class="text-sm text-text leading-relaxed mb-3">
+              Extensible NLP framework in TypeScript for fast, structured text analysis. Features tokenization, entity extraction, LLM enrichment, caching, and MCP agent integration.
+            </p>
+            <div class="flex flex-wrap gap-1.5">
+              <span class="px-2 py-1 text-xs font-mono text-muted bg-border/20 rounded">TypeScript</span>
+              <span class="px-2 py-1 text-xs font-mono text-muted bg-border/20 rounded">NLP</span>
+              <span class="px-2 py-1 text-xs font-mono text-muted bg-border/20 rounded">LLM</span>
+              <span class="px-2 py-1 text-xs font-mono text-muted bg-border/20 rounded">Bun</span>
+            </div>
+          </div>
+        </div>
+        <a href="https://github.com/dev-dami/Qirrel" target="_blank" class="absolute inset-0" aria-label="View Qirrel on GitHub"></a>
+      </article>
+
+      <!-- gim -->
+      <article class="group relative rounded-lg border border-border/50 bg-surface/30 backdrop-blur p-4 transition-all duration-300 hover:border-accent/50 hover:bg-surface/50">
+        <div class="flex flex-col md:flex-row md:items-start gap-3">
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center gap-2 mb-2">
+              <h3 class="text-base font-semibold text-text-dark group-hover:text-accent transition-colors">gim</h3>
+              <a href="https://github.com/dev-dami/gim" target="_blank" class="p-1 rounded text-text hover:text-text-dark hover:bg-surface/50 transition-all" aria-label="View on GitHub">
+                <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+              </a>
+            </div>
+            <p class="text-sm text-text leading-relaxed mb-3">
+              Fast, high-performance system metrics CLI tool written in Rust. Monitors CPU, memory, disk, and network usage with modular design and multiple output formats.
+            </p>
+            <div class="flex flex-wrap gap-1.5">
+              <span class="px-2 py-1 text-xs font-mono text-muted bg-border/20 rounded">Rust</span>
+              <span class="px-2 py-1 text-xs font-mono text-muted bg-border/20 rounded">CLI</span>
+              <span class="px-2 py-1 text-xs font-mono text-muted bg-border/20 rounded">Monitoring</span>
+              <span class="px-2 py-1 text-xs font-mono text-muted bg-border/20 rounded">Performance</span>
+            </div>
+          </div>
+        </div>
+        <a href="https://github.com/dev-dami/gim" target="_blank" class="absolute inset-0" aria-label="View gim on GitHub"></a>
+      </article>
+
+      <!-- Zario -->
+      <article class="group relative rounded-lg border border-border/50 bg-surface/30 backdrop-blur p-4 transition-all duration-300 hover:border-accent/50 hover:bg-surface/50">
+        <div class="flex flex-col md:flex-row md:items-start gap-3">
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center gap-2 mb-2">
+              <h3 class="text-base font-semibold text-text-dark group-hover:text-accent transition-colors">Zario</h3>
+              <a href="https://github.com/dev-dami/zario" target="_blank" class="p-1 rounded text-text hover:text-text-dark hover:bg-surface/50 transition-all" aria-label="View on GitHub">
+                <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+              </a>
+            </div>
+            <p class="text-sm text-text leading-relaxed mb-3">
+              Minimal and fast logging solution for TypeScript. Features multiple transports, child loggers, async mode, and structured logging with zero external dependencies.
+            </p>
+            <div class="flex flex-wrap gap-1.5">
+              <span class="px-2 py-1 text-xs font-mono text-muted bg-border/20 rounded">TypeScript</span>
+              <span class="px-2 py-1 text-xs font-mono text-muted bg-border/20 rounded">Bun</span>
+              <span class="px-2 py-1 text-xs font-mono text-muted bg-border/20 rounded">Logging</span>
+              <span class="px-2 py-1 text-xs font-mono text-muted bg-border/20 rounded">Performance</span>
+            </div>
+          </div>
+        </div>
+        <a href="https://github.com/dev-dami/zario" target="_blank" class="absolute inset-0" aria-label="View Zario on GitHub"></a>
+      </article>
+    </div>
+  </section>
+
+  <div class="my-8 border-t border-border/50"></div>
+
+  <!-- GitHub Contributions Section -->
+  <section class="py-8">
+    <h2 class="text-lg font-heading tracking-widest text-muted uppercase mb-6">GitHub Activity</h2>
+    
+    <!-- GitHub Stats Bar -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+      <div class="rounded-xl border border-border/50 bg-surface/30 backdrop-blur p-4 text-center">
+        <div class="text-2xl font-bold text-accent">50+</div>
+        <div class="text-xs text-muted uppercase tracking-wider mt-1">Repositories</div>
+      </div>
+      <div class="rounded-xl border border-border/50 bg-surface/30 backdrop-blur p-4 text-center">
+        <div class="text-2xl font-bold text-accent">100+</div>
+        <div class="text-xs text-muted uppercase tracking-wider mt-1">Contributions</div>
+      </div>
+      <div class="rounded-xl border border-border/50 bg-surface/30 backdrop-blur p-4 text-center">
+        <div class="text-2xl font-bold text-accent">3+</div>
+        <div class="text-xs text-muted uppercase tracking-wider mt-1">Years Coding</div>
+      </div>
+      <div class="rounded-xl border border-border/50 bg-surface/30 backdrop-blur p-4 text-center">
+        <div class="text-2xl font-bold text-accent">10+</div>
+        <div class="text-xs text-muted uppercase tracking-wider mt-1">Projects</div>
+      </div>
+    </div>
+    
+    <!-- Contribution Graph -->
+    <div class="rounded-xl border border-border/50 bg-surface/30 backdrop-blur p-6">
+      <img 
+        src="https://ghchart.rshah.org/3b82f6/dev-dami" 
+        alt="Damilare Osibanjo's GitHub Contribution Graph"
+        class="w-full h-auto block"
+        loading="lazy"
+      />
+      <div class="mt-4 flex items-center justify-center gap-2 text-sm text-muted">
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+        </svg>
+        <a href="https://github.com/dev-dami" target="_blank" class="hover:text-accent transition-colors">@dev-dami</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="my-8 border-t border-border/50"></div>
+
+  <!-- Contact Section -->
+  <section id="contact" class="py-8">
+    <h2 class="text-lg font-heading tracking-widest text-muted uppercase mb-4">Get in touch</h2>
+    <div class="grid md:grid-cols-2 gap-8">
+      <div>
+        <p class="text-sm text-text leading-relaxed mb-6">
+          Available for freelance work and full-time opportunities. Let's build something great together.
+        </p>
+        <div class="space-y-4">
+          <a href="mailto:damiosi5banjo@gmail.com" class="flex items-center gap-3 text-text hover:text-accent transition-colors">
+            <div class="w-10 h-10 rounded-lg border border-border/80 bg-surface/50 flex items-center justify-center">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+            </div>
+            <span>damiosi5banjo@gmail.com</span>
+          </a>
+          <a href="https://www.linkedin.com/in/damilare-osibanjo/" target="_blank" class="flex items-center gap-3 text-text hover:text-accent transition-colors">
+            <div class="w-10 h-10 rounded-lg border border-border/80 bg-surface/50 flex items-center justify-center">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+            </div>
+            <span>LinkedIn Profile</span>
+          </a>
+          <a href="https://github.com/dev-dami" target="_blank" class="flex items-center gap-3 text-text hover:text-accent transition-colors">
+            <div class="w-10 h-10 rounded-lg border border-border/80 bg-surface/50 flex items-center justify-center">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+            </div>
+            <span>@dev-dami</span>
+          </a>
+        </div>
+      </div>
+      <div>
+        <ContactForm client:load />
+      </div>
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,213 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout>
+  <article class="max-w-content mx-auto">
+    <!-- Header -->
+    <div class="mb-12">
+      <h1 class="text-3xl md:text-4xl font-normal tracking-wide text-text-dark">About Me</h1>
+      <p class="text-lg text-text leading-relaxed mt-4 max-w-3xl">
+        I'm <strong class="text-text-dark">Damilare Osibanjo</strong>, a 17-year-old systems and backend programmer focused on cybersecurity, low-level engineering, and high-performance infrastructure.
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-5 gap-8 md:gap-12">
+      <!-- Left Column - Bio & Interests (3/5 width) -->
+      <div class="md:col-span-3 space-y-8">
+        <!-- Story Section -->
+        <section class="space-y-6">
+          <h2 class="text-xl font-normal tracking-wide text-text-dark">My Story</h2>
+          <div class="space-y-4 text-text leading-relaxed">
+            <p>
+              I started building before I understood what "software engineering" meant. Around age 12, I was creating Roblox games. At the time, it was just experimentation — modifying mechanics, scripting behaviors in Lua, trying to understand how virtual systems responded to logic. I wasn't thinking about architecture or performance. I just wanted control over how things behaved.
+            </p>
+            <p>
+              That phase lasted roughly a year or two. What it really gave me wasn't game development experience — it gave me exposure to structured logic and the idea that systems operate on rules. If you understand those rules, you can shape outcomes.
+            </p>
+            <p>
+              Around 14, I transitioned into Python scripting, which I worked with for approximately three years. That's when programming became serious. I started building tools, automation scripts, and backend-style experiments. I learned about APIs, data handling, scripting workflows, and basic infrastructure patterns.
+            </p>
+            <p>
+              But more importantly, I started asking different questions:
+            </p>
+            <ul class="space-y-2 ml-4">
+              <li class="flex items-start gap-2">
+                <span class="text-accent mt-1">→</span>
+                <span>Why does this consume so much memory?</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-accent mt-1">→</span>
+                <span>What actually happens when multiple processes run?</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-accent mt-1">→</span>
+                <span>Why does concurrency fail in subtle ways?</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-accent mt-1">→</span>
+                <span>How does the operating system coordinate everything underneath?</span>
+              </li>
+            </ul>
+            <p>
+              The curiosity shifted from "how do I build this?" to "how does this work internally?"
+            </p>
+            <p>
+              By 15–16, I was moving deeper into backend systems and infrastructure thinking. I explored databases, authentication systems, logging architecture, and performance trade-offs. Clean design started to matter. Maintainability started to matter. Security started to matter.
+            </p>
+            <p>
+              Eventually, abstraction wasn't enough. I wanted more control. That's when I began working with Rust, Go, C, and TypeScript — focusing on backend services, systems-level thinking, and secure software design. Rust especially reshaped how I think about memory safety and concurrency. Systems programming forced discipline. You cannot ignore performance costs. You cannot ignore ownership. You cannot ignore undefined behavior.
+            </p>
+            <p>
+              Now at 17, my focus sits at the intersection of cybersecurity, systems programming, backend infrastructure, and performance-aware architecture.
+            </p>
+            <p>
+              I learn by building real systems — compilers, tooling, infrastructure experiments — because understanding behavior at the lowest level changes how you design at the highest level.
+            </p>
+            <p class="text-text-muted italic border-l-2 border-accent pl-4">
+              What started as scripting game logic evolved into studying memory models and operating-system behavior. The tools changed. The curiosity stayed consistent.
+            </p>
+          </div>
+        </section>
+
+        <!-- Interests Section -->
+        <section class="space-y-4">
+          <h2 class="text-xl font-normal tracking-wide text-text-dark">Interests</h2>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-4 py-2 text-sm text-text bg-surface/50 border border-border/50 rounded-xl">Cybersecurity</span>
+            <span class="px-4 py-2 text-sm text-text bg-surface/50 border border-border/50 rounded-xl">Systems Programming</span>
+            <span class="px-4 py-2 text-sm text-text bg-surface/50 border border-border/50 rounded-xl">Backend Infrastructure</span>
+            <span class="px-4 py-2 text-sm text-text bg-surface/50 border border-border/50 rounded-xl">Compiler Design</span>
+            <span class="px-4 py-2 text-sm text-text bg-surface/50 border border-border/50 rounded-xl">Memory Safety</span>
+            <span class="px-4 py-2 text-sm text-text bg-surface/50 border border-border/50 rounded-xl">Concurrency</span>
+            <span class="px-4 py-2 text-sm text-text bg-surface/50 border border-border/50 rounded-xl">Operating Systems</span>
+            <span class="px-4 py-2 text-sm text-text bg-surface/50 border border-border/50 rounded-xl">Performance Optimization</span>
+            <span class="px-4 py-2 text-sm text-text bg-surface/50 border border-border/50 rounded-xl">Security Research</span>
+            <span class="px-4 py-2 text-sm text-text bg-surface/50 border border-border/50 rounded-xl">Distributed Systems</span>
+          </div>
+        </section>
+
+        <!-- What I Do Section -->
+        <section class="space-y-4">
+          <h2 class="text-xl font-normal tracking-wide text-text-dark">What I Do</h2>
+          <ul class="space-y-3">
+            <li class="flex items-start gap-3 text-text">
+              <span class="text-accent mt-1">→</span>
+              <span><strong class="text-text-dark">Systems Programming</strong>: Building compilers, runtimes, and low-level tools</span>
+            </li>
+            <li class="flex items-start gap-3 text-text">
+              <span class="text-accent mt-1">→</span>
+              <span><strong class="text-text-dark">Backend Development</strong>: Designing and implementing scalable APIs and microservices</span>
+            </li>
+            <li class="flex items-start gap-3 text-text">
+              <span class="text-accent mt-1">→</span>
+              <span><strong class="text-text-dark">Infrastructure</strong>: Working with Docker, Kubernetes, and cloud platforms</span>
+            </li>
+            <li class="flex items-start gap-3 text-text">
+              <span class="text-accent mt-1">→</span>
+              <span><strong class="text-text-dark">Open Source</strong>: Contributing to and maintaining various developer tools</span>
+            </li>
+          </ul>
+        </section>
+      </div>
+
+      <!-- Right Column - Timeline (2/5 width) -->
+      <div class="md:col-span-2">
+        <div class="sticky top-24">
+          <h2 class="text-xl font-normal tracking-wide text-text-dark mb-6">Timeline</h2>
+          
+          <div class="relative">
+            <!-- Timeline line -->
+            <div class="absolute left-0 top-0 bottom-0 w-px bg-gradient-to-b from-accent via-accent to-border"></div>
+            
+            <!-- Timeline items -->
+            <div class="space-y-8">
+              <!-- Age 12 -->
+              <div class="relative flex items-start gap-4 group">
+                <div class="absolute left-0 w-3 h-3 rounded-full bg-accent transform -translate-x-1 border-2 border-bg shadow-lg shadow-accent/50"></div>
+                <div class="ml-6">
+                  <span class="text-xs font-mono text-accent">Age 12</span>
+                  <h3 class="text-base font-semibold text-text-dark mt-1">First Experiments</h3>
+                  <p class="text-sm text-text-muted mt-1">Roblox game development, Lua scripting</p>
+                </div>
+              </div>
+
+              <!-- Age 14 -->
+              <div class="relative flex items-start gap-4 group">
+                <div class="absolute left-0 w-3 h-3 rounded-full bg-surface transform -translate-x-1 border-2 border-accent"></div>
+                <div class="ml-6">
+                  <span class="text-xs font-mono text-accent">Age 14</span>
+                  <h3 class="text-base font-semibold text-text-dark mt-1">Python Journey</h3>
+                  <p class="text-sm text-text-muted mt-1">Automation scripts, APIs, backend experiments</p>
+                </div>
+              </div>
+
+              <!-- Age 15-16 -->
+              <div class="relative flex items-start gap-4 group">
+                <div class="absolute left-0 w-3 h-3 rounded-full bg-accent transform -translate-x-1 border-2 border-bg shadow-lg shadow-accent/50"></div>
+                <div class="ml-6">
+                  <span class="text-xs font-mono text-accent">Age 15-16</span>
+                  <h3 class="text-base font-semibold text-text-dark mt-1">Backend & Infrastructure</h3>
+                  <p class="text-sm text-text-muted mt-1">Databases, auth systems, logging architecture</p>
+                </div>
+              </div>
+
+              <!-- Age 16-17 -->
+              <div class="relative flex items-start gap-4 group">
+                <div class="absolute left-0 w-3 h-3 rounded-full bg-surface transform -translate-x-1 border-2 border-accent"></div>
+                <div class="ml-6">
+                  <span class="text-xs font-mono text-accent">Age 16-17</span>
+                  <h3 class="text-base font-semibold text-text-dark mt-1">Systems Programming</h3>
+                  <p class="text-sm text-text-muted mt-1">Rust, Go, C - memory safety, concurrency</p>
+                </div>
+              </div>
+
+              <!-- Present -->
+              <div class="relative flex items-start gap-4 group">
+                <div class="absolute left-0 w-3 h-3 rounded-full bg-accent animate-pulse transform -translate-x-1 border-2 border-bg shadow-lg shadow-accent/50"></div>
+                <div class="ml-6">
+                  <span class="text-xs font-mono text-accent">Present</span>
+                  <h3 class="text-base font-semibold text-text-dark mt-1">Building Xelvo</h3>
+                  <p class="text-sm text-text-muted mt-1">Compiler development, runtime tools</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tech Stack Section -->
+    <section class="mt-12 pt-8 border-t border-border/50">
+      <h2 class="text-xl font-normal tracking-wide text-text-dark mb-4">Tech Stack</h2>
+      <div class="overflow-hidden rounded-xl border border-border">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="bg-surface/50">
+              <th class="px-4 py-3 text-left font-medium text-text-dark">Category</th>
+              <th class="px-4 py-3 text-left font-medium text-text-dark">Technologies</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-border">
+            <tr>
+              <td class="px-4 py-3 text-muted">Languages</td>
+              <td class="px-4 py-3 text-text">TypeScript, Rust, Go, C, Python, Lua</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 text-muted">Runtimes</td>
+              <td class="px-4 py-3 text-text">Node.js, Bun</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 text-muted">Databases</td>
+              <td class="px-4 py-3 text-text">PostgreSQL, MongoDB, Redis</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 text-muted">Infrastructure</td>
+              <td class="px-4 py-3 text-text">Linux, Git, Docker, Kubernetes</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </article>
+</Layout>

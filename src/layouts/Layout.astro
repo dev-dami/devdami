@@ -1,0 +1,131 @@
+---
+import Navbar from "../components/Navbar";
+import CommandPalette from "../components/CommandPalette";
+import "../styles/global.css";
+
+const siteUrl = 'https://devdami.vercel.app';
+const siteName = 'Damilare Osibanjo';
+const siteDescription = '17 year old Systems & Software Programmer. Building distributed infrastructure, runtime tools, and developer experiences with TypeScript, Rust, and Go.';
+const siteImage = '/og-image.png';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={siteDescription} />
+    <meta name="author" content="Damilare Osibanjo" />
+    <meta name="robots" content="index, follow" />
+    <meta name="googlebot" content="index, follow" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={siteUrl} />
+    <meta property="og:title" content={siteName} />
+    <meta property="og:description" content={siteDescription} />
+    <meta property="og:image" content={siteImage} />
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={siteUrl} />
+    <meta property="twitter:title" content={siteName} />
+    <meta property="twitter:description" content={siteDescription} />
+    <meta property="twitter:image" content={siteImage} />
+    
+    <!-- Favicon -->
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.json" />
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href={siteUrl} />
+    
+    <!-- Preconnect to external fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    
+    <meta name="generator" content={Astro.generator} />
+    <title>{siteName} - Systems & Software Programmer</title>
+    
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json">
+      {JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Damilare Osibanjo",
+        "url": siteUrl,
+        "image": `${siteUrl}/og-image.png`,
+        "sameAs": [
+          "https://github.com/dev-dami",
+          "https://www.linkedin.com/in/damilare-osibanjo/"
+        ],
+        "jobTitle": "Systems & Software Programmer",
+        "description": siteDescription,
+        "email": "mailto:damiosi5banjo@gmail.com"
+      })}
+    </script>
+  </head>
+  <body class="min-h-screen bg-bg text-text font-body antialiased theme-blues">
+    <div class="flex flex-col min-h-screen">
+      <Navbar client:load />
+      <main class="flex-1 mx-auto w-full max-w-content px-4 sm:px-6 pt-6 pb-12 md:px-8 md:pt-8 md:pb-16 lg:px-12">
+        <slot />
+      </main>
+      <footer class="border-t border-border/50">
+        <div class="mx-auto w-full max-w-content px-6 py-8 md:px-10 lg:px-16">
+          <div class="flex items-center justify-between">
+            <p class="text-sm text-muted">
+              &copy; {new Date().getFullYear()} Damilare Osibanjo. Built with Astro.
+            </p>
+            <p class="text-xs text-muted hidden sm:block">
+              Press <kbd class="px-1.5 py-0.5 bg-border/30 rounded mx-1">Ctrl</kbd> + <kbd class="px-1.5 py-0.5 bg-border/30 rounded mx-1">K</kbd> to search
+            </p>
+          </div>
+        </div>
+      </footer>
+    </div>
+    <CommandPalette client:load />
+  </body>
+</html>
+
+<style is:global>
+  @view-transition {
+    navigation: auto;
+  }
+
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+    mix-blend-mode: normal;
+  }
+
+  .nav-shrunk {
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+    padding-top: 0.375rem !important;
+    padding-bottom: 0.375rem !important;
+  }
+
+  .nav-title-hidden {
+    width: 0 !important;
+    opacity: 0 !important;
+    margin: 0 !important;
+  }
+
+  .nav-divider-hidden {
+    width: 0 !important;
+    opacity: 0 !important;
+    padding: 0 !important;
+  }
+
+  .nav-link-hidden {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    opacity: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    pointer-events: none;
+  }
+</style>

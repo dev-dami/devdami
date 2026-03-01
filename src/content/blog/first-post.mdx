@@ -1,0 +1,65 @@
+---
+title: "Building a Lightweight Runtime"
+description: "Designing systems without external dependencies."
+date: 2026-02-28
+tags: ["systems", "compiler", "runtime"]
+---
+
+## Why Minimalism Matters
+
+In modern software development, we've become accustomed to pulling in hundreds of dependencies for even the simplest projects. But systems software demands a different approach.
+
+### The Problem with Dependencies
+
+Every dependency you add is:
+- **More attack surface** for security vulnerabilities
+- **More bloat** in your final binary
+- **More potential points of failure**
+- **Less control** over your own code
+
+### Performance First
+
+When building runtime tools and system-level software, every millisecond counts. Hydration, bundling, and transpilation layers add up.
+
+```typescript
+// Heavy framework approach
+import { Logger } from 'heavy-logging-lib';
+const logger = new Logger({ format: 'json' });
+logger.info('Hello');
+
+// Lightweight approach
+const logger = (msg: string) =>
+  console.log(JSON.stringify({ level: 'info', msg, ts: Date.now() }));
+logger('Hello');
+```
+
+## Design Principles
+
+### 1. Zero External Dependencies
+
+Write the code yourself. It's not that hard, and you'll understand every line.
+
+### 2. Explicit Over Implicit
+
+Magic is for wizards. Your code should be boring and predictable.
+
+### 3. Measure Everything
+
+```rust
+// Don't guess, benchmark
+#[bench]
+fn bench_parse(b: &mut Bencher) {
+    b.iter(|| parse(input));
+}
+```
+
+## The Path Forward
+
+Building lightweight systems isn't about being contrarian—it's about taking responsibility for what runs on your machines.
+
+Start small:
+1. Audit your dependencies
+2. Replace heavy libraries with focused alternatives
+3. Write your own utilities when it makes sense
+
+Your future self (and your users) will thank you.

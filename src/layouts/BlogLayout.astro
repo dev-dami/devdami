@@ -1,0 +1,84 @@
+---
+import Layout from "./Layout.astro";
+const { frontmatter } = Astro.props;
+
+const date = frontmatter.date instanceof Date ? frontmatter.date : new Date(frontmatter.date);
+---
+
+<Layout>
+  <article class="mx-auto max-w-blog">
+    <!-- Reading Progress Bar - Fixed at bottom -->
+    <div class="fixed bottom-0 left-0 w-full h-1 z-50 bg-surface/50 backdrop-blur">
+      <div id="progress-bar" class="h-full bg-gradient-to-r from-accent to-accent-hover w-0 transition-all duration-100"></div>
+    </div>
+
+    <header class="mb-12 space-y-4">
+      <h1 class="text-3xl md:text-4xl font-normal tracking-wide text-text-dark">
+        {frontmatter.title}
+      </h1>
+      <div class="flex items-center gap-3 text-sm">
+        <time class="font-mono text-muted">{date.toDateString()}</time>
+        <span class="text-border">•</span>
+        <div class="flex flex-wrap gap-2">
+          {frontmatter.tags.map((tag: string) => (
+            <span class="px-2 py-0.5 text-xs bg-surface border border-border rounded text-muted">
+              {tag}
+            </span>
+          ))}
+        </div>
+      </div>
+    </header>
+
+    <div id="article-content" class="prose prose-invert max-w-none space-y-6 pb-20">
+      <slot />
+    </div>
+
+    <!-- Back to top button -->
+    <div class="fixed bottom-8 right-8 z-40">
+      <a
+        href="#"
+        id="back-to-top"
+        class="opacity-0 invisible transition-all duration-300 inline-flex items-center justify-center w-12 h-12 rounded-full bg-accent hover:bg-accent-hover text-white shadow-lg shadow-accent/20"
+        aria-label="Back to top"
+      >
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+        </svg>
+      </a>
+    </div>
+  </article>
+
+  <script>
+    // Reading progress bar
+    const progressBar = document.getElementById('progress-bar');
+    const articleContent = document.getElementById('article-content');
+    const backToTop = document.getElementById('back-to-top');
+
+    if (progressBar && articleContent) {
+      const updateProgress = () => {
+        const articleTop = articleContent.offsetTop;
+        const articleHeight = articleContent.offsetHeight;
+        const windowHeight = window.innerHeight;
+        const scrolled = window.scrollY - articleTop + windowHeight / 2;
+        const progress = Math.min(Math.max(scrolled / articleHeight, 0), 1) * 100;
+        progressBar.style.width = `${progress}%`;
+      };
+
+      // Show/hide back to top button
+      const updateBackToTop = () => {
+        if (window.scrollY > 500) {
+          backToTop.classList.remove('opacity-0', 'invisible');
+        } else {
+          backToTop.classList.add('opacity-0', 'invisible');
+        }
+      };
+
+      window.addEventListener('scroll', () => {
+        updateProgress();
+        updateBackToTop();
+      });
+      updateProgress();
+      updateBackToTop();
+    }
+  </script>
+</Layout>
