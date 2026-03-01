@@ -30,7 +30,7 @@ import ContactForm from "../components/ContactForm";
         
         <!-- Animated Quote -->
         <div class="mt-3 h-8 flex items-center overflow-hidden">
-          <p class="text-text-muted italic border-l-2 border-accent pl-3 text-sm animate-fade-slide">
+          <p class="text-text-muted italic border-l-2 border-accent pl-3 text-sm animate-fade-slide min-h-[1.5rem]">
             "Simplicity is the ultimate sophistication."
           </p>
         </div>
@@ -59,7 +59,7 @@ import ContactForm from "../components/ContactForm";
   </section>
 
   <script>
-    // Rotating quotes animation
+    // Rotating quotes typewriter animation
     const quotes = [
       '"Simplicity is the ultimate sophistication."',
       '"First, solve the problem. Then, write the code."',
@@ -68,21 +68,44 @@ import ContactForm from "../components/ContactForm";
       '"Programs must be written for people to read, and only incidentally for machines to execute."'
     ];
     
-    let currentQuote = 0;
+    let quoteIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
     const quoteElement = document.querySelector('.animate-fade-slide');
     
+    function type() {
+      if (!quoteElement) return;
+
+      const currentQuote = quotes[quoteIndex];
+
+      if (isDeleting) {
+        quoteElement.textContent = currentQuote.substring(0, charIndex - 1);
+        charIndex--;
+      } else {
+        quoteElement.textContent = currentQuote.substring(0, charIndex + 1);
+        charIndex++;
+      }
+
+      let typeSpeed = isDeleting ? 30 : 60;
+
+      if (!isDeleting && charIndex === currentQuote.length) {
+        isDeleting = true;
+        typeSpeed = 3000; // Wait at the end of the quote
+      } else if (isDeleting && charIndex === 0) {
+        isDeleting = false;
+        quoteIndex = (quoteIndex + 1) % quotes.length;
+        typeSpeed = 500; // Wait before starting next quote
+      }
+
+      setTimeout(type, typeSpeed);
+    }
+
     if (quoteElement) {
-      setInterval(() => {
-        quoteElement.style.opacity = '0';
-        quoteElement.style.transform = 'translateY(10px)';
-        
-        setTimeout(() => {
-          currentQuote = (currentQuote + 1) % quotes.length;
-          quoteElement.textContent = quotes[currentQuote];
-          quoteElement.style.opacity = '1';
-          quoteElement.style.transform = 'translateY(0)';
-        }, 500);
-      }, 4000);
+      // Remove the animation class since we are doing it via JS now
+      quoteElement.classList.remove('animate-fade-slide');
+      // Add a cursor effect
+      quoteElement.classList.add('border-r-2', 'border-accent', 'pr-1');
+      type();
     }
   </script>
 
