@@ -50,7 +50,7 @@ export default function Navbar() {
       >
         <a href="/" className="flex items-center gap-3 group">
           <img
-            src="https://avatars.githubusercontent.com/u/141376183"
+            src="/icon.png"
             alt="Damilare Osibanjo"
             className="w-8 h-8 rounded-full object-cover ring-2 ring-border/50 group-hover:ring-accent/50 transition-all duration-300"
           />
