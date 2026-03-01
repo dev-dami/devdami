@@ -253,9 +253,9 @@ main > * {
   --color-bg: #0a0f18;
   --color-surface: #131c2a;
   --color-border: #2a3d55;
-  --color-text: #e0eaf5;
+  --color-text: #f0f7ff;
   --color-text-dark: #ffffff;
-  --color-text-muted: #8a9fb8;
+  --color-text-muted: #cbd5e1;
   --color-accent: #3b82f6;
   --color-accent-hover: #2563eb;
   --bg-gradient:
@@ -278,7 +278,7 @@ main > * {
   --secondary: oklch(0.269 0.012 250);
   --secondary-foreground: oklch(0.985 0.002 250);
   --muted: oklch(0.269 0.012 250);
-  --muted-foreground: oklch(0.708 0.008 250);
+  --muted-foreground: oklch(0.85 0.01 250);
   --accent: oklch(0.269 0.012 250);
   --accent-foreground: oklch(0.985 0.002 250);
   --destructive: oklch(0.704 0.191 22.216);
