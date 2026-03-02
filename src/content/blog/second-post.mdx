@@ -1,0 +1,144 @@
+---
+title: "Why Most JavaScript Backends Are Architecturally Weak"
+description: "Looking beyond framework-first thinking to find real performance."
+date: 2026-03-02
+tags: ["backend", "architecture", "performance"]
+---
+
+## The Problem with Framework-First Thinking
+
+We've been sold a lie: that picking the right framework is the key to building performant backends. This is architectural laziness.
+
+### What Frameworks Hide
+
+Frameworks abstract away the costs, but they don't eliminate them:
+
+- **Hidden async overhead** from Promise chains you didn't create
+- **Middleware stacking** that compounds latency
+- **Object cloning** for logging and serialization
+- **Generic handlers** that do more work than your use case needs
+
+```javascript
+// Framework approach - hidden costs everywhere
+app.use(logger());           // clones request objects
+app.use(cors());             // processes every request
+app.use(bodyParser.json());  // parses even when not needed
+app.get('/api/data', async (req, res) => {
+  // Your actual logic: 5ms
+  // Framework overhead: 15ms
+});
+
+// Direct approach - you control everything
+server.on('request', (req, res) => {
+  // Log directly, no cloning
+  process.stderr.write(`${Date.now()} ${req.url}\n`);
+  // Handle only what you need
+  res.end(JSON.stringify(data));
+});
+```
+
+## Where Performance Actually Leaks
+
+### 1. Async Overhead
+
+Every `await` is a microtask. Frameworks create dozens per request.
+
+```javascript
+// Framework middleware chain
+await auth(req);      // microtask 1
+await validate(req);  // microtask 2
+await log(req);       // microtask 3
+// Your handler                        // microtask 4
+
+// Direct approach
+const user = auth(req);
+if (!user) return deny();
+// No unnecessary context switches
+```
+
+### 2. Logging Overhead and Object Cloning
+
+Most logging libraries clone the request/response objects to capture "context." This is expensive.
+
+```javascript
+// Expensive: cloning entire request objects
+logger.info({ req: { ...request }, res: { ...response } });
+
+// Cheap: log only what matters
+logger.info(`${request.method} ${request.url} ${response.statusCode}`);
+```
+
+### 3. Serialization Costs
+
+JSON.stringify is not free. Frameworks often serialize multiple times.
+
+```javascript
+// Framework: serialize → transform → serialize again
+res.json({ data: result });
+
+// Direct: serialize once, send
+res.end(JSON.stringify({ data: result }));
+```
+
+## What a Backend Engineer Should Optimize Instead
+
+### 1. Request Path Efficiency
+
+Measure the actual time from socket read to socket write. Everything else is noise.
+
+```rust
+// Benchmark the hot path
+#[bench]
+fn bench_request_path(b: &mut Bencher) {
+    b.iter(|| {
+        parse_request(raw);
+        handle(parsed);
+        serialize(response);
+    });
+}
+```
+
+### 2. Memory Allocations
+
+Every object created is garbage waiting to happen. Reuse buffers. Avoid allocations in hot paths.
+
+```javascript
+// Allocation-heavy
+const response = { status: 200, data: result, timestamp: Date.now() };
+
+// Allocation-light
+responseBuffer.status = 200;
+responseBuffer.data = result;
+// Reuse the same buffer
+```
+
+### 3. I/O Boundaries
+
+The network is your bottleneck. Optimize for fewer round trips, not cleaner abstractions.
+
+```javascript
+// Multiple I/O operations
+const user = await db.getUser(id);
+const posts = await db.getPosts(id);
+const settings = await db.getSettings(id);
+
+// Batched I/O
+const [user, posts, settings] = await db.batch([
+  getUser(id),
+  getPosts(id),
+  getSettings(id)
+]);
+```
+
+## The Path Forward
+
+Building strong JavaScript backends isn't about rejecting frameworks entirely—it's about understanding what they cost.
+
+Start here:
+
+1. **Profile before optimizing** - Use `--inspect` and actual load tests
+2. **Measure the hot path** - Socket to socket, nothing else matters
+3. **Question every abstraction** - Does this middleware earn its latency?
+4. **Write boring code** - Clever async patterns are technical debt
+
+Your backend doesn't need to be clever. It needs to be fast.
