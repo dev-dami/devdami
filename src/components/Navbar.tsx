@@ -55,7 +55,7 @@ export default function Navbar() {
             className="w-8 h-8 rounded-full object-cover ring-2 ring-border/50 group-hover:ring-accent/50 transition-all duration-300"
           />
           <span
-            className={`font-medium tracking-tight text-sm text-primary group-hover:text-accent transition-all duration-300 overflow-hidden whitespace-nowrap hidden sm:block ${
+            className={`font-heading text-lg tracking-wide text-primary group-hover:text-accent transition-all duration-300 overflow-hidden whitespace-nowrap hidden sm:block ${
               isShrunk ? "nav-title-hidden" : ""
             }`}
           >

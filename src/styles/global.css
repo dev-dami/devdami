@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Proxima+Nova:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
 @import "tw-animate-css";
 
@@ -7,7 +6,7 @@
 @theme {
   /* Fonts */
   --font-heading: 'Bebas Neue', sans-serif;
-  --font-body: 'Proxima Nova', system-ui, -apple-system, sans-serif;
+  --font-body: 'Inter Variable', 'Inter', system-ui, -apple-system, sans-serif;
 
   /* Spacing */
   --spacing-content: 65rem;
@@ -23,6 +22,8 @@ body {
   background-color: var(--color-bg);
   color: var(--color-text);
   font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   background-image: var(--bg-gradient);
   background-attachment: fixed;
   transition: background-color 0.3s ease, color 0.3s ease;
@@ -33,6 +34,7 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
   letter-spacing: 0.05em;
   text-transform: uppercase;
+  font-weight: 400; /* Bebas Neue is typically 400 */
 }
 
 /* Selection */
