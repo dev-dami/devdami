@@ -22,9 +22,9 @@
   --color-bg:           #080808;
   --color-surface:      #0f0f0f;
   --color-border:       #1e1e1e;
-  --color-text:         #f0f0f0;
+  --color-text:         #ffffff;
   --color-text-dark:    #ffffff;
-  --color-text-muted:   #a0a0a0;
+  --color-text-muted:   #d4d4d4;
   --color-accent:       #10b981;
   --color-accent-hover: #34d399;
 
@@ -33,17 +33,17 @@
 
   /* shadcn vars */
   --background:             oklch(0.06 0 0);
-  --foreground:             oklch(0.97 0.005 160);
+  --foreground:             oklch(1 0 0);
   --card:                   oklch(0.08 0 0);
-  --card-foreground:        oklch(0.97 0.005 160);
+  --card-foreground:        oklch(1 0 0);
   --popover:                oklch(0.08 0 0);
-  --popover-foreground:     oklch(0.97 0.005 160);
-  --primary:                oklch(0.97 0.005 160);
+  --popover-foreground:     oklch(1 0 0);
+  --primary:                oklch(1 0 0);
   --primary-foreground:     oklch(0.06 0 0);
-  --secondary:              oklch(0.12 0.005 160);
-  --secondary-foreground:   oklch(0.97 0.005 160);
-  --muted:                  oklch(0.68 0.02 160);
-  --muted-foreground:       oklch(0.68 0.02 160);
+  --secondary:              oklch(0.88 0 0);
+  --secondary-foreground:   oklch(0.06 0 0);
+  --muted:                  oklch(0.82 0 0);
+  --muted-foreground:       oklch(0.82 0 0);
   --accent:                 oklch(0.14 0.005 160);
   --accent-foreground:      oklch(0.92 0.01 160);
   --destructive:            oklch(0.704 0.191 22.216);
@@ -91,6 +91,16 @@ h1, h2, h3, h4, h5, h6 {
 ::selection {
   background-color: var(--color-accent);
   color: #000;
+}
+
+/* ============================================
+   FORCE ALL TEXT WHITE — no exceptions
+   ============================================ */
+* {
+  color: inherit;
+}
+p, span, li, td, th, label, blockquote, figcaption {
+  color: var(--color-text);
 }
 
 /* ============================================
