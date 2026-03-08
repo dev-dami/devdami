@@ -46,6 +46,7 @@ const siteImage = '/og-image.png';
     <!-- Preconnect to external fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" />
     
     <meta name="generator" content={Astro.generator} />
     <title>{siteName} - Systems & Software Programmer</title>
@@ -71,7 +72,7 @@ const siteImage = '/og-image.png';
     <!-- Vercel Web Analytics -->
     <Analytics />
   </head>
-  <body class="min-h-screen bg-bg text-text font-body antialiased theme-blues">
+  <body class="min-h-screen bg-bg text-text font-body antialiased">
     <div class="flex flex-col min-h-screen">
       <Navbar client:load />
       <main class="flex-1 mx-auto w-full max-w-content px-4 sm:px-6 pt-6 pb-12 md:px-8 md:pt-8 md:pb-16 lg:px-12">

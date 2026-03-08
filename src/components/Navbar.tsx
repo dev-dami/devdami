@@ -44,7 +44,7 @@ export default function Navbar() {
   return (
     <nav className="sticky top-4 z-50 flex justify-center px-4 w-full">
       <div
-        className={`flex items-center gap-3 md:gap-6 px-4 md:px-5 py-2.5 rounded-full border border-border/80 bg-bg/80 backdrop-blur-md shadow-lg shadow-black/20 transition-all duration-300 hover:border-accent/50 hover:bg-bg/95 ${
+        className={`flex items-center gap-3 md:gap-6 px-4 md:px-5 py-2 rounded-lg border border-border bg-surface/80 backdrop-blur-md shadow-lg shadow-black/30 transition-all duration-300 hover:border-accent/40 hover:bg-surface/95 font-mono ${
           isShrunk ? "nav-shrunk" : ""
         }`}
       >
@@ -74,7 +74,7 @@ export default function Navbar() {
             <a
               key={link.name}
               href={link.href}
-              className={`nav-link px-3 py-1.5 text-sm text-secondary hover:text-primary hover:bg-surface/50 rounded-full transition-all ${
+              className={`nav-link px-3 py-1.5 text-xs font-mono text-secondary hover:text-accent hover:bg-surface/50 rounded transition-all ${
                 isShrunk ? "nav-link-hidden" : ""
               }`}
             >
@@ -131,14 +131,14 @@ export default function Navbar() {
               initial={{ opacity: 0, scale: 0.95, y: -20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: -20 }}
-              className="absolute top-16 left-4 right-4 p-4 rounded-2xl border border-border bg-bg shadow-2xl flex flex-col gap-2 z-[60]"
+              className="absolute top-16 left-4 right-4 p-3 rounded-md border border-border bg-surface shadow-2xl shadow-black/40 flex flex-col gap-1 z-[60]"
             >
               {navLinks.map((link) => (
                 <a
                   key={link.name}
                   href={link.href}
                   onClick={() => setIsMenuOpen(false)}
-                  className="px-4 py-3 text-base font-medium text-primary hover:bg-surface/50 rounded-xl transition-all"
+                  className="px-3 py-2.5 text-sm font-mono text-primary hover:text-accent hover:bg-border/30 rounded transition-all"
                 >
                   {link.name}
                 </a>

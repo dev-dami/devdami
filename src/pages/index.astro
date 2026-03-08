@@ -10,27 +10,27 @@ import ContactForm from "../components/ContactForm";
       <img
         src="https://avatars.githubusercontent.com/u/141376183"
         alt="Damilare Osibanjo - Backend & Systems Engineer"
-        class="w-20 h-20 md:w-24 md:h-24 rounded-xl object-cover ring-2 ring-border/50 shadow-xl transition-transform hover:scale-105"
+        class="w-20 h-20 md:w-24 md:h-24 rounded-lg object-cover ring-1 ring-accent/30 shadow-xl shadow-accent/5 transition-transform hover:scale-105"
         loading="lazy"
       />
       <div class="flex-1">
-        <h1 class="text-2xl md:text-3xl lg:text-4xl font-normal tracking-wide text-text-dark">
+        <h1 class="text-2xl md:text-3xl lg:text-4xl font-semibold tracking-tight text-text-dark">
           Damilare Osibanjo
         </h1>
-        <p class="text-xs text-muted font-body uppercase tracking-wider mt-1">
-          17 years old · Systems & Software Programmer
+        <p class="text-xs text-muted font-mono tracking-widest mt-1 uppercase">
+          17 years old · Systems &amp; Software Programmer
         </p>
-        <p class="text-base md:text-lg text-accent mt-2 font-body uppercase tracking-wider">
-          Backend & Systems Engineer
+        <p class="text-sm md:text-base text-accent mt-2 font-mono tracking-wide">
+          <span class="opacity-50">&gt;</span> Backend &amp; Systems Engineer
         </p>
         <p class="max-w-2xl text-sm md:text-base text-text leading-relaxed mt-2">
-          Building distributed infrastructure, runtime tools, and developer experiences. 
+          Building distributed infrastructure, runtime tools, and developer experiences.
           TypeScript is currently my favourite language.
         </p>
-        
+
         <!-- Animated Quote -->
         <div class="mt-3 h-8 flex items-center overflow-hidden">
-          <p class="text-text-muted italic border-l-2 border-accent pl-3 text-sm animate-fade-slide min-h-[1.5rem]">
+          <p class="text-text-muted border-l-2 border-accent/60 pl-3 text-sm animate-fade-slide min-h-[1.5rem] font-mono">
             "Simplicity is the ultimate sophistication."
           </p>
         </div>
@@ -113,21 +113,11 @@ import ContactForm from "../components/ContactForm";
 
   <!-- Skills Section -->
   <section class="py-6">
-    <h2 class="text-sm font-heading tracking-widest text-muted uppercase mb-4">Technologies</h2>
+    <h2 class="text-xs font-mono tracking-widest text-muted uppercase mb-4 term-header">Technologies</h2>
     <div class="flex flex-wrap gap-2">
-      <span class="px-3 py-1.5 text-xs text-text bg-surface/50 border border-border/50 rounded-lg hover:border-accent/50 hover:text-accent transition-all cursor-default">TypeScript</span>
-      <span class="px-3 py-1.5 text-xs text-text bg-surface/50 border border-border/50 rounded-lg hover:border-accent/50 hover:text-accent transition-all cursor-default">Rust</span>
-      <span class="px-3 py-1.5 text-xs text-text bg-surface/50 border border-border/50 rounded-lg hover:border-accent/50 hover:text-accent transition-all cursor-default">Go</span>
-      <span class="px-3 py-1.5 text-xs text-text bg-surface/50 border border-border/50 rounded-lg hover:border-accent/50 hover:text-accent transition-all cursor-default">C</span>
-      <span class="px-3 py-1.5 text-xs text-text bg-surface/50 border border-border/50 rounded-lg hover:border-accent/50 hover:text-accent transition-all cursor-default">Python</span>
-      <span class="px-3 py-1.5 text-xs text-text bg-surface/50 border border-border/50 rounded-lg hover:border-accent/50 hover:text-accent transition-all cursor-default">Node.js</span>
-      <span class="px-3 py-1.5 text-xs text-text bg-surface/50 border border-border/50 rounded-lg hover:border-accent/50 hover:text-accent transition-all cursor-default">Bun</span>
-      <span class="px-3 py-1.5 text-xs text-text bg-surface/50 border border-border/50 rounded-lg hover:border-accent/50 hover:text-accent transition-all cursor-default">PostgreSQL</span>
-      <span class="px-3 py-1.5 text-xs text-text bg-surface/50 border border-border/50 rounded-lg hover:border-accent/50 hover:text-accent transition-all cursor-default">MongoDB</span>
-      <span class="px-3 py-1.5 text-xs text-text bg-surface/50 border border-border/50 rounded-lg hover:border-accent/50 hover:text-accent transition-all cursor-default">Redis</span>
-      <span class="px-3 py-1.5 text-xs text-text bg-surface/50 border border-border/50 rounded-lg hover:border-accent/50 hover:text-accent transition-all cursor-default">Linux</span>
-      <span class="px-3 py-1.5 text-xs text-text bg-surface/50 border border-border/50 rounded-lg hover:border-accent/50 hover:text-accent transition-all cursor-default">Git</span>
-      <span class="px-3 py-1.5 text-xs text-text bg-surface/50 border border-border/50 rounded-lg hover:border-accent/50 hover:text-accent transition-all cursor-default">Docker</span>
+      {["TypeScript","Rust","Go","C","Python","Node.js","Bun","PostgreSQL","MongoDB","Redis","Linux","Git","Docker"].map(t => (
+        <span class="px-2.5 py-1 text-xs font-mono text-text-muted bg-surface border border-border/60 rounded hover:border-accent/60 hover:text-accent transition-all duration-150 cursor-default">{t}</span>
+      ))}
     </div>
   </section>
 
@@ -135,128 +125,143 @@ import ContactForm from "../components/ContactForm";
 
   <!-- Projects Section -->
   <section id="projects" class="py-6">
-    <h2 class="text-sm font-heading tracking-widest text-muted uppercase mb-4">Projects</h2>
+    <h2 class="text-xs font-mono tracking-widest text-muted uppercase mb-4 term-header">Projects</h2>
     
-    <div class="space-y-3">
-      <!-- Carv -->
-      <article class="group relative rounded-lg border border-border/50 bg-surface/30 backdrop-blur p-4 transition-all duration-300 hover:border-accent/50 hover:bg-surface/50">
-        <div class="flex flex-col md:flex-row md:items-start gap-3">
-          <div class="flex-1 min-w-0">
-            <div class="flex items-center gap-2 mb-2">
-              <h3 class="text-base font-semibold text-text-dark group-hover:text-accent transition-colors">Carv</h3>
-              <a href="https://github.com/dev-dami/carv" target="_blank" class="p-1 rounded text-text hover:text-text-dark hover:bg-surface/50 transition-all" aria-label="View on GitHub">
-                <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-              </a>
-            </div>
-            <p class="text-sm text-text leading-relaxed mb-3">
-              A statically-typed systems programming language that compiles to C. Features ownership-based memory management, pipe operators, async/await, and a module system. Built in Go.
-            </p>
-            <div class="flex flex-wrap gap-1.5">
-              <span class="px-2 py-1 text-xs font-mono text-muted bg-border/20 rounded">Go</span>
-              <span class="px-2 py-1 text-xs font-mono text-muted bg-border/20 rounded">Compiler</span>
-              <span class="px-2 py-1 text-xs font-mono text-muted bg-border/20 rounded">Programming Language</span>
-              <span class="px-2 py-1 text-xs font-mono text-muted bg-border/20 rounded">Systems</span>
-            </div>
+    <div class="space-y-2">
+
+      <!-- karion_os -->
+      <article class="group relative rounded-md border border-border bg-surface/20 p-4 transition-all duration-200 hover:border-accent/50 hover:bg-surface/40">
+        <div class="flex-1 min-w-0">
+          <div class="flex items-center gap-2 mb-1.5">
+            <h3 class="text-sm font-semibold text-text-dark group-hover:text-accent transition-colors font-mono">karion_os</h3>
+            <a href="https://github.com/dev-dami/karion_os" target="_blank" class="p-1 rounded text-text-muted hover:text-accent transition-all z-10 relative" aria-label="View on GitHub">
+              <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+            </a>
+          </div>
+          <p class="text-xs text-text leading-relaxed mb-2.5">
+            A minimal UNIX-like operating system built from scratch. Implements a custom bootloader, memory management, process scheduler, and system call interface in C and x86 Assembly.
+          </p>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="px-2 py-0.5 text-xs font-mono text-text-muted bg-border/30 rounded-sm">C</span>
+            <span class="px-2 py-0.5 text-xs font-mono text-text-muted bg-border/30 rounded-sm">x86 Assembly</span>
+            <span class="px-2 py-0.5 text-xs font-mono text-text-muted bg-border/30 rounded-sm">OS</span>
+            <span class="px-2 py-0.5 text-xs font-mono text-text-muted bg-border/30 rounded-sm">Systems</span>
           </div>
         </div>
-        <a href="https://github.com/dev-dami/carv" target="_blank" class="absolute inset-0" aria-label="View Carv on GitHub"></a>
+        <a href="https://github.com/dev-dami/karion_os" target="_blank" class="absolute inset-0" aria-label="View karion_os on GitHub"></a>
+      </article>
+
+      <!-- Carv -->
+      <article class="group relative rounded-md border border-border bg-surface/20 p-4 transition-all duration-200 hover:border-accent/50 hover:bg-surface/40">
+        <div class="flex-1 min-w-0">
+          <div class="flex items-center gap-2 mb-1.5">
+            <h3 class="text-sm font-semibold text-text-dark group-hover:text-accent transition-colors font-mono">carv</h3>
+            <a href="https://github.com/dev-dami/carv" target="_blank" class="p-1 rounded text-text-muted hover:text-accent transition-all z-10 relative" aria-label="View on GitHub">
+              <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+            </a>
+          </div>
+          <p class="text-xs text-text leading-relaxed mb-2.5">
+            A statically-typed systems programming language that compiles to C. Features ownership-based memory management, pipe operators, async/await, and a module system. Built in Go.
+          </p>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="px-2 py-0.5 text-xs font-mono text-text-muted bg-border/30 rounded-sm">Go</span>
+            <span class="px-2 py-0.5 text-xs font-mono text-text-muted bg-border/30 rounded-sm">Compiler</span>
+            <span class="px-2 py-0.5 text-xs font-mono text-text-muted bg-border/30 rounded-sm">Language Design</span>
+            <span class="px-2 py-0.5 text-xs font-mono text-text-muted bg-border/30 rounded-sm">Systems</span>
+          </div>
+        </div>
+        <a href="https://github.com/dev-dami/carv" target="_blank" class="absolute inset-0" aria-label="View carv on GitHub"></a>
+      </article>
+
+      <!-- Zario -->
+      <article class="group relative rounded-md border border-border bg-surface/20 p-4 transition-all duration-200 hover:border-accent/50 hover:bg-surface/40">
+        <div class="flex-1 min-w-0">
+          <div class="flex items-center gap-2 mb-1.5">
+            <h3 class="text-sm font-semibold text-text-dark group-hover:text-accent transition-colors font-mono">zario</h3>
+            <span class="px-1.5 py-0.5 text-xs font-mono text-accent border border-accent/30 rounded-sm leading-none">npm</span>
+            <a href="https://github.com/dev-dami/zario" target="_blank" class="p-1 rounded text-text-muted hover:text-accent transition-all z-10 relative" aria-label="View on GitHub">
+              <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+            </a>
+          </div>
+          <p class="text-xs text-text leading-relaxed mb-2.5">
+            Minimal and fast logging library for TypeScript. Zero external dependencies — multiple transports, child loggers, async non-blocking writes, and structured JSON logging.
+          </p>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="px-2 py-0.5 text-xs font-mono text-text-muted bg-border/30 rounded-sm">TypeScript</span>
+            <span class="px-2 py-0.5 text-xs font-mono text-text-muted bg-border/30 rounded-sm">Bun</span>
+            <span class="px-2 py-0.5 text-xs font-mono text-text-muted bg-border/30 rounded-sm">Logging</span>
+            <span class="px-2 py-0.5 text-xs font-mono text-text-muted bg-border/30 rounded-sm">Zero-dep</span>
+          </div>
+        </div>
+        <a href="https://github.com/dev-dami/zario" target="_blank" class="absolute inset-0" aria-label="View Zario on GitHub"></a>
       </article>
 
       <!-- Ignite -->
-      <article class="group relative rounded-lg border border-border/50 bg-surface/30 backdrop-blur p-4 transition-all duration-300 hover:border-accent/50 hover:bg-surface/50">
-        <div class="flex flex-col md:flex-row md:items-start gap-3">
-          <div class="flex-1 min-w-0">
-            <div class="flex items-center gap-2 mb-2">
-              <h3 class="text-base font-semibold text-text-dark group-hover:text-accent transition-colors">Ignite</h3>
-              <a href="https://github.com/dev-dami/ignite" target="_blank" class="p-1 rounded text-text hover:text-text-dark hover:bg-surface/50 transition-all" aria-label="View on GitHub">
-                <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-              </a>
-            </div>
-            <p class="text-sm text-text leading-relaxed mb-3">
-              Bun-first local execution framework for JS/TS microservices with Docker-based isolation. Secure sandbox execution for AI-generated code and untrusted scripts.
-            </p>
-            <div class="flex flex-wrap gap-1.5">
-              <span class="px-2 py-1 text-xs font-mono text-muted bg-border/20 rounded">TypeScript</span>
-              <span class="px-2 py-1 text-xs font-mono text-muted bg-border/20 rounded">Bun</span>
-              <span class="px-2 py-1 text-xs font-mono text-muted bg-border/20 rounded">Docker</span>
-              <span class="px-2 py-1 text-xs font-mono text-muted bg-border/20 rounded">Sandbox</span>
-            </div>
+      <article class="group relative rounded-md border border-border bg-surface/20 p-4 transition-all duration-200 hover:border-accent/50 hover:bg-surface/40">
+        <div class="flex-1 min-w-0">
+          <div class="flex items-center gap-2 mb-1.5">
+            <h3 class="text-sm font-semibold text-text-dark group-hover:text-accent transition-colors font-mono">ignite</h3>
+            <a href="https://github.com/dev-dami/ignite" target="_blank" class="p-1 rounded text-text-muted hover:text-accent transition-all z-10 relative" aria-label="View on GitHub">
+              <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+            </a>
+          </div>
+          <p class="text-xs text-text leading-relaxed mb-2.5">
+            Bun-first local execution framework for JS/TS microservices with Docker-based isolation. Secure sandbox for AI-generated code and untrusted script execution.
+          </p>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="px-2 py-0.5 text-xs font-mono text-text-muted bg-border/30 rounded-sm">TypeScript</span>
+            <span class="px-2 py-0.5 text-xs font-mono text-text-muted bg-border/30 rounded-sm">Bun</span>
+            <span class="px-2 py-0.5 text-xs font-mono text-text-muted bg-border/30 rounded-sm">Docker</span>
+            <span class="px-2 py-0.5 text-xs font-mono text-text-muted bg-border/30 rounded-sm">Sandbox</span>
           </div>
         </div>
         <a href="https://github.com/dev-dami/ignite" target="_blank" class="absolute inset-0" aria-label="View Ignite on GitHub"></a>
       </article>
 
       <!-- Qirrel -->
-      <article class="group relative rounded-lg border border-border/50 bg-surface/30 backdrop-blur p-4 transition-all duration-300 hover:border-accent/50 hover:bg-surface/50">
-        <div class="flex flex-col md:flex-row md:items-start gap-3">
-          <div class="flex-1 min-w-0">
-            <div class="flex items-center gap-2 mb-2">
-              <h3 class="text-base font-semibold text-text-dark group-hover:text-accent transition-colors">Qirrel</h3>
-              <a href="https://github.com/dev-dami/Qirrel" target="_blank" class="p-1 rounded text-text hover:text-text-dark hover:bg-surface/50 transition-all" aria-label="View on GitHub">
-                <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-              </a>
-            </div>
-            <p class="text-sm text-text leading-relaxed mb-3">
-              Extensible NLP framework in TypeScript for fast, structured text analysis. Features tokenization, entity extraction, LLM enrichment, caching, and MCP agent integration.
-            </p>
-            <div class="flex flex-wrap gap-1.5">
-              <span class="px-2 py-1 text-xs font-mono text-muted bg-border/20 rounded">TypeScript</span>
-              <span class="px-2 py-1 text-xs font-mono text-muted bg-border/20 rounded">NLP</span>
-              <span class="px-2 py-1 text-xs font-mono text-muted bg-border/20 rounded">LLM</span>
-              <span class="px-2 py-1 text-xs font-mono text-muted bg-border/20 rounded">Bun</span>
-            </div>
+      <article class="group relative rounded-md border border-border bg-surface/20 p-4 transition-all duration-200 hover:border-accent/50 hover:bg-surface/40">
+        <div class="flex-1 min-w-0">
+          <div class="flex items-center gap-2 mb-1.5">
+            <h3 class="text-sm font-semibold text-text-dark group-hover:text-accent transition-colors font-mono">qirrel</h3>
+            <a href="https://github.com/dev-dami/Qirrel" target="_blank" class="p-1 rounded text-text-muted hover:text-accent transition-all z-10 relative" aria-label="View on GitHub">
+              <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+            </a>
+          </div>
+          <p class="text-xs text-text leading-relaxed mb-2.5">
+            Extensible NLP framework in TypeScript for fast, structured text analysis. Tokenization, entity extraction, LLM enrichment, caching, and MCP agent integration.
+          </p>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="px-2 py-0.5 text-xs font-mono text-text-muted bg-border/30 rounded-sm">TypeScript</span>
+            <span class="px-2 py-0.5 text-xs font-mono text-text-muted bg-border/30 rounded-sm">NLP</span>
+            <span class="px-2 py-0.5 text-xs font-mono text-text-muted bg-border/30 rounded-sm">LLM</span>
+            <span class="px-2 py-0.5 text-xs font-mono text-text-muted bg-border/30 rounded-sm">Bun</span>
           </div>
         </div>
         <a href="https://github.com/dev-dami/Qirrel" target="_blank" class="absolute inset-0" aria-label="View Qirrel on GitHub"></a>
       </article>
 
       <!-- gim -->
-      <article class="group relative rounded-lg border border-border/50 bg-surface/30 backdrop-blur p-4 transition-all duration-300 hover:border-accent/50 hover:bg-surface/50">
-        <div class="flex flex-col md:flex-row md:items-start gap-3">
-          <div class="flex-1 min-w-0">
-            <div class="flex items-center gap-2 mb-2">
-              <h3 class="text-base font-semibold text-text-dark group-hover:text-accent transition-colors">gim</h3>
-              <a href="https://github.com/dev-dami/gim" target="_blank" class="p-1 rounded text-text hover:text-text-dark hover:bg-surface/50 transition-all" aria-label="View on GitHub">
-                <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-              </a>
-            </div>
-            <p class="text-sm text-text leading-relaxed mb-3">
-              Fast, high-performance system metrics CLI tool written in Rust. Monitors CPU, memory, disk, and network usage with modular design and multiple output formats.
-            </p>
-            <div class="flex flex-wrap gap-1.5">
-              <span class="px-2 py-1 text-xs font-mono text-muted bg-border/20 rounded">Rust</span>
-              <span class="px-2 py-1 text-xs font-mono text-muted bg-border/20 rounded">CLI</span>
-              <span class="px-2 py-1 text-xs font-mono text-muted bg-border/20 rounded">Monitoring</span>
-              <span class="px-2 py-1 text-xs font-mono text-muted bg-border/20 rounded">Performance</span>
-            </div>
+      <article class="group relative rounded-md border border-border bg-surface/20 p-4 transition-all duration-200 hover:border-accent/50 hover:bg-surface/40">
+        <div class="flex-1 min-w-0">
+          <div class="flex items-center gap-2 mb-1.5">
+            <h3 class="text-sm font-semibold text-text-dark group-hover:text-accent transition-colors font-mono">gim</h3>
+            <a href="https://github.com/dev-dami/gim" target="_blank" class="p-1 rounded text-text-muted hover:text-accent transition-all z-10 relative" aria-label="View on GitHub">
+              <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+            </a>
+          </div>
+          <p class="text-xs text-text leading-relaxed mb-2.5">
+            High-performance system metrics CLI tool written in Rust. Monitors CPU, memory, disk, and network usage with modular design and multiple output formats.
+          </p>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="px-2 py-0.5 text-xs font-mono text-text-muted bg-border/30 rounded-sm">Rust</span>
+            <span class="px-2 py-0.5 text-xs font-mono text-text-muted bg-border/30 rounded-sm">CLI</span>
+            <span class="px-2 py-0.5 text-xs font-mono text-text-muted bg-border/30 rounded-sm">Monitoring</span>
+            <span class="px-2 py-0.5 text-xs font-mono text-text-muted bg-border/30 rounded-sm">Performance</span>
           </div>
         </div>
         <a href="https://github.com/dev-dami/gim" target="_blank" class="absolute inset-0" aria-label="View gim on GitHub"></a>
       </article>
 
-      <!-- Zario -->
-      <article class="group relative rounded-lg border border-border/50 bg-surface/30 backdrop-blur p-4 transition-all duration-300 hover:border-accent/50 hover:bg-surface/50">
-        <div class="flex flex-col md:flex-row md:items-start gap-3">
-          <div class="flex-1 min-w-0">
-            <div class="flex items-center gap-2 mb-2">
-              <h3 class="text-base font-semibold text-text-dark group-hover:text-accent transition-colors">Zario</h3>
-              <a href="https://github.com/dev-dami/zario" target="_blank" class="p-1 rounded text-text hover:text-text-dark hover:bg-surface/50 transition-all" aria-label="View on GitHub">
-                <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-              </a>
-            </div>
-            <p class="text-sm text-text leading-relaxed mb-3">
-              Minimal and fast logging solution for TypeScript. Features multiple transports, child loggers, async mode, and structured logging with zero external dependencies.
-            </p>
-            <div class="flex flex-wrap gap-1.5">
-              <span class="px-2 py-1 text-xs font-mono text-muted bg-border/20 rounded">TypeScript</span>
-              <span class="px-2 py-1 text-xs font-mono text-muted bg-border/20 rounded">Bun</span>
-              <span class="px-2 py-1 text-xs font-mono text-muted bg-border/20 rounded">Logging</span>
-              <span class="px-2 py-1 text-xs font-mono text-muted bg-border/20 rounded">Performance</span>
-            </div>
-          </div>
-        </div>
-        <a href="https://github.com/dev-dami/zario" target="_blank" class="absolute inset-0" aria-label="View Zario on GitHub"></a>
-      </article>
     </div>
   </section>
 
@@ -264,33 +269,33 @@ import ContactForm from "../components/ContactForm";
 
   <!-- GitHub Contributions Section -->
   <section class="py-8 overflow-hidden">
-    <h2 class="text-lg font-heading tracking-widest text-muted uppercase mb-6">GitHub Activity</h2>
-    
+    <h2 class="text-xs font-mono tracking-widest text-muted uppercase mb-6 term-header">GitHub Activity</h2>
+
     <!-- GitHub Stats Bar -->
-    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-      <div class="rounded-xl border border-border/50 bg-surface/30 backdrop-blur p-4 text-center">
-        <div class="text-2xl font-bold text-accent">50+</div>
-        <div class="text-xs text-muted uppercase tracking-wider mt-1">Repositories</div>
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
+      <div class="rounded-md border border-border bg-surface/20 p-4 text-center">
+        <div class="text-xl font-bold text-accent font-mono">50+</div>
+        <div class="text-xs font-mono text-text-muted uppercase tracking-wider mt-1">Repos</div>
       </div>
-      <div class="rounded-xl border border-border/50 bg-surface/30 backdrop-blur p-4 text-center">
-        <div class="text-2xl font-bold text-accent">100+</div>
-        <div class="text-xs text-muted uppercase tracking-wider mt-1">Contributions</div>
+      <div class="rounded-md border border-border bg-surface/20 p-4 text-center">
+        <div class="text-xl font-bold text-accent font-mono">100+</div>
+        <div class="text-xs font-mono text-text-muted uppercase tracking-wider mt-1">Commits</div>
       </div>
-      <div class="rounded-xl border border-border/50 bg-surface/30 backdrop-blur p-4 text-center">
-        <div class="text-2xl font-bold text-accent">3+</div>
-        <div class="text-xs text-muted uppercase tracking-wider mt-1">Years Coding</div>
+      <div class="rounded-md border border-border bg-surface/20 p-4 text-center">
+        <div class="text-xl font-bold text-accent font-mono">3+</div>
+        <div class="text-xs font-mono text-text-muted uppercase tracking-wider mt-1">Yrs Coding</div>
       </div>
-      <div class="rounded-xl border border-border/50 bg-surface/30 backdrop-blur p-4 text-center">
-        <div class="text-2xl font-bold text-accent">10+</div>
-        <div class="text-xs text-muted uppercase tracking-wider mt-1">Projects</div>
+      <div class="rounded-md border border-border bg-surface/20 p-4 text-center">
+        <div class="text-xl font-bold text-accent font-mono">10+</div>
+        <div class="text-xs font-mono text-text-muted uppercase tracking-wider mt-1">Projects</div>
       </div>
     </div>
-    
+
     <!-- Contribution Graph -->
-    <div class="rounded-xl border border-border/50 bg-surface/30 backdrop-blur p-6 overflow-hidden">
+    <div class="rounded-md border border-border bg-surface/20 p-5 overflow-hidden">
       <div class="overflow-x-auto pb-2">
         <img
-          src="https://ghchart.rshah.org/3b82f6/dev-dami"
+          src="https://ghchart.rshah.org/10b981/dev-dami"
           alt="Damilare Osibanjo's GitHub Contribution Graph"
           class="min-w-[600px] md:min-w-0 w-full h-auto block"
           loading="lazy"
@@ -309,7 +314,7 @@ import ContactForm from "../components/ContactForm";
 
   <!-- Contact Section -->
   <section id="contact" class="py-8 overflow-hidden">
-    <h2 class="text-lg font-heading tracking-widest text-muted uppercase mb-4">Get in touch</h2>
+    <h2 class="text-xs font-mono tracking-widest text-muted uppercase mb-4 term-header">Get in touch</h2>
     <div class="grid lg:grid-cols-2 gap-8">
       <div>
         <p class="text-sm text-text leading-relaxed mb-6">
