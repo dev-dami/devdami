@@ -1,0 +1,282 @@
+---
+import "../styles/global.css";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex" />
+    <title>Resume — Damilare Osibanjo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" />
+  </head>
+  <body class="min-h-screen bg-bg text-text font-mono antialiased">
+
+    <!-- Toolbar (hidden on print) -->
+    <div class="no-print sticky top-0 z-50 border-b border-border bg-surface/90 backdrop-blur px-6 py-3 flex items-center justify-between">
+      <a href="/" class="text-xs font-mono text-muted hover:text-accent transition-colors">← back</a>
+      <div class="flex items-center gap-3">
+        <span class="text-xs font-mono text-muted">resume_v1.0</span>
+        <button
+          onclick="window.print()"
+          class="px-4 py-1.5 text-xs font-mono bg-accent hover:bg-accent-hover text-black transition-colors rounded-sm"
+        >
+          Download PDF
+        </button>
+      </div>
+    </div>
+
+    <!-- Resume Content -->
+    <div class="resume-page mx-auto max-w-3xl px-8 py-12 md:py-16">
+
+      <!-- Header -->
+      <header class="mb-8 pb-6 border-b border-border">
+        <h1 class="text-2xl md:text-3xl font-semibold tracking-tight text-white mb-1">
+          Damilare Osibanjo
+        </h1>
+        <p class="text-sm text-accent font-mono mb-3">Backend &amp; Systems Engineer</p>
+        <div class="flex flex-wrap gap-x-4 gap-y-1 text-xs font-mono text-muted">
+          <a href="mailto:damiosi5banjo@gmail.com" class="hover:text-accent transition-colors">
+            damiosi5banjo@gmail.com
+          </a>
+          <a href="https://github.com/dev-dami" target="_blank" class="hover:text-accent transition-colors">
+            github.com/dev-dami
+          </a>
+          <a href="https://www.linkedin.com/in/damilare-osibanjo/" target="_blank" class="hover:text-accent transition-colors">
+            linkedin.com/in/damilare-osibanjo
+          </a>
+          <a href="https://devdami.vercel.app" target="_blank" class="hover:text-accent transition-colors">
+            devdami.vercel.app
+          </a>
+        </div>
+      </header>
+
+      <!-- Summary -->
+      <section class="mb-8">
+        <h2 class="resume-section-heading">// summary</h2>
+        <p class="text-sm text-text leading-relaxed">
+          17-year-old systems and backend programmer with 5+ years of experience building
+          low-level infrastructure, compilers, and developer tooling. Proficient in TypeScript,
+          Rust, Go, and C. Focused on correctness, performance, and systems that scale.
+          Currently building Xelvo — a compiler and runtime project.
+        </p>
+      </section>
+
+      <!-- Projects / Work -->
+      <section class="mb-8">
+        <h2 class="resume-section-heading">// projects</h2>
+        <div class="space-y-5">
+
+          <div class="resume-entry">
+            <div class="flex items-start justify-between flex-wrap gap-1 mb-1">
+              <span class="text-white text-sm font-semibold">karion_os</span>
+              <span class="text-xs text-muted font-mono">C · x86 Assembly · 2024</span>
+            </div>
+            <p class="text-xs text-text-muted leading-relaxed">
+              Minimal UNIX-like OS built from scratch. Custom bootloader, memory management,
+              process scheduler, and syscall interface. Implements paging, context switching,
+              and a basic filesystem driver.
+            </p>
+          </div>
+
+          <div class="resume-entry">
+            <div class="flex items-start justify-between flex-wrap gap-1 mb-1">
+              <span class="text-white text-sm font-semibold">carv</span>
+              <span class="text-xs text-muted font-mono">Go · Compiler Design · 2024</span>
+            </div>
+            <p class="text-xs text-text-muted leading-relaxed">
+              Statically-typed systems language that compiles to C. Ownership-based memory
+              model, pipe operators, async/await support, and a full module system. Lexer,
+              parser, type checker, and code generation all hand-written in Go.
+            </p>
+          </div>
+
+          <div class="resume-entry">
+            <div class="flex items-start justify-between flex-wrap gap-1 mb-1">
+              <div class="flex items-center gap-2">
+                <span class="text-white text-sm font-semibold">zario</span>
+                <span class="px-1 py-px text-xs font-mono text-accent border border-accent/40 leading-none">npm</span>
+              </div>
+              <span class="text-xs text-muted font-mono">TypeScript · Bun · 2024</span>
+            </div>
+            <p class="text-xs text-text-muted leading-relaxed">
+              Minimal fast logging library for TypeScript. Zero external dependencies — multiple
+              transports, child loggers, async non-blocking writes, structured JSON output.
+              Published on npm; replaces dd-tinylog with a leaner API.
+            </p>
+          </div>
+
+          <div class="resume-entry">
+            <div class="flex items-start justify-between flex-wrap gap-1 mb-1">
+              <span class="text-white text-sm font-semibold">ignite</span>
+              <span class="text-xs text-muted font-mono">TypeScript · Docker · 2024</span>
+            </div>
+            <p class="text-xs text-text-muted leading-relaxed">
+              Bun-first local execution framework for JS/TS microservices. Provides
+              Docker-based isolation as a secure sandbox for AI-generated and untrusted code.
+            </p>
+          </div>
+
+          <div class="resume-entry">
+            <div class="flex items-start justify-between flex-wrap gap-1 mb-1">
+              <span class="text-white text-sm font-semibold">qirrel</span>
+              <span class="text-xs text-muted font-mono">TypeScript · NLP · 2024</span>
+            </div>
+            <p class="text-xs text-text-muted leading-relaxed">
+              Extensible NLP framework for fast, structured text analysis. Tokenization,
+              entity extraction, LLM enrichment, caching, and MCP agent integration.
+            </p>
+          </div>
+
+          <div class="resume-entry">
+            <div class="flex items-start justify-between flex-wrap gap-1 mb-1">
+              <span class="text-white text-sm font-semibold">gim</span>
+              <span class="text-xs text-muted font-mono">Rust · CLI · 2024</span>
+            </div>
+            <p class="text-xs text-text-muted leading-relaxed">
+              High-performance system metrics CLI. Monitors CPU, memory, disk, and network
+              in real-time with modular design and multiple output formats (table, JSON, CSV).
+            </p>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Skills -->
+      <section class="mb-8">
+        <h2 class="resume-section-heading">// skills</h2>
+        <div class="space-y-2 text-xs font-mono">
+          <div class="flex gap-2">
+            <span class="text-muted w-28 shrink-0">Languages</span>
+            <span class="text-text">TypeScript, Rust, Go, C, Python, Lua</span>
+          </div>
+          <div class="flex gap-2">
+            <span class="text-muted w-28 shrink-0">Runtimes</span>
+            <span class="text-text">Node.js, Bun</span>
+          </div>
+          <div class="flex gap-2">
+            <span class="text-muted w-28 shrink-0">Databases</span>
+            <span class="text-text">PostgreSQL, MongoDB, Redis</span>
+          </div>
+          <div class="flex gap-2">
+            <span class="text-muted w-28 shrink-0">Infrastructure</span>
+            <span class="text-text">Linux, Git, Docker, Kubernetes</span>
+          </div>
+          <div class="flex gap-2">
+            <span class="text-muted w-28 shrink-0">Focus areas</span>
+            <span class="text-text">Systems programming, compiler design, distributed systems, backend infrastructure</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Education -->
+      <section class="mb-8">
+        <h2 class="resume-section-heading">// education</h2>
+        <div class="space-y-3 text-sm">
+          <div>
+            <div class="flex items-start justify-between flex-wrap gap-1">
+              <span class="text-white font-semibold">Self-directed learning</span>
+              <span class="text-xs text-muted font-mono">2019 – present</span>
+            </div>
+            <p class="text-xs text-text-muted mt-1 leading-relaxed">
+              Open source contributions, systems experiments, and compiler development.
+              Built working OS kernel, compiler, and distributed tooling from scratch.
+            </p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+  </body>
+</html>
+
+<style>
+  .resume-section-heading {
+    font-size: 0.65rem;
+    font-family: var(--font-mono);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    margin-bottom: 1rem;
+    padding-bottom: 0.375rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .resume-entry {
+    padding-left: 0.75rem;
+    border-left: 2px solid var(--color-border);
+    transition: border-left-color 0.15s ease;
+  }
+
+  .resume-entry:hover {
+    border-left-color: var(--color-accent);
+  }
+
+  /* ── Print styles ─────────────────────────────── */
+  @media print {
+    @page {
+      margin: 1.5cm 2cm;
+      size: A4;
+    }
+
+    .no-print {
+      display: none !important;
+    }
+
+    body {
+      background: #fff !important;
+      color: #111 !important;
+      background-image: none !important;
+    }
+
+    body::after {
+      display: none !important;
+    }
+
+    .resume-page {
+      max-width: 100% !important;
+      padding: 0 !important;
+    }
+
+    a {
+      color: #111 !important;
+      text-decoration: none !important;
+    }
+
+    h1 {
+      color: #111 !important;
+    }
+
+    h2.resume-section-heading {
+      color: #059669 !important;
+      border-bottom-color: #d1d5db !important;
+    }
+
+    .text-white,
+    .text-text,
+    .text-text-muted,
+    .text-muted {
+      color: #333 !important;
+    }
+
+    .text-accent {
+      color: #059669 !important;
+    }
+
+    .border-border {
+      border-color: #e5e7eb !important;
+    }
+
+    .resume-entry {
+      border-left-color: #d1d5db !important;
+    }
+
+    .border-accent\/40 {
+      border-color: #059669 !important;
+    }
+  }
+</style>
