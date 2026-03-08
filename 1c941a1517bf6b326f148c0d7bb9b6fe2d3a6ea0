@@ -1,0 +1,27 @@
+src/pages/resume.astro
+  80741528ee5a7896 1-282
+src/pages/index.astro
+  80741528ee5a7896 166-201
+src/components/Navbar.tsx
+  80741528ee5a7896 42
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.8",
+  "base_commit_sha": "1c941a1517bf6b326f148c0d7bb9b6fe2d3a6ea0",
+  "prompts": {
+    "80741528ee5a7896": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "7ae14d7c-f244-4226-9f60-36d8c991cfe0",
+        "model": "claude-sonnet-4-6"
+      },
+      "human_author": "dev-dami <damiade5banjo@gmail.com>",
+      "messages": [],
+      "total_additions": 319,
+      "total_deletions": 0,
+      "accepted_lines": 319,
+      "overriden_lines": 0
+    }
+  }
+}
