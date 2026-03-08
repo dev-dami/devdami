@@ -1,0 +1,23 @@
+src/content/blog/karion-os-c-to-rust.mdx
+  80741528ee5a7896 1-102
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.8",
+  "base_commit_sha": "9e1ee4baed7416c02553287089d1e4af8bbb7b13",
+  "prompts": {
+    "80741528ee5a7896": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "7ae14d7c-f244-4226-9f60-36d8c991cfe0",
+        "model": "claude-sonnet-4-6"
+      },
+      "human_author": "dev-dami <damiade5banjo@gmail.com>",
+      "messages": [],
+      "total_additions": 102,
+      "total_deletions": 0,
+      "accepted_lines": 102,
+      "overriden_lines": 0
+    }
+  }
+}
