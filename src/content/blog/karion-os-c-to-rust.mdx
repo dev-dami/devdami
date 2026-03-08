@@ -1,0 +1,102 @@
+---
+title: "I Rewrote My OS Kernel in Rust (And the Borrow Checker Saved Me)"
+description: "Karion-OS started in C. Then a heap allocator bug I couldn't find pushed me to port the whole thing to Rust. Here's what actually happened."
+date: 2026-03-08
+tags: ["rust", "systems", "os", "kernel"]
+---
+
+## How It Started
+
+Karion-OS began as a C project. I wanted to understand what actually happens beneath the OS abstraction — not conceptually, not through a textbook, but by writing a bootloader, wiring up interrupt handlers, building a heap allocator from scratch, and watching it all either boot or crash.
+
+C made sense for that. It's what most OS development literature assumes. The kernel programming bible is written for C. Most hobby OS tutorials are in C. And at first it worked fine.
+
+Then the problems started.
+
+## The Problems With C at the Kernel Level
+
+Debugging a kernel with no OS underneath to catch your mistakes is a different category of brutal. When something goes wrong, you don't get a stack trace. You get a triple fault, a reboot, or silence. Sometimes all three.
+
+I was hitting three recurring classes of bugs:
+
+**Buffer overflows** in the ring buffer I wrote for keyboard input. The interrupt fires asynchronously, the shell reads from the same buffer, and nothing stops you from writing off the end. I caught two of these by accident.
+
+**Memory leaks** in the heap allocator. The leak was silent — everything appeared to work until the kernel ran out of heap space and behavior became undefined. Finding it meant manually auditing every allocation path in the codebase.
+
+**Data races in interrupt handlers.** The keyboard ISR and the shell both accessed shared state. Without any synchronization enforced by the compiler, I had to remember to get it right everywhere. I didn't always remember.
+
+The heap allocator bug was the final straw. I had a coalescing allocator that was silently leaking memory — blocks weren't being merged correctly on free. I spent two days instrumenting the allocator by hand, printing hex dumps to the VGA buffer, staring at memory layouts. I fixed it once. It came back in a different code path.
+
+At some point I just thought: why not try Rust?
+
+## The Port
+
+I said f it and started porting everything over.
+
+The architecture was already there — GDT, IDT, PIC, PMM, paging, heap, VGA driver, keyboard driver, shell, filesystem. I didn't need to redesign anything. I needed to translate it.
+
+The only parts that stayed as assembly were `boot.asm` and `isr.asm`. Interrupt stubs need `pushad`/`iret`, and there's no clean way to express that in Rust. Everything else moved.
+
+The Rust crate is `no_std` with `staticlib` output — no standard library, no runtime, just the language. You write your own `panic_handler`. You implement `memcpy` and `memset` by hand in `intrinsics.rs`. The borrow checker runs on your kernel code the same as it would on anything else.
+
+## What the Borrow Checker Actually Caught
+
+I expected the port to surface bugs. I didn't expect it to catch things immediately.
+
+**The keyboard ring buffer data race.** This was the one I described earlier — the ISR writing asynchronously while the shell read. In C, this compiled without complaint and sometimes worked and sometimes didn't. In Rust, the borrow checker refused to compile it. I had to make the buffer access explicitly safe by wrapping it in a `Mutex`. The compiler wouldn't accept anything less.
+
+**Unhandled keyboard scancodes.** I had a `match` on PS/2 scan codes. Rust requires match arms to be exhaustive. Every code path I hadn't handled became a compiler error, not a silent undefined behavior path.
+
+**Shell command dispatch.** Same story — every command that could be invoked needed handling. The compiler forced completeness in ways that C never would.
+
+The heap bug I spent two days on in C? The Rust borrow checker caught a version of the same class of mistake at compile time during the port.
+
+## Testing Without Booting
+
+This was the other big win: `cargo test`.
+
+In C, testing kernel code meant either running it in QEMU and hoping or writing a separate test harness that reimplemented your build environment. Neither is fast.
+
+In Rust, `cargo test` runs against your actual kernel code without a VM. The `#[test]` attribute works on `no_std` code as long as you structure it correctly. Karion-OS now has 90 unit tests covering the allocator, filesystem logic, scancode decoding, and shell parsing. I run them in seconds.
+
+This changed how I develop. I write a module, write tests, run `cargo test`, and then boot to verify hardware behavior. The feedback loop is completely different.
+
+## What Karion-OS Can Do Now
+
+After the port, the kernel has:
+
+- A Unix-like shell with command history and arrow-key navigation
+- A block filesystem — 1MB RAM disk with inodes, directories, create/read/write/delete
+- A nano-like text editor (still buggy with long lines, working on it)
+- A BASIC interpreter with a REPL (minimal — no functions, no arrays, single-char variables only)
+- Snake, Tic-Tac-Toe, a number guessing game
+- Physical memory manager, paging, kernel heap with coalescing
+- PIT timer at 100Hz, PS/2 keyboard with shift/ctrl, VGA text mode
+- GDT, IDT, PIC 8259, INT 0x80 syscall interface
+
+The `unsafe` blocks are isolated — VGA framebuffer writes, hardware port I/O, interrupt registration. Everything else is safe Rust. The compiler enforces the boundary.
+
+## Known Issues (Being Honest)
+
+The project is still under active development and a lot of things are rough:
+
+- String comparison is broken on the bare-metal `i686` target. Rust's `==` on `&str` generates bad code with static relocation on this target, so I wrote a manual byte-by-byte workaround. It doesn't cover every code path yet, which breaks some `cd`, `cat`, and `mv` behavior.
+- The filesystem is RAM-only. Everything is lost on reboot. Persistence is on the roadmap.
+- No networking, no processes, no multitasking yet.
+- The text editor and BASIC interpreter both have rough edges I haven't had time to fix.
+
+This is a hobby OS. It crashes. It has bugs I haven't found yet. That's fine.
+
+## What I Actually Learned
+
+Porting a C kernel to Rust taught me more about systems programming than writing the original C did.
+
+When C compiles your bug and Rust refuses to, you're forced to think about what's actually going on. You can't defer the reasoning. You can't hope the test run catches it. You have to model the ownership, the lifetimes, the access patterns — before the code runs.
+
+That discipline transfers back. I read C differently now. I see the places where the compiler is trusting you to get it right and think about whether you actually will.
+
+The borrow checker isn't a hurdle. It's a specification of what correct code looks like, enforced at compile time. On a kernel — where there's nothing underneath to catch your mistakes — that matters more than anywhere else.
+
+---
+
+The repo is at [github.com/dev-dami/Karion-OS](https://github.com/dev-dami/Karion-OS). It boots. Most things work. Some things crash. PRs welcome.
