@@ -1,4 +1,8 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://devdami.vercel.app/sitemap-index.xml
+Sitemap: https://devdami.varityweb.com/sitemap.xml
+
+# Additional crawl rules
+Disallow: /api/
+Disallow: /resume

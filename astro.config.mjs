@@ -8,7 +8,7 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://devdami.dev',
+  site: 'https://devdami.varityweb.com',
   vite: {
     plugins: [tailwindcss()]
   },

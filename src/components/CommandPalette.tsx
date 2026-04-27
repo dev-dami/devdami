@@ -26,7 +26,7 @@ const searchItems = [
     items: [
       { title: "GitHub", url: "https://github.com/dev-dami", icon: Github, description: "@dev-dami", external: true },
       { title: "LinkedIn", url: "https://www.linkedin.com/in/damilare-osibanjo/", icon: Linkedin, description: "Professional profile", external: true },
-      { title: "Email", url: "mailto:damiosi5banjo@gmail.com", icon: Mail, description: "damiosi5banjo@gmail.com", external: true },
+      { title: "Email", url: "mailto:dami@varityweb.com", icon: Mail, description: "dami@varityweb.com", external: true },
     ]
   }
 ];
