@@ -1,7 +1,5 @@
 import { Resend } from 'resend';
 
-const resend = new Resend(import.meta.env.RESEND_API_KEY || '');
-
 export async function POST({ request }: { request: Request }) {
   try {
     const { name, email, subject, message } = await request.json();
@@ -22,6 +20,9 @@ export async function POST({ request }: { request: Request }) {
         { status: 200, headers: { 'Content-Type': 'application/json' } }
       );
     }
+
+    // Initialize Resend only when API key exists
+    const resend = new Resend(import.meta.env.RESEND_API_KEY);
 
     // Send email using Resend
     const { data, error } = await resend.emails.send({
