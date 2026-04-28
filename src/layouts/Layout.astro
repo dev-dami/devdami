@@ -1,5 +1,6 @@
 ---
 import Analytics from '@vercel/analytics/astro';
+import SpeedInsights from '@vercel/speed-insights/astro';
 import Navbar from "../components/Navbar";
 import CommandPalette from "../components/CommandPalette";
 import "../styles/global.css";
@@ -84,6 +85,9 @@ const siteImage = '/icon.png';
     
     <!-- Vercel Web Analytics -->
     <Analytics />
+    
+    <!-- Vercel Speed Insights -->
+    <SpeedInsights />
   </head>
   <body class="min-h-screen bg-bg text-text font-body antialiased">
     <div class="flex flex-col min-h-screen">
