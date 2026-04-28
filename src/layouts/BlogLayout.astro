@@ -3,9 +3,54 @@ import Layout from "./Layout.astro";
 const { frontmatter } = Astro.props;
 
 const date = frontmatter.date instanceof Date ? frontmatter.date : new Date(frontmatter.date);
+const siteTitle = `${frontmatter.title} - Damilare Osibanjo`;
+const siteDescription = frontmatter.description || "Technical article by Damilare Osibanjo on systems programming, compilers, and infrastructure";
+const siteUrl = `https://devdami.varityweb.com/blog/${Astro.params.slug}`;
+const siteImage = frontmatter.ogImage || '/icon.png';
 ---
 
 <Layout>
+  {/* SEO Meta Tags */}
+  <meta name="title" content={siteTitle} />
+  <meta name="description" content={siteDescription} />
+  <meta property="og:title" content={siteTitle} />
+  <meta property="og:description" content={siteDescription} />
+  <meta property="og:url" content={siteUrl} />
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content={siteImage} />
+  <meta name="twitter:title" content={siteTitle} />
+  <meta name="twitter:description" content={siteDescription} />
+  <meta name="twitter:image" content={siteImage} />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  {/* JSON-LD Structured Data */}
+  <script type="application/ld+json">
+    {JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": frontmatter.title,
+      "description": siteDescription,
+      "image": siteImage.startsWith('/') ? `https://devdami.varityweb.com${siteImage}` : siteImage,
+      "datePublished": frontmatter.date,
+      "author": {
+        "@type": "Person",
+        "name": "Damilare Osibanjo",
+        "url": "https://devdami.varityweb.com"
+      },
+      "publisher": {
+        "@type": "Person",
+        "name": "Damilare Osibanjo",
+        "url": "https://devdami.varityweb.com",
+        "sameAs": [
+          "https://github.com/dev-dami",
+          "https://www.linkedin.com/in/damilare-osibanjo/"
+        ]
+      },
+      "keywords": frontmatter.tags,
+      "url": siteUrl
+    })}
+  </script>
+
   <article class="mx-auto max-w-blog">
     <!-- Reading Progress Bar - Fixed at bottom -->
     <div class="fixed bottom-0 left-0 w-full h-1 z-50 bg-surface/50 backdrop-blur">
@@ -46,39 +91,4 @@ const date = frontmatter.date instanceof Date ? frontmatter.date : new Date(fron
         </svg>
       </a>
     </div>
-  </article>
-
-  <script>
-    // Reading progress bar
-    const progressBar = document.getElementById('progress-bar');
-    const articleContent = document.getElementById('article-content');
-    const backToTop = document.getElementById('back-to-top');
-
-    if (progressBar && articleContent) {
-      const updateProgress = () => {
-        const articleTop = articleContent.offsetTop;
-        const articleHeight = articleContent.offsetHeight;
-        const windowHeight = window.innerHeight;
-        const scrolled = window.scrollY - articleTop + windowHeight / 2;
-        const progress = Math.min(Math.max(scrolled / articleHeight, 0), 1) * 100;
-        progressBar.style.width = `${progress}%`;
-      };
-
-      // Show/hide back to top button
-      const updateBackToTop = () => {
-        if (window.scrollY > 500) {
-          backToTop.classList.remove('opacity-0', 'invisible');
-        } else {
-          backToTop.classList.add('opacity-0', 'invisible');
-        }
-      };
-
-      window.addEventListener('scroll', () => {
-        updateProgress();
-        updateBackToTop();
-      });
-      updateProgress();
-      updateBackToTop();
-    }
-  </script>
 </Layout>
