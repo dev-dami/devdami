@@ -15,15 +15,6 @@ export default defineConfig({
 
   integrations: [mdx(), react(), sitemap()],
 
-  image: {
-    service: {
-      entrypoint: '@astrojs/image/sharp',
-    },
-    domains: ['avatars.githubusercontent.com', 'ghchart.rshah.org'],
-    directories: ['/public'],
-    cacheDir: 'public/_images',
-  },
-
   markdown: {
     shikiConfig: {
       theme: 'dark-plus'
