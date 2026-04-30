@@ -50,11 +50,12 @@ export default function Navbar() {
         }`}
       >
         <a href="/" className="flex items-center gap-3 group">
-          <img
-            src="/icon.png"
-            alt="Damilare Osibanjo"
-            className="w-8 h-8 rounded-full object-cover ring-2 ring-border/50 group-hover:ring-accent/50 transition-all duration-300"
-          />
+<img
+  src="/icon.png"
+  alt="Damilare Osibanjo"
+  className="w-8 h-8 rounded-full object-cover ring-2 ring-border/50 group-hover:ring-accent/50 transition-all duration-300"
+  loading="lazy"
+/>
           <span
             className={`font-medium tracking-tight text-sm text-primary group-hover:text-accent transition-all duration-300 overflow-hidden whitespace-nowrap hidden sm:block ${
               isShrunk ? "nav-title-hidden" : ""
