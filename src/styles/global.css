@@ -258,8 +258,13 @@ main > * {
   line-height: 1.7;
 }
 
+/* ============================================
+    CODE BLOCK THEME — Terminal-inspired styling
+    ============================================ */
+
+/* Inline code */
 .prose code {
-  background-color: var(--color-surface);
+  background-color: rgba(15, 15, 15, 0.8);
   padding: 0.125rem 0.375rem;
   border-radius: 0.25rem;
   font-size: 0.875em;
@@ -268,20 +273,89 @@ main > * {
   font-family: var(--font-mono);
 }
 
+/* Code block container */
 .prose pre {
-  background-color: var(--color-surface);
+  background: linear-gradient(180deg, rgba(15, 15, 15, 0.95) 0%, rgba(12, 12, 12, 0.98) 100%);
   border: 1px solid var(--color-border);
-  border-radius: 0.375rem;
+  border-radius: 0.5rem;
   padding: 1rem;
   overflow-x: auto;
-  margin: 1.5rem 0;
+  margin: 1.75rem 0;
+  position: relative;
+  box-shadow: 
+    0 4px 12px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.02);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
+.prose pre:hover {
+  border-color: rgba(30, 30, 30, 0.8);
+  box-shadow: 
+    0 8px 20px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.03);
+}
+
+/* Code inside pre - no extra styling */
 .prose pre code {
   background: none;
   padding: 0;
   border: none;
   color: var(--color-text);
+  font-size: 0.85rem;
+  line-height: 1.65;
+}
+
+/* Code block language indicator */
+.prose pre[data-language]::before {
+  content: attr(data-language);
+  position: absolute;
+  top: -0.75rem;
+  right: 0.75rem;
+  background: rgba(16, 185, 129, 0.15);
+  color: var(--color-accent);
+  font-size: 0.65rem;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.125rem 0.5rem;
+  border-radius: 0.25rem;
+  border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+/* Terminal-style dot indicators */
+.prose pre::after {
+  content: '';
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 
+    0.75rem 0 0 rgba(255, 255, 255, 0.2),
+    1.5rem 0 0 rgba(255, 255, 255, 0.2);
+}
+
+/* Scrollbar styling for code blocks */
+.prose pre::-webkit-scrollbar {
+  height: 6px;
+  background: transparent;
+}
+
+.prose pre::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 3px;
+}
+
+.prose pre::-webkit-scrollbar-thumb {
+  background: rgba(16, 185, 129, 0.4);
+  border-radius: 3px;
+}
+
+.prose pre::-webkit-scrollbar-thumb:hover {
+  background: rgba(16, 185, 129, 0.6);
 }
 
 .prose table {

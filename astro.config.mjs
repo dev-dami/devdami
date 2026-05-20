@@ -17,7 +17,9 @@ export default defineConfig({
 
   markdown: {
     shikiConfig: {
-      theme: 'dark-plus'
+      theme: 'dark-plus',
+      wrap: false,
+      includeLineNumbers: false
     }
   }
 });
