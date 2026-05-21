@@ -7,6 +7,12 @@ series:
   name: "Systems Programming Journey"
   order: 3
 readingTime: 14
+takeaways: |
+  Building a Game Boy emulator teaches systems concepts (interrupts, memory-mapped I/O, scanline PPU, timer quirks) that tutorials can't simulate
+  Zig's comptime and explicit allocators shine for low-level work, but the borrow-checker-less model shifts cognitive load to the developer
+  Porting from C to Zig is more about enforcing structure than gaining safety — the real value is the architecture clarity the rewrite forces
+  Hardware accuracy requires staring at edge-case documentation (OAM DMA timing, wave channel quirks, MBC banking) not clever algorithms
+  The most valuable skill an emulator builds is reading other people's wrong assumptions from 30-year-old datasheets
 ---
 
 Most projects online are finished.

@@ -4,6 +4,12 @@ description: "A developer-focused breakdown of a complete attack chain, with con
 date: 2026-05-07
 tags: ["security", "command injection", "race conditions", "RCE", "vulnerable code patterns", "PHP"]
 readingTime: 13
+takeaways: |
+  Command injection via user-supplied input to system/shell functions remains the most common RCE entry point in PHP applications
+  TOCTOU race conditions let attackers swap validated files between check and use, bypassing content-type and size restrictions
+  Blind RCE techniques (outbound DNS/HTTP exfiltration, timing-based inference) prove code execution even without direct output
+  Layered defenses at each chain stage — input sanitization, secure file handling, outbound firewall rules — stop attacks no single fix can
+  Server-side validation must never trust client-side checks; all file operations need atomic check-and-use patterns
 ---
 
 A developer tests their mailer. They send a few requests. Nothing breaks. They ship it.
