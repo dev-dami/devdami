@@ -3,25 +3,13 @@ import Layout from "./Layout.astro";
 const { frontmatter } = Astro.props;
 
 const date = frontmatter.date instanceof Date ? frontmatter.date : new Date(frontmatter.date);
-const siteTitle = `${frontmatter.title} - Damilare Osibanjo`;
-const siteDescription = frontmatter.description || "Technical article by Damilare Osibanjo on systems programming, compilers, and infrastructure";
-const siteUrl = `https://devdami.varityweb.com/blog/${Astro.params.slug}`;
-const siteImage = frontmatter.ogImage || '/icon.png';
+const pageTitle = `${frontmatter.title} - Damilare Osibanjo`;
+const pageDescription = frontmatter.description || "Technical article by Damilare Osibanjo on systems programming, compilers, and infrastructure";
+const pageUrl = `https://devdami.varityweb.com/blog/${Astro.params.slug}`;
+const pageImage = frontmatter.ogImage || '/icon.png';
 ---
 
-<Layout>
-  {/* SEO Meta Tags */}
-  <meta name="title" content={siteTitle} />
-  <meta name="description" content={siteDescription} />
-  <meta property="og:title" content={siteTitle} />
-  <meta property="og:description" content={siteDescription} />
-  <meta property="og:url" content={siteUrl} />
-  <meta property="og:type" content="article" />
-  <meta property="og:image" content={siteImage} />
-  <meta name="twitter:title" content={siteTitle} />
-  <meta name="twitter:description" content={siteDescription} />
-  <meta name="twitter:image" content={siteImage} />
-  <meta name="twitter:card" content="summary_large_image" />
+<Layout title={pageTitle} description={pageDescription} canonical={pageUrl} image={pageImage} ogType="article">
 
   {/* JSON-LD Structured Data */}
   <script type="application/ld+json">
@@ -29,8 +17,8 @@ const siteImage = frontmatter.ogImage || '/icon.png';
       "@context": "https://schema.org",
       "@type": "BlogPosting",
       "headline": frontmatter.title,
-      "description": siteDescription,
-      "image": siteImage.startsWith('/') ? `https://devdami.varityweb.com${siteImage}` : siteImage,
+      "description": pageDescription,
+      "image": pageImage.startsWith('/') ? `https://devdami.varityweb.com${pageImage}` : pageImage,
       "datePublished": frontmatter.date,
       "author": {
         "@type": "Person",
@@ -47,7 +35,7 @@ const siteImage = frontmatter.ogImage || '/icon.png';
         ]
       },
       "keywords": frontmatter.tags,
-      "url": siteUrl
+      "url": pageUrl
     })}
   </script>
 

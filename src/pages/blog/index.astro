@@ -3,31 +3,21 @@ import Layout from "../../layouts/Layout.astro";
 import { getCollection } from "astro:content";
 
 const posts = await getCollection("blog");
-const siteTitle = "Damilare Osibanjo - Blog";
-const siteDescription = "Technical articles on systems programming, compilers, runtime tools, and infrastructure by Damilare Osibanjo";
-const siteUrl = "https://devdami.varityweb.com/blog";
+const pageTitle = "Damilare Osibanjo - Blog";
+const pageDescription = "Technical articles on systems programming, compilers, runtime tools, and infrastructure by Damilare Osibanjo";
+const pageUrl = "https://devdami.varityweb.com/blog";
 ---
 
-<Layout>
-  {/* SEO Meta Tags */}
-  <meta name="title" content={siteTitle} />
-  <meta name="description" content={siteDescription} />
-  <meta property="og:title" content={siteTitle} />
-  <meta property="og:description" content={siteDescription} />
-  <meta property="og:url" content={siteUrl} />
-  <meta property="og:type" content="website" />
-  <meta name="twitter:title" content={siteTitle} />
-  <meta name="twitter:description" content={siteDescription} />
-  <meta name="twitter:card" content="summary_large_image" />
+<Layout title={pageTitle} description={pageDescription} canonical={pageUrl}>
 
   {/* JSON-LD Structured Data */}
   <script type="application/ld+json">
     {JSON.stringify({
       "@context": "https://schema.org",
       "@type": "Blog",
-      "name": siteTitle,
-      "description": siteDescription,
-      "url": siteUrl,
+      "name": pageTitle,
+      "description": pageDescription,
+      "url": pageUrl,
       "publisher": {
         "@type": "Person",
         "name": "Damilare Osibanjo",
@@ -42,7 +32,7 @@ const siteUrl = "https://devdami.varityweb.com/blog";
         "headline": post.data.title,
         "description": post.data.description,
         "datePublished": post.data.date,
-        "url": `${siteUrl}/${post.slug}`,
+        "url": `${pageUrl}/${post.slug}`,
         "keywords": post.data.tags,
         "author": {
           "@type": "Person",
