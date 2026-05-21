@@ -1,0 +1,17 @@
+---
+import ToolIcon from "./ToolIcon";
+export interface Props {
+  icon?: string;
+  label: string;
+  version?: string;
+}
+const { icon, label, version } = Astro.props;
+---
+
+<div class="border border-border rounded p-3 flex items-center gap-2.5">
+  {icon && <ToolIcon name={icon} />}
+  <div>
+    <div class="text-xs font-mono text-accent">{label}</div>
+    {version && <div class="text-xs text-muted">{version}</div>}
+  </div>
+</div>

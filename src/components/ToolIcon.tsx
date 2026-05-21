@@ -1,0 +1,65 @@
+import {
+  Code2,
+  FileCode,
+  Terminal,
+  TerminalSquare,
+  GitBranch,
+  Container,
+  Globe,
+  Shell,
+  Monitor,
+  HardDrive,
+  Zap,
+  Globe2,
+  Search,
+  FolderOpen,
+  SplitSquareVertical,
+  Bug,
+  Wrench,
+  Pencil,
+  Box,
+  Keyboard,
+  Cpu,
+} from "lucide-react";
+import type { LucideIcon } from "lucide-react";
+
+const iconMap: Record<string, LucideIcon> = {
+  rust: Code2,
+  go: Code2,
+  zig: Zap,
+  ts: FileCode,
+  bun: Terminal,
+  python: FileCode,
+  php: Globe,
+  npm: TerminalSquare,
+  nvim: Pencil,
+  alacritty: Terminal,
+  tmux: SplitSquareVertical,
+  fish: Shell,
+  arch: Monitor,
+  firefox: Globe2,
+  git: GitBranch,
+  gh: GitBranch,
+  docker: Container,
+  starship: Terminal,
+  keyboard: Keyboard,
+  cpu: Cpu,
+  rg: Search,
+  fd: FolderOpen,
+  fz: Search,
+  bat: FileCode,
+  eza: FolderOpen,
+  btop: Bug,
+  jq: Code2,
+  zo: Wrench,
+  delta: GitBranch,
+  htop: Bug,
+  httpie: Globe,
+  tmuxPlugins: SplitSquareVertical,
+};
+
+export default function ToolIcon({ name, className = "w-4 h-4" }: { name: string; className?: string }) {
+  const Icon = iconMap[name];
+  if (!Icon) return null;
+  return <Icon className={className} />;
+}
