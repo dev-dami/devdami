@@ -1,7 +1,7 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://devdami.varityweb.com/sitemap.xml
+Sitemap: https://devdami.varityweb.com/sitemap-index.xml
 
 # Additional crawl rules
 Disallow: /api/
