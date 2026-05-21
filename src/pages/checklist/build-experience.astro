@@ -239,7 +239,7 @@ const pageUrl = "https://devdami.varityweb.com/checklist/build-experience";
 <style is:global>
   @media print {
     /* Hide nav, footer, and the email gate when printing */
-    nav, footer, #email-gate, .fixed, [class*="CommandPalette"] {
+    nav, footer, #email-gate, .fixed, body::after, [class*="CommandPalette"] {
       display: none !important;
     }
     body {

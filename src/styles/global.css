@@ -76,9 +76,17 @@ body {
   background-color: var(--color-bg);
   color: var(--color-text);
   font-family: var(--font-body);
-  background-image: var(--bg-pattern), var(--bg-gradient);
-  background-size: 24px 24px, 100% 100%;
-  background-attachment: fixed;
+  background-image:
+    var(--bg-pattern),
+    var(--bg-gradient),
+    repeating-linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.02) 0px,
+      rgba(0, 0, 0, 0.02) 2px,
+      transparent 2px,
+      transparent 6px
+    );
+  background-size: 24px 24px, 100% 100%, 100% 6px;
   transition: background-color 0.25s ease, color 0.25s ease;
   font-feature-settings: "liga" 1, "calt" 1;
 }
@@ -101,24 +109,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 p, span, li, td, th, label, blockquote, figcaption {
   color: var(--color-text);
-}
-
-/* ============================================
-   SCANLINE OVERLAY
-   ============================================ */
-body::after {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background: repeating-linear-gradient(
-    0deg,
-    transparent,
-    transparent 3px,
-    rgba(0, 0, 0, 0.04) 3px,
-    rgba(0, 0, 0, 0.04) 4px
-  );
-  pointer-events: none;
-  z-index: 9999;
 }
 
 /* ============================================
