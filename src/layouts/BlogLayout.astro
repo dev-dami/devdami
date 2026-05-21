@@ -7,7 +7,11 @@ const date = frontmatter.date instanceof Date ? frontmatter.date : new Date(fron
 const pageTitle = `${frontmatter.title} - Damilare Osibanjo`;
 const pageDescription = frontmatter.description || "Technical article by Damilare Osibanjo on systems programming, compilers, and infrastructure";
 const pageUrl = `https://devdami.varityweb.com/blog/${Astro.params.slug}`;
-const pageImage = frontmatter.ogImage || '/icon.png';
+const ogParams = new URLSearchParams({ title: frontmatter.title });
+if (frontmatter.tags?.length) {
+  ogParams.set('tags', frontmatter.tags.slice(0, 4).join(','));
+}
+const pageImage = frontmatter.ogImage || `/api/og?${ogParams.toString()}`;
 const readingTime = frontmatter.readingTime;
 
 // Compute series info (prev/next within same series)
@@ -102,13 +106,18 @@ const relatedPosts = allPosts
 
     {/* Takeaways box */}
     {frontmatter.takeaways && (
-      <div class="mb-10 p-4 md:p-6 border border-accent/30 bg-accent/5 rounded-lg">
+      <div class="mb-10 p-4 md:p-6 border border-accent/30 bg-accent/5 rounded-lg" itemscope itemtype="https://schema.org/FAQPage">
         <h3 class="text-xs font-semibold tracking-widest text-accent uppercase font-mono mb-2">
           Key Takeaways
         </h3>
-        <p class="text-sm text-text leading-relaxed">
-          {frontmatter.takeaways}
-        </p>
+        <ul class="text-sm text-text leading-relaxed space-y-2">
+          {frontmatter.takeaways.split('\n').filter((t: string) => t.trim()).map((item: string) => (
+            <li class="flex items-start gap-2" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+              <span class="text-accent mt-1.5 flex-shrink-0">◆</span>
+              <span itemprop="name">{item.trim().replace(/^[-*•]\s*/, '')}</span>
+            </li>
+          ))}
+        </ul>
       </div>
     )}
 
@@ -183,6 +192,21 @@ const relatedPosts = allPosts
 
     <!-- Newsletter signup -->
     <NewsletterSignup />
+
+    <!-- Checklist CTA for build-experience post -->
+    {Astro.params.slug === 'build-programming-experience-no-hire' && (
+      <div class="mt-6 p-4 md:p-6 border border-accent/30 bg-accent/5 rounded-lg">
+        <p class="text-sm text-text leading-relaxed">
+          <span class="text-accent font-semibold">→</span> Get the printable checklist version of this guide —
+          <a
+            href="/checklist/build-experience"
+            class="text-accent hover:underline font-medium"
+          >
+            Download the Build Experience PDF
+          </a>
+        </p>
+      </div>
+    )}
 
     <!-- Back to top button -->
     <div class="fixed bottom-8 right-8 z-40">

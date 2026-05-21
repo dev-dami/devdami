@@ -43,7 +43,15 @@ const pageUrl = "https://devdami.varityweb.com/blog";
   </script>
 
   <div class="mx-auto max-w-blog space-y-8">
-    <h1 class="text-3xl md:text-4xl font-normal tracking-wide text-text-dark mb-8">Blog</h1>
+    <div class="flex items-center justify-between mb-8">
+      <h1 class="text-3xl md:text-4xl font-normal tracking-wide text-text-dark">Blog</h1>
+      <a
+        href="/checklist/build-experience"
+        class="hidden sm:inline-flex text-xs font-mono text-accent hover:text-accent-hover border border-accent/30 px-3 py-1.5 rounded transition-colors"
+      >
+        Free Checklist →
+      </a>
+    </div>
 
     {posts.map((post) => {
       const date = post.data.date instanceof Date ? post.data.date : new Date(post.data.date);
