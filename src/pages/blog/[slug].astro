@@ -1,6 +1,7 @@
 ---
 import Layout from "../../layouts/BlogLayout.astro";
 import { getCollection } from "astro:content";
+import { computeReadingTime } from "../../utils/reading-time";
 
 export async function getStaticPaths() {
   const posts = await getCollection("blog");
@@ -12,9 +13,10 @@ export async function getStaticPaths() {
 
 const { post, allPosts } = Astro.props;
 const { Content } = await post.render();
+const readingTime = post.body ? computeReadingTime(post.body) : post.data.readingTime;
 ---
 
-<Layout frontmatter={post.data} allPosts={allPosts}>
+<Layout frontmatter={{ ...post.data, readingTime }} allPosts={allPosts}>
   <div class="prose prose-invert max-w-none">
     <Content />
   </div>
