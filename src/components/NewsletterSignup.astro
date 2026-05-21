@@ -22,6 +22,8 @@ const siteUrl = "https://devdami.varityweb.com";
       name="email"
       placeholder="your@email.com"
       required
+      pattern={"^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$"}
+      aria-describedby="newsletter-status"
       class="flex-1 px-4 py-2.5 bg-bg border border-border rounded text-sm text-text placeholder:text-muted/50 font-mono outline-none focus:border-accent transition-colors"
     />
     <button
