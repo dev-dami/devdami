@@ -8,18 +8,18 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://devdami.varityweb.com',
-  vite: {
-    plugins: [tailwindcss()]
-  },
+    site: 'https://devdami.varityweb.com',
+    vite: {
+        plugins: [tailwindcss()]
+    },
 
-  integrations: [mdx(), react(), sitemap()],
+    integrations: [mdx(), react(), sitemap()],
 
-  markdown: {
-    shikiConfig: {
-      theme: 'github-dark',
-      wrap: true,
-      includeLineNumbers: true
+    markdown: {
+        shikiConfig: {
+            theme: 'vitesse-dark',
+            wrap: true,
+            includeLineNumbers: true
+        }
     }
-  }
 });

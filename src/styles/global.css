@@ -25,8 +25,8 @@
   --color-text:         #ffffff;
   --color-text-dark:    #ffffff;
   --color-text-muted:   #d4d4d4;
-  --color-accent:       #10b981;
-  --color-accent-hover: #34d399;
+  --color-accent:       #059669;
+  --color-accent-hover: #047857;
 
   --bg-gradient: radial-gradient(ellipse 90% 40% at 50% 0%, rgba(16, 185, 129, 0.08) 0%, transparent 100%);
   --bg-pattern:  radial-gradient(circle, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
