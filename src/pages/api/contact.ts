@@ -13,7 +13,8 @@ export async function POST({ request }: { request: Request }) {
     }
 
     // If no API key, just log and return success (for development)
-    if (!import.meta.env.RESEND_API_KEY) {
+    const apiKey = import.meta.env.RESEND_API_KEY as string | undefined;
+    if (!apiKey) {
       console.log('Contact form submission (no API key configured):', { name, email, subject, message });
       return new Response(
         JSON.stringify({ success: true, message: 'Message received (demo mode)' }),
@@ -21,21 +22,36 @@ export async function POST({ request }: { request: Request }) {
       );
     }
 
-    // Initialize Resend only when API key exists
-    const resend = new Resend(import.meta.env.RESEND_API_KEY);
+    // Resend sender domain must be verified in your Resend dashboard.
+    // The onboarding@resend.dev sender is restricted to testing only —
+    // it can only send to the email address you registered with Resend.
+    // Set CONTACT_EMAIL_FROM to an address on your verified domain, e.g.:
+    //   Portfolio Contact <noreply@varityweb.com>
+    const from = (import.meta.env.CONTACT_EMAIL_FROM as string) || '';
+    const to = (import.meta.env.CONTACT_EMAIL_TO as string) || '';
+
+    if (!from || !to) {
+      console.error('Missing CONTACT_EMAIL_FROM or CONTACT_EMAIL_TO env vars');
+      return new Response(
+        JSON.stringify({ error: 'Contact form not fully configured' }),
+        { status: 500, headers: { 'Content-Type': 'application/json' } }
+      );
+    }
+
+    const resend = new Resend(apiKey);
 
     // Send email using Resend
     const { data, error } = await resend.emails.send({
-      from: 'Portfolio Contact <onboarding@resend.dev>',
-      to: ['dami@varityweb.com'],
+      from,
+      to: [to],
       subject: `Portfolio Contact: ${subject}`,
       html: `
         <h2>New Contact Form Submission</h2>
-        <p><strong>Name:</strong> ${name}</p>
-        <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Subject:</strong> ${subject}</p>
+        <p><strong>Name:</strong> ${escapeHtml(name)}</p>
+        <p><strong>Email:</strong> ${escapeHtml(email)}</p>
+        <p><strong>Subject:</strong> ${escapeHtml(subject)}</p>
         <p><strong>Message:</strong></p>
-        <p>${message}</p>
+        <p>${escapeHtml(message)}</p>
       `,
       replyTo: email,
     });
@@ -43,13 +59,13 @@ export async function POST({ request }: { request: Request }) {
     if (error) {
       console.error('Resend error:', error);
       return new Response(
-        JSON.stringify({ error: 'Failed to send message' }),
+        JSON.stringify({ error: 'Failed to send message. Please try again or email me directly.' }),
         { status: 500, headers: { 'Content-Type': 'application/json' } }
       );
     }
 
     return new Response(
-      JSON.stringify({ success: true, data }),
+      JSON.stringify({ success: true, message: 'Message sent! I\'ll get back to you soon.' }),
       { status: 200, headers: { 'Content-Type': 'application/json' } }
     );
   } catch (error) {
@@ -59,4 +75,13 @@ export async function POST({ request }: { request: Request }) {
       { status: 500, headers: { 'Content-Type': 'application/json' } }
     );
   }
+}
+
+function escapeHtml(text: string): string {
+  return text
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
 }
