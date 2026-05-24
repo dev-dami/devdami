@@ -4,7 +4,7 @@ export interface Project {
   number: string;
   description: string;
   tags: string[];
-  githubUrl: string;
+  githubUrl?: string;
   npm?: boolean;
   language?: string;
   license?: string;
@@ -86,6 +86,41 @@ export const projects: Project[] = [
       "A Game Boy emulator written in Zig. Cycle-accurate CPU emulation, PPU scanline rendering, timer synchronization, and MBC1 cartridge support. Built from scratch — no dependencies.",
     tags: ["Zig", "Emulator", "Game Boy", "Systems"],
     githubUrl: "https://github.com/dev-dami/gbemu",
+    language: "Zig",
+    license: "MIT",
+  },
+  {
+    slug: "kiattp",
+    name: "kiattp",
+    number: "08",
+    description:
+      "Zero-dependency HTTP client for TypeScript. 4x faster than axios, 3.7KB, plugin system, and a clean chainable API. Battle-tested in production.",
+    tags: ["TypeScript", "HTTP", "Zero-dep", "Bun"],
+    githubUrl: "https://github.com/dev-dami/kiattp",
+    npm: true,
+    language: "TypeScript",
+    license: "MIT",
+  },
+  {
+    slug: "lexon-js",
+    name: "Lexon",
+    number: "09",
+    description:
+      "Fast, TypeScript-first string schema engine for validation and pattern rules. Zero-dependency validator with a clean, composable API.",
+    tags: ["TypeScript", "Validation", "Schema", "Zero-dep"],
+    githubUrl: "https://github.com/dev-dami/Lexon-js",
+    npm: true,
+    language: "TypeScript",
+    license: "MIT",
+  },
+  {
+    slug: "yems",
+    name: "YEMS",
+    number: "10",
+    description:
+      "Offline-first school management system. Student records, attendance, grading, scheduling, and analytics — works without internet, syncs when connected.",
+    tags: ["TypeScript", "Offline-first", "Education", "PWA"],
+    language: "TypeScript",
     license: "MIT",
   },
 ];
