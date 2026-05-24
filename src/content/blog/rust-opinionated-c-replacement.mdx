@@ -1,0 +1,50 @@
+---
+title: "Rust Is Opinionated (And Why That Matters for the C Replacement Question)"
+description: "Rust's strictness is by design. But being a C replacement isn't about syntax — it's about trust, tooling, and domains where C never had a real competitor anyway."
+date: 2026-05-24
+tags: ["rust", "c", "systems", "compilers", "ecosystem", "opinion"]
+---
+
+Rust is opinionated. This isn't a flaw — it's the point.
+
+The borrow checker, the `mut` keyword, the module system, the fact that `cargo fmt` has a default configuration that 90% of the ecosystem uses unchanged. Every opinion eliminates a class of bugs that C and C++ explicitly chose to allow because "the programmer knows what they're doing."
+
+## What "Opinionated" Means Here
+
+C has exactly zero opinions about how you structure your code. You can:
+
+- Put everything in a single translation unit
+- Split across 200 files with no consistent pattern
+- None of that matters to the compiler
+
+Rust's module system forces a tree. Macros are scoped. Traits require explicit implementation. Unsafe blocks must be annotated. None of these are arbitrary — they teach you to write code that the compiler can verify.
+
+This is the fundamental trade-off: you give up "I know what I'm doing" freedom in exchange for "the compiler will catch your mistakes at compile time."
+
+## The C Replacement Myth
+
+Rust gets called a C replacement because it fills the same slot in the mental model: systems language, no GC, direct memory access, zero-cost abstractions. But this framing misses why C persists in the domains where it does.
+
+C lives in three places:
+
+1. **Legacy codebases** — Linux, OpenSSL, CPython. Rewriting these is a socio-technical problem, not a language problem. The code works, the maintenance teams know it, and the risk of subtle regressions outweighs the benefits.
+
+2. **Hardware-constrained environments** — 8-bit microcontrollers with 2KB of RAM. Rust's standard library doesn't target these. LLVM backend doesn't either. C wins because it's the only practical option.
+
+3. **FFI boundary language** — Every language can call C. This isn't because C is good — it's because C is the lowest common denominator. Rust is trying to become the new denominator via `extern "C"` and `#[no_mangle]`, but this takes decades, not years.
+
+Rust replaces C best in the **greenfield systems** space: CLI tools, network services, parsers, databases, browsers (Servo), and OS components (Redox). These were C's domains primarily due to historical accident, not technical necessity.
+
+## Is C++ the Real Target?
+
+C++ is where Rust's opinions hurt most. Template metaprogramming is replaced by generics + traits. Header files are gone. The build system is standardised. Object ownership is enforced at compile time rather than documented in comments.
+
+The C++ ecosystem's response to memory safety mandates (NSA, CISA, White House) tells you everything: rather than fix C++'s footguns, they're adopting Rust for new components. Microsoft, Google, and Amazon all do this in production today.
+
+## The Verdict
+
+Rust will never fully replace C. Not because Rust is worse, but because C's remaining strongholds either don't benefit from Rust's guarantees or can't adopt Rust for practical reasons.
+
+But Rust **has already replaced C** in the domains that matter for new systems development. The gradual migration of security-critical infrastructure from C/C++ to Rust isn't hypothetical — it's happening in the Linux kernel, Android, Firefox, and AWS.
+
+Rust's opinions make it harder to write bad code. That's the whole value proposition. And for new projects where you control the stack, choosing C over Rust today is a bet that the borrow checker's learning curve outweighs two decades of CVEs from use-after-free bugs.
