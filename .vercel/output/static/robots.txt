@@ -1,8 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://devdami.varityweb.com/sitemap-index.xml
-
-# Additional crawl rules
-Disallow: /api/
-Disallow: /resume
