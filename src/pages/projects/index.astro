@@ -9,18 +9,24 @@ const pageDescription =
   "Open-source projects by Damilare Osibanjo — systems programming, compilers, emulators, and infrastructure tools.";
 
 const statsResults = await Promise.allSettled(
-  projects.map((p) => fetchRepoStats(p.githubUrl))
+  projects.filter((p) => p.githubUrl).map((p) => fetchRepoStats(p.githubUrl!))
 );
 const statsMap = new Map<string, { stars: number | null; forks: number | null }>();
 let totalStars = 0;
 let totalForks = 0;
-projects.forEach((p, i) => {
-  const s = statsResults[i].status === "fulfilled" ? statsResults[i].value : null;
-  const stars = s?.stars ?? 0;
-  const forks = s?.forks ?? 0;
-  statsMap.set(p.slug, { stars, forks });
-  totalStars += stars;
-  totalForks += forks;
+let statsIdx = 0;
+projects.forEach((p) => {
+  if (p.githubUrl) {
+    const s = statsResults[statsIdx].status === "fulfilled" ? statsResults[statsIdx].value : null;
+    const stars = s?.stars ?? 0;
+    const forks = s?.forks ?? 0;
+    statsMap.set(p.slug, { stars, forks });
+    totalStars += stars;
+    totalForks += forks;
+    statsIdx++;
+  } else {
+    statsMap.set(p.slug, { stars: null, forks: null });
+  }
 });
 
 const uniqueLanguages = new Set(projects.map((p) => p.language).filter(Boolean));
