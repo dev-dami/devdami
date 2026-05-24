@@ -10,8 +10,11 @@ export async function POST({ request }: { request: Request }) {
       );
     }
 
+    const url = new URL(request.url);
+    const queryToken = url.searchParams.get('secret');
     const auth = request.headers.get('authorization') || '';
-    if (auth !== `Bearer ${secret}`) {
+    const match = auth === `Bearer ${secret}` || queryToken === secret;
+    if (!match) {
       return new Response(
         JSON.stringify({ error: 'Unauthorized' }),
         { status: 401, headers: { 'Content-Type': 'application/json' } }
