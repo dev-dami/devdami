@@ -1,0 +1,42 @@
+---
+title: "gbemu"
+description: "A Game Boy emulator written in Zig"
+---
+
+## Architecture
+
+gbemu is a cycle-accurate Game Boy emulator written from scratch in Zig. No existing emulator code was used — everything from the CPU interpreter to the PPU scanline renderer was built against the Pan Docs and Game Boy CPU manual.
+
+### Components
+
+- **CPU** — LR35902 instruction set interpreter: all 256 standard opcodes plus CB-prefixed extended opcodes. Prefix tables, cycle-accurate timing, flag handling.
+- **PPU** — Scanline-based renderer with correct mode timings (OAM search, pixel transfer, HBlank, VBlank). Background, window, and sprite rendering with priority.
+- **Timer** — DIV, TIMA, TMA, and TAC registers with configurable clock speeds. Synchronized to CPU cycles.
+- **Interrupts** — VBlank, LCD STAT, Timer, Serial, and Joypad interrupt handling with IE/IF register emulation.
+- **Memory** — Full address space mapping: ROM banks, VRAM, WRAM, OAM, I/O registers, HRAM. MBC1 cartridge controller with bank switching.
+- **Audio** — Four wave channels (pulse, sweep, wave, noise) with correct length counters, envelopes, and sweep timing.
+- **Input** — Joypad register emulation for D-pad and button inputs.
+
+### Lessons Learned
+
+Building this emulator taught me more about low-level systems than any tutorial could:
+
+1. Cycle counting is everything — one cycle off and a ROM breaks
+2. The Game Boy CPU manual has errors; Pan Docs is the real source of truth
+3. Zig's `comptime` is excellent for building instruction decode tables
+4. Explicit allocators make resource tracking straightforward
+5. Debug output via serial is essential when you don't have a debugger
+
+## Building
+
+```bash
+git clone https://github.com/dev-dami/gbemu
+cd gbemu
+zig build run
+```
+
+Requires Zig 0.16.0 or later. Test ROMs are in the `roms/` directory for verification.
+
+## Blog
+
+Read about the journey building this in [I Thought Building a Game Boy Emulator Would Teach Me Zig](/blog/game-boy-emulator-zig-lessons).

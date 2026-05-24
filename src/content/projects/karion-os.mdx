@@ -1,0 +1,45 @@
+---
+title: "Karion-OS"
+description: "A bare-metal x86 OS kernel written in Rust"
+---
+
+## Architecture
+
+Karion-OS is a Unix-like operating system kernel for x86, written entirely in Rust (originally started in C). It runs on bare metal — no bootloader dependencies, no UEFI shims, no GRUB — just a BIOS boot sector that loads the kernel into memory and jumps to it.
+
+### Components
+
+- **Bootloader** — Minimal 512-byte boot sector in assembly that loads the kernel from disk
+- **Memory Management** — Physical memory manager (bitmap-based), paging with recursive page tables
+- **Interrupt Handling** — GDT, IDT, PIC, and interrupt service routines
+- **VGA Driver** — Text-mode framebuffer with scrolling and colored output
+- **Keyboard Driver** — PS/2 interrupt-driven input with scancode translation
+- **Shell** — Unix-like command interpreter with built-in commands
+- **Filesystem** — Block-based filesystem with directory support
+- **Text Editor** — In-kernel text editor for file editing
+- **BASIC Interpreter** — A simple BASIC interpreter running in kernel mode
+- **Games** — Snake, Pong, and other terminal games
+
+### Why Rust?
+
+The original C implementation had three recurring bug classes:
+
+1. **Buffer overflows** in ring buffers and string operations
+2. **Silent memory leaks** from the heap allocator
+3. **Data races** between interrupt handlers and kernel code
+
+Rust's ownership model eliminated 2 and 3 at compile time. The C port took roughly a week — the architecture stayed the same, but the safety guarantees shifted from "I hope I got this right" to "the compiler won't let me get it wrong."
+
+## Building
+
+```bash
+git clone https://github.com/dev-dami/Karion-OS
+cd Karion-OS
+make
+```
+
+Requires `nasm`, a cross-compiled Rust target for `i686-unknown-none`, and QEMU for testing.
+
+## Blog
+
+Read about the C-to-Rust port in [I Rewrote My OS Kernel in Rust](/blog/karion-os-c-to-rust).

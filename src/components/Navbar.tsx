@@ -36,7 +36,7 @@ export default function Navbar() {
   }, []);
 
   const navLinks = [
-    { name: "Projects", href: "/#projects" },
+    { name: "Projects", href: "/projects" },
     { name: "About", href: "/about" },
     { name: "Blog", href: "/blog" },
     { name: "Uses", href: "/uses" },
@@ -45,54 +45,38 @@ export default function Navbar() {
 
   return (
     <nav className="sticky top-4 z-50 flex justify-center px-4 w-full">
-      <div
-        className={`flex items-center gap-3 md:gap-6 px-4 md:px-5 py-2 rounded-lg border border-border bg-surface/80 backdrop-blur-md shadow-lg shadow-black/30 transition-all duration-300 hover:border-accent/40 hover:bg-surface/95 font-mono ${
-          isShrunk ? "nav-shrunk" : ""
-        }`}
-      >
+      <div           className={`flex items-center gap-3 md:gap-6 px-4 md:px-5 py-2 rounded-lg border border-border bg-surface/80 backdrop-blur-md shadow-lg shadow-black/30 transition-all duration-300 hover:border-accent/40 hover:bg-surface/95 font-mono ${
+            isShrunk ? "nav-shrunk" : ""
+          }`}>
         <a href="/" className="flex items-center gap-3 group">
-<img
-  src="/icon.png"
-  alt="Damilare Osibanjo"
-  className="w-8 h-8 rounded-full object-cover ring-2 ring-border/50 group-hover:ring-accent/50 transition-all duration-300"
-  loading="lazy"
-/>
-          <span
-            className={`font-medium tracking-tight text-sm text-primary group-hover:text-accent transition-all duration-300 overflow-hidden whitespace-nowrap hidden sm:block ${
-              isShrunk ? "nav-title-hidden" : ""
-            }`}
-          >
+          <img
+            src="/icon.png"
+            alt="Damilare Osibanjo"
+            className="nav-avatar w-8 h-8 rounded-full object-cover ring-2 ring-border/50 group-hover:ring-accent/50 transition-all duration-300"
+            loading="lazy"
+          />
+          <span className="nav-title font-medium tracking-tight text-sm text-primary group-hover:text-accent transition-all duration-300 hidden sm:block">
             Damilare Osibanjo
           </span>
         </a>
 
         {/* Desktop Links */}
         <div className="hidden md:flex items-center gap-1">
-          <div
-            className={`nav-divider h-4 w-px bg-border/50 transition-all duration-300 ${
-              isShrunk ? "nav-divider-hidden" : ""
-            }`}
-          ></div>
+          <div className="h-4 w-px bg-border/50"></div>
           {navLinks.map((link) => (
             <a
               key={link.name}
               href={link.href}
-              className={`nav-link px-3 py-1.5 text-xs font-mono text-secondary hover:text-accent hover:bg-surface/50 rounded transition-all ${
-                isShrunk ? "nav-link-hidden" : ""
-              }`}
+              className="nav-link px-3 py-1.5 text-xs font-mono text-secondary hover:text-accent hover:bg-surface/50 rounded transition-all"
             >
               {link.name}
             </a>
           ))}
-          <div
-            className={`nav-divider h-4 w-px bg-border/50 transition-all duration-300 ${
-              isShrunk ? "nav-divider-hidden" : ""
-            }`}
-          ></div>
+          <div className="h-4 w-px bg-border/50"></div>
           <a
             href="https://github.com/dev-dami"
             target="_blank"
-            className="nav-icon p-2 text-secondary hover:text-primary hover:bg-surface/50 rounded-full transition-all"
+            className="nav-github-icon p-2 text-secondary hover:text-primary hover:bg-surface/50 rounded-full transition-all"
             aria-label="GitHub"
           >
             <Github className="w-4 h-4" />
@@ -101,7 +85,7 @@ export default function Navbar() {
 
         {/* Mobile Controls */}
         <div className="flex md:hidden items-center gap-2">
-           <a
+          <a
             href="https://github.com/dev-dami"
             target="_blank"
             className="p-2 text-secondary hover:text-primary hover:bg-surface/50 rounded-full transition-all"
@@ -141,7 +125,7 @@ export default function Navbar() {
                   key={link.name}
                   href={link.href}
                   onClick={() => setIsMenuOpen(false)}
-                  className="px-3 py-2.5 text-sm font-mono text-primary hover:text-accent hover:bg-border/30 rounded transition-all"
+                  className="px-3 py-2.5 text-sm font-mono text-primary hover:text-accent hover:bg-surface/50 rounded transition-all"
                 >
                   {link.name}
                 </a>

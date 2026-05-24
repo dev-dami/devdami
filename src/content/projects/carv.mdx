@@ -1,0 +1,43 @@
+---
+title: "carv"
+description: "Statically-typed systems language that compiles to C"
+---
+
+## Overview
+
+carv is a systems programming language that compiles to C. It combines modern language ergonomics — ownership-based memory management, pipe operators, algebraic types — with the portability and optimization of C as a compilation target.
+
+### Features
+
+- **Ownership-based memory** — No GC, no borrow checker, but deterministic memory management via move semantics and linear types
+- **Pipe operators** — `|>` for clean data transformation pipelines
+- **Algebraic types** — Enums with payloads, pattern matching, exhaustive checking
+- **Module system** — Namespaced imports, visibility control, separate compilation
+- **C ABI compatible** — Call C libraries directly, produce C headers for interop
+- **Async/await** — Stackless coroutines that compile to C state machines
+- **Zero-cost FFI** — No overhead for interfacing with C code
+
+### Example
+
+```
+fn greet(name: string) -> string {
+    "hello, " ++ name
+}
+
+fn main() -> int {
+    let names = ["world", "carv", "systems"]
+    names |> map(greet) |> each(print)
+    0
+}
+```
+
+## Building
+
+```bash
+git clone https://github.com/dev-dami/carv
+cd carv
+go build -o carv ./cmd/carv
+./carv build examples/hello.carv
+```
+
+The compiler is written in Go and emits ANSI C99. The output can be compiled with `gcc`, `clang`, `tcc`, or any C99-compatible compiler.
