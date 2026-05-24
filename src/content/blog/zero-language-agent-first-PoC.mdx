@@ -86,7 +86,29 @@ The bottleneck in this loop is not error message format. It never has been.
 
 The bottleneck is **context window size**, **multi-step planning reliability**, **tool use accuracy**, and **hallucination**. Agents fail because they lose track of which file they edited, apply changes to the wrong function, produce syntactically correct code with semantically wrong logic, or spin in loops retrying the same failed approach. These are not problems that stable error codes fix.
 
-![Agent loop diagram showing the think-act-observe cycle that powers Claude Code, Cursor, and Aider](https://raw.githubusercontent.com/FlorianBruniaux/claude-code-ultimate-guide/main/guide/diagrams/assets/04-agent-loop.png)
+```
+Agent Loop (shared by Claude Code, Cursor, Aider):
+
+  ┌──────────────────────────────────┐
+  │  1. Assemble Context             │
+  │  (codebase, instructions, files) │
+  └────────────┬─────────────────────┘
+               ▼
+  ┌──────────────────────────────────┐
+  │  2. LLM Reasons → Proposes Act   │  ◄── Bottleneck: context window,
+  └────────────┬─────────────────────┘       multi-step planning reliability
+               ▼
+  ┌──────────────────────────────────┐
+  │  3. Execute Tool (compile, edit) │
+  └────────────┬─────────────────────┘
+               ▼
+  ┌──────────────────────────────────┐
+  │  4. Observe Result (error,       │  ◄── Zero's JSON replaces here
+  │     output, file content)        │       (~1% of bottleneck)
+  └────────────┬─────────────────────┘
+               │
+               └──→ Back to step 2 until complete
+```
 
 The diagram above shows the architecture shared by every production coding agent in 2026. The loop is: assemble context → call model → execute tools → observe results → repeat. The compiler error format is one input among dozens. The hard problems are context management, permission gating, and sub-agent coordination — none of which Zero addresses.
 
@@ -123,10 +145,7 @@ Clang has `-fdiagnostics-format=json`. Go has staticcheck. If structured compile
 
 Here's a comparison of what factors actually limit agent reliability vs. what Zero changes:
 
-<img
-  src="https://quickchart.io/chart?width=700&height=400&format=png&c=%7Btype:'horizontalBar',data:%7Blabels:['Context%20window%20limits','Multi-step%20planning','Tool%20call%20accuracy','Hallucination%20rate','Error%20message%20parsing'],datasets:%5B%7Blabel:'Impact%20on%20agent%20reliability%20(%)',data:%5B85,78,72,65,12%5D,backgroundColor:%5B'%2523ef4444','%2523f97316','%2523eab308','%252322c55e','%25233b82f6'%5D%7D%5D%7D,options:%7Blegend:%7Bdisplay:false%7D,scales:%7BxAxes:%5B%7Bticks:%7BbeginAtZero:true,max:100%7D%7D%5D%7D%7D%7D"
-  alt="Chart comparing factors limiting agent reliability"
-/>
+<img src="/charts/agent-reliability-factors.png" alt="Chart comparing factors limiting agent reliability" />
 
 Zero's value proposition optimizes for the blue bar — the one that accounts for roughly 12% of agent failures. The four red/yellow bars (context, planning, tool use, hallucination) are untouched.
 
@@ -140,10 +159,7 @@ An agent using Zero cannot draw on any of that. Every error, every fix pattern, 
 
 Let me quantify what I mean. Here's a rough comparison of ecosystem size for languages an agent might use:
 
-<img
-  src="https://quickchart.io/chart?width=700&height=400&format=png&c=%7Btype:'bar',data:%7Blabels:%5B'Rust','Go','Python','JavaScript','Zig','Zero'%5D,datasets:%5B%7Blabel:'GitHub%20repositories%20(millions)',data:%5B3.2,4.1,18.5,22.3,0.08,0.000004%5D,backgroundColor:%5B'%2523a855f7','%25233b82f6','%252322c55e','%2523eab308','%2523f97316','%2523ef4444'%5D%7D%5D%7D,options:%7Blegend:%7Bdisplay:false%7D,scales:%7ByAxes:%5B%7Bticks:%7BbeginAtZero:true%7D%7D%5D,xAxes:%5B%7Bticks:%7BautoSkip:false%7D%7D%5D%7D%7D%7D"
-  alt="Chart comparing training data availability across languages"
-/>
+<img src="/charts/training-data-availability.png" alt="Chart comparing training data availability across languages" />
 
 Zero has 4 repositories on GitHub as of May 24. That's not a typo. The language itself, the docs site, a VS Code extension, and a playground. The total amount of Zero code in LLM training corpora is effectively zero (pun intended again). When an agent needs to write a Zero program that reads a file, parses JSON, and writes to stdout, it cannot draw on any learned pattern — it has to reason from first principles using the documentation strings bundled in `zero skills`.
 
@@ -290,10 +306,7 @@ def fix_allocation(codebase):
 
 **New languages don't bootstrap ecosystem effects overnight.** A language's value to agents is proportional to the volume of training data available. Rust has millions of repos, thousands of library patterns, and billions of tokens of error-fix dialogues in training corpora. Zero has a few thousand lines of documentation. The JSON error format does not compensate for this deficit.
 
-<img
-  src="https://quickchart.io/chart?width=700&height=400&format=png&c=%7Btype:'line',data:%7Blabels:%5B'Launch','Month%201','Month%203','Month%206','Year%201','Year%202','Year%203'%5D,datasets:%5B%7Blabel:'Ecosystem%20maturity%20needed%20for%20agent%20reliability',data:%5B0,15,30,50,70,85,95%5D,borderColor:'%2523ef4444',fill:false,borderDash:%5B5,5%5D%7D,%7Blabel:'Zero%20projected%20trajectory',data:%5B1,3,8,15,25,40,55%5D,borderColor:'%25233b82f6',fill:false%7D%5D%7D,options:%7Bscales:%7ByAxes:%5B%7Bticks:%7BbeginAtZero:true,max:100%7D,scaleLabel:%7Bdisplay:true,labelString:'Maturity%20(%)'%7D%7D%5D%7D%7D%7D"
-  alt="Visualization of the ecosystem bootstrapping problem"
-/>
+<img src="/charts/ecosystem-bootstrapping.png" alt="Visualization of the ecosystem bootstrapping problem" />
 
 The red dashed line is the ecosystem maturity needed for an agent to reliably work in a language — millions of training examples, thousands of library patterns, stable documentation. The blue line is Zero's realistic trajectory. It'll take years to cross that threshold, if it ever does.
 
@@ -315,7 +328,4 @@ Zero assumes agents need a different programming language to be effective. What 
 
 That's the real engineering problem. A new language — with a broken compiler, no ecosystem, and no training data — is a distraction from solving it.
 
-<img
-  src="https://quickchart.io/chart?width=700&height=300&format=png&c=%7Btype:'doughnut',data:%7Blabels:%5B'Training%20data%20and%20ecosystem','Compiler%20quality','Novel%20design%20ideas','Marketing%20and%20hype'%5D,datasets:%5B%7Bdata:%5B55,25,12,8%5D,backgroundColor:%5B'%25233b82f6','%252322c55e','%2523eab308','%2523ef4444'%5D%7D%5D%7D,options:%7Blegend:%7Bposition:'bottom'%7D%7D%7D"
-  alt="Bottom line: what determines language viability for agents"
-/>
+<img src="/charts/viability-doughnut.png" alt="Bottom line: what determines language viability for agents" />
