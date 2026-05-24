@@ -14,6 +14,31 @@ if (frontmatter.tags?.length) {
 const pageImage = frontmatter.ogImage || `/api/og?${ogParams.toString()}`;
 const readingTime = frontmatter.readingTime;
 
+const blogPostingSchema = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  headline: frontmatter.title,
+  description: pageDescription,
+  image: pageImage.startsWith('/') ? `https://devdami.varityweb.com${pageImage}` : pageImage,
+  datePublished: frontmatter.date,
+  author: {
+    "@type": "Person",
+    name: "Damilare Osibanjo",
+    url: "https://devdami.varityweb.com"
+  },
+  publisher: {
+    "@type": "Person",
+    name: "Damilare Osibanjo",
+    url: "https://devdami.varityweb.com",
+    sameAs: [
+      "https://github.com/dev-dami",
+      "https://www.linkedin.com/in/damilare-osibanjo/"
+    ]
+  },
+  keywords: frontmatter.tags,
+  url: pageUrl
+};
+
 // Compute series info (prev/next within same series)
 const seriesName = frontmatter.series?.name;
 const seriesPosts = seriesName
@@ -41,32 +66,7 @@ const relatedPosts = allPosts
 <Layout title={pageTitle} description={pageDescription} canonical={pageUrl} image={pageImage} ogType="article">
 
   {/* JSON-LD Structured Data */}
-  <script type="application/ld+json">
-    {JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "BlogPosting",
-      "headline": frontmatter.title,
-      "description": pageDescription,
-      "image": pageImage.startsWith('/') ? `https://devdami.varityweb.com${pageImage}` : pageImage,
-      "datePublished": frontmatter.date,
-      "author": {
-        "@type": "Person",
-        "name": "Damilare Osibanjo",
-        "url": "https://devdami.varityweb.com"
-      },
-      "publisher": {
-        "@type": "Person",
-        "name": "Damilare Osibanjo",
-        "url": "https://devdami.varityweb.com",
-        "sameAs": [
-          "https://github.com/dev-dami",
-          "https://www.linkedin.com/in/damilare-osibanjo/"
-        ]
-      },
-      "keywords": frontmatter.tags,
-      "url": pageUrl
-    })}
-  </script>
+  <script type="application/ld+json" set:html={JSON.stringify(blogPostingSchema)} />
 
   <article class="mx-auto max-w-blog">
     <!-- Reading Progress Bar -->

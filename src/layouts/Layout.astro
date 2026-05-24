@@ -18,6 +18,21 @@ const {
 } = Astro.props;
 
 const fullImage = image.startsWith('http') ? image : `${siteUrl}${image}`;
+
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Damilare Osibanjo",
+  url: siteUrl,
+  image: `${siteUrl}/icon.png`,
+  sameAs: [
+    "https://github.com/dev-dami",
+    "https://www.linkedin.com/in/damilare-osibanjo/"
+  ],
+  jobTitle: "Systems & Software Programmer",
+  description: defaultDescription,
+  email: "mailto:dami@varityweb.com"
+};
 ---
 
 <!doctype html>
@@ -75,22 +90,7 @@ const fullImage = image.startsWith('http') ? image : `${siteUrl}${image}`;
     <meta property="twitter:creator" content="@dev_dami" />
     
     <!-- Schema.org JSON-LD -->
-    <script type="application/ld+json">
-      {JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "Damilare Osibanjo",
-        "url": siteUrl,
-        "image": `${siteUrl}/icon.png`,
-        "sameAs": [
-          "https://github.com/dev-dami",
-          "https://www.linkedin.com/in/damilare-osibanjo/"
-        ],
-        "jobTitle": "Systems & Software Programmer",
-        "description": defaultDescription,
-        "email": "mailto:dami@varityweb.com"
-      })}
-    </script>
+    <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
     
     <!-- Vercel Web Analytics -->
     <Analytics />
