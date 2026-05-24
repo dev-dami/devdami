@@ -44,8 +44,11 @@ export async function POST({ request }: { request: Request }) {
 
     if (error) {
       console.error('Resend error:', error);
+      const message = typeof error === 'object' && error !== null
+        ? (error as { message?: string }).message || JSON.stringify(error)
+        : String(error);
       return new Response(
-        JSON.stringify({ error: 'Failed to subscribe' }),
+        JSON.stringify({ error: message }),
         { status: 500, headers: { 'Content-Type': 'application/json' } }
       );
     }
