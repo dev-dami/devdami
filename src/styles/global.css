@@ -296,10 +296,14 @@ main > * {
 }
 
 /* Code block language indicator */
+.prose pre[data-language] {
+  padding-top: 2rem;
+}
+
 .prose pre[data-language]::before {
   content: attr(data-language);
   position: absolute;
-  top: -0.75rem;
+  top: 0.5rem;
   right: 0.75rem;
   background: rgba(16, 185, 129, 0.15);
   color: var(--color-accent);
