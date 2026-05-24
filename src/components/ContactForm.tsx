@@ -10,10 +10,12 @@ export default function ContactForm() {
     message: "",
   });
   const [status, setStatus] = React.useState<"idle" | "loading" | "success" | "error">("idle");
+  const [errorMsg, setErrorMsg] = React.useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus("loading");
+    setErrorMsg("");
 
     try {
       const response = await fetch("/api/contact", {
@@ -22,17 +24,21 @@ export default function ContactForm() {
         body: JSON.stringify(formData),
       });
 
+      const body = await response.json();
+
       if (response.ok) {
         setStatus("success");
         setFormData({ name: "", email: "", subject: "", message: "" });
         setTimeout(() => setStatus("idle"), 3000);
       } else {
+        setErrorMsg(body.error || "Something went wrong");
         setStatus("error");
-        setTimeout(() => setStatus("idle"), 3000);
+        setTimeout(() => setStatus("idle"), 8000);
       }
     } catch {
+      setErrorMsg("Network error — check your connection");
       setStatus("error");
-      setTimeout(() => setStatus("idle"), 3000);
+      setTimeout(() => setStatus("idle"), 8000);
     }
   };
 
@@ -117,7 +123,7 @@ export default function ContactForm() {
           animate={{ opacity: 1, y: 0 }}
           className="text-sm text-red-400"
         >
-          Failed to send message. Please try again or email me directly.
+          {errorMsg}
         </motion.p>
       )}
     </form>
