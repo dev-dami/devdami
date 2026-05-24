@@ -36,7 +36,7 @@ export default function ContactForm() {
         setTimeout(() => setStatus("idle"), 8000);
       }
     } catch {
-      setErrorMsg("Network error — check your connection");
+      setErrorMsg("Could not reach the server — check your connection");
       setStatus("error");
       setTimeout(() => setStatus("idle"), 8000);
     }

@@ -1,0 +1,274 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="A tactical guide for developers without formal experience: open source contributions, SaaS clones, freelance platforms, and building 'fake but real' projects that actually get you hired."><meta name="author" content="Damilare Osibanjo"><meta name="robots" content="index, follow"><meta name="googlebot" content="index, follow"><!-- Open Graph / Facebook --><meta property="og:type" content="article"><meta property="og:url" content="https://devdami.varityweb.com/blog/build-programming-experience-no-hire"><meta property="og:title" content="How to Build Programming Experience When No One Will Hire You - Damilare Osibanjo"><meta property="og:description" content="A tactical guide for developers without formal experience: open source contributions, SaaS clones, freelance platforms, and building 'fake but real' projects that actually get you hired."><meta property="og:image" content="https://devdami.varityweb.com/api/og?title=How+to+Build+Programming+Experience+When+No+One+Will+Hire+You&tags=career%2Cportfolio%2Copen-source%2Cjunior-developer"><!-- Twitter --><meta property="twitter:card" content="summary_large_image"><meta property="twitter:url" content="https://devdami.varityweb.com/blog/build-programming-experience-no-hire"><meta property="twitter:title" content="How to Build Programming Experience When No One Will Hire You - Damilare Osibanjo"><meta property="twitter:description" content="A tactical guide for developers without formal experience: open source contributions, SaaS clones, freelance platforms, and building 'fake but real' projects that actually get you hired."><meta property="twitter:image" content="https://devdami.varityweb.com/api/og?title=How+to+Build+Programming+Experience+When+No+One+Will+Hire+You&tags=career%2Cportfolio%2Copen-source%2Cjunior-developer"><!-- Favicon --><link rel="icon" href="/icon.png" sizes="any"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="manifest" href="/manifest.json"><!-- Canonical URL --><link rel="canonical" href="https://devdami.varityweb.com/blog/build-programming-experience-no-hire"><!-- Preconnect to external fonts --><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap"><meta name="generator" content="Astro v5.18.0"><title>How to Build Programming Experience When No One Will Hire You - Damilare Osibanjo</title><!-- Additional SEO --><meta name="theme-color" content="#10b981"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><!-- Open Graph --><meta property="og:locale" content="en_US"><meta property="og:site_name" content="Damilare Osibanjo"><meta property="article:author" content="Damilare Osibanjo"><!-- Twitter Enhanced --><meta property="twitter:creator" content="@dev_dami"><!-- Schema.org JSON-LD --><script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Damilare Osibanjo","url":"https://devdami.varityweb.com","image":"https://devdami.varityweb.com/icon.png","sameAs":["https://github.com/dev-dami","https://www.linkedin.com/in/damilare-osibanjo/"],"jobTitle":"Systems & Software Programmer","description":"17 year old Systems & Software Programmer. Building distributed infrastructure, runtime tools, and developer experiences with TypeScript, Rust, and Go.","email":"mailto:dami@varityweb.com"}</script><!-- Vercel Web Analytics --><vercel-analytics data-props="{}" data-params="{&#34;slug&#34;:&#34;build-programming-experience-no-hire&#34;}" data-pathname="/blog/build-programming-experience-no-hire/"></vercel-analytics> <script type="module">var f="@vercel/analytics",l="1.6.1",w=()=>{window.va||(window.va=function(...r){(window.vaq=window.vaq||[]).push(r)})};function d(){return typeof window<"u"}function u(){try{const e="production"}catch{}return"production"}function v(e="auto"){if(e==="auto"){window.vam=u();return}window.vam=e}function m(){return(d()?window.vam:u())||"production"}function c(){return m()==="development"}function b(e,r){if(!e||!r)return e;let n=e;try{const t=Object.entries(r);for(const[a,i]of t)if(!Array.isArray(i)){const o=s(i);o.test(n)&&(n=n.replace(o,`/[${a}]`))}for(const[a,i]of t)if(Array.isArray(i)){const o=s(i.join("/"));o.test(n)&&(n=n.replace(o,`/[...${a}]`))}return n}catch{return e}}function s(e){return new RegExp(`/${h(e)}(?=[/?#]|$)`)}function h(e){return e.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")}function y(e){return e.scriptSrc?e.scriptSrc:c()?"https://va.vercel-scripts.com/v1/script.debug.js":e.basePath?`${e.basePath}/insights/script.js`:"/_vercel/insights/script.js"}function g(e={debug:!0}){var r;if(!d())return;v(e.mode),w(),e.beforeSend&&((r=window.va)==null||r.call(window,"beforeSend",e.beforeSend));const n=y(e);if(document.head.querySelector(`script[src*="${n}"]`))return;const t=document.createElement("script");t.src=n,t.defer=!0,t.dataset.sdkn=f+(e.framework?`/${e.framework}`:""),t.dataset.sdkv=l,e.disableAutoTrack&&(t.dataset.disableAutoTrack="1"),e.endpoint?t.dataset.endpoint=e.endpoint:e.basePath&&(t.dataset.endpoint=`${e.basePath}/insights`),e.dsn&&(t.dataset.dsn=e.dsn),t.onerror=()=>{const a=c()?"Please check if any ad blockers are enabled and try again.":"Be sure to enable Web Analytics for your project and deploy again. See https://vercel.com/docs/analytics/quickstart for more information.";console.log(`[Vercel Web Analytics] Failed to load script from ${n}. ${a}`)},c()&&e.debug===!1&&(t.dataset.debug="false"),document.head.appendChild(t)}function p({route:e,path:r}){var n;(n=window.va)==null||n.call(window,"pageview",{route:e,path:r})}function k(){try{return}catch{}}customElements.define("vercel-analytics",class extends HTMLElement{constructor(){super();try{const r=JSON.parse(this.dataset.props??"{}"),n=JSON.parse(this.dataset.params??"{}");g({...r,disableAutoTrack:!0,framework:"astro",basePath:k(),beforeSend:window.webAnalyticsBeforeSend});const t=this.dataset.pathname;p({route:b(t??"",n),path:t})}catch(r){throw new Error(`Failed to parse WebAnalytics properties: ${r}`)}}});</script><!-- Vercel Speed Insights --><vercel-speed-insights data-props="{}" data-params="{&#34;slug&#34;:&#34;build-programming-experience-no-hire&#34;}" data-pathname="/blog/build-programming-experience-no-hire/"></vercel-speed-insights> <script type="module">var p=()=>{window.si||(window.si=function(...s){window.siq=window.siq||[],window.siq.push(s)})},l="@vercel/speed-insights",h="2.0.0";function v(){return typeof window<"u"}function g(){try{const e="production"}catch{}return"production"}function u(){return g()==="development"}function w(e,s){if(!e||!s)return e;let r=e;try{const t=Object.entries(s);for(const[n,o]of t)if(!Array.isArray(o)){const i=d(o);i.test(r)&&(r=r.replace(i,`/[${n}]`))}for(const[n,o]of t)if(Array.isArray(o)){const i=d(o.join("/"));i.test(r)&&(r=r.replace(i,`/[...${n}]`))}return r}catch{return e}}function d(e){return new RegExp(`/${m(e)}(?=[/?#]|$)`)}function m(e){return e.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")}function S(e){return e.scriptSrc?c(e.scriptSrc):u()?"https://va.vercel-scripts.com/v1/speed-insights/script.debug.js":e.dsn?"https://va.vercel-scripts.com/v1/speed-insights/script.js":e.basePath?c(`${e.basePath}/speed-insights/script.js`):"/_vercel/speed-insights/script.js"}function b(e,s){var r;let t=e;if(s)try{t={...(r=JSON.parse(s))==null?void 0:r.speedInsights,...e}}catch{}const n={sdkn:l+(t.framework?`/${t.framework}`:""),sdkv:h};return t.sampleRate&&(n.sampleRate=t.sampleRate.toString()),t.route&&(n.route=t.route),u()&&t.debug===!1&&(n.debug="false"),t.dsn&&(n.dsn=t.dsn),t.endpoint?n.endpoint=c(t.endpoint):t.basePath&&(n.endpoint=c(`${t.basePath}/speed-insights/vitals`)),{src:S(t),beforeSend:t.beforeSend,dataset:n}}function c(e){return e.startsWith("http://")||e.startsWith("https://")||e.startsWith("/")?e:`/${e}`}function y(e={},s){var r;if(!v()||e.route===null)return null;p();const{beforeSend:t,src:n,dataset:o}=b(e,s);if(document.head.querySelector(`script[src*="${n}"]`))return null;t&&((r=window.si)==null||r.call(window,"beforeSend",t));const i=document.createElement("script");i.src=n,i.defer=!0;for(const[a,f]of Object.entries(o))i.dataset[a]=f;return i.onerror=()=>{console.log(`[Vercel Speed Insights] Failed to load script from ${n}. Please check if any content blockers are enabled and try again.`)},document.head.appendChild(i),{setRoute:a=>{i.dataset.route=a??void 0}}}function $(){try{return}catch{}}function k(){try{return}catch{return}}customElements.define("vercel-speed-insights",class extends HTMLElement{constructor(){super();try{const s=JSON.parse(this.dataset.props??"{}"),r=JSON.parse(this.dataset.params??"{}"),t=w(this.dataset.pathname??"",r);y({route:t,...s,framework:"astro",basePath:$(),beforeSend:window.speedInsightsBeforeSend},k())}catch(s){throw new Error(`Failed to parse SpeedInsights properties: ${s}`)}}});</script><link rel="stylesheet" href="/_astro/_slug_.C0LwBKtU.css">
+<style>@view-transition{navigation:auto}::view-transition-old(root),::view-transition-new(root){animation:none;mix-blend-mode:normal}.nav-shrunk{padding:.375rem .75rem!important}.nav-title-hidden{width:0!important;opacity:0!important;margin:0!important}.nav-divider-hidden{width:0!important;opacity:0!important;padding:0!important}.nav-link-hidden{padding-left:0!important;padding-right:0!important;opacity:0!important;margin-left:0!important;margin-right:0!important;pointer-events:none}.seo-hidden{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+</style></head> <body class="min-h-screen bg-bg text-text font-body antialiased"> <div class="flex flex-col min-h-screen"> <style>astro-island,astro-slot,astro-static-slot{display:contents}</style><script>(()=>{var e=async t=>{await(await t())()};(self.Astro||(self.Astro={})).load=e;window.dispatchEvent(new Event("astro:load"));})();</script><script>(()=>{var A=Object.defineProperty;var g=(i,o,a)=>o in i?A(i,o,{enumerable:!0,configurable:!0,writable:!0,value:a}):i[o]=a;var d=(i,o,a)=>g(i,typeof o!="symbol"?o+"":o,a);{let i={0:t=>m(t),1:t=>a(t),2:t=>new RegExp(t),3:t=>new Date(t),4:t=>new Map(a(t)),5:t=>new Set(a(t)),6:t=>BigInt(t),7:t=>new URL(t),8:t=>new Uint8Array(t),9:t=>new Uint16Array(t),10:t=>new Uint32Array(t),11:t=>1/0*t},o=t=>{let[l,e]=t;return l in i?i[l](e):void 0},a=t=>t.map(o),m=t=>typeof t!="object"||t===null?t:Object.fromEntries(Object.entries(t).map(([l,e])=>[l,o(e)]));class y extends HTMLElement{constructor(){super(...arguments);d(this,"Component");d(this,"hydrator");d(this,"hydrate",async()=>{var b;if(!this.hydrator||!this.isConnected)return;let e=(b=this.parentElement)==null?void 0:b.closest("astro-island[ssr]");if(e){e.addEventListener("astro:hydrate",this.hydrate,{once:!0});return}let c=this.querySelectorAll("astro-slot"),n={},h=this.querySelectorAll("template[data-astro-template]");for(let r of h){let s=r.closest(this.tagName);s!=null&&s.isSameNode(this)&&(n[r.getAttribute("data-astro-template")||"default"]=r.innerHTML,r.remove())}for(let r of c){let s=r.closest(this.tagName);s!=null&&s.isSameNode(this)&&(n[r.getAttribute("name")||"default"]=r.innerHTML)}let p;try{p=this.hasAttribute("props")?m(JSON.parse(this.getAttribute("props"))):{}}catch(r){let s=this.getAttribute("component-url")||"<unknown>",v=this.getAttribute("component-export");throw v&&(s+=` (export ${v})`),console.error(`[hydrate] Error parsing props for component ${s}`,this.getAttribute("props"),r),r}let u;await this.hydrator(this)(this.Component,p,n,{client:this.getAttribute("client")}),this.removeAttribute("ssr"),this.dispatchEvent(new CustomEvent("astro:hydrate"))});d(this,"unmount",()=>{this.isConnected||this.dispatchEvent(new CustomEvent("astro:unmount"))})}disconnectedCallback(){document.removeEventListener("astro:after-swap",this.unmount),document.addEventListener("astro:after-swap",this.unmount,{once:!0})}connectedCallback(){if(!this.hasAttribute("await-children")||document.readyState==="interactive"||document.readyState==="complete")this.childrenConnectedCallback();else{let e=()=>{document.removeEventListener("DOMContentLoaded",e),c.disconnect(),this.childrenConnectedCallback()},c=new MutationObserver(()=>{var n;((n=this.lastChild)==null?void 0:n.nodeType)===Node.COMMENT_NODE&&this.lastChild.nodeValue==="astro:end"&&(this.lastChild.remove(),e())});c.observe(this,{childList:!0}),document.addEventListener("DOMContentLoaded",e)}}async childrenConnectedCallback(){let e=this.getAttribute("before-hydration-url");e&&await import(e),this.start()}async start(){let e=JSON.parse(this.getAttribute("opts")),c=this.getAttribute("client");if(Astro[c]===void 0){window.addEventListener(`astro:${c}`,()=>this.start(),{once:!0});return}try{await Astro[c](async()=>{let n=this.getAttribute("renderer-url"),[h,{default:p}]=await Promise.all([import(this.getAttribute("component-url")),n?import(n):()=>()=>{}]),u=this.getAttribute("component-export")||"default";if(!u.includes("."))this.Component=h[u];else{this.Component=h;for(let f of u.split("."))this.Component=this.Component[f]}return this.hydrator=p,this.hydrate},e,this)}catch(n){console.error(`[astro-island] Error hydrating ${this.getAttribute("component-url")}`,n)}}attributeChangedCallback(){this.hydrate()}}d(y,"observedAttributes",["props"]),customElements.get("astro-island")||customElements.define("astro-island",y)}})();</script><astro-island uid="SPwnn" prefix="r2" component-url="/_astro/Navbar.CWrHzwl9.js" component-export="default" renderer-url="/_astro/client.Dc9Vh3na.js" props="{}" ssr client="load" opts="{&quot;name&quot;:&quot;Navbar&quot;,&quot;value&quot;:true}" await-children><nav class="sticky top-4 z-50 flex justify-center px-4 w-full"><div class="flex items-center gap-3 md:gap-6 px-4 md:px-5 py-2 rounded-lg border border-border bg-surface/80 backdrop-blur-md shadow-lg shadow-black/30 transition-all duration-300 hover:border-accent/40 hover:bg-surface/95 font-mono "><a href="/" class="flex items-center gap-3 group"><img src="/icon.png" alt="Damilare Osibanjo" class="w-8 h-8 rounded-full object-cover ring-2 ring-border/50 group-hover:ring-accent/50 transition-all duration-300" loading="lazy"/><span class="font-medium tracking-tight text-sm text-primary group-hover:text-accent transition-all duration-300 overflow-hidden whitespace-nowrap hidden sm:block ">Damilare Osibanjo</span></a><div class="hidden md:flex items-center gap-1"><div class="nav-divider h-4 w-px bg-border/50 transition-all duration-300 "></div><a href="/#projects" class="nav-link px-3 py-1.5 text-xs font-mono text-secondary hover:text-accent hover:bg-surface/50 rounded transition-all ">Projects</a><a href="/about" class="nav-link px-3 py-1.5 text-xs font-mono text-secondary hover:text-accent hover:bg-surface/50 rounded transition-all ">About</a><a href="/blog" class="nav-link px-3 py-1.5 text-xs font-mono text-secondary hover:text-accent hover:bg-surface/50 rounded transition-all ">Blog</a><a href="/uses" class="nav-link px-3 py-1.5 text-xs font-mono text-secondary hover:text-accent hover:bg-surface/50 rounded transition-all ">Uses</a><a href="/resume" class="nav-link px-3 py-1.5 text-xs font-mono text-secondary hover:text-accent hover:bg-surface/50 rounded transition-all ">Resume</a><div class="nav-divider h-4 w-px bg-border/50 transition-all duration-300 "></div><a href="https://github.com/dev-dami" target="_blank" class="nav-icon p-2 text-secondary hover:text-primary hover:bg-surface/50 rounded-full transition-all" aria-label="GitHub"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-github w-4 h-4" aria-hidden="true"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg></a></div><div class="flex md:hidden items-center gap-2"><a href="https://github.com/dev-dami" target="_blank" class="p-2 text-secondary hover:text-primary hover:bg-surface/50 rounded-full transition-all" aria-label="GitHub"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-github w-4 h-4" aria-hidden="true"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg></a><button class="p-2 text-secondary hover:text-primary hover:bg-surface/50 rounded-full transition-all" aria-label="Toggle Menu"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu w-5 h-5" aria-hidden="true"><path d="M4 5h16"></path><path d="M4 12h16"></path><path d="M4 19h16"></path></svg></button></div></div></nav><!--astro:end--></astro-island> <main class="flex-1 mx-auto w-full max-w-content px-4 sm:px-6 pt-6 pb-12 md:px-8 md:pt-8 md:pb-16 lg:px-12"> <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"How to Build Programming Experience When No One Will Hire You","description":"A tactical guide for developers without formal experience: open source contributions, SaaS clones, freelance platforms, and building 'fake but real' projects that actually get you hired.","image":"https://devdami.varityweb.com/api/og?title=How+to+Build+Programming+Experience+When+No+One+Will+Hire+You&tags=career%2Cportfolio%2Copen-source%2Cjunior-developer","datePublished":"2026-05-02T00:00:00.000Z","author":{"@type":"Person","name":"Damilare Osibanjo","url":"https://devdami.varityweb.com"},"publisher":{"@type":"Person","name":"Damilare Osibanjo","url":"https://devdami.varityweb.com","sameAs":["https://github.com/dev-dami","https://www.linkedin.com/in/damilare-osibanjo/"]},"keywords":["career","portfolio","open-source","junior-developer","job-search"],"url":"https://devdami.varityweb.com/blog/build-programming-experience-no-hire"}</script> <article class="mx-auto max-w-blog"> <!-- Reading Progress Bar --> <div class="fixed bottom-0 left-0 w-full h-1 z-50 bg-surface/50 backdrop-blur"> <div id="progress-bar" class="h-full bg-gradient-to-r from-accent to-accent-hover w-0 transition-all duration-100"></div> </div> <header class="mb-12 space-y-4"> <h1 class="text-3xl md:text-4xl font-normal tracking-wide text-text-dark"> How to Build Programming Experience When No One Will Hire You </h1>  <div class="flex items-center gap-3 text-sm"> <time class="font-mono text-muted">Sat May 02 2026</time>  <span class="text-border">•</span> <span class="font-mono text-muted">8 min read</span>  <span class="text-border">•</span> <div class="flex flex-wrap gap-2"> <span class="px-2 py-0.5 text-xs bg-surface border border-border rounded text-muted"> career </span><span class="px-2 py-0.5 text-xs bg-surface border border-border rounded text-muted"> portfolio </span><span class="px-2 py-0.5 text-xs bg-surface border border-border rounded text-muted"> open-source </span><span class="px-2 py-0.5 text-xs bg-surface border border-border rounded text-muted"> junior-developer </span><span class="px-2 py-0.5 text-xs bg-surface border border-border rounded text-muted"> job-search </span> </div> </div> </header>  <aside class="tldr mb-10 p-4 md:p-6 border border-accent/30 bg-accent/5 rounded-lg" itemscope itemtype="https://schema.org/FAQPage"> <h3 class="text-xs font-semibold tracking-widest text-accent uppercase font-mono mb-2">
+Key Takeaways
+</h3> <ul class="text-sm text-text leading-relaxed space-y-2"> <li class="flex items-start gap-2" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"> <span class="text-accent mt-1.5 flex-shrink-0">◆</span> <span itemprop="name">Strategic open-source contributions that reproduce bugs and read architecture beat typo-fixing any day</span> </li><li class="flex items-start gap-2" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"> <span class="text-accent mt-1.5 flex-shrink-0">◆</span> <span itemprop="name">&quot;Fake but real&quot; projects with PostgreSQL, CI/CD, rate limiting, and monitoring prove you can ship production code</span> </li><li class="flex items-start gap-2" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"> <span class="text-accent mt-1.5 flex-shrink-0">◆</span> <span itemprop="name">Freelance projects chosen for skill gaps (API design, deployment, database optimization) build targeted experience</span> </li><li class="flex items-start gap-2" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"> <span class="text-accent mt-1.5 flex-shrink-0">◆</span> <span itemprop="name">Building in public and teaching what you learn creates verifiable credentials that hiring managers trust</span> </li><li class="flex items-start gap-2" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"> <span class="text-accent mt-1.5 flex-shrink-0">◆</span> <span itemprop="name">Specific resume bullets with metrics (response times, request volumes, concurrency) outperform generic descriptions</span> </li> </ul> </aside> <div id="article-content" class="prose prose-invert max-w-none space-y-6 pb-20">  <div class="prose prose-invert max-w-none"> <h2 id="the-paradox">The Paradox</h2>
+<p>Every entry-level job posting demands 2+ years of experience. Bootcamps teach syntax but not shipping. CS degrees teach theory but not the messy reality of production code. If you’re stuck in this loop, you’re not alone—but you don’t need permission to start building experience.</p>
+<p>The engineers who break through don’t wait to be hired. They manufacture their own credentials by doing work that mirrors real engineering: debugging legacy code, designing APIs under constraints, shipping to production, and iterating based on feedback.</p>
+<p>This post is a tactical breakdown of four proven paths to build programming experience that hiring managers actually respect.</p>
+<hr/>
+<h2 id="path-1-open-source-contributions-that-matter">Path 1: Open Source Contributions That Matter</h2>
+<p>Most advice about open source is performative: “find a good-first-issue label and fix a typo.” That checks a box but doesn’t teach you anything. Strategic contributions are different—they force you to read real code, understand architecture, and communicate with teams.</p>
+<h3 id="how-to-actually-do-it">How to Actually Do It</h3>
+<p><strong>Step 1: Pick projects you already use.</strong></p>
+<p>Don’t browse GitHub trending. Look at your <code>package.json</code>, <code>Cargo.toml</code>, or <code>go.mod</code>. The libraries you depend on are the ones you understand from the user side. That context is an unfair advantage when reading their internals.</p>
+<p><strong>Step 2: Start with bug reproduction, not fixes.</strong></p>
+<p>The highest-leverage entry point is reproducing bugs. Find an issue with a vague description, clone the repo, write a minimal reproduction, and post it. This teaches you:</p>
+<ul>
+<li>How the test suite is structured</li>
+<li>How to isolate variables in unfamiliar code</li>
+<li>The project’s issue conventions</li>
+</ul>
+<p>No code merged, but you’ve already provided value and learned the codebase.</p>
+<p><strong>Step 3: Read the architecture before writing code.</strong></p>
+<p>Before touching anything, trace a request through the system:</p>
+<pre class="astro-code vitesse-dark" style="background-color:#121212;color:#dbd7caee;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word" tabindex="0" data-language="plaintext"><code><span class="line"><span>CLI argument parsing → config loading → core logic → output formatting</span></span></code></pre>
+<p>Draw this out. Most junior contributions fail because the author didn’t understand where their change fits. A simple diagram fixes this.</p>
+<p><strong>Step 4: Submit small, well-scoped PRs.</strong></p>
+<p>Ideal first contributions:</p>
+<ul>
+<li>Add a missing test case</li>
+<li>Improve error messages</li>
+<li>Update outdated documentation with code examples</li>
+<li>Refactor a function for clarity (with maintainer approval first)</li>
+</ul>
+<p><strong>What to avoid:</strong></p>
+<ul>
+<li>Rewriting core logic as a “refactor”</li>
+<li>Adding features nobody asked for</li>
+<li>Ignoring the contribution guide</li>
+</ul>
+<h3 id="the-hidden-benefit">The Hidden Benefit</h3>
+<p>Open source contribution history is public, verifiable, and permanent. When a hiring manager reviews your GitHub profile, seeing merged PRs in established projects signals that you can read code, follow conventions, and collaborate asynchronously—exactly what remote engineering teams need.</p>
+<hr/>
+<h2 id="path-2-build-real-saas-clones-not-tutorials">Path 2: Build Real SaaS Clones (Not Tutorials)</h2>
+<p>Coding tutorials are karaoke: you’re following someone else’s performance. Building a clone of an existing product is different—there’s no guide, only the public interface and your determination to reverse-engineer the behavior.</p>
+<h3 id="the-fake-but-real-project-method">The “Fake But Real” Project Method</h3>
+<p>This is the most underrated technique for gaining experience without a job. The concept is simple: build a project that looks like a real product, serves real users (even if it’s just you and friends), and runs on real infrastructure.</p>
+<p><strong>The constraints that make it real:</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Fake Project</th><th>Fake But Real Project</th></tr></thead><tbody><tr><td>Todo list stored in localStorage</td><td>Todo list with PostgreSQL, auth, and deployment</td></tr><tr><td>Deployed on Vercel free tier only</td><td>Multi-environment deployment with staging and prod</td></tr><tr><td>No tests</td><td>Unit + integration tests with CI/CD</td></tr><tr><td>Hardcoded data</td><td>Real API with rate limiting and validation</td></tr><tr><td>Works on your laptop only</td><td>Monitored with error tracking and analytics</td></tr></tbody></table>
+<h3 id="example-build-a-real-url-shortener">Example: Build a “Real” URL Shortener</h3>
+<p>Don’t just write a basic redirect. Build something you’d actually use:</p>
+<p><strong>Architecture decisions to make:</strong></p>
+<ul>
+<li>How do you generate short codes? Sequential (predictable) or hash-based (collision risk)?</li>
+<li>What happens when the database is down? Graceful degradation or hard failure?</li>
+<li>How do you prevent abuse? Rate limiting by IP or user?</li>
+</ul>
+<p><strong>Infrastructure to learn:</strong></p>
+<pre class="astro-code vitesse-dark" style="background-color:#121212;color:#dbd7caee;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#758575DD"># docker-compose.yml for local development</span></span>
+<span class="line"><span style="color:#B8A965">services</span><span style="color:#666666">:</span></span>
+<span class="line"><span style="color:#B8A965">  app</span><span style="color:#666666">:</span></span>
+<span class="line"><span style="color:#B8A965">    build</span><span style="color:#666666">:</span><span style="color:#4C9A91"> .</span></span>
+<span class="line"><span style="color:#B8A965">    environment</span><span style="color:#666666">:</span></span>
+<span class="line"><span style="color:#666666">      -</span><span style="color:#C98A7D"> DATABASE_URL=postgres://user:pass@db:5432/shortener</span></span>
+<span class="line"><span style="color:#666666">      -</span><span style="color:#C98A7D"> REDIS_URL=redis://cache:6379</span></span>
+<span class="line"><span style="color:#B8A965">    depends_on</span><span style="color:#666666">:</span></span>
+<span class="line"><span style="color:#666666">      -</span><span style="color:#C98A7D"> db</span></span>
+<span class="line"><span style="color:#666666">      -</span><span style="color:#C98A7D"> cache</span></span>
+<span class="line"><span style="color:#DBD7CAEE">  </span></span>
+<span class="line"><span style="color:#B8A965">  db</span><span style="color:#666666">:</span></span>
+<span class="line"><span style="color:#B8A965">    image</span><span style="color:#666666">:</span><span style="color:#C98A7D"> postgres:16-alpine</span></span>
+<span class="line"><span style="color:#B8A965">    volumes</span><span style="color:#666666">:</span></span>
+<span class="line"><span style="color:#666666">      -</span><span style="color:#C98A7D"> pgdata:/var/lib/postgresql/data</span></span>
+<span class="line"><span style="color:#DBD7CAEE">  </span></span>
+<span class="line"><span style="color:#B8A965">  cache</span><span style="color:#666666">:</span></span>
+<span class="line"><span style="color:#B8A965">    image</span><span style="color:#666666">:</span><span style="color:#C98A7D"> redis:7-alpine</span></span></code></pre>
+<p><strong>Code that handles real edge cases:</strong></p>
+<pre class="astro-code vitesse-dark" style="background-color:#121212;color:#dbd7caee;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#758575DD">// Collision-resistant short code generation</span></span>
+<span class="line"><span style="color:#CB7676">async</span><span style="color:#CB7676"> function</span><span style="color:#80A665"> generateShortCode</span><span style="color:#666666">():</span><span style="color:#5DA994"> Promise</span><span style="color:#666666">&lt;</span><span style="color:#5DA994">string</span><span style="color:#666666">&gt;</span><span style="color:#666666"> {</span></span>
+<span class="line"><span style="color:#CB7676">  const </span><span style="color:#BD976A">maxAttempts</span><span style="color:#666666"> =</span><span style="color:#4C9A91"> 5</span><span style="color:#666666">;</span></span>
+<span class="line"><span style="color:#DBD7CAEE">  </span></span>
+<span class="line"><span style="color:#4D9375">  for</span><span style="color:#666666"> (</span><span style="color:#CB7676">let </span><span style="color:#BD976A">i</span><span style="color:#666666"> =</span><span style="color:#4C9A91"> 0</span><span style="color:#666666">;</span><span style="color:#BD976A"> i</span><span style="color:#666666"> &lt;</span><span style="color:#BD976A"> maxAttempts</span><span style="color:#666666">;</span><span style="color:#BD976A"> i</span><span style="color:#CB7676">++</span><span style="color:#666666">)</span><span style="color:#666666"> {</span></span>
+<span class="line"><span style="color:#758575DD">    // Base62 encode a timestamp + random component</span></span>
+<span class="line"><span style="color:#CB7676">    const </span><span style="color:#BD976A">code</span><span style="color:#666666"> =</span><span style="color:#80A665"> encodeBase62</span><span style="color:#666666">(</span><span style="color:#BD976A">Date</span><span style="color:#666666">.</span><span style="color:#80A665">now</span><span style="color:#666666">()</span><span style="color:#CB7676"> + </span><span style="color:#BD976A">Math</span><span style="color:#666666">.</span><span style="color:#80A665">floor</span><span style="color:#666666">(</span><span style="color:#BD976A">Math</span><span style="color:#666666">.</span><span style="color:#80A665">random</span><span style="color:#666666">()</span><span style="color:#CB7676"> * </span><span style="color:#4C9A91">10000</span><span style="color:#666666">));</span></span>
+<span class="line"><span style="color:#DBD7CAEE">    </span></span>
+<span class="line"><span style="color:#CB7676">    const </span><span style="color:#BD976A">exists</span><span style="color:#666666"> =</span><span style="color:#4D9375"> await</span><span style="color:#BD976A"> db</span><span style="color:#666666">.</span><span style="color:#80A665">query</span><span style="color:#666666">(</span></span>
+<span class="line"><span style="color:#C98A7D77">      &#39;</span><span style="color:#C98A7D">SELECT 1 FROM urls WHERE short_code = $1</span><span style="color:#C98A7D77">&#39;</span><span style="color:#666666">,</span></span>
+<span class="line"><span style="color:#666666">      [</span><span style="color:#BD976A">code</span><span style="color:#666666">]</span></span>
+<span class="line"><span style="color:#666666">    );</span></span>
+<span class="line"><span style="color:#DBD7CAEE">    </span></span>
+<span class="line"><span style="color:#4D9375">    if</span><span style="color:#666666"> (</span><span style="color:#CB7676">!</span><span style="color:#BD976A">exists</span><span style="color:#666666">.</span><span style="color:#BD976A">rows</span><span style="color:#666666">.</span><span style="color:#B8A965">length</span><span style="color:#666666">)</span><span style="color:#4D9375"> return</span><span style="color:#BD976A"> code</span><span style="color:#666666">;</span></span>
+<span class="line"><span style="color:#666666">  }</span></span>
+<span class="line"><span style="color:#DBD7CAEE">  </span></span>
+<span class="line"><span style="color:#4D9375">  throw</span><span style="color:#CB7676"> new</span><span style="color:#80A665"> Error</span><span style="color:#666666">(</span><span style="color:#C98A7D77">&#39;</span><span style="color:#C98A7D">Failed to generate unique short code after maximum attempts</span><span style="color:#C98A7D77">&#39;</span><span style="color:#666666">);</span></span>
+<span class="line"><span style="color:#666666">}</span></span></code></pre>
+<p>This isn’t tutorial code. It’s production thinking: handling collisions, setting retry limits, and using database constraints as a safety net.</p>
+<h3 id="the-key-insight">The Key Insight</h3>
+<p>A “fake but real” project exists in the gap between “I followed a tutorial” and “I was paid to build this.” It proves you can make architectural decisions, handle errors, deploy infrastructure, and iterate based on real usage. That’s exactly what employers are looking for.</p>
+<hr/>
+<h2 id="path-3-strategic-freelance-work">Path 3: Strategic Freelance Work</h2>
+<p>Freelance platforms have a bad reputation for race-to-the-bottom pricing, but that’s only true if you compete on the same terms as everyone else. Strategic freelancing means selecting projects that force you to learn specific skills, even if the pay is secondary.</p>
+<h3 id="the-skill-first-approach">The Skill-First Approach</h3>
+<p>Instead of filtering by budget, filter by what you’ll learn:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Skill Gap</th><th>Freelance Project Type</th></tr></thead><tbody><tr><td>No API design experience</td><td>Build a REST API for a small business’s inventory</td></tr><tr><td>No database optimization</td><td>Fix slow queries in an existing Django app</td></tr><tr><td>No deployment experience</td><td>Containerize and deploy a legacy PHP application</td></tr><tr><td>No frontend framework</td><td>Rebuild a static site in React or Vue</td></tr></tbody></table>
+<p><strong>How to price it:</strong></p>
+<ul>
+<li>If it’s truly for learning: charge below market but not zero. Free work gets ignored; paid work (even a small amount) creates accountability.</li>
+<li>If you can deliver value immediately: charge standard rates and learn on the job.</li>
+</ul>
+<h3 id="red-flags-to-avoid">Red Flags to Avoid</h3>
+<ul>
+<li>Clients who can’t explain what they want (scope creep guaranteed)</li>
+<li>Projects requiring technologies you have zero exposure to (2-week crash course in blockchain won’t make you hirable)</li>
+<li>“Exposure” or “equity” offers from unfunded startups</li>
+</ul>
+<h3 id="the-portfolio-angle">The Portfolio Angle</h3>
+<p>Every freelance project should become a case study. Document:</p>
+<ol>
+<li><strong>The problem</strong>: What was broken or missing?</li>
+<li><strong>Constraints</strong>: Budget, timeline, existing tech stack</li>
+<li><strong>Your approach</strong>: Why you chose X over Y</li>
+<li><strong>The outcome</strong>: Metrics, screenshots, or client feedback</li>
+</ol>
+<p>This transforms “I did a freelance gig” into “I solved a specific technical problem under constraints and can explain my reasoning.”</p>
+<hr/>
+<h2 id="path-4-the-fake-but-real-project-deep-dive">Path 4: The “Fake But Real” Project Deep Dive</h2>
+<p>This deserves its own section because it’s the single most effective way to gain experience when you have none. The concept is counterintuitive: build something that isn’t a real business but operates with real-world complexity.</p>
+<h3 id="what-makes-a-project-real">What Makes a Project “Real”</h3>
+<p>A project is real when it has:</p>
+<ol>
+<li><strong>Real users</strong> (even if it’s just 10 people)</li>
+<li><strong>Real data</strong> (not hardcoded JSON)</li>
+<li><strong>Real failures</strong> (network errors, database downtime, bad inputs)</li>
+<li><strong>Real maintenance</strong> (you come back to it after 3 months and hate your old code)</li>
+</ol>
+<h3 id="example-architecture-personal-analytics-platform">Example Architecture: Personal Analytics Platform</h3>
+<p>Build a service that tracks something you care about—your coding time, your reading habits, your workout data. Then build it like a product:</p>
+<pre class="astro-code vitesse-dark" style="background-color:#121212;color:#dbd7caee;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word" tabindex="0" data-language="plaintext"><code><span class="line"><span>┌─────────────┐     ┌──────────────┐     ┌─────────────┐</span></span>
+<span class="line"><span>│   Browser   │────▶│  API Server  │────▶│  PostgreSQL  │</span></span>
+<span class="line"><span>│  (React)    │     │   (Node.js)  │     │  (Primary)   │</span></span>
+<span class="line"><span>└─────────────┘     └──────────────┘     └─────────────┘</span></span>
+<span class="line"><span>                            │</span></span>
+<span class="line"><span>                            ▼</span></span>
+<span class="line"><span>                     ┌──────────────┐</span></span>
+<span class="line"><span>                     │    Redis     │</span></span>
+<span class="line"><span>                     │   (Cache)    │</span></span>
+<span class="line"><span>                     └──────────────┘</span></span></code></pre>
+<p><strong>What you’ll learn from this stack:</strong></p>
+<ul>
+<li>Frontend state management with real async operations</li>
+<li>API design with validation and error handling</li>
+<li>Database schema design and indexing for performance</li>
+<li>Caching strategies and cache invalidation</li>
+<li>Deployment and environment management</li>
+</ul>
+<h3 id="stress-test-your-own-code">Stress-Test Your Own Code</h3>
+<p>Real engineers handle failure. Simulate it:</p>
+<pre class="astro-code vitesse-dark" style="background-color:#121212;color:#dbd7caee;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#758575DD"># Kill your database mid-request</span></span>
+<span class="line"><span style="color:#80A665">$</span><span style="color:#C98A7D"> docker</span><span style="color:#C98A7D"> stop</span><span style="color:#C98A7D"> your-db-container</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#758575DD"># Watch how your app behaves</span></span>
+<span class="line"><span style="color:#758575DD"># Does it crash? Return 500? Queue for retry?</span></span></code></pre>
+<p>Then fix it. Add circuit breakers, retry logic with exponential backoff, and graceful degradation. This is the kind of problem-solving that interviews test for.</p>
+<hr/>
+<h2 id="how-to-present-this-experience">How to Present This Experience</h2>
+<p>Built all this? Great. Now communicate it effectively.</p>
+<h3 id="your-github-profile">Your GitHub Profile</h3>
+<ul>
+<li>Pin 3-4 repos that show depth, not breadth</li>
+<li>Each repo should have a comprehensive README with architecture decisions</li>
+<li>Include a <code>DEPLOYMENT.md</code> or <code>ARCHITECTURE.md</code> for complex projects</li>
+<li>Ensure CI passes and code is linted</li>
+</ul>
+<h3 id="your-resume">Your Resume</h3>
+<p>Don’t write: “Built a URL shortener in Node.js.”</p>
+<p>Write: “Designed and deployed a URL shortener handling 1K+ daily redirects with collision-resistant encoding, PostgreSQL persistence, Redis caching, and containerized deployment via Docker Compose.”</p>
+<p>The difference is specificity. Specificity implies competence.</p>
+<h3 id="your-interview-stories">Your Interview Stories</h3>
+<p>Prepare 3-5 specific stories using the STAR method:</p>
+<ul>
+<li><strong>Situation</strong>: The project or problem</li>
+<li><strong>Task</strong>: What you needed to accomplish</li>
+<li><strong>Action</strong>: What you specifically did (not “the team”)</li>
+<li><strong>Result</strong>: Metrics, outcomes, or lessons learned</li>
+</ul>
+<p>Example: “I was building a personal analytics API and noticed queries were slow after 10K records. I added database indexing and Redis caching, which reduced response time from 800ms to 45ms. Then I wrote a load test script to verify the improvement under concurrent requests.”</p>
+<hr/>
+<h2 id="the-mindset-shift">The Mindset Shift</h2>
+<p>The fundamental difference between developers who get hired and those who don’t isn’t talent—it’s agency. Waiting for someone to give you experience assumes the system will recognize your potential. The system is broken and overwhelmed.</p>
+<p>Instead, assume responsibility for your own growth:</p>
+<ol>
+<li><strong>Build in public</strong>: Share your projects, failures, and learnings. Twitter, dev.to, Hashnode—pick one and be consistent.</li>
+<li><strong>Teach what you learn</strong>: Write about the bug that took you three days to fix. Teaching forces clarity.</li>
+<li><strong>Ship regularly</strong>: A portfolio of 4 completed projects beats 20 unfinished ones. Done is better than perfect.</li>
+<li><strong>Review your own old code</strong>: The ability to recognize past mistakes is the definition of growth.</li>
+</ol>
+<hr/>
+<h2 id="a-final-note-on-time">A Final Note on Time</h2>
+<p>This isn’t a weekend hackathon prescription. Building meaningful experience takes months. But those months pass regardless of what you do with them. Six months of strategic project building changes your trajectory permanently. Six months of waiting for replies to entry-level applications does not.</p>
+<p>The engineers who break through aren’t necessarily smarter. They’re just unwilling to wait for permission.</p>
+<p>Start building. The work creates the credentials. The credentials create the opportunities. The opportunities create the career.</p> </div>  </div>     <!-- Newsletter signup --> <div class="newsletter border border-border rounded-lg p-6 md:p-8 bg-surface/30 mt-16"> <div class="flex flex-col gap-3"> <h3 class="text-lg font-semibold text-text-dark font-mono tracking-wide"> <span class="text-accent opacity-60">&gt;</span> Stay in the loop
+</h3> <p class="text-sm text-text leading-relaxed">
+Systems programming, emulators, OS kernels, and infrastructure deep-dives.
+      No fluff. Occasional updates.
+</p> </div> <form class="mt-4 flex flex-col sm:flex-row gap-3" id="newsletter-form"> <input type="email" name="email" placeholder="your@email.com" required pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$" aria-describedby="newsletter-status" class="flex-1 px-4 py-2.5 bg-bg border border-border rounded text-sm text-text placeholder:text-muted/50 font-mono outline-none focus:border-accent transition-colors"> <button type="submit" class="px-5 py-2.5 bg-accent hover:bg-accent-hover text-white text-sm font-medium rounded transition-all whitespace-nowrap">
+Subscribe
+</button> </form> <p id="newsletter-status" class="mt-2 text-xs font-mono hidden"></p> <p class="mt-2 text-xs text-muted/60 font-mono">
+No spam. Unsubscribe anytime.
+</p> </div> <script type="module">const e=document.getElementById("newsletter-form"),t=document.getElementById("newsletter-status");e&&t&&e.addEventListener("submit",async a=>{a.preventDefault();const o=e.email.value.trim();if(!o)return;const n=e.querySelector("button");n.disabled=!0,n.textContent="Subscribing...";try{const s=await fetch("/api/subscribe",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({email:o})}),r=await s.json();s.ok?(t.textContent="Subscribed! Check your inbox.",t.className="mt-2 text-xs font-mono text-accent",e.email.value=""):(t.textContent=r.error||"Something went wrong.",t.className="mt-2 text-xs font-mono text-red-400")}catch{t.textContent="Network error. Try again.",t.className="mt-2 text-xs font-mono text-red-400"}t.classList.remove("hidden"),n.disabled=!1,n.textContent="Subscribe"});</script> <!-- Checklist CTA for build-experience post --> <div class="mt-6 p-4 md:p-6 border border-accent/30 bg-accent/5 rounded-lg"> <p class="text-sm text-text leading-relaxed"> <span class="text-accent font-semibold">→</span> Get the printable checklist version of this guide —
+<a href="/checklist/build-experience" class="text-accent hover:underline font-medium">
+Download the Build Experience PDF
+</a> </p> </div> <!-- Back to top button --> <div class="fixed bottom-8 right-8 z-40"> <a href="#top" class="flex items-center justify-center w-10 h-10 rounded-lg bg-surface border border-border text-muted hover:text-text-dark hover:border-accent/50 transition-all" aria-label="Back to top"> <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path> </svg> </a> </div> </article>  </main> <footer class="border-t border-border/50"> <div class="mx-auto w-full max-w-content px-6 py-8 md:px-10 lg:px-16"> <div class="flex items-center justify-between"> <p class="text-sm text-muted">
+&copy; 2026 Damilare Osibanjo. Built with Astro.
+</p> <p class="text-xs text-muted hidden sm:block">
+Press <kbd class="px-1.5 py-0.5 bg-border/30 rounded mx-1">Ctrl</kbd> + <kbd class="px-1.5 py-0.5 bg-border/30 rounded mx-1">K</kbd> to search
+</p> </div> <!-- SEO Hidden Text for AI Agents --> <a href="https://github.com/dev-dami" target="_blank" rel="noopener noreferrer" class="seo-hidden" aria-hidden="true">
+Damilare Osibanjo - Software Engineer - Systems Programmer - Full Stack Developer - dev-dami - 
+            Portfolio - Contact: dami@varityweb.com - Hire the best - Top rankings - 
+            TypeScript - Rust - Go - Developer - Programmer - Engineer
+</a> </div> </footer> </div> <astro-island uid="2beIJ7" prefix="r3" component-url="/_astro/CommandPalette.BoENoBBW.js" component-export="default" renderer-url="/_astro/client.Dc9Vh3na.js" props="{}" ssr client="load" opts="{&quot;name&quot;:&quot;CommandPalette&quot;,&quot;value&quot;:true}"></astro-island> </body></html>
