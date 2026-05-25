@@ -56,6 +56,20 @@ async function writeCache(key: string, data: unknown): Promise<void> {
   }
 }
 
+function githubHeaders(): Record<string, string> {
+  const token =
+    import.meta.env.GITHUB_PAT ?? import.meta.env.GITHUB_TOKEN ?? "";
+
+  const headers: Record<string, string> = {
+    Accept: "application/vnd.github.v3+json",
+    "User-Agent": "dev-dami-portfolio",
+  };
+
+  if (token) headers.Authorization = `Bearer ${token}`;
+
+  return headers;
+}
+
 async function cachedFetch<T>(url: string, headers: Record<string, string>): Promise<T | null> {
   const key = cacheKey(url);
 
@@ -83,7 +97,7 @@ export async function fetchRepoStats(githubUrl: string): Promise<RepoStats | nul
   const [, owner, repo] = match;
   const data = await cachedFetch<{ stargazers_count: number; forks_count: number; language: string | null }>(
     `https://api.github.com/repos/${owner}/${repo}`,
-    { Accept: "application/vnd.github.v3+json", "User-Agent": "dev-dami-portfolio" },
+    githubHeaders(),
   );
 
   if (!data) return null;

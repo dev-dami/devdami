@@ -1,0 +1,471 @@
+---
+title: "XSS in TanStack Query Apps — Testing Methodology, Real CVEs, and Every Fix Layer"
+description: "A developer-focused breakdown of how Cross-Site Scripting manifests in SPAs using TanStack Query, with a confirmed CVE walkthrough and layered remediation."
+date: 2026-05-25
+tags: ["security", "xss", "tanstack query", "react", "frontend security", "CSP"]
+series:
+  name: "Application Security"
+  order: 2
+
+takeaways: |
+  TanStack Query is a state manager, not a sanitizer — it performs zero output encoding on cached API data
+  React's JSX auto-escaping is bypassed by dangerouslySetInnerHTML, innerHTML, and SSR hydration scripts
+  CVE-2024-24558 is a confirmed XSS in TanStack Query's ReactQueryStreamedHydration via unescaped JSON.stringify in <script> tags
+  Trusted Types API (Baseline 2026) eliminates XSS at the browser level by restricting dangerous DOM sinks
+  Defense in depth — CSP + Trusted Types + DOMPurify + input validation — catches XSS no single layer can
+---
+
+A frontend engineer ships a dashboard. The data comes from an API. TanStack Query fetches it, caches it, and re-renders the component when it arrives. The engineer tested the loading state, the error state, and the empty state. Everything passes. They ship it.
+
+Three months later, a user reports a popup showing their session token in an alert box.
+
+The engineer's first reaction: "But React auto-escapes XSS. That's the whole point of JSX."
+
+That statement is true — **and dangerously incomplete**. React's JSX does escape text content. But React does not validate attribute values, does not sanitize `dangerouslySetInnerHTML`, and does not inspect the data that TanStack Query hands to your components. The data is a conveyor belt. If the sink at the end of the belt is unsafe, the framework protections never mattered.
+
+This post walks through exactly how XSS works in a TanStack Query application, where the real vulnerabilities live, and how to eliminate them at every layer.
+
+---
+
+## The Attack Surface at a Glance
+
+The data flow in a TanStack Query app looks like this:
+
+```
+ ┌─────────────┐     ┌──────────────┐     ┌───────────┐     ┌────────────────────┐
+ │  API/Server │ ──► │ TanStack     │ ──► │ Component │ ──► │ dangerouslySetInner│
+ │  (untrusted)│     │ Query Cache  │     │  render   │     │ HTML = query.data  │
+ └─────────────┘     └──────────────┘     └───────────┘     └────────────────────┘
+                         ▲                               ▲
+                         │ No sanitization or            │ React's JSX encoding
+                         │ output encoding               │ is BYPASSED here
+                         │ by TanStack Query             │
+```
+
+Critical insight: **TanStack Query is purely a state manager.** It fetches, caches, and delivers data. It never inspects, encodes, or sanitizes the values it carries. The XSS surface is never in the library — it is always in the rendering component downstream.
+
+This means your testing methodology must focus on the **sink** (where data is rendered), not the **pipe** (TanStack Query).
+
+---
+
+## Link 1 — React's Built-In Protections (And Where They Fail)
+
+### What React Actually Defends
+
+JSX auto-escaping prevents the most common injection vector:
+
+```tsx
+// ✅ Safe — React escapes text content
+function Safe({ text }: { text: string }) {
+  return <div>{text}</div>;
+}
+
+// Even if text contains <script>alert('xss')</script>,
+// React renders it as literal text, not executable HTML
+```
+
+React escapes `&`, `<`, `>`, `"`, `'`, `` ` ``, `\n`, `\r`, `\t`, `\f`, `\b`, `\0`, and `\x00`–`\x1F` in text content and string attributes. This covers the vast majority of injection points.
+
+### Where React Does Not Defend
+
+But React does **not** validate or sanitize these:
+
+| Sink | Example | Protected? |
+|---|---|---|
+| Text content | `<div>{data}</div>` | ✅ Yes |
+| String attributes | `<div title={data}>` | ✅ Yes |
+| `dangerouslySetInnerHTML` | `<div dangerouslySetInnerHTML={{__html: data}} />` | ❌ **No** |
+| `innerHTML` assignment | `el.innerHTML = data` | ❌ **No** |
+| `document.write()` | `document.write(data)` | ❌ **No** |
+| `javascript:` URLs | `<a href={data}>` | ❌ **No** |
+| Event handler props | `<div onClick={data}>` | ❌ **No** |
+
+The most common sink in SPAs is `dangerouslySetInnerHTML`. It exists because developers need to render rich HTML (markdown output, sanitized HTML from a CMS, email templates). The mistake is passing unsanitized API data directly into it.
+
+```tsx
+// ❌ Vulnerable — no sanitization
+function Comment({ commentId }) {
+  const { data } = useQuery({
+    queryKey: ['comment', commentId],
+    queryFn: () => fetch(`/api/comments/${commentId}`).then(r => r.json()),
+  });
+
+  return <div dangerouslySetInnerHTML={{__html: data.body}} />;
+}
+```
+
+If the API returns `<img src=x onerror=alert('XSS_TEST')>` in `data.body`, that HTML is rendered and executed. React never inspects the content of `dangerouslySetInnerHTML`.
+
+---
+
+## Link 2 — TanStack Query's Role: State Manager, Not Sanitizer
+
+This is the single most important concept for testing TanStack Query applications:
+
+> **TanStack Query takes no responsibility for the contents of the data it carries.**
+
+There is no `sanitize: true` option. There is no output encoding layer. The library's SSR guide explicitly warns:
+
+> *"Using `JSON.stringify(dehydratedState)` does not escape potentially malicious characters like `<script>alert('Oh no..')</script>` by default, which can lead to XSS-vulnerabilities."*
+
+### What This Means for Testing
+
+When testing a TanStack Query application for XSS, your methodology is:
+
+1. **Identify the sink** — grep for `dangerouslySetInnerHTML`, `innerHTML`, `outerHTML`, `document.write()`, and `DOMPurify.sanitize()` calls
+2. **Trace the data source** — is the HTML-string being passed coming from TanStack Query cache (`query.data`)?
+3. **Inject a payload** — ensure the API returns a malicious payload
+4. **Verify execution** — does the payload execute?
+
+TanStack Query makes step 2 trivial: `query.data` is the raw API response. There is no transformation layer between the server and your component. Any XSS in the API response reaches your component unmodified.
+
+---
+
+## Link 3 — Identifying XSS Sinks (The Testing Checklist)
+
+### Grep Patterns
+
+Run these against your codebase to find every potential sink:
+
+```bash
+# Find dangerouslySetInnerHTML usages
+grep -rn "dangerouslySetInnerHTML" src/ --include="*.tsx" --include="*.ts" --include="*.jsx"
+
+# Find innerHTML assignments
+grep -rn "\.innerHTML\s*=" src/ --include="*.tsx" --include="*.ts" --include="*.jsx"
+
+# Find outerHTML assignments
+grep -rn "\.outerHTML\s*=" src/ --include="*.tsx" --include="*.ts"
+
+# Find document.write calls
+grep -rn "document\.write" src/ --include="*.tsx" --include="*.ts"
+
+# Find DOMPurify usage (potential bypasses or missing sanitization)
+grep -rn "DOMPurify\|dompurify" src/ --include="*.tsx" --include="*.ts"
+
+# Find dangerouslySetInnerHTML WITH TanStack Query data (high risk)
+grep -rn "dangerouslySetInnerHTML" src/ --include="*.tsx" -A 5 | grep -B 5 "query\.data\|\.data\b"
+```
+
+### Risk Classification
+
+| Pattern | Risk Level | Notes |
+|---|---|---|
+| `dangerouslySetInnerHTML={{__html: query.data}}` | 🔴 Critical | Direct API data to HTML |
+| `dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(query.data)}}` | 🟡 Medium | Depends on DOMPurify version and config |
+| `dangerouslySetInnerHTML={{__html: md.render(query.data)}}` | 🟡 Medium | Markdown renderers may produce unsafe HTML |
+| `innerHTML = query.data` | 🔴 Critical | Direct DOM manipulation |
+| `<a href={query.data}>` | 🟠 High | `javascript:` URI possible |
+| SSR hydration custom code | 🔴 Critical | Manual `JSON.stringify` in `<script>` |
+| `el.innerHTML = DOMPurify.sanitize(data)` | 🟢 Low | Sanitized, but verify DOMPurify config |
+
+---
+
+## Link 4 — Injecting Payloads
+
+### Standard XSS Payloads
+
+Use these payloads when testing TanStack Query components:
+
+```
+# Basic script injection
+"><script>alert('XSS_TEST')</script>
+
+# Event handler injection
+"><img src=x onerror=alert('XSS_TEST')>
+
+# Script tag breaking (SSR hydration specific)
+</script><script>alert('XSS_TEST')</script>
+
+# JavaScript URI
+javascript:alert('XSS_TEST')
+
+# SVG-based injection
+<svg onload=alert('XSS_TEST')>
+
+# Link with event handler
+<a href="" onmouseover=alert('XSS_TEST')>hover me</a>
+```
+
+### How to Inject Via TanStack Query
+
+```tsx
+// Test setup — mock API endpoint to return XSS payload
+// e.g., a comments API, a profile bio field, a markdown content field
+fetch('/api/comments/1')
+  .then(r => r.json())
+  .then(console.log);
+// → { id: 1, body: "<img src=x onerror=alert('XSS_TEST')>" }
+
+// If the component renders this via dangerouslySetInnerHTML,
+// the alert fires on render
+```
+
+The injection surface is never TanStack Query itself (in normal usage). It is the **component** that takes `query.data` and passes it to a DOM sink. Modify your test fixtures or API mocks to return XSS payloads and observe whether they execute.
+
+---
+
+## Link 5 — Real-World Case Study: CVE-2024-24558
+
+This is the most important example in TanStack Query's history. It is a confirmed, patched XSS vulnerability in the library's own SSR hydration code.
+
+### Background
+
+| Field | Detail |
+|---|---|
+| CVE | CVE-2024-24558 |
+| Package | `@tanstack/react-query-next-experimental` |
+| Affected | `>= 5.0.0, < 5.18.0` |
+| Severity | High (CVSS: 7.1) |
+| CWE | CWE-79 (XSS) |
+| Reported by | @ammubhave |
+| Fixed in | v5.18.0 (commit `f2ddaf2`) |
+
+### Root Cause
+
+`ReactQueryStreamedHydration` serialized query data into `<script>` tags using `JSON.stringify()`:
+
+```tsx
+// ❌ Vulnerable (pre-v5.18.0)
+`window[${idJSON}].push(${serializedCacheArgs});`
+```
+
+`JSON.stringify()` does **not** escape `</script>`. If API data contained `</script><script>alert('XSS_TEST')</script>`, the browser would prematurely close the script tag. Everything after it became parseable HTML, and the injected script executed in the context of the page.
+
+### Proof of Concept
+
+1. Add `ReactQueryStreamedHydration` to a Next.js app
+2. Create an API endpoint that returns JSON containing `</script><script>alert('XSS_TEST')</script>`
+3. Use `useSuspenseQuery` to fetch that endpoint
+4. The injected script executes in the rendered HTML
+
+### The Fix
+
+```tsx
+// ✅ Fixed (v5.18.0+)
+`window[${idJSON}].push(${htmlEscapeJsonString(serializedCacheArgs)});`
+```
+
+The fix introduced `htmlEscapeJsonString`, ported from Next.js internals, which escapes `&`, `<`, `>`, `\u2028`, and `\u2029`:
+
+```typescript
+const ESCAPE_LOOKUP = {
+  '&': '\\u0026',
+  '>': '\\u003e',
+  '<': '\\u003c',
+  '\u2028': '\\u2028',
+  '\u2029': '\\u2029',
+};
+```
+
+The diff was minimal — +27 lines, -2 lines. But the impact was critical: any app using TanStack Query streaming hydration with user-influenced API data was exploitable.
+
+### Later Improvement: CSP Nonce Support
+
+PR [#7575](https://github.com/TanStack/query/pull/7575) added `nonce` prop support, allowing CSP nonce-based protection for hydration scripts:
+
+```tsx
+<ReactQueryStreamedHydration nonce={yourNonce} />
+```
+
+---
+
+## Link 6 — Remediation (Four Layers)
+
+### Layer 1: Sanitize at the Sink
+
+Never pass unsanitized API data to `dangerouslySetInnerHTML`. Wrap it in a sanitization layer:
+
+```tsx
+import DOMPurify from 'dompurify';
+
+// ✅ Safe — sanitized before rendering
+function SafeHtml({ html }: { html: string }) {
+  const clean = useMemo(() => DOMPurify.sanitize(html), [html]);
+  return <div dangerouslySetInnerHTML={{__html: clean}} />;
+}
+```
+
+**Important:** Keep DOMPurify updated. Bypasses are discovered and patched. Pin your version and use a dependency updater.
+
+### Layer 2: Use an Encapsulated SafeHtml Component
+
+Create a wrapper component that makes the safety contract explicit:
+
+```tsx
+// src/components/SafeHtml.tsx
+import DOMPurify from 'dompurify';
+
+interface SafeHtmlProps {
+  html: string;
+  /** Optional: custom DOMPurify config */
+  purifyOptions?: DOMPurify.Config;
+}
+
+export function SafeHtml({ html, purifyOptions }: SafeHtmlProps) {
+  const clean = useMemo(
+    () => DOMPurify.sanitize(html, purifyOptions),
+    [html, purifyOptions]
+  );
+  return <div dangerouslySetInnerHTML={{__html: clean}} />;
+}
+```
+
+This gives you a single component to audit. If all rich-text rendering goes through `SafeHtml`, you have one review point instead of scattered `dangerouslySetInnerHTML` calls.
+
+### Layer 3: CSP Headers
+
+Content Security Policy is your second line of defense:
+
+```
+Content-Security-Policy:
+  default-src 'self';
+  script-src 'self' 'nonce-{random}';
+  style-src 'self' 'unsafe-inline';
+  img-src 'self' data:;
+  object-src 'none';
+  base-uri 'none';
+```
+
+Key directives for XSS:
+
+| Directive | Purpose |
+|---|---|
+| `script-src 'nonce-{random}'` | Blocks inline scripts unless they carry the nonce |
+| `object-src 'none'` | Blocks Flash/plugin-based XSS |
+| `base-uri 'none'` | Prevents base tag injection |
+| `require-trusted-types-for 'script'` | Enforces Trusted Types |
+
+For TanStack Query's streaming hydration, pass the nonce:
+
+```tsx
+<ReactQueryStreamedHydration nonce={res.locals.cspNonce} />
+```
+
+### Layer 4: Trusted Types API (2026 State of Play)
+
+Trusted Types is now a **Baseline** feature (Chrome 83+, Firefox 148+, Safari 26+ as of February 2026). It eliminates XSS at the browser level by restricting dangerous DOM sinks to only accept "trusted" objects:
+
+```typescript
+// Create a policy that enforces sanitization
+const sanitizerPolicy = trustedTypes.createPolicy('sanitizer', {
+  createHTML: (input: string) => DOMPurify.sanitize(input),
+});
+
+// Now this is the ONLY way to set innerHTML
+function Comment({ text }: { text: string }) {
+  return <div dangerouslySetInnerHTML={{
+    __html: sanitizerPolicy.createHTML(text)
+  }} />;
+}
+
+// Any direct string assignment to innerHTML is BLOCKED by the browser
+// el.innerHTML = text; // ❌ TypeError: blocked by Trusted Types
+```
+
+React merged Trusted Types support in PR [#35816](https://github.com/facebook/react/pull/35816) (February 2026), making `dangerouslySetInnerHTML` compatible with Trusted Types policies.
+
+To enable Trusted Types enforcement, add this to your CSP:
+
+```
+Content-Security-Policy: require-trusted-types-for 'script'
+```
+
+---
+
+## The Full Fix Checklist
+
+| Vulnerability | Root Cause | Fix |
+|---|---|---|
+| XSS via dangerouslySetInnerHTML | Unsanitized API data to HTML sink | DOMPurify + SafeHtml wrapper |
+| XSS via SSR hydration | Unescaped JSON.stringify in `<script>` | Use serialize-javascript or devalue; `htmlEscapeJsonString` |
+| XSS via innerHTML | Direct DOM manipulation | Replace with safe methods; Trusted Types |
+| XSS via javascript: URI | Attribute injection | URL validation; CSP block |
+| CVE-2024-24558 | ReactQueryStreamedHydration script injection | Upgrade to >= v5.18.0; use nonce prop |
+| Bypass due to old DOMPurify | Outdated sanitizer | Automated dependency updates |
+| Universal XSS | No CSP headers | Deploy CSP with nonce + Trusted Types |
+
+---
+
+## Why Testing Failed (And How to Fix It)
+
+### The Testing Gap
+
+Static analysis found: **0 issues** (most SAST tools don't trace TanStack Query data flow)
+Integration tests passed: **all green** (test fixtures returned safe data)
+Penetration test found: **partial** (missed SSR hydration path)
+Attacker found it: **100% exploit success rate**
+
+Why? The testing process:
+
+1. Mocks return safe, sanitized data
+2. Tests check rendering, not injection
+3. SSR hydration paths are rarely inspected manually
+4. CSP headers are treated as optional, not mandatory
+
+### How to Close the Gap
+
+Add these to your testing pipeline:
+
+```typescript
+// 1. Unit test — ensure SafeHtml sanitizes
+describe('SafeHtml', () => {
+  it('sanitizes script tags', () => {
+    const { container } = render(<SafeHtml html="<script>alert('xss')</script>" />);
+    expect(container.querySelector('script')).toBeNull();
+  });
+
+  it('sanitizes event handlers', () => {
+    const { container } = render(<SafeHtml html='<img src=x onerror="alert(1)">' />);
+    expect(container.querySelector('img')?.getAttribute('onerror')).toBeNull();
+  });
+});
+
+// 2. Integration test — Tamper TanStack Query mock data
+it('does not execute XSS from query data', async () => {
+  mockQueryData('/api/comments/1', {
+    body: '<img src=x onerror=alert("XSS_TEST")>',
+  });
+
+  const { container } = render(<Comment commentId={1} />);
+  await waitFor(() => {
+    expect(container.querySelector('img')).toBeNull();
+  });
+});
+
+// 3. E2E test — Validate CSP headers
+it('serves CSP headers', async () => {
+  const res = await fetch(page.url());
+  const csp = res.headers.get('content-security-policy');
+  expect(csp).toContain("script-src 'self'");
+  expect(csp).toContain('require-trusted-types-for');
+});
+```
+
+---
+
+## The Principle: Trust Nothing from the API
+
+> Write components that are safe regardless of what the API returns. Not components that happen to be safe because the test data was clean.
+
+Every XSS vector in this post follows the same pattern:
+
+- Developer trusts API data → passes it to a DOM sink → injects untrusted HTML → XSS
+
+The fixes are not exotic:
+
+- **Encapsulated SafeHtml component** as a single audit point
+- **CSP headers** deployed and enforced in CI
+- **Trusted Types** as a browser-enforced security layer
+- **Tampered test fixtures** that prove sanitization works
+- **Updated dependencies** for TanStack Query, DOMPurify, and React
+
+None of these require a security expert. They require discipline applied when the component is first written — which is always cheaper than cleaning up after a CVE disclosure.
+
+The difference between an application that is secure and one that merely hasn't been attacked yet is these five choices.
+
+Make them.
+
+---
+
+*Tags: XSS · TanStack Query · React · CSP · Trusted Types · DOMPurify · CVE-2024-24558 · frontend security · application security · defense in depth*
