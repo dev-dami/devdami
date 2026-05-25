@@ -1,0 +1,11 @@
+---
+import ErrorPage from "../components/ErrorPage.astro";
+export const prerender = true;
+---
+
+<ErrorPage
+  code="400"
+  title="Bad Request"
+  message="The server couldn't understand your request. Check that the URL is correct and try again."
+  description="Bad request. The server could not process the request due to invalid syntax."
+/>

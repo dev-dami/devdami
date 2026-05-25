@@ -1,0 +1,41 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+export interface Props {
+  code: string;
+  title: string;
+  message: string;
+  description: string;
+}
+
+const { code, title, message, description } = Astro.props;
+const pageTitle = `${code} - ${title} — Damilare Osibanjo`;
+---
+
+<Layout title={pageTitle} description={description}>
+  <div class="mx-auto max-w-blog text-center" style="padding-top: 6rem; padding-bottom: 8rem;">
+    <div class="text-8xl md:text-9xl font-mono font-bold text-accent/20 select-none leading-none mb-6">
+      {code}
+    </div>
+    <h1 class="text-2xl md:text-3xl font-semibold text-text-dark mb-3">
+      {title}
+    </h1>
+    <p class="text-sm text-muted max-w-md mx-auto leading-relaxed mb-8">
+      {message}
+    </p>
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+      <a
+        href="/"
+        class="px-5 py-2.5 bg-accent hover:bg-accent-hover text-white text-sm font-medium rounded transition-all"
+      >
+        ← Home
+      </a>
+      <a
+        href="/blog"
+        class="px-5 py-2.5 border border-border hover:border-accent/40 text-text-dark text-sm font-medium rounded transition-all"
+      >
+        Blog
+      </a>
+    </div>
+  </div>
+</Layout>

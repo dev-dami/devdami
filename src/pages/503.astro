@@ -1,0 +1,11 @@
+---
+import ErrorPage from "../components/ErrorPage.astro";
+export const prerender = true;
+---
+
+<ErrorPage
+  code="503"
+  title="Service Unavailable"
+  message="The server is temporarily unable to handle your request due to maintenance or overload. Please try again later."
+  description="Service unavailable. The server is temporarily unable to handle the request."
+/>

@@ -1,0 +1,11 @@
+---
+import ErrorPage from "../components/ErrorPage.astro";
+export const prerender = true;
+---
+
+<ErrorPage
+  code="401"
+  title="Unauthorized"
+  message="You need to authenticate before accessing this resource. Please sign in and try again."
+  description="Authentication required. You must log in to access this resource."
+/>

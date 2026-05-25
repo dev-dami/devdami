@@ -1,0 +1,11 @@
+---
+import ErrorPage from "../components/ErrorPage.astro";
+export const prerender = true;
+---
+
+<ErrorPage
+  code="502"
+  title="Bad Gateway"
+  message="The server received an invalid response from an upstream server. Please try again shortly."
+  description="Bad gateway. The server received an invalid response from an upstream server."
+/>
