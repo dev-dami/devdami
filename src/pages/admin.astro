@@ -1,0 +1,221 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { getCollection } from "astro:content";
+export const prerender = true;
+
+const posts = (await getCollection("blog"))
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+---
+
+<Layout
+  title="Admin — Damilare Osibanjo"
+  description="Send broadcast emails to subscribers."
+>
+  <div class="mx-auto max-w-blog" style="padding-top: 4rem; padding-bottom: 6rem;">
+    <h1 class="text-xl font-mono font-semibold text-text-dark mb-1">
+      <span class="text-accent">&gt;</span> Broadcast
+    </h1>
+    <p class="text-sm text-muted font-mono mb-8">
+      Send a new blog post notification to your Resend audience.
+    </p>
+
+    <!-- Auth gate -->
+    <div id="auth-gate" class="border border-border rounded-lg p-6 bg-surface/30 mb-6">
+      <label class="block text-sm font-mono text-text mb-2">Admin Token</label>
+      <div class="flex flex-col sm:flex-row gap-3">
+        <input
+          id="admin-token"
+          type="password"
+          placeholder="ADMIN_SECRET"
+          class="flex-1 px-4 py-2.5 bg-bg border border-border rounded text-sm text-text placeholder:text-muted/50 font-mono outline-none focus:border-accent transition-colors"
+        />
+        <button
+          id="auth-btn"
+          class="px-5 py-2.5 bg-accent hover:bg-accent-hover text-white text-sm font-medium rounded transition-all whitespace-nowrap"
+        >
+          Unlock
+        </button>
+      </div>
+      <p id="auth-error" class="mt-2 text-xs font-mono text-red-400 hidden"></p>
+    </div>
+
+    <!-- Broadcast form (hidden until authenticated) -->
+    <div id="broadcast-form" class="hidden border border-border rounded-lg p-6 md:p-8 bg-surface/30">
+      <!-- Post selector -->
+      <div class="mb-6">
+        <label class="block text-sm font-mono text-text mb-2">Select a post</label>
+        <select
+          id="post-select"
+          class="w-full px-4 py-2.5 bg-bg border border-border rounded text-sm text-text font-mono outline-none focus:border-accent transition-colors"
+        >
+          <option value="">— Manual entry —</option>
+          {posts.map((post) => (
+            <option value={post.slug} data-title={post.data.title} data-description={post.data.description}>
+              {post.data.title}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <div class="grid gap-4">
+        <div>
+          <label for="slug" class="block text-sm font-mono text-text mb-1">Slug</label>
+          <input
+            id="slug"
+            type="text"
+            placeholder="my-blog-post-slug"
+            class="w-full px-4 py-2.5 bg-bg border border-border rounded text-sm text-text placeholder:text-muted/50 font-mono outline-none focus:border-accent transition-colors"
+          />
+        </div>
+        <div>
+          <label for="title" class="block text-sm font-mono text-text mb-1">Title</label>
+          <input
+            id="title"
+            type="text"
+            placeholder="How CVE-2026-33017 Turned AI Workflows Into Remote Shells"
+            class="w-full px-4 py-2.5 bg-bg border border-border rounded text-sm text-text placeholder:text-muted/50 font-mono outline-none focus:border-accent transition-colors"
+          />
+        </div>
+        <div>
+          <label for="description" class="block text-sm font-mono text-text mb-1">Description</label>
+          <textarea
+            id="description"
+            rows="3"
+            placeholder="A deep technical breakdown..."
+            class="w-full px-4 py-2.5 bg-bg border border-border rounded text-sm text-text placeholder:text-muted/50 font-mono outline-none focus:border-accent transition-colors resize-y"
+          ></textarea>
+        </div>
+      </div>
+
+      <!-- Email preview -->
+      <div id="preview" class="mt-6 hidden border border-border rounded-lg overflow-hidden">
+        <div class="bg-surface/50 px-4 py-2 border-b border-border">
+          <span class="text-[11px] font-mono text-muted tracking-wider uppercase">Email Preview</span>
+        </div>
+        <div class="p-4 text-xs font-mono text-muted leading-relaxed overflow-x-auto">
+          <div id="preview-subject" class="text-text font-semibold mb-2"></div>
+          <div id="preview-body" class="whitespace-pre-wrap"></div>
+        </div>
+      </div>
+
+      <button
+        id="send-btn"
+        disabled
+        class="mt-6 px-5 py-2.5 bg-accent/50 text-white/50 text-sm font-medium rounded transition-all whitespace-nowrap cursor-not-allowed"
+      >
+        Send Broadcast
+      </button>
+      <p id="send-status" class="mt-2 text-xs font-mono hidden"></p>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  const TOKEN_INPUT = document.getElementById("admin-token") as HTMLInputElement;
+  const AUTH_BTN = document.getElementById("auth-btn") as HTMLButtonElement;
+  const AUTH_ERROR = document.getElementById("auth-error") as HTMLElement;
+  const AUTH_GATE = document.getElementById("auth-gate") as HTMLElement;
+  const FORM = document.getElementById("broadcast-form") as HTMLElement;
+  const POST_SELECT = document.getElementById("post-select") as HTMLSelectElement;
+  const SLUG = document.getElementById("slug") as HTMLInputElement;
+  const TITLE = document.getElementById("title") as HTMLInputElement;
+  const DESC = document.getElementById("description") as HTMLTextAreaElement;
+  const PREVIEW = document.getElementById("preview") as HTMLElement;
+  const PREVIEW_SUBJECT = document.getElementById("preview-subject") as HTMLElement;
+  const PREVIEW_BODY = document.getElementById("preview-body") as HTMLElement;
+  const SEND_BTN = document.getElementById("send-btn") as HTMLButtonElement;
+  const SEND_STATUS = document.getElementById("send-status") as HTMLElement;
+
+  let adminToken = "";
+
+  // --- Auth ---
+  AUTH_BTN.addEventListener("click", () => {
+    const token = TOKEN_INPUT.value.trim();
+    if (!token) {
+      AUTH_ERROR.textContent = "Enter an admin token.";
+      AUTH_ERROR.classList.remove("hidden");
+      return;
+    }
+    // Store in memory — actual auth happens on each API call
+    adminToken = token;
+    AUTH_GATE.classList.add("hidden");
+    FORM.classList.remove("hidden");
+    AUTH_ERROR.classList.add("hidden");
+  });
+
+  TOKEN_INPUT.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") AUTH_BTN.click();
+  });
+
+  // --- Post select auto-fill ---
+  POST_SELECT.addEventListener("change", () => {
+    const opt = POST_SELECT.selectedOptions[0];
+    if (opt && opt.value) {
+      SLUG.value = opt.value;
+      TITLE.value = (opt as HTMLOptionElement).dataset.title || "";
+      DESC.value = (opt as HTMLOptionElement).dataset.description || "";
+    }
+    updatePreview();
+  });
+
+  // --- Live preview ---
+  function updatePreview() {
+    const title = TITLE.value.trim();
+    const desc = DESC.value.trim();
+    const slug = SLUG.value.trim();
+    if (!title || !slug) {
+      PREVIEW.classList.add("hidden");
+      return;
+    }
+    PREVIEW_SUBJECT.textContent = `New blog post: ${title}`;
+    PREVIEW_BODY.textContent = `A broadcast email will be sent to your Resend audience.\n\nSubject: New blog post: ${title}\n\n${desc || "(no description)"}\n\nhttps://devdami.varityweb.com/blog/${slug}/`;
+    const fieldsFilled = title && slug;
+    SEND_BTN.disabled = !fieldsFilled;
+    SEND_BTN.className = fieldsFilled
+      ? "mt-6 px-5 py-2.5 bg-accent hover:bg-accent-hover text-white text-sm font-medium rounded transition-all whitespace-nowrap cursor-pointer"
+      : "mt-6 px-5 py-2.5 bg-accent/50 text-white/50 text-sm font-medium rounded transition-all whitespace-nowrap cursor-not-allowed";
+    PREVIEW.classList.remove("hidden");
+  }
+
+  [SLUG, TITLE, DESC].forEach((el) => el.addEventListener("input", updatePreview));
+
+  // --- Send ---
+  SEND_BTN.addEventListener("click", async () => {
+    const slug = SLUG.value.trim();
+    const title = TITLE.value.trim();
+    const desc = DESC.value.trim();
+
+    if (!slug || !title) return;
+
+    SEND_BTN.disabled = true;
+    SEND_BTN.textContent = "Sending...";
+    SEND_STATUS.className = "mt-2 text-xs font-mono text-muted";
+    SEND_STATUS.textContent = "Sending broadcast...";
+    SEND_STATUS.classList.remove("hidden");
+
+    try {
+      const res = await fetch("/api/admin/send-broadcast", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${adminToken}`,
+        },
+        body: JSON.stringify({ slug, title, description: desc }),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        SEND_STATUS.textContent = `Broadcast sent! ${data.data?.id ? `ID: ${data.data.id}` : ""}`;
+        SEND_STATUS.className = "mt-2 text-xs font-mono text-accent";
+      } else {
+        SEND_STATUS.textContent = `Error: ${data.error || "Unknown error"}`;
+        SEND_STATUS.className = "mt-2 text-xs font-mono text-red-400";
+      }
+    } catch {
+      SEND_STATUS.textContent = "Network error — check your connection.";
+      SEND_STATUS.className = "mt-2 text-xs font-mono text-red-400";
+    }
+
+    SEND_BTN.disabled = false;
+    SEND_BTN.textContent = "Send Broadcast";
+  });
+</script>
