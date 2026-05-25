@@ -1,10 +1,10 @@
 import { Resend } from 'resend';
+import { contactNotificationEmail } from '../../lib/email-template';
 
 export async function POST({ request }: { request: Request }) {
   try {
     const { name, email, subject, message } = await request.json();
 
-    // Validate input
     if (!name || !email || !subject || !message) {
       return new Response(
         JSON.stringify({ error: 'All fields are required' }),
@@ -12,7 +12,6 @@ export async function POST({ request }: { request: Request }) {
       );
     }
 
-    // If no API key, just log and return success (for development)
     const apiKey = import.meta.env.RESEND_API_KEY as string | undefined;
     if (!apiKey) {
       console.log('Contact form submission (no API key configured):', { name, email, subject, message });
@@ -22,11 +21,6 @@ export async function POST({ request }: { request: Request }) {
       );
     }
 
-    // Resend sender domain must be verified in your Resend dashboard.
-    // The onboarding@resend.dev sender is restricted to testing only —
-    // it can only send to the email address you registered with Resend.
-    // Set CONTACT_EMAIL_FROM to an address on your verified domain, e.g.:
-    //   Portfolio Contact <noreply@varityweb.com>
     const from = (import.meta.env.CONTACT_EMAIL_FROM as string) || '';
     const to = (import.meta.env.CONTACT_EMAIL_TO as string) || '';
 
@@ -39,20 +33,13 @@ export async function POST({ request }: { request: Request }) {
     }
 
     const resend = new Resend(apiKey);
+    const { subject: emailSubject, html } = contactNotificationEmail({ name, email, subject, message });
 
-    // Send email using Resend
     const { data, error } = await resend.emails.send({
       from,
       to: [to],
-      subject: `Portfolio Contact: ${subject}`,
-      html: `
-        <h2>New Contact Form Submission</h2>
-        <p><strong>Name:</strong> ${escapeHtml(name)}</p>
-        <p><strong>Email:</strong> ${escapeHtml(email)}</p>
-        <p><strong>Subject:</strong> ${escapeHtml(subject)}</p>
-        <p><strong>Message:</strong></p>
-        <p>${escapeHtml(message)}</p>
-      `,
+      subject: emailSubject,
+      html,
       replyTo: email,
     });
 
@@ -68,7 +55,7 @@ export async function POST({ request }: { request: Request }) {
     }
 
     return new Response(
-      JSON.stringify({ success: true, message: 'Message sent! I\'ll get back to you soon.' }),
+      JSON.stringify({ success: true, message: "Message sent! I'll get back to you soon." }),
       { status: 200, headers: { 'Content-Type': 'application/json' } }
     );
   } catch (error) {
@@ -78,13 +65,4 @@ export async function POST({ request }: { request: Request }) {
       { status: 500, headers: { 'Content-Type': 'application/json' } }
     );
   }
-}
-
-function escapeHtml(text: string): string {
-  return text
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#039;');
 }

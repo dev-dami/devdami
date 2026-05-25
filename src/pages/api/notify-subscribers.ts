@@ -1,4 +1,5 @@
 import { Resend } from 'resend';
+import { blogPostEmail } from '../../lib/email-template';
 
 export async function POST({ request }: { request: Request }) {
   try {
@@ -41,33 +42,17 @@ export async function POST({ request }: { request: Request }) {
     }
 
     const resend = new Resend(apiKey);
-    const siteUrl = 'https://devdami.varityweb.com';
-    const postUrl = `${siteUrl}/blog/${slug}/`;
-    const desc = description || 'New blog post';
+    const { subject, html } = blogPostEmail({
+      title,
+      description: description || 'New blog post',
+      slug,
+    });
 
     const { error } = await resend.broadcasts.create({
       audienceId,
       from,
-      subject: `New blog post: ${title}`,
-      html: `
-        <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; margin: 0 auto; padding: 24px;">
-          <p style="color: #666; font-size: 14px; margin-bottom: 8px;">New from devdami.varityweb.com</p>
-          <h1 style="font-size: 22px; font-weight: 600; margin: 0 0 12px; color: #111;">
-            ${escapeHtml(title)}
-          </h1>
-          <p style="font-size: 15px; line-height: 1.6; color: #333; margin: 0 0 20px;">
-            ${escapeHtml(desc)}
-          </p>
-          <a href="${postUrl}"
-             style="display: inline-block; padding: 10px 20px; background: #2563eb; color: #fff;
-                    text-decoration: none; border-radius: 6px; font-size: 14px; font-weight: 500;">
-            Read the post →
-          </a>
-          <p style="margin-top: 28px; font-size: 12px; color: #999;">
-            If you no longer want these emails, you can unsubscribe at any time.
-          </p>
-        </div>
-      `,
+      subject,
+      html,
       send: true,
     });
 
@@ -93,13 +78,4 @@ export async function POST({ request }: { request: Request }) {
       { status: 500, headers: { 'Content-Type': 'application/json' } }
     );
   }
-}
-
-function escapeHtml(text: string): string {
-  return text
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#039;');
 }
