@@ -31,16 +31,21 @@ This post walks through exactly how XSS works in a TanStack Query application, w
 
 The data flow in a TanStack Query app looks like this:
 
-```
- ┌─────────────┐     ┌──────────────┐     ┌───────────┐     ┌────────────────────┐
- │  API/Server │ ──► │ TanStack     │ ──► │ Component │ ──► │ dangerouslySetInner│
- │  (untrusted)│     │ Query Cache  │     │  render   │     │ HTML = query.data  │
- └─────────────┘     └──────────────┘     └───────────┘     └────────────────────┘
-                         ▲                               ▲
-                         │ No sanitization or            │ React's JSX encoding
-                         │ output encoding               │ is BYPASSED here
-                         │ by TanStack Query             │
-```
+import FlowDiagram from "../../components/FlowDiagram.astro";
+
+<FlowDiagram
+  title="Data Flow — API to DOM Sink"
+  steps={[
+    { label: "API/Server", sublabel: "(untrusted)" },
+    { label: "TanStack Query", sublabel: "Cache" },
+    { label: "Component", sublabel: "render" },
+    { label: "dangerouslySet", sublabel: "InnerHTML = query.data", highlight: "danger" },
+  ]}
+  annotations={[
+    { at: 1, text: "No sanitization or output encoding by TanStack Query" },
+    { at: 3, text: "React's JSX encoding is BYPASSED here" },
+  ]}
+/>
 
 Critical insight: **TanStack Query is purely a state manager.** It fetches, caches, and delivers data. It never inspects, encodes, or sanitizes the values it carries. The XSS surface is never in the library — it is always in the rendering component downstream.
 

@@ -31,11 +31,25 @@ Real-world exploitation is rarely a single flaw. It is a **chain**. Each link in
 
 Here are the five links:
 
-1. **User input passed to a shell command** — The injection surface
-2. **Shared temporary files without locking** — The collision point
-3. **Race conditions enabling concurrency-based exploitation** — The probabilistic becomes deterministic
-4. **Blind output** — Commands execute but nothing returns in the HTTP response
-5. **Out-of-band (OOB) exfiltration** — How attackers retrieve blind output
+import FlowDiagram from "../../components/FlowDiagram.astro";
+
+<FlowDiagram
+  title="Attack Chain — Five Links"
+  steps={[
+    { label: "1. User Input", sublabel: "passed to shell command", highlight: "danger" },
+    { label: "2. Shared Temp File", sublabel: "no locking", highlight: "danger" },
+    { label: "3. Race Condition", sublabel: "concurrency exploit", highlight: "danger" },
+    { label: "4. Blind Output", sublabel: "no visible response", highlight: "accent" },
+    { label: "5. OOB Exfiltration", sublabel: "DNS/HTTP leak", highlight: "accent" },
+  ]}
+  annotations={[
+    { at: 0, text: "Injection surface" },
+    { at: 1, text: "Collision point" },
+    { at: 2, text: "Probabilistic → Deterministic" },
+    { at: 3, text: "Commands execute silently" },
+    { at: 4, text: "Attacker retrieves output" },
+  ]}
+/>
 
 We will walk through each link, explain why it exists, and show you the code that eliminates it.
 

@@ -207,18 +207,21 @@ A project is real when it has:
 
 Build a service that tracks something you care about—your coding time, your reading habits, your workout data. Then build it like a product:
 
-```
-┌─────────────┐     ┌──────────────┐     ┌─────────────┐
-│   Browser   │────▶│  API Server  │────▶│  PostgreSQL  │
-│  (React)    │     │   (Node.js)  │     │  (Primary)   │
-└─────────────┘     └──────────────┘     └─────────────┘
-                            │
-                            ▼
-                     ┌──────────────┐
-                     │    Redis     │
-                     │   (Cache)    │
-                     └──────────────┘
-```
+import FlowDiagram from "../../components/FlowDiagram.astro";
+
+<FlowDiagram
+  steps={[
+    { label: "Browser", sublabel: "(React)" },
+    {
+      label: "API Server",
+      sublabel: "(Node.js)",
+      children: [
+        { label: "Redis", sublabel: "(Cache)" },
+      ],
+    },
+    { label: "PostgreSQL", sublabel: "(Primary)" },
+  ]}
+/>
 
 **What you'll learn from this stack:**
 - Frontend state management with real async operations

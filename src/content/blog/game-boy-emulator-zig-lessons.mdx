@@ -53,6 +53,23 @@ Every part of the hardware runs in lockstep. If the CPU executes an instruction 
 
 That linear `step()` call is the only reason anything works. The Game Boy has no operating system, no scheduler, no interrupts that preempt the CPU in the way we understand them. Everything is cooperative, driven by this single tick.
 
+import FlowDiagram from "../../components/FlowDiagram.astro";
+
+<FlowDiagram
+  title="Emulator Core Loop — One Tick"
+  steps={[
+    {
+      label: "CPU", sublabel: "executes 1 instruction",
+      children: [
+        { label: "Timer", sublabel: "÷N, TIMA, TMA" },
+        { label: "Audio", sublabel: "4 wave channels" },
+        { label: "PPU", sublabel: "scanline render" },
+        { label: "Input", sublabel: "button states" },
+      ],
+    },
+  ]}
+/>
+
 Break that timing contract and games crash.
 
 ## The CPU: 512 Opcodes, Zero Abstraction

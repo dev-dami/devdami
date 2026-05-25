@@ -38,6 +38,32 @@ server.on('request', (req, res) => {
 });
 ```
 
+import FlowDiagram from "../../components/FlowDiagram.astro";
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
+  <div>
+    <FlowDiagram
+      title="Framework — Request Path"
+      steps={[
+        { label: "Request", sublabel: "incoming" },
+        { label: "Logger", sublabel: "clones req object", highlight: "danger" },
+        { label: "CORS", sublabel: "processes every req", highlight: "danger" },
+        { label: "Body Parser", sublabel: "parses even if unused", highlight: "danger" },
+        { label: "Handler", sublabel: "~5ms actual logic" },
+      ]}
+    />
+  </div>
+  <div>
+    <FlowDiagram
+      title="Direct — Request Path"
+      steps={[
+        { label: "Request", sublabel: "incoming" },
+        { label: "Handler", sublabel: "log + respond" },
+      ]}
+    />
+  </div>
+</div>
+
 ## Where Performance Actually Leaks
 
 ### 1. Async Overhead

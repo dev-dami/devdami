@@ -1,0 +1,156 @@
+---
+export interface BranchStep {
+  label: string;
+  sublabel?: string;
+  highlight?: 'default' | 'accent' | 'danger';
+}
+
+export interface Step {
+  label: string;
+  sublabel?: string;
+  highlight?: 'default' | 'accent' | 'danger';
+  /** Branch nodes rendered below this step with a downward arrow */
+  children?: BranchStep[];
+}
+
+export interface Annotation {
+  /** Index into `steps` this annotation points to */
+  at: number;
+  text: string;
+}
+
+export interface Props {
+  steps: Step[];
+  annotations?: Annotation[];
+  /** Optional title shown above the diagram */
+  title?: string;
+  /** Optional loopback label shown at the end (e.g., "Back to start") */
+  loopback?: string;
+}
+
+const { steps, annotations = [], title, loopback } = Astro.props;
+
+const highlightStyles: Record<string, string> = {
+  default: 'border-border bg-surface/30',
+  accent: 'border-accent/40 bg-accent/[0.04]',
+  danger: 'border-red-500/40 bg-red-500/[0.04]',
+};
+---
+
+<div class="my-10">
+  {title && (
+    <p class="text-[11px] font-mono text-muted/60 mb-4 tracking-wider uppercase">
+      {title}
+    </p>
+  )}
+
+  <div class="overflow-x-auto -mx-4 px-4">
+    <div class="flex items-start gap-0 min-w-min">
+      {
+        steps.map((step, i) => {
+          const highlight = highlightStyles[step.highlight ?? 'default'];
+          const stepAnnotations = annotations.filter((a) => a.at === i);
+          const hasChildren = step.children && step.children.length > 0;
+          return (
+            <div class="flex items-start gap-0">
+              {/* Arrow connector (not rendered before first step) */}
+              {i > 0 && (
+                <div class="flex items-center self-center shrink-0">
+                  <svg width="36" height="24" viewBox="0 0 36 24" fill="none" class="text-border shrink-0">
+                    <line x1="0" y1="12" x2="28" y2="12" stroke="currentColor" stroke-width="1.5" />
+                    <polygon points="28,6 36,12 28,18" fill="currentColor" />
+                  </svg>
+                </div>
+              )}
+
+              {/* Step column: main box + optional branches below */}
+              <div class="flex flex-col items-center gap-2 min-w-0">
+                {/* Main step box */}
+                <div
+                  class={`border ${highlight} rounded-lg px-4 py-3 text-center transition-colors`}
+                >
+                  <div class="text-[13px] font-mono text-text-dark font-semibold leading-snug whitespace-nowrap">
+                    {step.label}
+                  </div>
+                  {step.sublabel && (
+                    <div class="text-[11px] font-mono text-muted mt-1 leading-snug whitespace-nowrap">
+                      {step.sublabel}
+                    </div>
+                  )}
+                </div>
+
+                {/* Annotations pointing to this step */}
+                {stepAnnotations.length > 0 && (
+                  <div class="flex flex-col items-center gap-1.5 mt-1">
+                    {stepAnnotations.map((ann) => (
+                      <div class="flex flex-col items-center">
+                        <svg width="1" height="10" viewBox="0 0 1 10" class="text-accent/50 shrink-0">
+                          <line x1="0.5" y1="0" x2="0.5" y2="10" stroke="currentColor" stroke-width="1" />
+                        </svg>
+                        <div class="text-[11px] font-mono text-accent text-center leading-snug border border-accent/15 bg-accent/[0.03] rounded-md px-2.5 py-1.5 max-w-[200px]">
+                          {ann.text}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {/* Branch nodes below */}
+                {hasChildren && (
+                  <div class="flex flex-col items-center mt-1">
+                    <svg width="24" height="36" viewBox="0 0 24 36" fill="none" class="text-border shrink-0">
+                      <line x1="12" y1="0" x2="12" y2="28" stroke="currentColor" stroke-width="1.5" />
+                      <polygon points="6,28 12,36 18,28" fill="currentColor" />
+                    </svg>
+                    <div class="flex items-start gap-3">
+                      {step.children!.map((child, ci) => (
+                        <div class="flex flex-col items-center min-w-0">
+                          {ci > 0 && (
+                            <svg width="36" height="24" viewBox="0 0 36 24" fill="none" class="text-border shrink-0">
+                              <line x1="0" y1="12" x2="28" y2="12" stroke="currentColor" stroke-width="1.5" />
+                              <polygon points="28,6 36,12 28,18" fill="currentColor" />
+                            </svg>
+                          )}
+                          <div
+                            class={`border ${highlightStyles[child.highlight ?? 'default']} rounded-lg px-4 py-3 text-center transition-colors`}
+                          >
+                            <div class="text-[13px] font-mono text-text-dark font-semibold leading-snug whitespace-nowrap">
+                              {child.label}
+                            </div>
+                            {child.sublabel && (
+                              <div class="text-[11px] font-mono text-muted mt-1 leading-snug whitespace-nowrap">
+                                {child.sublabel}
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Loopback label */}
+                {loopback && i === steps.length - 1 && (
+                  <div class="flex flex-col items-center mt-2">
+                    <svg width="1" height="16" viewBox="0 0 1 16" class="text-accent/40 shrink-0">
+                      <line x1="0.5" y1="0" x2="0.5" y2="16" stroke="currentColor" stroke-width="1" stroke-dasharray="3 2" />
+                    </svg>
+                    <div class="flex items-center gap-1.5">
+                      <svg width="24" height="12" viewBox="0 0 24 12" class="text-accent/50 shrink-0">
+                        <line x1="0" y1="6" x2="16" y2="6" stroke="currentColor" stroke-width="1.5" />
+                        <polygon points="16,3 24,6 16,9" fill="currentColor" />
+                      </svg>
+                      <span class="text-[11px] font-mono text-accent/70 italic whitespace-nowrap">
+                        {loopback}
+                      </span>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          );
+        })
+      }
+    </div>
+  </div>
+</div>
