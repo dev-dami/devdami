@@ -14,13 +14,33 @@ It also has exactly two GitHub stars, eleven known bugs, and zero users who aren
 
 ---
 
+import FlowDiagram from '../../components/FlowDiagram.astro';
+
 ## Pipeline Overview
 
 Carv's compiler pipeline is six stages:
 
-```
-Source ──► Lexer ──► Tokens ──► Parser ──► AST ──► Type Checker ──► C Codegen ──► gcc/arm-none-eabi-gcc ──► Binary
-```
+<FlowDiagram
+  title="Compiler Pipeline"
+  steps={[
+    { label: "Lexer", sublabel: "pkg/lexer · 312 lines", highlight: "accent" },
+    { label: "Parser", sublabel: "pkg/parser · 664 lines", highlight: "accent" },
+    { label: "AST", sublabel: "pkg/ast · 765 lines" },
+    { label: "Type Checker", sublabel: "pkg/types · 990 lines", highlight: "accent" },
+    { label: "C Codegen", sublabel: "pkg/codegen · 3521 lines", highlight: "accent" },
+    { label: "Binary", sublabel: "gcc / arm-none-eabi-gcc", children: [
+      { label: "Host", sublabel: "x86_64 native" },
+      { label: "ARM", sublabel: "Cortex-M0–M7" },
+    ]},
+  ]}
+  annotations={[
+    { at: 0, text: "TOKEN_INTERP_STRING" },
+    { at: 1, text: "Pratt + recursive descent" },
+    { at: 3, text: "Ownership + borrow tracking" },
+    { at: 4, text: "Arena allocator + runtime preamble" },
+  ]}
+  loopback="carv build --target arm"
+/>
 
 Each stage runs to completion before the next starts. The type checker produces a `CheckResult` — a flat map from every expression AST node to its inferred type — which the codegen consumes alongside the original AST.
 
@@ -583,6 +603,32 @@ The fix requires wiring them to `strstr()` for `contains` and map-key-extraction
 ---
 
 ## The 11 Remaining Bugs
+
+<FlowDiagram
+  title="Bug Distribution by Component"
+  steps={[
+    { label: "Codegen", sublabel: "9 bugs", highlight: "danger", children: [
+      { label: "#3 Map iter", sublabel: "struct mismatch", highlight: "danger" },
+      { label: "#4 contains()", sublabel: "missing dispatch", highlight: "danger" },
+      { label: "#5 keys()", sublabel: "missing dispatch", highlight: "danger" },
+      { label: "#6 For-in type", sublabel: "always carv_int", highlight: "danger" },
+      { label: "#7 len() borrow", sublabel: "`.` vs `->`", highlight: "danger" },
+      { label: "#8 Class &ptr", sublabel: "double pointer", highlight: "danger" },
+      { label: "#9 Int match", sublabel: "assumes Result", highlight: "danger" },
+    ]},
+    { label: "Parser", sublabel: "1 bug", highlight: "accent" },
+    { label: "Type Checker", sublabel: "1 bug", highlight: "accent" },
+    { label: "Fixed", sublabel: "2 bugs", children: [
+      { label: "#1 Empty arm", sublabel: "emit zero", highlight: "default" },
+      { label: "#2 Closure cast", sublabel: "add (void*)", highlight: "default" },
+    ]},
+  ]}
+  annotations={[
+    { at: 0, text: "All 7 unfixed codegen bugs block real code from compiling" },
+    { at: 1, text: "#10 loop keyword not wired" },
+    { at: 2, text: "#11 no int→i64 widening" },
+  ]}
+/>
 
 | # | Bug | Area | What Happens |
 |---|---|---|---|
