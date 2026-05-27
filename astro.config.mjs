@@ -1,5 +1,6 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
+import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 
 import tailwindcss from '@tailwindcss/vite';
@@ -7,6 +8,14 @@ import mdx from '@astrojs/mdx';
 import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 import vercel from '@astrojs/vercel';
+
+// Load custom Carv language grammar
+const carvGrammar = JSON.parse(
+    readFileSync(
+        new URL('./src/lib/syntaxes/carv.tmLanguage.json', import.meta.url),
+        'utf-8',
+    ),
+);
 
 // https://astro.build/config
 export default defineConfig({
@@ -28,7 +37,8 @@ export default defineConfig({
         shikiConfig: {
             theme: 'vitesse-dark',
             wrap: true,
-            includeLineNumbers: true
-        }
-    }
+            includeLineNumbers: true,
+            langs: [carvGrammar],
+        },
+    },
 });

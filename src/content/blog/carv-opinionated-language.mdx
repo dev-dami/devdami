@@ -1,0 +1,656 @@
+---
+title: "I May Be Too Opinionated (And Unemployed)"
+description: "A deep technical dive into building Carv, a programming language that compiles to C for ARM Cortex-M. Lexer internals, Pratt parsing, type inference, ownership tracking, C codegen, state-machine async/await, and the 11 bugs I haven't fixed yet."
+date: 2026-05-27
+tags: ["carv", "compilers", "embedded", "systems", "architecture"]
+repo: "carv"
+---
+
+I am 17 and I wrote a programming language that compiles to C.
+
+Six months ago, "dyms" was a single Go file that parsed `1 + 2` and printed a syntax tree. Today, [Carv](https://github.com/dev-dami/carv) has a lexer with string interpolation, a Pratt parser, a type checker with ownership tracking and borrow checking, a code generator that emits C99, async/await that lowers to state machines, closures with environment capture, interfaces with vtable dispatch, and an arena allocator runtime. It compiles for ARM Cortex-M targets.
+
+It also has exactly two GitHub stars, eleven known bugs, and zero users who aren't me. This post is about the architecture, the bugs, and why building a compiler at 3AM is still the most fun I've had with a computer.
+
+---
+
+## Pipeline Overview
+
+Carv's compiler pipeline is six stages:
+
+```
+Source ──► Lexer ──► Tokens ──► Parser ──► AST ──► Type Checker ──► C Codegen ──► gcc/arm-none-eabi-gcc ──► Binary
+```
+
+Each stage runs to completion before the next starts. The type checker produces a `CheckResult` — a flat map from every expression AST node to its inferred type — which the codegen consumes alongside the original AST.
+
+The whole compiler is 6,252 lines of Go:
+
+```
+pkg/lexer/    —  312 lines — token definitions + lexer
+pkg/ast/      —  765 lines — 35 AST node types
+pkg/parser/   —  664 lines — Pratt + recursive descent
+pkg/types/    —  990 lines — type inference + ownership + borrows
+pkg/codegen/  — 3521 lines — C emitter + runtime preamble
+```
+
+```carv
+// A complete Carv program:
+fn greet(name: string) -> string {
+    return f"hello, {name}";
+}
+
+pub fn main() {
+    let msg = greet("world");
+    println(msg);
+}
+```
+
+```
+./build/carv build hello.carv && ./hello
+# "hello, world"
+```
+
+---
+
+## The Lexer — Tokens and Interpolation
+
+Tokens are defined as an `iota` enum in `pkg/lexer/token.go` — roughly 100 token types ranging from `TOKEN_PLUS` through `TOKEN_U64_TYPE` to `TOKEN_REQUIRE`. The lexer is hand-written, producing tokens via a classic `readChar()` / `peekChar()` loop.
+
+The most interesting token is string interpolation. When the lexer sees `f"`, it enters an interpolation mode:
+
+```go
+// pkg/lexer/lexer.go — simplified
+case 'f':
+    if l.peekChar() == '"' {
+        l.readChar()
+        tok = l.readInterpolatedString()
+    }
+```
+
+Inside `readInterpolatedString()`, the lexer scans forward, producing a single `TOKEN_INTERP_STRING` token whose literal contains the parsed parts — literal text segments and embedded `{expr}` delimiters. The parser later splits these into the `InterpolatedString` AST node's `Parts` array.
+
+```carv
+// This Carv interpolation:
+let name = "Carv";
+let version = "0.5.1";
+println(f"{name} v{version}");
+
+// Gets tokenized as: LET, IDENT("name"), ASSIGN, STRING("Carv"),
+//   LET, IDENT("version"), ASSIGN, STRING("0.5.1"),
+//   IDENT("println"), LPAREN, INTERP_STRING("name v", <expr>), RPAREN
+```
+
+Multi-character operators like `->`, `=>`, `<=`, `>=`, `==`, `!=`, `+=`, and `|>` use a standard two-character peek pattern. There's no newline sensitivity — Carv uses braces for blocks, not indentation.
+
+---
+
+## The Parser — Pratt + Recursive Descent
+
+The parser combines a Pratt parser for expressions with recursive descent for statements.
+
+**Operator precedence** is a flat enum with pipe at the bottom:
+
+```
+LOWEST      | x |> double |> print   (pipe at LOWEST)
+ASSIGN      | = += -= etc.
+LOGICAL_OR  | ||
+LOGICAL_AND | &&
+EQUALS      | == !=
+LESSGREATER | < > <= >=
+SUM         | + -
+PRODUCT     | * / %
+PREFIX      | -X !X &X *X
+CALL        | myFunc(X)
+INDEX       | array[index]
+MEMBER      | obj.field
+```
+
+The pipe operator `|>` is implemented as an infix parselet that rewrites `left |> right` into `right(left)` at parse time — no special AST node needed:
+
+```carv
+fn double(n: int) -> int {
+    return n * 2;
+}
+
+// Parsed as: print(double(double(x)))
+let x = 10;
+x |> double |> double |> println;
+```
+
+For statements, the parser dispatches on token type — `let`/`mut`/`const` to `parseLetStatement()`, `fn` to `parseFunctionStatement()`, `class`/`interface`/`impl` to their respective parsers. Class parsing collects field declarations with optional default values:
+
+```carv
+class Point {
+    x: i32 = 0
+    y: i32 = 0
+}
+
+impl Point {
+    fn distance(self) -> f32 {
+        return sqrt(self.x * self.x + self.y * self.y);
+    }
+}
+
+let p = Point{x: 3, y: 4};
+println(p.distance());
+```
+
+**Bug #10** — the `loop` keyword is defined in the lexer (`TOKEN_LOOP` at token.go line 86) and `LookupIdent` maps it, but `parseStatement()` has no case for it. `loop { ... }` hits a parse error.
+
+---
+
+## The AST — 35 Node Types
+
+Every node implements `Expression`, `Statement`, or `TypeExpr`, each embedding `Node` with `TokenLiteral()` and `Pos()`.
+
+Key expression nodes: `Identifier`, `IntegerLiteral`, `FloatLiteral`, `StringLiteral`, `BoolLiteral`, `InterpolatedString`, `InfixExpression`, `PrefixExpression`, `CallExpression`, `IndexExpression`, `MemberExpression`, `IfExpression`, `MatchExpression`, `FunctionLiteral`, `TryExpression`, `OkExpression`, `ErrExpression`, `AwaitExpression`, `SpawnExpression`, `RefExpression`, `AssignExpression`.
+
+Key statement nodes: `LetStatement`, `ConstStatement`, `ReturnStatement`, `ForStatement`, `ForInStatement`, `WhileStatement`, `LoopStatement`, `FunctionStatement`, `ClassStatement`, `InterfaceStatement`, `ImplStatement`, `ModuleStatement`, `ImportStatement`, `UnsafeStatement`.
+
+Type expressions: `BasicType` (int, float, string, sized ints), `NamedType`, `ArrayType`, `MapType`, `FunctionType`, `ChannelType`, `RefType` (&T), `ResultType`, `OptionalType`.
+
+---
+
+## The Type Checker — Inference and Ownership
+
+The type checker walks the AST, maintaining a scope chain and producing type errors and ownership warnings.
+
+### Type Inference
+
+Inference is bottom-up and environment-based. For each expression, the checker computes the type by dispatching on its kind:
+
+- **Literals**: integer → `Int`, float → `Float`, string → `String`
+- **Identifiers**: looked up in the current scope chain via `Lookup()`, which walks parent scopes
+- **Infix expressions**: arithmetic → numeric type, comparison → `Bool`, `+` on strings → `String`
+- **Calls**: return type from the function's symbol table entry, after checking argument compatibility
+- **Index**: `ArrayType(T)` → `T`, `MapType(K,V)` → `V`
+- **If/match**: both branches must produce the same type
+- **Result**: `Ok(e)` → `Result(T, void)`, `Err(e)` → `Result(void, T)`
+
+Every inferred type is recorded in `nodeTypes map[ast.Expression]Type`, which the codegen reads later.
+
+### Ownership Tracking
+
+Carv implements move semantics via a two-state system:
+
+```go
+// pkg/types/ownership.go
+type VarOwnership struct {
+    State   OwnershipState  // Owned or Moved
+    MovedAt int
+    MovedTo string
+}
+```
+
+When a move-type variable (string, array, map) is used in a position that transfers ownership — assignment, function argument, or return — the checker marks it as moved:
+
+```carv
+let s = "hello";
+let t = s;    // s is moved — ownership transfers to t
+// print(s);  // checker warns: value has been moved
+```
+
+Subsequent references to the moved variable emit a warning. The ownership state is scoped — `pushOwnership()`/`popOwnership()` create snapshots at function and block boundaries.
+
+```go
+func (c *Checker) trackOwnership(name string, t Type) {
+    if IsMoveType(t) {
+        c.ownership[name] = &VarOwnership{State: Owned}
+        return
+    }
+    delete(c.ownership, name)
+}
+```
+
+A type is a move type if it's in the `MoveType` category: strings, arrays, maps, pointers, and composites containing them.
+
+### Borrow Checking
+
+Borrow checking (`pkg/types/borrow.go`) tracks active borrows per variable. `&x` or `&mut x` records the borrow; assignment to or move from a borrowed variable emits a warning:
+
+```carv
+fn print_len(v: &string) {
+    println(len(v));
+}
+
+let msg = "world";
+print_len(&msg);   // msg is borrowed, not moved
+// let x = msg;    // would warn: can't move borrowed value
+```
+
+It is NOT a full Rust-style borrow checker. No lifetime tracking, no dangling reference prevention, no mutable aliasing enforcement. Just a best-effort static analysis that catches obvious violations.
+
+### Sized Types
+
+Sized integers (`u8`, `i16`, `u32`, `i64`, `f32`, `f64`) are their own type objects in the checker. **Bug #11** — there's no implicit widening from literal `int` to sized types:
+
+```carv
+let x: i64 = 1;
+// Type error: cannot assign int to i64
+// Even though the value 1 fits in i64
+```
+
+---
+
+## The Code Generator — Where 11 Bugs Live
+
+The codegen (`pkg/codegen/cgen.go`, 3,521 lines) walks the typed AST and emits C99 into a `strings.Builder`, maintaining a scope of C variable declarations and a preamble buffer for hoisted statements.
+
+### C Runtime Types
+
+The runtime is emitted inline in every compiled program's preamble:
+
+```c
+typedef long long carv_int;
+typedef double carv_float;
+typedef bool carv_bool;
+typedef struct { char* data; size_t len; bool owned; } carv_string;
+```
+
+Strings are fat pointers. The `owned` flag controls whether `carv_string_drop()` calls `free()` on the data, enabling zero-copy substrings.
+
+The `carv_result` type uses a tagged union for pattern matching:
+
+```c
+typedef struct {
+    carv_bool is_ok;
+    carv_type_tag ok_tag, err_tag;
+    union { carv_int ok_int; carv_float ok_float;
+            carv_bool ok_bool; carv_string ok_str; void* ok_ptr; } ok;
+    union { carv_string err_str; carv_int err_code; } err;
+} carv_result;
+```
+
+Arrays are generated per element type (`carv_int_array`, `carv_string_array`, etc.):
+
+```c
+typedef struct { TYPE* data; carv_int len; carv_int cap; } TYPE_array;
+```
+
+The map type is an open-addressing hash map with FNV-1a hashing:
+
+```c
+typedef struct { carv_string key; carv_map_val_tag tag;
+    union { carv_int i; carv_float f; carv_bool b; carv_string s; } val;
+    bool occupied;
+} carv_map_entry;
+typedef struct { carv_map_entry* entries; carv_int cap; carv_int len; } carv_map;
+```
+
+The arena allocator uses a linked list of malloc'd blocks, freed all at once at program exit:
+
+```c
+typedef struct carv_arena_block {
+    size_t size, used;
+    struct carv_arena_block* next;
+} carv_arena_block;
+
+typedef struct {
+    carv_arena_block* head;
+    carv_arena_block* current;
+} carv_arena;
+```
+
+### Expression and Statement Lowering
+
+Each expression is lowered to a preamble of C statements followed by a reference to its result variable. This approach means the generated C is a linear sequence of temp variable assignments:
+
+```go
+g.addPreamble(fmt.Sprintf("carv_int __temp_%d = %s + %s;", id, left, right))
+```
+
+### Match Lowering (Bug #9 — Integer Match)
+
+The match lowering assumes every scrutinee is a `carv_result`:
+
+```carv
+// Carv source — result-type match works:
+let result = divide(10, 2);
+match result {
+    Ok(v) => println(v),
+    Err(e) => println(e),
+};
+```
+
+Generates:
+
+```c
+carv_result __match_1 = divide(10, 2);
+carv_int __match_res_1;
+if (__match_1.is_ok) {
+    carv_int v = __match_1.ok.ok_int;
+    __match_res_1 = carv_print_int(v);
+} else if (!__match_1.is_ok) {
+    carv_string e = __match_1.err.err_str;
+    __match_res_1 = carv_print_string(e);
+}
+```
+
+But this crashes the compiler:
+
+```carv
+// Carv source — integer match broken:
+let code = 200;
+match code {
+    200 => println("ok"),
+    404 => println("not found"),
+};
+```
+
+The codegen calls `inferResultOkType()` on the scrutinee, which returns `"carv_int"` for non-Result expressions, then wraps it in `carv_result __match_1 = code;` — treating `int` as `carv_result`. The fix requires branching on the scrutinee's type (available in `g.typeInfo`) and generating a simple `if/else if` chain for primitive types.
+
+**Bug #1** — empty match arm bodies:
+```carv
+match result {
+    Ok(v) => {},
+    Err(e) => println(e),
+};
+```
+
+Produces `__match_res_1 = ;` — syntactically invalid C. Already fixed by checking `len(blockExpr.Block.Statements) == 0` and emitting `__match_res_1 = 0;` instead.
+
+### For-In Lowering (Bug #6 — String Array Iteration as Int)
+
+```carv
+// Carv source:
+let words = ["hello", "world"];
+for w in words {
+    println(w);
+}
+```
+
+Generates a C for loop with index-based access:
+
+```go
+func (g *CGenerator) generateForInStatement(s *ast.ForInStatement) {
+    elemType := g.inferArrayElemType(s.Iterable)
+    g.writeln(fmt.Sprintf("for (carv_int %s = 0; %s < %s.len; %s++) {", idxVar, idxVar, iterableExpr, idxVar))
+    g.writeln(fmt.Sprintf("%s %s = %s.data[%s];", elemType, iterName, iterableExpr, idxVar))
+}
+```
+
+The problem is `inferArrayElemType`:
+
+```go
+func (g *CGenerator) inferArrayElemType(expr ast.Expression) string {
+    switch e := expr.(type) {
+    case *ast.ArrayLiteral:
+        if len(e.Elements) > 0 { return g.resolveType(e.Elements[0]) }
+    case *ast.StringLiteral:
+        return "carv_string"
+    case *ast.Identifier:
+        return "carv_int"  // ← always int for variable references
+    }
+    return "carv_int"
+}
+```
+
+For `for w in words` where `words` is a variable, it returns `"carv_int"` regardless of the actual element type. For `[]string`, the generated C reads `carv_int w = words.data[i]` — silently wrong. The function never queries `g.typeInfo` to look up the variable's declared type.
+
+### Closure Lowering (Bug #2 — Environment Cast)
+
+A closure captures variables from the enclosing scope:
+
+```carv
+let multiplier = 3;
+let triple = fn(x: i32) -> i32 {
+    return x * multiplier;
+};
+println(triple(10)); // 30
+```
+
+The codegen:
+
+1. **Analyzes captures** by walking the function body to find free variables via `walkForCaptures()`
+2. **Generates an environment struct** — one field per captured variable with its C type
+3. **Lifts the function body** — rewrites captured variable references as `__env->name`
+4. **Emits the closure** — allocates env on arena, populates captures, builds a fat-pointer struct
+
+```go
+// allocate env, populate, build closure struct
+envName := fmt.Sprintf("__closure_%d_env", id)
+g.writeln(fmt.Sprintf("%s* %s = (%s*)carv_arena_alloc(sizeof(%s));", envName, envVar, envName, envName))
+for _, c := range captures {
+    g.writeln(fmt.Sprintf("%s->%s = %s;", envVar, c.Name, g.safeName(c.Name)))
+}
+fnPtrCastSig := strings.Join(append([]string{"void*"}, paramTypes...), ", ")
+g.writeln(fmt.Sprintf("struct { void* env; %s (*fn_ptr)(%s); } %s = {%s, (%s)%s};",
+    retType, fnPtrCastSig, clVar, envVar, fnPtrCastSig, fnName))
+```
+
+The function pointer takes `void*` as its first parameter, which the lifted function casts back to the concrete env type. **Bug #2** — the cast from the lifted function's typed signature to `void*` was missing, causing C compiler rejection. Fixed by adding explicit `(void*)` on the env pointer.
+
+### Async/Await Lowering — State Machines
+
+An async Carv function:
+
+```carv
+async fn read_sensor(pin: u8) -> u16 {
+    let raw = await read_adc(pin);
+    return raw;
+}
+```
+
+Lowers through three phases. **Phase 1** scans the function body to identify locals that survive across await points. These go into a frame struct:
+
+```c
+struct read_sensor_frame {
+    int __state;
+    u8 pin;              // parameter
+    u16 raw;             // local that crosses await boundary
+    u16 __result;
+    void* __sub_future;  // pointer to child async frame
+};
+```
+
+**Phase 2** generates the poll function — a switch on state:
+
+```c
+static bool read_sensor_poll(void* __raw_frame, carv_loop* __loop) {
+    struct read_sensor_frame* f = (struct read_sensor_frame*)__raw_frame;
+    switch (f->__state) {
+    case 0:
+        /* code before await */
+        f->__state = 1;
+        // poll sub-future...
+    case 1:
+        /* code after await */
+        f->__result = f->raw;
+        return true;
+    }
+    return true;
+}
+```
+
+**Phase 3** generates the entry function that allocates the frame, stores parameters, and returns a pointer to it.
+
+Each `AwaitExpression` generates: save locals to frame, increment state, return control to the event loop. `SpawnExpression` creates a new task that's polled independently.
+
+### Class and Interface Lowering
+
+Classes compile directly to C structs:
+
+```carv
+class Book {
+    title: string = ""
+    author: string = ""
+}
+
+let b = Book{title: "Carv", author: "me"};
+```
+
+Produces:
+
+```c
+typedef struct Book Book;
+struct Book {
+    carv_string title;
+    carv_string author;
+};
+```
+
+`packed` classes add `__attribute__((packed))` for hardware register maps:
+
+```carv
+packed class GPIO_Regs {
+    moder:   u32 = 0
+    otyper:  u32 = 0
+    ospeedr: u32 = 0
+    pupdr:   u32 = 0
+    idr:     u32 = 0
+    odr:     u32 = 0
+}
+```
+
+Interfaces compile to vtable structs — function pointer tables with `void*` self parameters. When a class `impl`ements an interface, a concrete vtable instance is generated with methods bound to the implementing class.
+
+**Bug #8 (Class Double Pointer)**: Classes are always `Book*` in C (pointer types), but the borrow expression generator doesn't account for this:
+
+```carv
+fn print_title(b: &Book) {
+    println(b.title);
+}
+
+let b = Book{title: "Carv"};
+print_title(&b); // &b — b is already Book*, so &b is Book**
+```
+
+The codegen emits `&b` unconditionally. For class types, `b` is already a pointer — `&b` produces `Book**`. Need to suppress the `&` when the type is already a C pointer.
+
+### Ownership and Drops
+
+The codegen emits deterministic drop calls at scope exits:
+
+```go
+func (g *CGenerator) emitScopeDrops() {
+    for name, v := range g.scope.vars {
+        if v.Owned {
+            switch v.CType {
+            case "carv_string":
+                g.writeln(fmt.Sprintf("carv_string_drop(&%s);", name))
+            }
+        }
+    }
+}
+```
+
+`emitScopeDrops()` is called at function exits, before return statements, and at block boundaries:
+
+```c
+static void carv_string_drop(carv_string* s) {
+    if (s->owned && s->data) {
+        free(s->data);
+        s->data = NULL;
+        s->len = 0;
+    }
+}
+```
+
+**Bug #7 (len() on Borrow)**: When a function takes `s: &string` and calls `len(s)`:
+
+```carv
+fn print_len(s: &string) {
+    println(len(s));
+    // codegen emits: s.len
+    // but s is carv_string*, so it needs: s->len
+}
+```
+
+The codegen generates `s.len` (struct member access), but `s` is `carv_string*` (a pointer). Needs `->` instead of `.`. The type info is available in `g.typeInfo` but the `len()` lowering doesn't check it.
+
+### Map Iteration (Bug #3 — Struct Mismatch)
+
+The runtime preamble defines `carv_map` with an `entries` field:
+
+```c
+typedef struct { carv_map_entry* entries; carv_int cap; carv_int len; } carv_map;
+```
+
+But the for-in codegen for maps generates `map.data[__idx]` — referencing a `data` field that doesn't exist on `carv_map`. This is a struct layout mismatch between what the preamble defines and what the for-in lowering expects.
+
+### Missing Built-in Functions (Bugs #4 and #5)
+
+The `contains()` and `keys()` built-in functions are documented and pass name resolution, but the codegen's built-in dispatch table has no entries for them:
+
+```carv
+contains("hello", "el"); // implicit declaration of 'contains' in C
+keys(my_map);            // same — no codegen case
+```
+
+The fix requires wiring them to `strstr()` for `contains` and map-key-extraction logic for `keys`.
+
+---
+
+## The 11 Remaining Bugs
+
+| # | Bug | Area | What Happens |
+|---|---|---|---|
+| 1 | Empty match arm body | Codegen | `__match_res_X = ;` — invalid C. Fixed. |
+| 2 | Closure env cast | Codegen | Function pointer type mismatch. Fixed. |
+| 3 | Map for-in struct mismatch | Codegen | `map.data[idx]` but runtime has `entries` |
+| 4 | `contains()` never emitted | Codegen | No codegen dispatch entry |
+| 5 | `keys()` never emitted | Codegen | Same as above |
+| 6 | String array for-in as int | Codegen | `for w in words` → `carv_int w` |
+| 7 | `len()` on borrow uses `.` | Codegen | `s.len` instead of `s->len` |
+| 8 | `&` on class double ptr | Codegen | Classes are already `Book*`, so `&b` → `Book**` |
+| 9 | Integer match broken | Codegen | Assumes every scrutinee is `carv_result` |
+| 10 | `loop` keyword unparsed | Parser | Token exists, no parse function wired up |
+| 11 | Sized literal type strict | Types | `let x: i64 = 1` rejected — no implicit widening |
+
+---
+
+## What I'd Do Differently
+
+If starting Carv today:
+
+**1. An IR between AST and codegen.** Some bugs exist because the codegen re-derives type information from the AST structure instead of reading it from a canonical IR. An IR would make match lowering, type dispatch, and borrow handling more systematic.
+
+**2. A proper C runtime header.** Currently all runtime types are emitted inline in the preamble, making it impossible to change a struct layout without touching every codegen path. A `carv_runtime.h` would centralize type definitions and eliminate bugs like the map struct mismatch.
+
+**3. Type info passed explicitly.** The current approach of `g.typeInfo = result.TypeInfo()` at the start of codegen, with lookups scattered throughout, means the codegen doesn't always check type info when it should (bug #6, #7, #8). If every expression codegen path received the inferred type as a parameter, half the medium-severity bugs would never exist.
+
+---
+
+## What Works
+
+Despite the bugs, the full pipeline produces working output. Here's a TCP server in zero dependencies:
+
+```carv
+require "net" as net;
+
+let listener = net.tcp_listen("127.0.0.1", 8080);
+let conn = net.tcp_accept(listener);
+let req = net.tcp_read(conn, 4096);
+println(req);
+
+let body = "Hello from Carv!\n";
+let response =
+    "HTTP/1.1 200 OK\r\n" +
+    "Content-Type: text/plain\r\n" +
+    "Content-Length: 28\r\n" +
+    "Connection: close\r\n\r\n" +
+    body;
+
+net.tcp_write(conn, response);
+net.tcp_close(conn);
+net.tcp_close(listener);
+```
+
+And the classic showcase:
+
+```carv
+fn double(n: int) -> int { return n * 2; }
+
+let x = 10;
+x |> double |> double |> println;
+
+match divide(10, 2) {
+    Ok(v) => println(v),
+    Err(e) => println(e),
+};
+```
+
+---
+
+Two stars on GitHub, eleven bugs in the tracker, and zero users other than me. I wouldn't trade this project for anything.
