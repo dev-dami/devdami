@@ -27,3 +27,5 @@ pnpm-debug.log*
 
 # sisyphus agent
 .sisyphus/
+# opencode agent run-continuation state
+.omo/
