@@ -1,0 +1,244 @@
+---
+title: "im pivoting to ai and ml"
+description: "Why a systems engineer spent the last few months building diffusion models from scratch — and what transferred, what didn't, and what's next."
+date: 2026-06-01
+tags: ["ai", "ml", "diffusion", "pytorch", "career", "systems"]
+takeaways: "The most interesting systems problems are now in AI. A senior systems engineer who learns ML is more valuable than either alone — and the math, tooling, and debugging instincts transfer directly."
+---
+
+For the past few months, I've been quietly going down the AI/ML rabbit hole. After years writing systems code — compilers, runtimes, emulators, language tooling, kernel ports — I'm now spending most of my time on diffusion models, attention mechanisms, and training pipelines. This post is half personal essay, half technical deep dive on what I built, what I learned, and why I'm making this move.
+
+## The Short Version
+
+I started writing C before I wrote JavaScript. I built a game boy emulator in Zig, ported a kernel from C to Rust, designed opinionated programming languages, and reverse-engineered attack chains for fun. Systems programming is where my instincts live — I think in memory layouts, cycle counts, and stack frames.
+
+But sometime in late 2025, something shifted. The most interesting problems in computing stopped being about making machines go faster and started being about making them *think*. And the tooling, the math, the architecture — all of it clicked with what I already knew.
+
+## Why Now
+
+Three things converged.
+
+**1. The architecture wall.** CPU single-core performance has been flat for a decade. Most of the gains we used to get from clever hardware (out-of-order execution, branch prediction, prefetching) are now *learned* — by ML models trained on trace data. The systems problem became an ML problem. The kernel scheduler in your OS is a learned model. The memory allocator in your database is a learned model. The thing that decides which web request gets served first is a learned model.
+
+**2. Open models caught up.** Llama, Mistral, Qwen, the diffusion work out of Google, the small-model ecosystem on HuggingFace. You can train a serious model on a single GPU now. The moat is no longer "I have a cluster." It's "I understand the math, I can debug the training loop, I can read the paper and implement it from scratch."
+
+**3. The math got tractable.** After years of linear algebra in compilers, ray tracers, and graphics pipelines, backpropagation and attention weren't mysterious. They were just linear algebra with clever bookkeeping. The same instincts that let me reason about SSA form let me reason about computation graphs. The same instincts that let me debug a register allocator let me debug a vanishing-gradient bug.
+
+## The Conceptual Bridge: What Transferred
+
+I want to be specific about what transferred, because "AI is just math" is the kind of dismissive thing people say when they haven't done the work. A lot of it *isn't* math — it's engineering judgment, debugging instinct, and the ability to read a complex system and find the failure point.
+
+<FlowDiagram
+  title="Skills that transferred directly from systems work"
+  steps={[
+    { label: "Memory layout & cache", sublabel: "systems" },
+    { label: "Linear algebra", sublabel: "graphics / compilers" },
+    { label: "Optimization theory", sublabel: "compilers / runtime" },
+    { label: "Causal debugging", sublabel: "everywhere" },
+  ]}
+/>
+
+### Memory layout → tensor layout
+
+When I wrote my first serious PyTorch model (sort of, on GPU), the realization hit hard: **a tensor is just a struct with strides**. The same problems apply.
+
+- Memory coalescing matters more than FLOPs.
+- Cache lines don't care if you're loading `float`s or activations.
+- Vectorization works the same way.
+- A "GPU is fast" is mostly "GPU has 80MB of on-chip SRAM and 5TB/s of HBM bandwidth, and the trick is keeping data in the fast part." That's a systems problem.
+
+The moment I started reading CUDA kernel guides with the same attention I read CPU microarchitecture papers, the field opened up. `triton` isn't magic. It's a register allocator and a memory scheduler.
+
+### Compilers → autograd
+
+A compiler turns code into optimized machine instructions. PyTorch's autograd turns a forward pass into a backward pass by recording operations on a tape and replaying them in reverse. This is **partial evaluation** of a different kind. Both involve:
+
+- A graph of operations (IR in compilers, compute graph in autograd)
+- Type/shape inference (and a long tail of annoying edge cases)
+- Optimizations that exploit algebraic identities (CSE in compilers == activation recomputation in training)
+- A pass that walks the graph and emits something runnable
+
+When I see `torch.compile` or `jax.jit`, I see a compiler. When I see `vmap` or `grad`, I see transformations on IRs. The mental model is identical. I read the PyTorch internals docs the same way I read the LLVM developer's manual.
+
+### Profilers → training loops
+
+`gprof`, `perf`, `vtune`, `valgrind` — static and dynamic analysis tools for programs. Weights & Biases, TensorBoard, the PyTorch profiler — the same thing for training runs. You find the bottleneck (data loading? forward pass? backward? comm?) and you fix it. The output looks different. The methodology is the same.
+
+A training loop is a control system. Same as a kernel scheduler, same as a JIT. There are feedback loops, and they can all oscillate.
+
+```
+for batch in dataloader:
+    t = sample_timestep()
+    noise = sample_noise()
+    x_t = q_sample(x_0, noise, t)   # add noise
+    x_0_pred = model(x_t, t)        # denoise
+    loss = mse(x_0_pred, x_0) + ce(logits, target)
+    loss.backward()
+    optimizer.step()
+    scheduler.step()
+```
+
+The failure modes are the same as any feedback system:
+
+- **Diverging loss**: LR too high, gradients not clipped, NaN in forward.
+- **Plateauing loss**: LR too low, model capacity, data quality.
+- **Mode collapse** (in diffusion): the model learns to predict a single "average" clean output and stops trying.
+- **Overfitting**: validation loss diverges from training.
+
+I learned all of these the hard way. Phase 1 was three days of debugging a NaN before I realized: **the embeddings had variance 50+ at init**. Diffusing high-variance inputs is like trying to smooth a signal that's already saturated. Normalize to unit variance, and the noise schedule suddenly makes sense.
+
+## What I Built: SamNet
+
+To actually learn this stuff, I built a diffusion-based language model from scratch. Not a toy. A four-phase training pipeline that went from character-level Shakespeare to instruction-tuned generation.
+
+<FlowDiagram
+  title="SamNet training pipeline — four phases over four months"
+  steps={[
+    { label: "Phase 1: Foundation", sublabel: "TinyShakespeare • 6L/8H/256d", highlight: "default" },
+    { label: "Phase 2: General Corpus", sublabel: "12 Gutenberg books", highlight: "default" },
+    { label: "Phase 3: Deep Convergence", sublabel: "Full Gutenberg • cosine LR", highlight: "default" },
+    { label: "Phase 4: Instruction Tuning", sublabel: "Gutenberg + Alpaca • SamNetV2", highlight: "accent" },
+  ]}
+  annotations={[
+    { at: 0, text: "first NaN loss — learned embedding normalization" },
+    { at: 1, text: "exploding gradients — added grad clip + AMP" },
+    { at: 2, text: "cosine LR decay: val loss 2.1 → 1.4" },
+    { at: 3, text: "RoPE + RMSNorm + SwiGLU + emb scaling" },
+  ]}
+  loopback="re-train with new ideas"
+/>
+
+### The architecture, in detail
+
+Most "transformer" content I read was high-level diagrams. I wanted to understand the *actual* compute graph, so I built it from scratch.
+
+<FlowDiagram
+  title="SamNet block — one transformer layer"
+  steps={[
+    { label: "Token Embed", sublabel: "V × d", highlight: "default" },
+    { label: "+ Step Embed", sublabel: "AdaLN modulation", highlight: "default" },
+    { label: "Hybrid Attn", sublabel: "linear + top-k", highlight: "default" },
+    { label: "FFN (SwiGLU)", sublabel: "d → 4d → d", highlight: "default" },
+  ]}
+/>
+
+Two things from the architecture taught me the most.
+
+**Hybrid attention isn't a hack — it's the future of efficient transformers.**
+
+Standard softmax attention is O(T²). For T=2048, that's 4M ops per head per layer. At 32 layers × 32 heads, you're doing 4B ops per token. At 100k context, you're doing 640B ops per token. You cannot scale this.
+
+The fix isn't one thing — it's a portfolio:
+
+- **Linear attention** (kernel trick, O(T)). Use a positive feature map like `elu(x) + 1` to make the softmax kernel associative. Then `(QK^T)V = Q(K^TV)`. The trick: never materialize the T×T matrix. This is the same insight as FFT-based convolution — change basis so the operation becomes a Hadamard product.
+- **Sparse attention** (top-k). Most tokens don't need to attend to most other tokens. Pick the top-k=16 most relevant per query. With long context, this is a 64× reduction. The top-k itself is a small extra cost; the savings dominate.
+- **Sliding window** (Mistral-style). Each token attends to its 256 neighbors. Cheap, often sufficient for syntax.
+- **State space models** (Mamba). Replace attention entirely with a recurrent update that's also O(T). The S4/S6 trick is a beautiful piece of math — a diagonal plus low-rank structure that makes the recurrence stable and fast.
+
+You don't pick one. You mix. Some heads are linear (global summary), some are sparse (focused reasoning), some are local (syntax). The "right" mix is what makes the model good at reasoning vs. memorization. SamNet splits heads 50/50 linear/sparse. Empirically, this gets 80% of the quality of full attention at 30% of the compute.
+
+**AdaLN zero initialization is the most important eight lines of code in DiT.**
+
+```python
+nn.init.constant_(block.adaLN_modulation[-1].weight, 0.0)
+nn.init.constant_(block.adaLN_modulation[-1].bias, 0.0)
+```
+
+What this does: at initialization, the AdaLN modulation outputs zero, so the block is a pure residual. The model starts as the **identity function**. Without this, training diverges immediately.
+
+Why? Because the diffusion timestep is fed into every block. At t=T (pure noise), the model has to predict the clean data. If the model can't even pass through the input unchanged at step 0 of training, it has no stable starting point. Identity is the only safe starting point.
+
+This is **the same insight as residual connections in ResNet** (2015): start with identity, learn the delta. He, Zhang, Ren, Sun figured this out for vision. Peebles and Xie figured it out for diffusion. The principle is universal: **when you don't know what to do, do nothing, and let the gradient tell you**.
+
+This is a deep design pattern. Most of the time, the best initialization is the one that makes the network a no-op. Initialization schemes like Kaiming, Xavier, and now `adaLN-zero` are all special cases of "start as identity, perturb slightly."
+
+### Why diffusion for language?
+
+Autoregressive (AR) generation: P(x_{t+1} | x_1..x_t). Sequential by construction. Causal mask means you only see the past.
+
+Diffusion: P(x_0 | x_T, ..., x_t). The model sees the entire corrupted sequence and predicts the clean version. **Bidirectional context for free**.
+
+<FlowDiagram
+  title="AR vs diffusion — inference shape"
+  steps={[
+    { label: "AR: token₁", sublabel: "→ token₂", highlight: "default" },
+    { label: "→ token₃", sublabel: "→ token₄", highlight: "default" },
+    { label: "→ ...", sublabel: "→ token_T", highlight: "default" },
+    { label: "Diffusion", sublabel: "all tokens at once", highlight: "accent", children: [
+      { label: "step 1: x_T", sublabel: "→ x_{T-1}" },
+      { label: "step 2: x_{T-1}", sublabel: "→ x_0" },
+    ] },
+  ]}
+/>
+
+The tradeoffs are real but interesting:
+
+| Aspect | Autoregressive | Diffusion |
+|--------|---------------|-----------|
+| Training | All positions, masked | All positions, noisy |
+| Generation | T sequential steps | N parallel steps |
+| KV cache | Yes (huge inference speedup) | No (have to redo) |
+| Reasoning | Token-by-token, error accumulates | Iterative refinement |
+| Long context | Quadratic memory | Quadratic attention, but parallel |
+
+Diffusion isn't going to replace AR for chat. But for **drafting, editing, infilling, code completion** — anywhere you have partial context and want to fill in the rest — diffusion is structurally better. And for *training*, diffusion is strictly cheaper because every forward pass gives you signal at every position.
+
+## What I Got Wrong (And Right)
+
+### Wrong
+
+- I tried to use LSTM-style recurrence inside a transformer "for memory." It doesn't work. Transformers already have the memory mechanism (attention), and adding recurrence on top destabilizes training. The gradients don't flow cleanly through both.
+- I tried learning rate warmup of 100 steps for a 50k-step run. Way too short. Warmup should be 1–5% of total steps. The optimizer needs time to find a stable direction before committing to it.
+- I forgot to set the model to `.train()` / `.eval()` mode consistently. BatchNorm and Dropout behave differently in the two modes. This bit me twice before I learned to wrap everything in a context manager.
+- I tried to scale up before the small model converged. Phase 2 with a 12-layer model on full Gutenberg failed silently for days because the small Phase 1 model never actually learned — the eval loss was a flat line and I missed it. **Start small. Always start small.**
+
+### Right
+
+- **Start small.** Phase 1 was a 6-layer model on 10K tokens. If it doesn't work there, it won't work at 1B parameters. The debugging loop is 10× faster at small scale. Most of the real bugs in deep learning are visible at small scale — you just need to actually look at the outputs.
+- **Log everything.** Loss, gradient norm, learning rate, sample generations, memory usage, GPU utilization. From day one. When something breaks at step 5000, you need the step 4500 context to know what changed. I now log to W&B before I run anything serious.
+- **Read the original papers.** Not blog summaries. The "Attention Is All You Need" paper has implementation details that never make it to summaries — like the learning rate schedule being a custom warmup-then-decay, not a cosine. Same with DDPM, DiT, the RoPE paper, the original GPT. The blog posts are downstream of the papers; the papers are downstream of the math.
+- **Read the source code.** `nanoGPT` is 300 lines. `minGPT` is 200. The DDPM reference implementation is 100. Most of the "magic" is in code you can read in an afternoon. I learned more from reading Karpathy's code than from any course.
+
+## Why I'm Not Actually Leaving Systems
+
+I'm not pivoting *away* from systems. I'm pivoting *into* AI/ML because **the most interesting systems problems are now in AI**.
+
+<FlowDiagram
+  title="Where systems engineering is happening in 2026"
+  steps={[
+    { label: "Inference engines", sublabel: "vLLM, TRT-LLM, llama.cpp", highlight: "default" },
+    { label: "Distributed training", sublabel: "FSDP, DeepSpeed, Megatron", highlight: "default" },
+    { label: "Quantization / kernels", sublabel: "memory hierarchy, fusion", highlight: "default" },
+    { label: "Co-design", sublabel: "TPU, custom silicon", highlight: "accent" },
+  ]}
+/>
+
+- **Inference engines** (vLLM, TensorRT-LLM, llama.cpp) are some of the most sophisticated systems code being written. PagedAttention is a virtual memory system for KV cache. Continuous batching is a scheduler. Speculative decoding is a branch predictor.
+- **Distributed training** (FSDP, DeepSpeed, Megatron) is distributed systems at a scale the cloud was built for. ZeRO is a memory management scheme. Tensor parallelism is NUMA-aware scheduling. Pipeline parallelism is instruction pipelining.
+- **Quantization, pruning, distillation** — all systems problems. Memory hierarchy, numerical stability, kernel fusion. INT8 GEMM with per-channel scales is a numerical methods problem. INT4 weight-only quantization is a memory bandwidth problem.
+- **Hardware-software co-design** (TPU, custom silicon, the Cerebras / Groq / SambaNova space) is a systems dream. You're designing the instruction set, the memory model, and the compiler, all at once.
+
+A senior systems engineer who learns ML is more valuable than either alone. You can build the inference engine *and* the model. You understand why the kernel is slow *and* what the model is computing. The barrier between "ML researcher" and "systems engineer" is artificial and dissolving.
+
+## What's Next
+
+I have a few things in flight:
+
+- **Repo coming soon** — the full SamNet codebase, trained checkpoints, eval scripts, and a clean reproduction guide. Cleaning it up for release. The codebase is the artifact, and the artifact is the proof.
+- **A small diffusion-based code completion model** — diffusion is structurally well-suited to infilling, and nobody's done it well for code yet. The training data is plentiful (every public GitHub repo), the context is naturally bidirectional, and the user prompt + cursor position maps cleanly onto the "partial sequence → fill in the rest" pattern.
+- **Writing a CUDA kernel from scratch** — to actually understand the memory hierarchy, not just use Triton abstractions over it. The point isn't to outperform cuBLAS. The point is to be unable to lie to myself about what "fast" means.
+- **Reading more theory** — information theory, optimal transport (for understanding diffusion processes), category theory (for understanding monads, which is what JAX's API is secretly doing). The math catches up eventually.
+
+## For Systems Engineers Considering the Same Pivot
+
+A few things I wish someone had told me:
+
+1. **The math isn't that bad.** You already know linear algebra, optimization, and probability at the level you need. You don't need to derive backprop from scratch — you need to *implement* it once, and then you understand it. After that, every paper reads differently.
+2. **The tooling is incredible.** PyTorch, JAX, HuggingFace, W&B, Triton. The inner loop is fast. The iteration cost is low. You can go from "idea" to "trained model" in an afternoon. Compare that to writing a new compiler pass.
+3. **Your debugging instincts will save you weeks.** A NaN loss is a "I have a bug in my kernel" problem with a different surface. A plateauing loss is a "my optimization isn't reaching the minimum" problem. You've done this before, in different clothes.
+4. **Start with Karpathy's nanoGPT, then build something weird.** nanoGPT is the modern "write yourself a compiler in 80 lines" — small enough to read in an afternoon, complete enough to learn from, and structured enough to fork. Then build something that isn't in any tutorial. The weird project is where the real learning happens.
+5. **The next few years are defined by people who can do both.** Systems thinking + ML understanding is the rare combination. Hardware people don't know the math. ML people don't know the hardware. People who know both will be the ones who build the next generation of models, runtimes, and silicon.
+
+I'm not done with systems. I'm not done with security research, language design, or any of the other things I've been doing. I'm just adding ML to the stack. The most interesting work ahead is at the intersection — and that's where I'm going to be.
+
+The repo drops next week.
