@@ -28,6 +28,8 @@ Three things converged.
 
 I want to be specific about what transferred, because "AI is just math" is the kind of dismissive thing people say when they haven't done the work. A lot of it *isn't* math — it's engineering judgment, debugging instinct, and the ability to read a complex system and find the failure point.
 
+import FlowDiagram from "../../components/FlowDiagram.astro";
+
 <FlowDiagram
   title="Skills that transferred directly from systems work"
   steps={[
@@ -154,7 +156,7 @@ This is a deep design pattern. Most of the time, the best initialization is the 
 
 ### Why diffusion for language?
 
-Autoregressive (AR) generation: P(x_{t+1} | x_1..x_t). Sequential by construction. Causal mask means you only see the past.
+Autoregressive (AR) generation: P(x(t+1) | x_1..x_t). Sequential by construction. Causal mask means you only see the past.
 
 Diffusion: P(x_0 | x_T, ..., x_t). The model sees the entire corrupted sequence and predicts the clean version. **Bidirectional context for free**.
 
@@ -165,8 +167,8 @@ Diffusion: P(x_0 | x_T, ..., x_t). The model sees the entire corrupted sequence 
     { label: "→ token₃", sublabel: "→ token₄", highlight: "default" },
     { label: "→ ...", sublabel: "→ token_T", highlight: "default" },
     { label: "Diffusion", sublabel: "all tokens at once", highlight: "accent", children: [
-      { label: "step 1: x_T", sublabel: "→ x_{T-1}" },
-      { label: "step 2: x_{T-1}", sublabel: "→ x_0" },
+    { label: "step 1: x_T", sublabel: "→ x(T-1)" },
+    { label: "step 2: x(T-1)", sublabel: "→ x_0" },
     ] },
   ]}
 />
