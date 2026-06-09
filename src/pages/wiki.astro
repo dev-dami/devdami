@@ -1,0 +1,431 @@
+---
+import Layout from "../layouts/Layout.astro";
+export const prerender = true;
+
+const pageTitle = "Damilare Osibanjo — Personal Wiki";
+const pageDescription = "Personal wiki for Damilare Osibanjo — systems programmer, security researcher, and compiler engineer.";
+const pageUrl = "https://devdami.varityweb.com/wiki";
+---
+
+<Layout title={pageTitle} description={pageDescription} canonical={pageUrl}>
+  <article class="mx-auto max-w-content">
+    <!-- Wiki header -->
+    <div class="border-b border-border/60 pb-3 mb-6">
+      <p class="text-[10px] font-mono text-muted/40 tracking-wider mb-1">
+        From Damilare's Personal Wiki, the free encyclopedia
+      </p>
+      <h1 class="text-2xl md:text-3xl font-semibold text-text-dark">
+        Damilare Osibanjo
+      </h1>
+      <p class="text-xs text-muted/60 font-mono mt-1">
+        /dəˈmɪlərɛɪ ˌoʊʃɪˈbɑndʒoʊ/
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-8">
+      <!-- Main content -->
+      <div class="min-w-0">
+        <!-- TOC -->
+        <div class="border border-border/50 bg-surface/20 rounded-md p-4 mb-6 text-sm">
+          <div class="font-semibold text-text-dark font-mono text-xs tracking-wider mb-2">
+            Contents
+          </div>
+          <ul class="space-y-1">
+            <li><a href="#biography" class="text-accent hover:underline text-[13px]">1. Biography</a></li>
+            <li class="ml-4"><a href="#early-life" class="text-accent hover:underline text-[13px]">1.1 Early life and education</a></li>
+            <li class="ml-4"><a href="#career" class="text-accent hover:underline text-[13px]">1.2 Career</a></li>
+            <li><a href="#notable-works" class="text-accent hover:underline text-[13px]">2. Notable works</a></li>
+            <li class="ml-4"><a href="#compilers" class="text-accent hover:underline text-[13px]">2.1 Compilers and languages</a></li>
+            <li class="ml-4"><a href="#security" class="text-accent hover:underline text-[13px]">2.2 Security research</a></li>
+            <li class="ml-4"><a href="#tools" class="text-accent hover:underline text-[13px]">2.3 Developer tools</a></li>
+            <li><a href="#skills" class="text-accent hover:underline text-[13px]">3. Technical skills</a></li>
+            <li><a href="#philosophy" class="text-accent hover:underline text-[13px]">4. Engineering philosophy</a></li>
+            <li><a href="#see-also" class="text-accent hover:underline text-[13px]">5. See also</a></li>
+            <li><a href="#references" class="text-accent hover:underline text-[13px]">6. References</a></li>
+          </ul>
+        </div>
+
+        <!-- Biography -->
+        <section id="biography" class="mb-10">
+          <h2 class="text-lg font-semibold text-text-dark font-mono border-b border-border/40 pb-1 mb-4">
+            <span class="text-accent/60 mr-2">1.</span>Biography
+          </h2>
+
+          <section id="early-life" class="mb-6">
+            <h3 class="text-base font-semibold text-text-dark font-mono mb-3">
+              <span class="text-accent/60 mr-2">1.1</span>Early life and education
+            </h3>
+            <p class="text-sm text-text leading-relaxed mb-3">
+              <strong class="text-text-dark">Damilare Osibanjo</strong> is a Nigerian-born systems and software programmer. 
+              He began his programming journey at approximately age 12, initially developing games on the Roblox platform 
+              using the Lua scripting language. This early exposure to structured logic and event-driven programming 
+              laid the foundation for his later work in systems engineering.<sup class="text-accent text-[10px]">[1]</sup>
+            </p>
+            <p class="text-sm text-text leading-relaxed mb-3">
+              At age 14, he transitioned to Python, spending approximately three years building automation tools, 
+              API integrations, and backend services. During this period, his focus shifted from "how do I build this?" 
+              to understanding internal system behavior — memory consumption, concurrency mechanics, and operating 
+              system coordination.<sup class="text-accent text-[10px]">[2]</sup>
+            </p>
+            <p class="text-sm text-text leading-relaxed mb-3">
+              By age 15–16, he was designing backend infrastructure, exploring authentication systems, database 
+              architectures, logging patterns, and performance trade-offs. This phase drove him toward lower-level 
+              programming in Rust, Go, and C — languages that enforce discipline around memory safety, ownership, 
+              and undefined behavior.
+            </p>
+            <p class="text-sm text-text leading-relaxed">
+              At 17, his work sits at the intersection of <strong class="text-text-dark">cybersecurity</strong>, 
+              <strong class="text-text-dark">systems programming</strong>, and 
+              <strong class="text-text-dark">performance-aware architecture</strong>.
+            </p>
+          </section>
+
+          <section id="career" class="mb-4">
+            <h3 class="text-base font-semibold text-text-dark font-mono mb-3">
+              <span class="text-accent/60 mr-2">1.2</span>Career
+            </h3>
+            <p class="text-sm text-text leading-relaxed mb-3">
+              Damilare is self-taught, with no formal computer science education. His portfolio includes 
+              compilers, runtime tools, emulators, programming languages, security research, and distributed 
+              infrastructure — all built as independent projects. He maintains an active presence on 
+              <a href="https://github.com/dev-dami" class="text-accent hover:underline">GitHub</a> 
+              and publishes technical writing on his 
+              <a href="/blog" class="text-accent hover:underline">blog</a> covering security vulnerabilities, 
+              compiler internals, and systems engineering.
+            </p>
+            <p class="text-sm text-text leading-relaxed">
+              His work has included developing the <strong class="text-text-dark">Carv</strong> programming language 
+              (compiling to C for ARM Cortex-M targets), conducting security audits of open-source tools like 
+              Langflow (CVE-2026-33017), and building the Xelvo compiler infrastructure.
+            </p>
+          </section>
+        </section>
+
+        <!-- Notable Works -->
+        <section id="notable-works" class="mb-10">
+          <h2 class="text-lg font-semibold text-text-dark font-mono border-b border-border/40 pb-1 mb-4">
+            <span class="text-accent/60 mr-2">2.</span>Notable works
+          </h2>
+
+          <section id="compilers" class="mb-6">
+            <h3 class="text-base font-semibold text-text-dark font-mono mb-3">
+              <span class="text-accent/60 mr-2">2.1</span>Compilers and languages
+            </h3>
+            <div class="space-y-3 text-sm text-text leading-relaxed">
+              <p>
+                <strong class="text-text-dark">Carv</strong> — An opinionated programming language that compiles 
+                to C for ARM Cortex-M embedded targets. Carv implements Pratt parsing, type inference, ownership 
+                tracking, C code generation, and a state-machine-based async/await system. The project is a deep 
+                exploration of compiler design for constrained environments.<sup class="text-accent text-[10px]">[3]</sup>
+              </p>
+              <p>
+                <strong class="text-text-dark">Xelvo</strong> — Compiler infrastructure and runtime tools 
+                representing his evolving work in language design and compilation. Details are in active development.
+              </p>
+            </div>
+          </section>
+
+          <section id="security" class="mb-6">
+            <h3 class="text-base font-semibold text-text-dark font-mono mb-3">
+              <span class="text-accent/60 mr-2">2.2</span>Security research
+            </h3>
+            <div class="space-y-3 text-sm text-text leading-relaxed">
+              <p>
+                <strong class="text-text-dark">CVE-2026-33017</strong> — Discovered a remote code execution 
+                vulnerability in Langflow (a popular open-source LLM application builder). The vulnerability 
+                chain involves arbitrary Python code execution through Custom Component nodes, reaching 
+                <code class="text-accent text-xs">exec()</code> through eight call-chain layers with zero 
+                sandboxing. Published a detailed 
+                <a href="/blog/langflow-cve-2026-33017-rce" class="text-accent hover:underline">technical analysis</a> 
+                of the exploit chain.<sup class="text-accent text-[10px]">[4]</sup>
+              </p>
+              <p>
+                <strong class="text-text-dark">Attack chain analysis</strong> — Published research on multi-stage 
+                exploit chains combining command injection, race conditions, and blind RCE exfiltration, with 
+                layered defense strategies. See the full 
+                <a href="/blog/attack-chain-command-injection-rce" class="text-accent hover:underline">attack chain analysis</a>.<sup class="text-accent text-[10px]">[5]</sup>
+              </p>
+              <p>
+                <strong class="text-text-dark">XSS methodology</strong> — Developed a comprehensive testing 
+                methodology for cross-site scripting vulnerabilities in TanStack Query applications, covering 
+                the gap between framework-level XSS protections and real-world data flow exploits.
+                Read the 
+                <a href="/blog/xss-testing-methodology-tanstack-query" class="text-accent hover:underline">XSS methodology guide</a>.<sup class="text-accent text-[10px]">[6]</sup>
+              </p>
+            </div>
+          </section>
+
+          <section id="tools">
+            <h3 class="text-base font-semibold text-text-dark font-mono mb-3">
+              <span class="text-accent/60 mr-2">2.3</span>Developer tools
+            </h3>
+            <div class="space-y-3 text-sm text-text leading-relaxed">
+              <p>
+                <strong class="text-text-dark">Kiattp</strong> — An HTTP testing toolkit for API development 
+                and debugging.
+              </p>
+              <p>
+                <strong class="text-text-dark">Lexon JS</strong> — A lexical analysis library for JavaScript 
+                and TypeScript applications.
+              </p>
+              <p>
+                <strong class="text-text-dark">Yems</strong> — A YAML-based email templating system.
+              </p>
+              <p>
+                <strong class="text-text-dark">Game Boy emulator (Zig)</strong> — A cycle-accurate Game Boy 
+                emulator written in Zig. The project explores memory-mapped I/O, interrupt handling, timer 
+                synchronization, and audio channel emulation. Includes detailed 
+                <a href="/blog/game-boy-emulator-zig-lessons" class="text-accent hover:underline">write-ups</a> 
+                on architectural decisions made during development.<sup class="text-accent text-[10px]">[7]</sup>
+              </p>
+            </div>
+          </section>
+        </section>
+
+        <!-- Technical Skills -->
+        <section id="skills" class="mb-10">
+          <h2 class="text-lg font-semibold text-text-dark font-mono border-b border-border/40 pb-1 mb-4">
+            <span class="text-accent/60 mr-2">3.</span>Technical skills
+          </h2>
+          <div class="overflow-x-auto border border-border/50 rounded-md">
+            <table class="w-full text-sm min-w-[400px]">
+              <thead>
+                <tr class="bg-surface/40 border-b border-border/50">
+                  <th class="px-4 py-2.5 text-left font-medium text-text-dark font-mono text-xs tracking-wider">Category</th>
+                  <th class="px-4 py-2.5 text-left font-medium text-text-dark font-mono text-xs tracking-wider">Technologies</th>
+                  <th class="px-4 py-2.5 text-left font-medium text-text-dark font-mono text-xs tracking-wider">Proficiency</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-border/30">
+                <tr class="hover:bg-surface/20">
+                  <td class="px-4 py-2.5 text-xs text-muted font-mono">Systems</td>
+                  <td class="px-4 py-2.5 text-sm text-text">Rust, Go, C</td>
+                  <td class="px-4 py-2.5 text-xs text-muted font-mono">Advanced</td>
+                </tr>
+                <tr class="hover:bg-surface/20">
+                  <td class="px-4 py-2.5 text-xs text-muted font-mono">Backend</td>
+                  <td class="px-4 py-2.5 text-sm text-text">TypeScript, Node.js, Python</td>
+                  <td class="px-4 py-2.5 text-xs text-muted font-mono">Advanced</td>
+                </tr>
+                <tr class="hover:bg-surface/20">
+                  <td class="px-4 py-2.5 text-xs text-muted font-mono">Web</td>
+                  <td class="px-4 py-2.5 text-sm text-text">React, Astro, Tailwind CSS</td>
+                  <td class="px-4 py-2.5 text-xs text-muted font-mono">Intermediate</td>
+                </tr>
+                <tr class="hover:bg-surface/20">
+                  <td class="px-4 py-2.5 text-xs text-muted font-mono">Compiler</td>
+                  <td class="px-4 py-2.5 text-sm text-text">Pratt parsing, codegen, IR design</td>
+                  <td class="px-4 py-2.5 text-xs text-muted font-mono">Intermediate</td>
+                </tr>
+                <tr class="hover:bg-surface/20">
+                  <td class="px-4 py-2.5 text-xs text-muted font-mono">Security</td>
+                  <td class="px-4 py-2.5 text-sm text-text">Penetration testing, CVE research, SAST</td>
+                  <td class="px-4 py-2.5 text-xs text-muted font-mono">Intermediate</td>
+                </tr>
+                <tr class="hover:bg-surface/20">
+                  <td class="px-4 py-2.5 text-xs text-muted font-mono">Infrastructure</td>
+                  <td class="px-4 py-2.5 text-sm text-text">Docker, Linux, PostgreSQL, Redis</td>
+                  <td class="px-4 py-2.5 text-xs text-muted font-mono">Intermediate</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- Philosophy -->
+        <section id="philosophy" class="mb-10">
+          <h2 class="text-lg font-semibold text-text-dark font-mono border-b border-border/40 pb-1 mb-4">
+            <span class="text-accent/60 mr-2">4.</span>Engineering philosophy
+          </h2>
+          <div class="space-y-3 text-sm text-text leading-relaxed">
+            <p>
+              Damilare advocates for understanding systems at the lowest feasible level of abstraction. 
+              He argues that working close to the hardware — compilers, memory models, kernel behavior — 
+              fundamentally changes how one designs at the application layer. This philosophy is reflected 
+              in his project choices: building a Game Boy emulator to understand memory-mapped I/O, 
+              writing a compiler to internalize code generation, and analyzing CVEs to study real-world exploit mechanics.
+            </p>
+            <p>
+              He is critical of "zero-cost abstraction" claims that ignore cognitive costs, and favors 
+              explicit, readable code over clever indirection. His blog post on 
+              <a href="/blog/zero-language-agent-first-PoC" class="text-accent hover:underline">Zero's agent architecture</a> 
+              argues that structured JSON output for compiler errors solves approximately 1% of the actual 
+              bottleneck — context management and multi-step planning reliability.
+            </p>
+            <div class="border-l-2 border-accent/40 pl-4 py-2 my-4 text-sm text-text-muted italic bg-surface/10 rounded-r-md">
+              "Simplicity is the ultimate sophistication."
+              <br />
+              <span class="text-xs text-muted/60 not-italic">— Damilare's personal motto, displayed on his homepage</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- See Also -->
+        <section id="see-also" class="mb-10">
+          <h2 class="text-lg font-semibold text-text-dark font-mono border-b border-border/40 pb-1 mb-4">
+            <span class="text-accent/60 mr-2">5.</span>See also
+          </h2>
+          <ul class="space-y-1.5 text-sm">
+            <li>
+              <a href="/about" class="text-accent hover:underline">About page</a>
+              <span class="text-muted/50 text-xs ml-2">— Extended biography and timeline</span>
+            </li>
+            <li>
+              <a href="/projects" class="text-accent hover:underline">Projects</a>
+              <span class="text-muted/50 text-xs ml-2">— Complete project portfolio with GitHub stats</span>
+            </li>
+            <li>
+              <a href="/blog" class="text-accent hover:underline">Blog</a>
+              <span class="text-muted/50 text-xs ml-2">— Technical articles and security research</span>
+            </li>
+            <li>
+              <a href="/uses" class="text-accent hover:underline">/uses</a>
+              <span class="text-muted/50 text-xs ml-2">— Development setup and tooling</span>
+            </li>
+            <li>
+              <a href="/resume" class="text-accent hover:underline">Resume</a>
+              <span class="text-muted/50 text-xs ml-2">— Professional summary</span>
+            </li>
+          </ul>
+        </section>
+
+        <!-- References -->
+        <section id="references" class="mb-10">
+          <h2 class="text-lg font-semibold text-text-dark font-mono border-b border-border/40 pb-1 mb-4">
+            <span class="text-accent/60 mr-2">6.</span>References
+          </h2>
+          <ol class="space-y-1.5 text-xs text-muted leading-relaxed list-decimal list-inside">
+            <li class="hover:text-text transition-colors">
+              <a href="/about" class="text-accent hover:underline">"About Damilare Osibanjo"</a> — devdami.varityweb.com
+            </li>
+            <li class="hover:text-text transition-colors">
+              <a href="/about" class="text-accent hover:underline">"My Story"</a> — Extended biography on about page
+            </li>
+            <li class="hover:text-text transition-colors">
+              <a href="/blog/carv-opinionated-language" class="text-accent hover:underline">"Carv: An Opinionated Language Compiling to C for ARM Cortex-M"</a> — Technical deep dive
+            </li>
+            <li class="hover:text-text transition-colors">
+              <a href="/blog/langflow-cve-2026-33017-rce" class="text-accent hover:underline">"Langflow CVE-2026-33017: Remote Code Execution Analysis"</a> — Security advisory
+            </li>
+            <li class="hover:text-text transition-colors">
+              <a href="/blog/attack-chain-command-injection-rce" class="text-accent hover:underline">"How Attackers Chain Command Injection, Race Conditions, and Blind RCE"</a> — Attack chain breakdown
+            </li>
+            <li class="hover:text-text transition-colors">
+              <a href="/blog/xss-testing-methodology-tanstack-query" class="text-accent hover:underline">"XSS Testing Methodology for TanStack Query"</a> — Security testing guide
+            </li>
+            <li class="hover:text-text transition-colors">
+              <a href="/blog/game-boy-emulator-zig-lessons" class="text-accent hover:underline">"Building a Game Boy Emulator in Zig: Lessons Learned"</a> — Emulator development postmortem
+            </li>
+          </ol>
+        </section>
+      </div>
+
+      <!-- Infobox (Wikipedia-style sidebar) -->
+      <aside class="min-w-0">
+        <div class="border border-border/50 bg-surface/20 rounded-md overflow-hidden lg:sticky lg:top-24">
+          <!-- Infobox header -->
+          <div class="bg-accent/10 border-b border-border/50 px-4 py-3 text-center">
+            <h3 class="text-sm font-semibold text-text-dark font-mono">Damilare Osibanjo</h3>
+            <p class="text-[10px] text-muted/60 font-mono mt-0.5">Systems &amp; Software Programmer</p>
+          </div>
+
+          <!-- Avatar -->
+          <div class="flex justify-center py-4 px-4 border-b border-border/30 bg-surface/20">
+            <img
+              src="https://avatars.githubusercontent.com/u/141376183"
+              alt="Damilare Osibanjo"
+              class="w-28 h-28 rounded-md object-cover ring-1 ring-accent/20"
+              loading="lazy"
+              width="112"
+              height="112"
+            />
+          </div>
+
+          <!-- Infobox data -->
+          <table class="w-full text-xs">
+            <tbody>
+              <tr class="border-b border-border/20">
+                <td class="px-4 py-2 text-muted/70 font-mono w-[90px] align-top">Born</td>
+                <td class="px-4 py-2 text-text">2008 (age 17)<br /><span class="text-muted/60">Nigeria</span></td>
+              </tr>
+              <tr class="border-b border-border/20">
+                <td class="px-4 py-2 text-muted/70 font-mono align-top">Occupation</td>
+                <td class="px-4 py-2 text-text">Systems programmer, security researcher, compiler engineer</td>
+              </tr>
+              <tr class="border-b border-border/20">
+                <td class="px-4 py-2 text-muted/70 font-mono align-top">Years active</td>
+                <td class="px-4 py-2 text-text">2022–present</td>
+              </tr>
+              <tr class="border-b border-border/20">
+                <td class="px-4 py-2 text-muted/70 font-mono align-top">Known for</td>
+                <td class="px-4 py-2 text-text">Compiler design, security research, backend infrastructure, developer tools</td>
+              </tr>
+              <tr class="border-b border-border/20">
+                <td class="px-4 py-2 text-muted/70 font-mono align-top">Notable work</td>
+                <td class="px-4 py-2 text-text">Carv language, CVE-2026-33017, Kiattp, Game Boy emulator</td>
+              </tr>
+              <tr class="border-b border-border/20">
+                <td class="px-4 py-2 text-muted/70 font-mono align-top">Website</td>
+                <td class="px-4 py-2">
+                  <a href="https://devdami.varityweb.com" class="text-accent hover:underline break-all">devdami.varityweb.com</a>
+                </td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 text-muted/70 font-mono align-top">Social</td>
+                <td class="px-4 py-2 text-text">
+                  <a href="https://github.com/dev-dami" class="text-accent hover:underline">GitHub</a>
+                  <span class="text-muted/40 mx-1">·</span>
+                  <a href="https://www.linkedin.com/in/damilare-osibanjo/" class="text-accent hover:underline">LinkedIn</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <!-- Languages -->
+          <div class="border-t border-border/30 px-4 py-3 bg-surface/10">
+            <div class="text-[10px] font-mono text-muted/60 tracking-wider mb-2 uppercase">Programming languages</div>
+            <div class="flex flex-wrap gap-1.5">
+              <span class="px-2 py-0.5 text-[11px] font-mono border border-border/50 rounded-sm text-text">TypeScript</span>
+              <span class="px-2 py-0.5 text-[11px] font-mono border border-border/50 rounded-sm text-text">Rust</span>
+              <span class="px-2 py-0.5 text-[11px] font-mono border border-border/50 rounded-sm text-text">Go</span>
+              <span class="px-2 py-0.5 text-[11px] font-mono border border-border/50 rounded-sm text-text">C</span>
+              <span class="px-2 py-0.5 text-[11px] font-mono border border-border/50 rounded-sm text-text">Python</span>
+              <span class="px-2 py-0.5 text-[11px] font-mono border border-border/50 rounded-sm text-text">Lua</span>
+              <span class="px-2 py-0.5 text-[11px] font-mono border border-border/50 rounded-sm text-text">Zig</span>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </article>
+</Layout>
+
+<style>
+  /* Wikipedia-style anchor offset for sticky nav */
+  section[id] {
+    scroll-margin-top: 6rem;
+  }
+
+  /* Superscript reference links */
+  sup a {
+    font-size: inherit;
+    line-height: 1;
+  }
+
+  /* TOC list spacing */
+  .toc-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  /* Infobox table spacing */
+  aside table td:first-child {
+    font-weight: 500;
+  }
+
+  /* Smooth table hover */
+  .prose tbody tr {
+    transition: background-color 0.15s ease;
+  }
+</style>
+</Layout>
