@@ -6,13 +6,13 @@
 const BRAND = {
   name: "Damilare Osibanjo",
   site: "https://devdami.varityweb.com",
-  bg: "#080808",
-  surface: "#0f0f0f",
-  border: "#1e1e1e",
-  text: "#ffffff",
-  muted: "#a0a0a0",
-  accent: "#059669",
-  accentHover: "#047857",
+  bg: "#050505",
+  surface: "#0d0d0d",
+  border: "#2a2a2a",
+  text: "#f5f5f5",
+  muted: "#b3b3b3",
+  accent: "#c0c0c0",
+  accentHover: "#e0e0e0",
   radius: "6px",
   font: "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'JetBrains Mono', 'Fira Code', monospace",
   fontMono: "'JetBrains Mono', 'Fira Code', monospace",
@@ -128,7 +128,7 @@ export function blogPostEmail({
             <tr>
               <td style="background-color:${BRAND.accent}; border-radius:${BRAND.radius};">
                 <a href="${postUrl}"
-                   style="display:inline-block; padding:10px 24px; font-family:${BRAND.fontMono}; font-size:13px; font-weight:500; color:#fff; text-decoration:none; letter-spacing:0.01em;">
+                   style="display:inline-block; padding:10px 24px; font-family:${BRAND.fontMono}; font-size:13px; font-weight:500; color:${BRAND.bg}; text-decoration:none; letter-spacing:0.01em;">
                   Read the post &rarr;
                 </a>
               </td>

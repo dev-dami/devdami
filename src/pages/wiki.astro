@@ -10,7 +10,7 @@ const pageUrl = "https://devdami.varityweb.com/wiki";
 <Layout title={pageTitle} description={pageDescription} canonical={pageUrl}>
   <article class="mx-auto max-w-content">
     <!-- Wiki header -->
-    <div class="border-b border-border/60 pb-3 mb-6">
+    <div class="relative pb-4 mb-6">
       <p class="text-[10px] font-mono text-muted/40 tracking-wider mb-1">
         From Damilare's Personal Wiki, the free encyclopedia
       </p>
@@ -20,14 +20,16 @@ const pageUrl = "https://devdami.varityweb.com/wiki";
       <p class="text-xs text-muted/60 font-mono mt-1">
         /dəˈmɪlərɛɪ ˌoʊʃɪˈbɑndʒoʊ/
       </p>
+      <div class="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-accent/50 via-border/60 to-transparent"></div>
     </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-8">
       <!-- Main content -->
       <div class="min-w-0">
         <!-- TOC -->
-        <div class="border border-border/50 bg-surface/20 rounded-md p-4 mb-6 text-sm">
-          <div class="font-semibold text-text-dark font-mono text-xs tracking-wider mb-2">
+        <div class="border border-border/50 bg-gradient-to-b from-surface/40 to-surface/10 rounded-md p-4 mb-6 text-sm shadow-sm shadow-black/20">
+          <div class="font-semibold text-text-dark font-mono text-xs tracking-wider mb-2 flex items-center gap-2">
+            <span class="inline-block w-1.5 h-1.5 rounded-full bg-accent/60"></span>
             Contents
           </div>
           <ul class="space-y-1">
@@ -47,7 +49,7 @@ const pageUrl = "https://devdami.varityweb.com/wiki";
 
         <!-- Biography -->
         <section id="biography" class="mb-10">
-          <h2 class="text-lg font-semibold text-text-dark font-mono border-b border-border/40 pb-1 mb-4">
+          <h2 class="text-lg font-semibold text-text-dark font-mono border-b border-border/40 pb-1 mb-4 relative after:absolute after:bottom-[-1px] after:left-0 after:w-12 after:h-px after:bg-accent/60">
             <span class="text-accent/60 mr-2">1.</span>Biography
           </h2>
 
@@ -103,7 +105,7 @@ const pageUrl = "https://devdami.varityweb.com/wiki";
 
         <!-- Notable Works -->
         <section id="notable-works" class="mb-10">
-          <h2 class="text-lg font-semibold text-text-dark font-mono border-b border-border/40 pb-1 mb-4">
+          <h2 class="text-lg font-semibold text-text-dark font-mono border-b border-border/40 pb-1 mb-4 relative after:absolute after:bottom-[-1px] after:left-0 after:w-12 after:h-px after:bg-accent/60">
             <span class="text-accent/60 mr-2">2.</span>Notable works
           </h2>
 
@@ -184,7 +186,7 @@ const pageUrl = "https://devdami.varityweb.com/wiki";
 
         <!-- Technical Skills -->
         <section id="skills" class="mb-10">
-          <h2 class="text-lg font-semibold text-text-dark font-mono border-b border-border/40 pb-1 mb-4">
+          <h2 class="text-lg font-semibold text-text-dark font-mono border-b border-border/40 pb-1 mb-4 relative after:absolute after:bottom-[-1px] after:left-0 after:w-12 after:h-px after:bg-accent/60">
             <span class="text-accent/60 mr-2">3.</span>Technical skills
           </h2>
           <div class="overflow-x-auto border border-border/50 rounded-md">
@@ -234,7 +236,7 @@ const pageUrl = "https://devdami.varityweb.com/wiki";
 
         <!-- Philosophy -->
         <section id="philosophy" class="mb-10">
-          <h2 class="text-lg font-semibold text-text-dark font-mono border-b border-border/40 pb-1 mb-4">
+          <h2 class="text-lg font-semibold text-text-dark font-mono border-b border-border/40 pb-1 mb-4 relative after:absolute after:bottom-[-1px] after:left-0 after:w-12 after:h-px after:bg-accent/60">
             <span class="text-accent/60 mr-2">4.</span>Engineering philosophy
           </h2>
           <div class="space-y-3 text-sm text-text leading-relaxed">
@@ -262,7 +264,7 @@ const pageUrl = "https://devdami.varityweb.com/wiki";
 
         <!-- See Also -->
         <section id="see-also" class="mb-10">
-          <h2 class="text-lg font-semibold text-text-dark font-mono border-b border-border/40 pb-1 mb-4">
+          <h2 class="text-lg font-semibold text-text-dark font-mono border-b border-border/40 pb-1 mb-4 relative after:absolute after:bottom-[-1px] after:left-0 after:w-12 after:h-px after:bg-accent/60">
             <span class="text-accent/60 mr-2">5.</span>See also
           </h2>
           <ul class="space-y-1.5 text-sm">
@@ -291,7 +293,7 @@ const pageUrl = "https://devdami.varityweb.com/wiki";
 
         <!-- References -->
         <section id="references" class="mb-10">
-          <h2 class="text-lg font-semibold text-text-dark font-mono border-b border-border/40 pb-1 mb-4">
+          <h2 class="text-lg font-semibold text-text-dark font-mono border-b border-border/40 pb-1 mb-4 relative after:absolute after:bottom-[-1px] after:left-0 after:w-12 after:h-px after:bg-accent/60">
             <span class="text-accent/60 mr-2">6.</span>References
           </h2>
           <ol class="space-y-1.5 text-xs text-muted leading-relaxed list-decimal list-inside">
@@ -322,9 +324,9 @@ const pageUrl = "https://devdami.varityweb.com/wiki";
 
       <!-- Infobox (Wikipedia-style sidebar) -->
       <aside class="min-w-0">
-        <div class="border border-border/50 bg-surface/20 rounded-md overflow-hidden lg:sticky lg:top-24">
+        <div class="border border-border/50 bg-surface/20 rounded-md overflow-hidden lg:sticky lg:top-24 shadow-lg shadow-black/30">
           <!-- Infobox header -->
-          <div class="bg-accent/10 border-b border-border/50 px-4 py-3 text-center">
+          <div class="bg-gradient-to-b from-accent/15 via-accent/5 to-transparent border-b border-border/50 px-4 py-3 text-center">
             <h3 class="text-sm font-semibold text-text-dark font-mono">Damilare Osibanjo</h3>
             <p class="text-[10px] text-muted/60 font-mono mt-0.5">Systems &amp; Software Programmer</p>
           </div>
@@ -334,7 +336,7 @@ const pageUrl = "https://devdami.varityweb.com/wiki";
             <img
               src="https://avatars.githubusercontent.com/u/141376183"
               alt="Damilare Osibanjo"
-              class="w-28 h-28 rounded-md object-cover ring-1 ring-accent/20"
+              class="w-28 h-28 rounded-md object-cover ring-1 ring-accent/30"
               loading="lazy"
               width="112"
               height="112"
