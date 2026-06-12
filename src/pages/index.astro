@@ -79,16 +79,18 @@ const yearsCoding = computeYearsCoding(2022);
     const quotes = [
       '"Simplicity is the ultimate sophistication."',
       '"First, solve the problem. Then, write the code."',
+      '"I use Arch, by the way."',
+      '"Memory safety is nice, Memory discipline is nicer"',
       '"Code is like humor. When you have to explain it, it\'s bad."',
       '"Talk is cheap. Show me the code."',
       '"Programs must be written for people to read, and only incidentally for machines to execute."'
     ];
-    
+
     let quoteIndex = 0;
     let charIndex = 0;
     let isDeleting = false;
     const quoteElement = document.querySelector('.animate-fade-slide');
-    
+
     function type() {
       if (!quoteElement) return;
 
@@ -142,7 +144,7 @@ const yearsCoding = computeYearsCoding(2022);
   <!-- Projects Section -->
   <section id="projects" class="py-6">
     <h2 class="text-xs font-mono tracking-widest text-muted uppercase mb-4 term-header">Projects</h2>
-    
+
     <div class="space-y-1.5">
 
       {projects.map(p => (
