@@ -50,7 +50,7 @@ export default function HomeDashboard() {
   }, []);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-[75vh] py-8 text-center max-w-xl mx-auto font-mono">
+    <div className="flex flex-col items-center justify-center w-full py-4 text-center max-w-xl mx-auto font-mono">
       {/* Header with Avatar and Blinking status */}
       <header className="mb-8 flex flex-col items-center">
         <div className="relative group mb-4">
@@ -216,27 +216,35 @@ export default function HomeDashboard() {
       </nav>
 
       {/* Footer links */}
-      <footer className="w-full pt-6 border-t border-border/40 flex justify-center gap-6 text-[10px] text-text-muted">
-        <a
-          href="https://github.com/dev-dami"
-          target="_blank"
-          className="hover:text-white transition-colors duration-200 lowercase"
-        >
-          gh
-        </a>
-        <a
-          href="https://www.linkedin.com/in/damilare-osibanjo/"
-          target="_blank"
-          className="hover:text-white transition-colors duration-200 lowercase"
-        >
-          linkedin
-        </a>
-        <a
-          href="mailto:dami@varityweb.com"
-          className="hover:text-white transition-colors duration-200 lowercase"
-        >
-          email
-        </a>
+      <footer className="w-full pt-4 border-t border-border/40 flex flex-col items-center gap-2 text-[10px] text-text-muted font-mono">
+        <div className="flex justify-center gap-6">
+          <a
+            href="https://github.com/dev-dami"
+            target="_blank"
+            className="hover:text-white transition-colors duration-200 lowercase"
+          >
+            gh
+          </a>
+          <a
+            href="https://www.linkedin.com/in/damilare-osibanjo/"
+            target="_blank"
+            className="hover:text-white transition-colors duration-200 lowercase"
+          >
+            linkedin
+          </a>
+          <a
+            href="mailto:dami@varityweb.com"
+            className="hover:text-white transition-colors duration-200 lowercase"
+          >
+            email
+          </a>
+        </div>
+        <div className="lowercase text-[9px] opacity-80 mt-1">
+          &copy; {new Date().getFullYear()} damilare osibanjo · built with astro
+        </div>
+        <div className="text-[8px] opacity-60">
+          press <kbd className="px-1 py-0.5 bg-surface border border-border/40 rounded">ctrl</kbd> + <kbd className="px-1 py-0.5 bg-surface border border-border/40 rounded">k</kbd> to search
+        </div>
       </footer>
     </div>
   );
