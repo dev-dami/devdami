@@ -1,0 +1,21 @@
+---
+import Layout from "../layouts/Layout.astro";
+import ContactForm from "../components/ContactForm";
+export const prerender = true;
+
+const pageTitle = "dami.contact";
+const pageDescription = "get in touch with damilare osibanjo — systems and software programmer.";
+---
+
+<Layout title={pageTitle} description={pageDescription}>
+  <div class="max-w-sm mx-auto py-16 font-mono text-xs text-text leading-relaxed">
+    <header class="mb-12 text-center">
+      <h1 class="text-sm font-semibold tracking-widest text-white uppercase mb-2">/contact</h1>
+      <p class="text-text-muted lowercase">
+        get in touch or collaborate
+      </p>
+    </header>
+
+    <ContactForm client:load />
+  </div>
+</Layout>

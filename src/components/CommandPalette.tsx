@@ -12,6 +12,7 @@ const searchItems = [
       { title: "wiki", url: "/wiki", icon: FileText, description: "personal wiki" },
       { title: "uses", url: "/uses", icon: Code, description: "development setup" },
       { title: "resume", url: "/resume", icon: User, description: "work experience and projects" },
+      { title: "contact", url: "/contact", icon: Mail, description: "get in touch" },
     ]
   },
   {

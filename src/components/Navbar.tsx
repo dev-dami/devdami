@@ -26,6 +26,9 @@ export default function Navbar() {
           <a href="/resume" className="hover:text-white transition-colors">
             resume
           </a>
+          <a href="/contact" className="hover:text-white transition-colors">
+            contact
+          </a>
         </div>
       </div>
     </nav>
