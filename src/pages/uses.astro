@@ -10,169 +10,130 @@ const pageUrl = "https://devdami.varityweb.com/uses";
 ---
 
 <Layout title={pageTitle} description={pageDescription} canonical={pageUrl}>
-  <div class="mx-auto max-w-blog space-y-10">
-
-    <header class="mb-4">
-      <p class="text-xs font-mono text-accent tracking-widest uppercase mb-2">/uses</p>
-      <h1 class="text-2xl md:text-3xl font-semibold text-text-dark leading-tight">
-        Development Setup
-      </h1>
-      <p class="mt-3 text-sm text-muted leading-relaxed">
-        Hardware, editor, terminal, languages, and tools I reach for every day.
-        Inspired by <a href="https://uses.tech" class="text-accent hover:underline" target="_blank" rel="noopener">uses.tech</a>.
+  <div class="max-w-md mx-auto py-16 font-mono text-xs text-text leading-relaxed">
+    <header class="mb-12 text-center">
+      <h1 class="text-sm font-semibold tracking-widest text-white uppercase mb-2">/uses</h1>
+      <p class="text-text-muted lowercase">
+        development setup: hardware, editor, shell, languages & tools
       </p>
     </header>
 
     <!-- Hardware -->
-    <section class="border border-border rounded-lg p-6 md:p-8 bg-surface/20">
-      <h2 class="text-base font-semibold text-text-dark font-mono mb-4 flex items-center gap-2">
-        <span class="text-accent">$</span> Hardware
-      </h2>
-      <div class="grid gap-6 sm:grid-cols-2">
+    <section class="mb-12 space-y-4">
+      <h2 class="text-[10px] uppercase text-white tracking-widest">// hardware</h2>
+      <div class="space-y-4">
         <div>
-          <h3 class="text-xs font-mono text-accent tracking-wider mb-2 flex items-center gap-1.5">
-            <ToolIcon name="cpu" /> Machine
-          </h3>
-          <ul class="space-y-1.5 text-sm text-text">
-            <li class="flex items-start gap-2"><span class="text-muted/40 mt-1">—</span><span>HP Laptop 15-da0xxx</span></li>
-            <li class="flex items-start gap-2"><span class="text-muted/40 mt-1">—</span><span>Intel Core i3-8130U @ 2.20GHz (4 cores)</span></li>
-            <li class="flex items-start gap-2"><span class="text-muted/40 mt-1">—</span><span>8GB RAM</span></li>
-            <li class="flex items-start gap-2"><span class="text-muted/40 mt-1">—</span><span>Intel UHD Graphics 620</span></li>
-            <li class="flex items-start gap-2"><span class="text-muted/40 mt-1">—</span><span class="flex items-center gap-1.5"><ToolIcon name="harddrive" /> ~900GB SSD</span></li>
+          <span class="text-white">machine:</span>
+          <ul class="space-y-1 pl-4 mt-1 text-text-muted">
+            <li>- HP Laptop 15-da0xxx</li>
+            <li>- Intel Core i3-8130U @ 2.20GHz (4 cores)</li>
+            <li>- 8GB RAM</li>
+            <li>- Intel UHD Graphics 620</li>
+            <li>- ~900GB SSD</li>
           </ul>
         </div>
         <div>
-          <h3 class="text-xs font-mono text-accent tracking-wider mb-2 flex items-center gap-1.5">
-            <ToolIcon name="keyboard" /> Peripherals
-          </h3>
-          <ul class="space-y-1.5 text-sm text-text">
-            <li class="flex items-start gap-2"><span class="text-muted/40 mt-1">—</span><span class="flex items-center gap-1.5"><ToolIcon name="firefox" /> Firefox (daily driver browser)</span></li>
-            <li class="flex items-start gap-2"><span class="text-muted/40 mt-1">—</span><span>Generic mechanical keyboard (Cherry MX Blue)</span></li>
+          <span class="text-white">peripherals & browser:</span>
+          <ul class="space-y-1 pl-4 mt-1 text-text-muted">
+            <li>- Firefox (daily driver browser)</li>
+            <li>- Generic mechanical keyboard (Cherry MX Blue)</li>
           </ul>
         </div>
       </div>
     </section>
 
     <!-- OS & Desktop -->
-    <section class="border border-border rounded-lg p-6 md:p-8 bg-surface/20">
-      <h2 class="text-base font-semibold text-text-dark font-mono mb-4 flex items-center gap-2">
-        <span class="text-accent">$</span> <ToolIcon name="arch" /> OS &amp; Desktop
-      </h2>
-      <ul class="space-y-1.5 text-sm text-text">
-        <li class="flex items-start gap-2"><span class="text-muted/40 mt-1">—</span><span class="flex items-center gap-1.5"><ToolIcon name="arch" /> <strong class="text-text-dark">OS:</strong> EndeavourOS (Arch Linux)</span></li>
-        <li class="flex items-start gap-2"><span class="text-muted/40 mt-1">—</span><span><strong class="text-text-dark">Kernel:</strong> Linux 7.0.9-arch1-1</span></li>
-        <li class="flex items-start gap-2"><span class="text-muted/40 mt-1">—</span><span><strong class="text-text-dark">DE:</strong> KDE Plasma 6</span></li>
-        <li class="flex items-start gap-2"><span class="text-muted/40 mt-1">—</span><span class="flex items-center gap-1.5"><ToolIcon name="fish" /> <strong class="text-text-dark">Shell:</strong> Fish with Starship prompt</span></li>
-        <li class="flex items-start gap-2"><span class="text-muted/40 mt-1">—</span><span><strong class="text-text-dark">WM/DE:</strong> KWin (KDE's window manager)</span></li>
-        <li class="flex items-start gap-2"><span class="text-muted/40 mt-1">—</span><span><strong class="text-text-dark">Display Manager:</strong> SDDM</span></li>
-        <li class="flex items-start gap-2"><span class="text-muted/40 mt-1">—</span><span><strong class="text-text-dark">AUR Helper:</strong> yay</span></li>
+    <section class="mb-12 space-y-4 border-t border-border/40 pt-8">
+      <h2 class="text-[10px] uppercase text-white tracking-widest">// os & environment</h2>
+      <ul class="space-y-1 pl-4 text-text-muted">
+        <li>- OS: EndeavourOS (Arch Linux)</li>
+        <li>- Kernel: Linux 7.0.9-arch1-1</li>
+        <li>- DE: KDE Plasma 6</li>
+        <li>- Shell: Fish with Starship prompt</li>
+        <li>- WM/DE: KWin</li>
+        <li>- AUR Helper: yay</li>
       </ul>
     </section>
 
     <!-- Editor & Terminal -->
-    <section class="border border-border rounded-lg p-6 md:p-8 bg-surface/20">
-      <h2 class="text-base font-semibold text-text-dark font-mono mb-4 flex items-center gap-2">
-        <span class="text-accent">$</span> <ToolIcon name="nvim" /> Editor &amp; Terminal
-      </h2>
-      <div class="grid gap-6 sm:grid-cols-2">
+    <section class="mb-12 space-y-4 border-t border-border/40 pt-8">
+      <h2 class="text-[10px] uppercase text-white tracking-widest">// editor & terminal</h2>
+      <div class="space-y-4">
         <div>
-          <h3 class="text-xs font-mono text-accent tracking-wider mb-2 flex items-center gap-1.5">
-            <ToolIcon name="nvim" /> Neovim 0.12.2 <span class="text-muted/50 text-[10px]">(daily driver)</span>
-          </h3>
-          <ul class="space-y-1.5 text-sm text-text">
-            <li class="flex items-start gap-2"><span class="text-muted/40 mt-1">—</span><span>tokyonight.nvim (theme)</span></li>
-            <li class="flex items-start gap-2"><span class="text-muted/40 mt-1">—</span><span>Telescope.nvim (fuzzy finder)</span></li>
-            <li class="flex items-start gap-2"><span class="text-muted/40 mt-1">—</span><span>nvim-cmp (autocompletion)</span></li>
-            <li class="flex items-start gap-2"><span class="text-muted/40 mt-1">—</span><span>Harpoon (quick navigation)</span></li>
-            <li class="flex items-start gap-2"><span class="text-muted/40 mt-1">—</span><span>nvim-tree (file explorer)</span></li>
-            <li class="flex items-start gap-2"><span class="text-muted/40 mt-1">—</span><span>lualine.nvim (statusline)</span></li>
-            <li class="flex items-start gap-2"><span class="text-muted/40 mt-1">—</span><span>vim-fugitive (Git integration)</span></li>
-            <li class="flex items-start gap-2"><span class="text-muted/40 mt-1">—</span><span>undotree (undo history)</span></li>
-            <li class="flex items-start gap-2"><span class="text-muted/40 mt-1">—</span><span>nvim-autopairs</span></li>
-            <li class="flex items-start gap-2"><span class="text-muted/40 mt-1">—</span><span>comment.nvim</span></li>
-            <li class="flex items-start gap-2"><span class="text-muted/40 mt-1">—</span><span>nvim-treesitter (syntax tree)</span></li>
-            <li class="flex items-start gap-2"><span class="text-muted/40 mt-1">—</span><span>lsp-zero.nvim (LSP management)</span></li>
-            <li class="flex items-start gap-2"><span class="text-muted/40 mt-1">—</span><span>presence.nvim (Discord Rich Presence)</span></li>
+          <span class="text-white">neovim (daily driver):</span>
+          <ul class="space-y-1 pl-4 mt-1 text-text-muted">
+            <li>- tokyonight.nvim (theme)</li>
+            <li>- Telescope.nvim (fuzzy finder)</li>
+            <li>- nvim-cmp (autocompletion)</li>
+            <li>- Harpoon (quick navigation)</li>
+            <li>- nvim-tree (file explorer)</li>
+            <li>- lualine.nvim (statusline)</li>
+            <li>- vim-fugitive (Git integration)</li>
+            <li>- undotree (undo history)</li>
+            <li>- nvim-autopairs</li>
+            <li>- comment.nvim</li>
+            <li>- nvim-treesitter (syntax tree)</li>
+            <li>- lsp-zero.nvim (LSP management)</li>
+            <li>- presence.nvim (Discord RPC)</li>
           </ul>
         </div>
         <div>
-          <h3 class="text-xs font-mono text-accent tracking-wider mb-2 flex items-center gap-1.5">
-            <ToolIcon name="alacritty" /> Terminal &amp; Multiplexer
-          </h3>
-          <ul class="space-y-1.5 text-sm text-text">
-            <li class="flex items-start gap-2"><span class="text-muted/40 mt-1">—</span><span class="flex items-center gap-1.5"><ToolIcon name="alacritty" /> <strong class="text-text-dark">Terminal:</strong> Alacritty (Dracula theme)</span></li>
-            <li class="flex items-start gap-2"><span class="text-muted/40 mt-1">—</span><span class="flex items-center gap-1.5"><ToolIcon name="tmux" /> <strong class="text-text-dark">Multiplexer:</strong> tmux 3.6b</span></li>
-            <li class="flex items-start gap-2"><span class="text-muted/40 mt-1">—</span><span class="flex items-center gap-1.5"><ToolIcon name="starship" /> <strong class="text-text-dark">Prompt:</strong> Starship</span></li>
-            <li class="flex items-start gap-2"><span class="text-muted/40 mt-1">—</span><span><strong class="text-text-dark">Font:</strong> Hack Nerd Font Mono</span></li>
-            <li class="flex items-start gap-2"><span class="text-muted/40 mt-1">—</span><span><strong class="text-text-dark">Color Scheme:</strong> Dracula (terminal &amp; tmux)</span></li>
-            <li class="flex items-start gap-2"><span class="text-muted/40 mt-1">—</span><span><strong class="text-text-dark">File Manager:</strong> yazi (TUI)</span></li>
+          <span class="text-white">terminal:</span>
+          <ul class="space-y-1 pl-4 mt-1 text-text-muted">
+            <li>- Terminal: Alacritty (Dracula theme)</li>
+            <li>- Multiplexer: tmux 3.6b</li>
+            <li>- Font: Hack Nerd Font Mono</li>
+            <li>- File Manager: yazi (TUI)</li>
           </ul>
         </div>
       </div>
     </section>
 
     <!-- Languages & Runtimes -->
-    <section class="border border-border rounded-lg p-6 md:p-8 bg-surface/20">
-      <h2 class="text-base font-semibold text-text-dark font-mono mb-4 flex items-center gap-2">
-        <span class="text-accent">$</span> Languages &amp; Runtimes
-      </h2>
-      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        <ToolBadge icon="rust" label="Rust" version="rustc 1.95.0 / cargo 1.95.0" />
-        <ToolBadge icon="go" label="Go" version="go 1.26.3" />
-        <ToolBadge icon="zig" label="Zig" version="zig 0.16.0" />
-        <ToolBadge icon="ts" label="TypeScript" version="ts 6.0.2 / Node 24.14.0" />
-        <ToolBadge icon="bun" label="Bun" version="bun 1.3.14" />
-        <ToolBadge icon="npm" label="npm" version="npm 11.9.0" />
-        <ToolBadge icon="python" label="Python" version="pyright LSP" />
-        <ToolBadge icon="php" label="PHP" version="php-cs-fixer (occasional)" />
-        <ToolBadge label="C" version="gcc 14 / clang 19 / glibc 2.33" />
-      </div>
-    </section>
-
-    <!-- CLI Tools -->
-    <section class="border border-border rounded-lg p-6 md:p-8 bg-surface/20">
-      <h2 class="text-base font-semibold text-text-dark font-mono mb-4 flex items-center gap-2">
-        <span class="text-accent">$</span> CLI Tools &amp; Utilities
-      </h2>
-      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        <ToolBadge icon="git" label="Git" version="git 2.49 / lazygit TUI" />
-        <ToolBadge icon="gh" label="GitHub CLI" version="gh 3.5" />
-        <ToolBadge icon="docker" label="Docker" version="docker 28 / compose" />
-        <ToolBadge icon="rg" label="ripgrep" version="rg 14 — code search" />
-        <ToolBadge icon="fd" label="fd" version="fd 10 — fast file find" />
-        <ToolBadge icon="fz" label="fzf" version="fzf 0.60 — fuzzy finder" />
-        <ToolBadge icon="bat" label="bat" version="bat 0.25 — cat with syntax" />
-        <ToolBadge icon="eza" label="eza" version="modern ls replacement" />
-        <ToolBadge icon="btop" label="btop" version="btop 1.4 — system monitor" />
-        <ToolBadge icon="jq" label="jq" version="jq 1.7 — JSON processor" />
-        <ToolBadge icon="zo" label="zoxide" version="zoxide 0.9 — smarter cd" />
-        <ToolBadge icon="delta" label="delta" version="delta 0.18 — git diff viewer" />
-        <ToolBadge icon="htop" label="htop" version="htop 3.4 — process monitor" />
-        <ToolBadge icon="httpie" label="httpie" version="https 3.2 — HTTP client" />
-        <ToolBadge icon="tmuxPlugins" label="tmux plugins" version="continuum, resurrect, yank, sensible" />
-      </div>
-    </section>
-
-    <!-- Key Configs -->
-    <section class="border border-border rounded-lg p-6 md:p-8 bg-surface/20">
-      <h2 class="text-base font-semibold text-text-dark font-mono mb-4 flex items-center gap-2">
-        <span class="text-accent">$</span> Key Config Notes
-      </h2>
-      <ul class="space-y-2 text-sm text-text">
-        <li class="flex items-start gap-2"><span class="text-muted/40 mt-1">—</span><span>Leader key: <kbd class="px-1.5 py-0.5 bg-border/30 rounded text-xs font-mono">Space</kbd></span></li>
-        <li class="flex items-start gap-2"><span class="text-muted/40 mt-1">—</span><span>Relative line numbers, 4-space tabs, colorcolumn at 80</span></li>
-        <li class="flex items-start gap-2"><span class="text-muted/40 mt-1">—</span><span>Clipboard synced with system (<code class="text-accent text-xs">unnamedplus</code>)</span></li>
-        <li class="flex items-start gap-2"><span class="text-muted/40 mt-1">—</span><span><kbd class="px-1.5 py-0.5 bg-border/30 rounded text-xs font-mono">Space</kbd>+<kbd class="px-1.5 py-0.5 bg-border/30 rounded text-xs font-mono">ff</kbd> → Telescope find files</span></li>
-        <li class="flex items-start gap-2"><span class="text-muted/40 mt-1">—</span><span><kbd class="px-1.5 py-0.5 bg-border/30 rounded text-xs font-mono">Space</kbd>+<kbd class="px-1.5 py-0.5 bg-border/30 rounded text-xs font-mono">fw</kbd> → Telescope live grep</span></li>
-        <li class="flex items-start gap-2"><span class="text-muted/40 mt-1">—</span><span><kbd class="px-1.5 py-0.5 bg-border/30 rounded text-xs font-mono">Space</kbd>+<kbd class="px-1.5 py-0.5 bg-border/30 rounded text-xs font-mono">e</kbd> → Toggle file explorer</span></li>
-        <li class="flex items-start gap-2"><span class="text-muted/40 mt-1">—</span><span><kbd class="px-1.5 py-0.5 bg-border/30 rounded text-xs font-mono">Space</kbd>+<kbd class="px-1.5 py-0.5 bg-border/30 rounded text-xs font-mono">h</kbd> → Harpoon quick menu</span></li>
-        <li class="flex items-start gap-2"><span class="text-muted/40 mt-1">—</span><span><kbd class="px-1.5 py-0.5 bg-border/30 rounded text-xs font-mono">Ctrl</kbd>+<kbd class="px-1.5 py-0.5 bg-border/30 rounded text-xs font-mono">s</kbd> / <kbd class="px-1.5 py-0.5 bg-border/30 rounded text-xs font-mono">Ctrl</kbd>+<kbd class="px-1.5 py-0.5 bg-border/30 rounded text-xs font-mono">b</kbd> → tmux prefix (then standard keys)</span></li>
-        <li class="flex items-start gap-2"><span class="text-muted/40 mt-1">—</span><span><strong class="text-text-dark">tmux:</strong> <kbd class="px-1.5 py-0.5 bg-border/30 rounded text-xs font-mono">Alt</kbd>+arrows → panes, <kbd class="px-1.5 py-0.5 bg-border/30 rounded text-xs font-mono">Shift</kbd>+arrows → windows</span></li>
-        <li class="flex items-start gap-2"><span class="text-muted/40 mt-1">—</span><span><strong class="text-text-dark">Shell:</strong> <code class="text-accent text-xs">Ctrl+R</code> → fzf reverse-search (replaces default history search)</span></li>
-        <li class="flex items-start gap-2"><span class="text-muted/40 mt-1">—</span><span><strong class="text-text-dark">Aliases:</strong> <code class="text-accent text-xs">ll</code> → <code class="text-accent text-xs">eza -la</code>, <code class="text-accent text-xs">cat</code> → <code class="text-accent text-xs">bat</code>, <code class="text-accent text-xs">find</code> → <code class="text-accent text-xs">fd</code>, <code class="text-accent text-xs">grep</code> → <code class="text-accent text-xs">rg</code></span></li>
+    <section class="mb-12 space-y-4 border-t border-border/40 pt-8">
+      <h2 class="text-[10px] uppercase text-white tracking-widest">// languages & runtimes</h2>
+      <ul class="space-y-1 pl-4 text-text-muted">
+        <li>- Rust (rustc 1.95.0 / cargo 1.95.0)</li>
+        <li>- Go (go 1.26.3)</li>
+        <li>- Zig (zig 0.16.0)</li>
+        <li>- TypeScript (ts 6.0.2 / Node 24.14.0)</li>
+        <li>- Bun (bun 1.3.14)</li>
+        <li>- Python (pyright LSP)</li>
+        <li>- C (gcc 14 / clang 19)</li>
       </ul>
     </section>
 
+    <!-- CLI Tools -->
+    <section class="mb-12 space-y-4 border-t border-border/40 pt-8">
+      <h2 class="text-[10px] uppercase text-white tracking-widest">// cli tools</h2>
+      <ul class="space-y-1 pl-4 text-text-muted">
+        <li>- git & lazygit</li>
+        <li>- docker & compose</li>
+        <li>- ripgrep (rg)</li>
+        <li>- fd</li>
+        <li>- fzf</li>
+        <li>- bat</li>
+        <li>- eza</li>
+        <li>- btop</li>
+        <li>- jq</li>
+        <li>- zoxide (z)</li>
+      </ul>
+    </section>
+
+    <!-- Key Configs -->
+    <section class="space-y-4 border-t border-border/40 pt-8">
+      <h2 class="text-[10px] uppercase text-white tracking-widest">// configurations</h2>
+      <ul class="space-y-1 pl-4 text-text-muted font-mono">
+        <li>- Leader key: space</li>
+        <li>- Relative line numbers, 4-space tabs</li>
+        <li>- space+ff: Telescope find files</li>
+        <li>- space+fw: Telescope live grep</li>
+        <li>- space+e: Toggle file explorer</li>
+        <li>- space+h: Harpoon quick menu</li>
+        <li>- Ctrl+s / Ctrl+b: tmux prefix</li>
+        <li>- ll: eza -la, cat: bat, grep: rg</li>
+      </ul>
+    </section>
   </div>
 </Layout>
 

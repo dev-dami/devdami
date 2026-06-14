@@ -4,8 +4,8 @@ import NewsletterSignup from "../components/NewsletterSignup.astro";
 const { frontmatter, allPosts = [] } = Astro.props;
 
 const date = frontmatter.date instanceof Date ? frontmatter.date : new Date(frontmatter.date);
-const pageTitle = `${frontmatter.title} - Damilare Osibanjo`;
-const pageDescription = frontmatter.description || "Technical article by Damilare Osibanjo on systems programming, compilers, and infrastructure";
+const pageTitle = `${frontmatter.title} — damilare.code`;
+const pageDescription = frontmatter.description || "technical article by damilare osibanjo on systems programming, compilers, and infrastructure";
 const pageUrl = `https://devdami.varityweb.com/blog/${Astro.params.slug}`;
 const ogParams = new URLSearchParams({ title: frontmatter.title });
 if (frontmatter.tags?.length) {
@@ -64,41 +64,33 @@ const relatedPosts = allPosts
 ---
 
 <Layout title={pageTitle} description={pageDescription} canonical={pageUrl} image={pageImage} ogType="article">
-
   {/* JSON-LD Structured Data */}
   <script type="application/ld+json" set:html={JSON.stringify(blogPostingSchema)} />
 
-  <article class="mx-auto max-w-blog">
-    <!-- Reading Progress Bar -->
-    <div class="fixed bottom-0 left-0 w-full h-1 z-50 bg-surface/50 backdrop-blur">
-      <div id="progress-bar" class="h-full bg-gradient-to-r from-accent to-accent-hover w-0 transition-all duration-100"></div>
-    </div>
-
-    <header class="mb-12 space-y-4">
-      <h1 class="text-3xl md:text-4xl font-normal tracking-wide text-text-dark">
+  <article class="mx-auto max-w-md py-16 font-mono text-xs text-text leading-relaxed">
+    <!-- Header -->
+    <header class="mb-12 text-center">
+      <a href="/blog" class="text-text-muted hover:text-white transition-colors block mb-4">← back to blog</a>
+      <h1 class="text-base font-semibold text-white lowercase mb-4 leading-snug">
         {frontmatter.title}
       </h1>
       {frontmatter.series && (
-        <div class="flex items-center gap-2">
-          <span class="text-xs font-mono text-accent border border-accent/30 bg-accent/5 px-2 py-0.5 rounded">
-            {frontmatter.series.name} • Part {frontmatter.series.order}
-          </span>
+        <div class="mb-3 text-[10px] text-accent/60 lowercase">
+          // series: {frontmatter.series.name} · part {frontmatter.series.order}
         </div>
       )}
-      <div class="flex items-center gap-3 text-sm">
-        <time class="font-mono text-muted">{date.toDateString()}</time>
+      <div class="flex items-center justify-center gap-3 text-[10px] text-text-muted lowercase">
+        <time>{date.toDateString().toLowerCase()}</time>
         {readingTime && (
           <>
-            <span class="text-border">•</span>
-            <span class="font-mono text-muted">{readingTime} min read</span>
+            <span>·</span>
+            <span>{readingTime} min read</span>
           </>
         )}
-        <span class="text-border">•</span>
+        <span>·</span>
         <div class="flex flex-wrap gap-2">
           {frontmatter.tags.map((tag: string) => (
-            <span class="px-2 py-0.5 text-xs bg-surface border border-border rounded text-muted">
-              {tag}
-            </span>
+            <span>#{tag.toLowerCase()}</span>
           ))}
         </div>
       </div>
@@ -106,14 +98,14 @@ const relatedPosts = allPosts
 
     {/* Takeaways box */}
     {frontmatter.takeaways && (
-      <aside class="tldr mb-10 p-4 md:p-6 border border-accent/30 bg-accent/5 rounded-lg" itemscope itemtype="https://schema.org/FAQPage">
-        <h3 class="text-xs font-semibold tracking-widest text-accent uppercase font-mono mb-2">
-          Key Takeaways
+      <aside class="tldr mb-10 p-4 border border-border/40 bg-surface/20 lowercase" itemscope itemtype="https://schema.org/FAQPage">
+        <h3 class="text-[10px] font-semibold tracking-widest text-white uppercase font-mono mb-2">
+          // key takeaways
         </h3>
-        <ul class="text-sm text-text leading-relaxed space-y-2">
+        <ul class="text-xs text-text-muted leading-relaxed space-y-2">
           {frontmatter.takeaways.split('\n').filter((t: string) => t.trim()).map((item: string) => (
             <li class="flex items-start gap-2" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-              <span class="text-accent mt-1.5 flex-shrink-0">◆</span>
+              <span class="text-accent mt-0.5 flex-shrink-0">-</span>
               <span itemprop="name">{item.trim().replace(/^[-*•]\s*/, '')}</span>
             </li>
           ))}
@@ -121,67 +113,51 @@ const relatedPosts = allPosts
       </aside>
     )}
 
-    <div id="article-content" class="prose prose-invert max-w-none space-y-6 pb-20 overflow-x-hidden">
+    <!-- Content -->
+    <div id="article-content" class="prose prose-invert max-w-none space-y-6 pb-12 overflow-x-hidden text-xs lowercase leading-relaxed text-text">
       <slot />
     </div>
 
     {/* Series navigation */}
     {seriesPosts.length > 1 && (
-      <div class="mt-16 pt-8 border-t border-border">
-        <h3 class="text-sm font-semibold tracking-widest text-text-dark uppercase font-mono mb-4">
-          <span class="text-accent opacity-60">//</span> {seriesName}
+      <div class="mt-12 pt-6 border-t border-border/40 lowercase">
+        <h3 class="text-[10px] font-semibold tracking-widest text-white uppercase font-mono mb-4">
+          // series: {seriesName}
         </h3>
-        <div class="flex flex-col sm:flex-row gap-3 justify-between">
+        <div class="flex justify-between gap-4 text-[10px] text-text-muted font-mono">
           {prevInSeries ? (
-            <a
-              href={`/blog/${prevInSeries.slug}`}
-              class="group flex-1 p-4 border border-border rounded-lg hover:border-accent/40 transition-all bg-surface/20"
-            >
-              <span class="text-xs text-muted/60 font-mono">← Previous</span>
-              <span class="block mt-1 text-sm font-semibold text-text-dark group-hover:text-accent transition-colors line-clamp-2">
-                {prevInSeries.data.title}
-              </span>
+            <a href={`/blog/${prevInSeries.slug}`} class="hover:text-white">
+              ← prev: {prevInSeries.data.title}
             </a>
-          ) : <div class="flex-1" />}
+          ) : <span />}
           {nextInSeries ? (
-            <a
-              href={`/blog/${nextInSeries.slug}`}
-              class="group flex-1 p-4 border border-border rounded-lg hover:border-accent/40 transition-all bg-surface/20 text-right"
-            >
-              <span class="text-xs text-muted/60 font-mono">Next →</span>
-              <span class="block mt-1 text-sm font-semibold text-text-dark group-hover:text-accent transition-colors line-clamp-2">
-                {nextInSeries.data.title}
-              </span>
+            <a href={`/blog/${nextInSeries.slug}`} class="hover:text-white">
+              next: {nextInSeries.data.title} →
             </a>
-          ) : <div class="flex-1" />}
+          ) : <span />}
         </div>
       </div>
     )}
 
     {/* Related posts */}
     {relatedPosts.length > 0 && (
-      <div class="mt-16 pt-8 border-t border-border">
-        <h3 class="text-sm font-semibold tracking-widest text-text-dark uppercase font-mono mb-6">
-          <span class="text-accent opacity-60">//</span> Related Posts
+      <div class="mt-12 pt-6 border-t border-border/40 lowercase">
+        <h3 class="text-[10px] font-semibold tracking-widest text-white uppercase font-mono mb-6">
+          // related posts
         </h3>
-        <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div class="space-y-4">
           {relatedPosts.map((p: any) => {
             const relDate = p.data.date instanceof Date ? p.data.date : new Date(p.data.date);
-            const relReadingTime = p.data.readingTime;
             return (
-              <a
-                href={`/blog/${p.slug}`}
-                class="group block p-4 border border-border rounded-lg hover:border-accent/40 transition-all bg-surface/20"
-              >
-                <h4 class="text-sm font-semibold text-text-dark group-hover:text-accent transition-colors line-clamp-2">
+              <a href={`/blog/${p.slug}`} class="group block">
+                <span class="text-white group-hover:text-accent font-semibold underline block mb-1">
                   {p.data.title}
-                </h4>
-                <p class="mt-1.5 text-xs text-muted line-clamp-2 leading-relaxed">
+                </span>
+                <p class="text-text-muted mt-0.5 mb-1 text-[11px] leading-relaxed">
                   {p.data.description}
                 </p>
-                <div class="mt-2 flex items-center gap-2 text-xs text-muted/60 font-mono">
-                  <time>{relDate.toDateString()}</time>
-                  {relReadingTime && <><span>·</span><span>{relReadingTime} min</span></>}
+                <div class="text-[9px] text-text-muted font-mono">
+                  {relDate.toDateString().toLowerCase()}
                 </div>
               </a>
             );
@@ -195,30 +171,14 @@ const relatedPosts = allPosts
 
     <!-- Checklist CTA for build-experience post -->
     {Astro.params.slug === 'build-programming-experience-no-hire' && (
-      <div class="mt-6 p-4 md:p-6 border border-accent/30 bg-accent/5 rounded-lg">
-        <p class="text-sm text-text leading-relaxed">
-          <span class="text-accent font-semibold">→</span> Get the printable checklist version of this guide —
-          <a
-            href="/checklist/build-experience"
-            class="text-accent hover:underline font-medium"
-          >
-            Download the Build Experience PDF
+      <div class="mt-8 p-4 border border-border/40 bg-surface/20 lowercase">
+        <p class="text-[11px] text-text leading-relaxed">
+          <span class="text-accent font-semibold">→</span> get the printable checklist version of this guide —
+          <a href="/checklist/build-experience" class="text-accent hover:underline font-medium ml-1">
+            download the build experience checklist
           </a>
         </p>
       </div>
     )}
-
-    <!-- Back to top button -->
-    <div class="fixed bottom-8 right-8 z-40">
-      <a
-       href="#top"
-       class="flex items-center justify-center w-10 h-10 rounded-lg bg-surface border border-border text-muted hover:text-text-dark hover:border-accent/50 transition-all"
-       aria-label="Back to top"
-      >
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/>
-        </svg>
-      </a>
-    </div>
   </article>
 </Layout>

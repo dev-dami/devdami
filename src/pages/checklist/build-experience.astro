@@ -2,235 +2,198 @@
 import Layout from "../../layouts/Layout.astro";
 export const prerender = true;
 
-const pageTitle = "The Build Experience Checklist - Damilare Osibanjo";
-const pageDescription = "Free downloadable checklist: 4 proven paths to build programming experience when no one will hire you.";
+const pageTitle = "dami.checklist — build experience";
+const pageDescription = "free downloadable checklist: 4 paths to build programming experience when no one will hire you.";
 const pageUrl = "https://devdami.varityweb.com/checklist/build-experience";
 ---
 
 <Layout title={pageTitle} description={pageDescription} canonical={pageUrl}>
-  <div class="mx-auto max-w-blog">
+  <div class="max-w-md mx-auto py-16 font-mono text-xs text-text leading-relaxed">
     <!-- Hero -->
-    <div class="mb-10">
-      <p class="text-xs font-mono text-accent tracking-widest uppercase mb-2">Free Resource</p>
-      <h1 class="text-2xl md:text-3xl font-semibold text-text-dark leading-tight">
-        The Build Experience Checklist
+    <header class="mb-12 text-center">
+      <p class="text-[9px] font-mono text-accent tracking-widest uppercase mb-2">// free resource</p>
+      <h1 class="text-sm font-semibold text-white lowercase mb-3 leading-snug">
+        the build experience checklist
       </h1>
-      <p class="mt-3 text-sm text-muted leading-relaxed">
-        Four proven paths to manufacture your own credentials — distilled from
-        <a href="/blog/build-programming-experience-no-hire" class="text-accent hover:underline">
-          "How to Build Programming Experience When No One Will Hire You"
+      <p class="text-text-muted lowercase max-w-sm mx-auto">
+        four proven paths to manufacture your own credentials — distilled from
+        <a href="/blog/build-programming-experience-no-hire" class="text-accent hover:underline ml-1">
+          "how to build programming experience when no one will hire you"
         </a>
         into a printable checklist you can work through week by week.
       </p>
-    </div>
+    </header>
 
     <!-- Email gate -->
-    <div id="email-gate" class="border border-accent/40 bg-accent/5 rounded-lg p-6 md:p-8 mb-10">
-      <p class="text-sm font-semibold text-text-dark mb-1 font-mono">
-        Get the PDF
-      </p>
-      <p class="text-xs text-muted mb-4">
-        Enter your email to unlock the downloadable checklist.
-      </p>
-      <form id="pdf-form" class="flex flex-col sm:flex-row gap-3">
+    <div id="email-gate" class="border-t border-b border-border/40 py-6 mb-12 font-mono text-center">
+      <p class="text-[10px] font-semibold text-white mb-1 lowercase">// get the pdf</p>
+      <p class="text-[9px] text-text-muted mb-4 lowercase">enter your email to unlock the downloadable checklist.</p>
+      <form id="pdf-form" class="flex flex-col gap-3 max-w-xs mx-auto">
         <input
           type="email"
           id="pdf-email"
           placeholder="your@email.com"
           required
-          class="flex-1 px-4 py-2.5 bg-bg border border-border rounded text-sm text-text placeholder:text-muted/50 font-mono outline-none focus:border-accent transition-colors"
+          class="px-3 py-2 bg-transparent border-b border-border/60 text-xs text-text placeholder:text-muted/50 font-mono outline-none focus:border-white transition-colors text-center"
         />
         <button
           type="submit"
-          class="px-5 py-2.5 bg-accent hover:bg-accent-hover text-white text-sm font-medium rounded transition-all whitespace-nowrap"
+          class="mt-2 text-accent hover:text-white underline cursor-pointer text-xs font-mono lowercase"
         >
-          Download PDF
+          [subscribe &amp; download]
         </button>
       </form>
-      <p id="pdf-status" class="hidden mt-2 text-xs font-mono text-accent"></p>
-      <p class="mt-2 text-xs text-muted/60 font-mono">
-        No spam. Unsubscribe anytime.
-      </p>
+      <p id="pdf-status" class="hidden mt-2 text-[10px] font-mono text-accent lowercase"></p>
     </div>
 
-    <!-- Checklist content — hidden until email captured, but visible for direct link visitors -->
-    <div id="checklist-content" class="space-y-10">
+    <!-- Checklist content -->
+    <div id="checklist-content" class="space-y-12">
       <!-- Path 1: Open Source -->
-      <section class="border border-border rounded-lg p-6 md:p-8 bg-surface/20">
-        <div class="flex items-start gap-3 mb-4">
-          <span class="flex-shrink-0 w-8 h-8 rounded-full bg-accent/10 border border-accent/30 flex items-center justify-center text-sm font-mono text-accent">1</span>
-          <div>
-            <h2 class="text-lg font-semibold text-text-dark font-mono">Open Source Contributions That Matter</h2>
-            <p class="text-xs text-muted mt-0.5">Not typo-fixing. Real contributions that build architecture skills.</p>
-          </div>
-        </div>
-        <ul class="space-y-3 text-sm">
-          <li class="flex items-start gap-3 text-text">
+      <section class="space-y-4 border-t border-border/40 pt-8">
+        <h2 class="text-[10px] uppercase text-white tracking-widest mb-4">// 1. open source contributions that matter</h2>
+        <ul class="space-y-3 pl-4 text-text-muted list-none">
+          <li class="flex items-start gap-3">
             <input type="checkbox" class="mt-0.5 accent-accent" />
-            <span><strong>Pick projects you already use</strong> — check your <code class="text-accent text-xs">package.json</code>, <code class="text-accent text-xs">Cargo.toml</code>, or <code class="text-accent text-xs">go.mod</code>. User context is your unfair advantage.</span>
+            <span><strong class="text-white">pick projects you already use</strong> — check your package.json, cargo.toml, or go.mod. user context is your advantage.</span>
           </li>
-          <li class="flex items-start gap-3 text-text">
+          <li class="flex items-start gap-3">
             <input type="checkbox" class="mt-0.5 accent-accent" />
-            <span><strong>Start with bug reproduction</strong> — find an issue with a vague description, clone the repo, write a minimal reproduction, and post it. No code merged, but you've learned the codebase.</span>
+            <span><strong class="text-white">start with bug reproduction</strong> — find an issue with a vague description, clone the repo, write a minimal reproduction, and post it.</span>
           </li>
-          <li class="flex items-start gap-3 text-text">
+          <li class="flex items-start gap-3">
             <input type="checkbox" class="mt-0.5 accent-accent" />
-            <span><strong>Trace a request through the system</strong> before writing code: CLI parsing → config → core logic → output.</span>
+            <span><strong class="text-white">trace requests through the system</strong> before writing code: cli parsing → config → core logic → output.</span>
           </li>
-          <li class="flex items-start gap-3 text-text">
+          <li class="flex items-start gap-3">
             <input type="checkbox" class="mt-0.5 accent-accent" />
-            <span><strong>Submit small, well-scoped PRs</strong> — missing test cases, better error messages, updated docs, clarity refactors (with maintainer approval).</span>
+            <span><strong class="text-white">submit small, well-scoped prs</strong> — missing test cases, better error messages, updated docs, clarity refactors.</span>
           </li>
-          <li class="flex items-start gap-3 text-text">
+          <li class="flex items-start gap-3">
             <input type="checkbox" class="mt-0.5 accent-accent" />
-            <span><strong>Avoid</strong> rewriting core logic, adding features nobody asked for, or ignoring the contribution guide.</span>
+            <span><strong class="text-white">avoid</strong> rewriting core logic, adding unrequested features, or ignoring contribution guides.</span>
           </li>
         </ul>
       </section>
 
       <!-- Path 2: SaaS Clones -->
-      <section class="border border-border rounded-lg p-6 md:p-8 bg-surface/20">
-        <div class="flex items-start gap-3 mb-4">
-          <span class="flex-shrink-0 w-8 h-8 rounded-full bg-accent/10 border border-accent/30 flex items-center justify-center text-sm font-mono text-accent">2</span>
-          <div>
-            <h2 class="text-lg font-semibold text-text-dark font-mono">Build Real SaaS Clones (Not Tutorials)</h2>
-            <p class="text-xs text-muted mt-0.5">The "fake but real" project method — reverse-engineer existing products.</p>
-          </div>
-        </div>
-        <ul class="space-y-3 text-sm">
-          <li class="flex items-start gap-3 text-text">
+      <section class="space-y-4 border-t border-border/40 pt-8">
+        <h2 class="text-[10px] uppercase text-white tracking-widest mb-4">// 2. build real saas clones (not tutorials)</h2>
+        <ul class="space-y-3 pl-4 text-text-muted list-none">
+          <li class="flex items-start gap-3">
             <input type="checkbox" class="mt-0.5 accent-accent" />
-            <span><strong>Go beyond localStorage</strong> — real projects use PostgreSQL, auth, and deployment.</span>
+            <span><strong class="text-white">go beyond localstorage</strong> — real projects use postgresql, auth, and deployment.</span>
           </li>
-          <li class="flex items-start gap-3 text-text">
+          <li class="flex items-start gap-3">
             <input type="checkbox" class="mt-0.5 accent-accent" />
-            <span><strong>Multi-environment deployment</strong> — staging and production, not just "it works on my laptop."</span>
+            <span><strong class="text-white">multi-environment deployment</strong> — staging and production, not just localhost.</span>
           </li>
-          <li class="flex items-start gap-3 text-text">
+          <li class="flex items-start gap-3">
             <input type="checkbox" class="mt-0.5 accent-accent" />
-            <span><strong>Write unit + integration tests</strong> with CI/CD pipeline.</span>
+            <span><strong class="text-white">write unit + integration tests</strong> with ci/cd pipeline.</span>
           </li>
-          <li class="flex items-start gap-3 text-text">
+          <li class="flex items-start gap-3">
             <input type="checkbox" class="mt-0.5 accent-accent" />
-            <span><strong>Add rate limiting and validation</strong> — real APIs handle abuse prevention.</span>
+            <span><strong class="text-white">add rate limiting and validation</strong> — real apis handle abuse prevention.</span>
           </li>
-          <li class="flex items-start gap-3 text-text">
+          <li class="flex items-start gap-3">
             <input type="checkbox" class="mt-0.5 accent-accent" />
-            <span><strong>Set up monitoring</strong> — error tracking and analytics from day one.</span>
+            <span><strong class="text-white">set up monitoring</strong> — error tracking and analytics from day one.</span>
           </li>
-          <li class="flex items-start gap-3 text-text">
+          <li class="flex items-start gap-3">
             <input type="checkbox" class="mt-0.5 accent-accent" />
-            <span><strong>Make architectural decisions</strong> — collision-resistant IDs, graceful degradation, retry logic with exponential backoff.</span>
+            <span><strong class="text-white">make architectural decisions</strong> — collision-resistant ids, graceful degradation, retry logic with backoff.</span>
           </li>
         </ul>
       </section>
 
       <!-- Path 3: Freelance -->
-      <section class="border border-border rounded-lg p-6 md:p-8 bg-surface/20">
-        <div class="flex items-start gap-3 mb-4">
-          <span class="flex-shrink-0 w-8 h-8 rounded-full bg-accent/10 border border-accent/30 flex items-center justify-center text-sm font-mono text-accent">3</span>
-          <div>
-            <h2 class="text-lg font-semibold text-text-dark font-mono">Strategic Freelance Work</h2>
-            <p class="text-xs text-muted mt-0.5">Choose projects that force you to learn specific skills.</p>
-          </div>
-        </div>
-        <ul class="space-y-3 text-sm">
-          <li class="flex items-start gap-3 text-text">
+      <section class="space-y-4 border-t border-border/40 pt-8">
+        <h2 class="text-[10px] uppercase text-white tracking-widest mb-4">// 3. strategic freelance work</h2>
+        <ul class="space-y-3 pl-4 text-text-muted list-none">
+          <li class="flex items-start gap-3">
             <input type="checkbox" class="mt-0.5 accent-accent" />
-            <span><strong>Filter by skill gap, not budget</strong> — need API design experience? Build a REST API for a small business. Need deployment chops? Containerize a legacy app.</span>
+            <span><strong class="text-white">filter by skill gap, not budget</strong> — need api design experience? build a rest api for a small business.</span>
           </li>
-          <li class="flex items-start gap-3 text-text">
+          <li class="flex items-start gap-3">
             <input type="checkbox" class="mt-0.5 accent-accent" />
-            <span><strong>Never work for free</strong> — free work gets ignored. Paid work (even small amounts) creates accountability.</span>
+            <span><strong class="text-white">never work for free</strong> — paid work (even small amounts) creates accountability.</span>
           </li>
-          <li class="flex items-start gap-3 text-text">
+          <li class="flex items-start gap-3">
             <input type="checkbox" class="mt-0.5 accent-accent" />
-            <span><strong>Turn every project into a case study</strong> — document the problem, constraints, your approach, and the outcome. This is your portfolio.</span>
+            <span><strong class="text-white">turn every project into a case study</strong> — document the problem, constraints, your approach, and the outcome.</span>
           </li>
-          <li class="flex items-start gap-3 text-text">
+          <li class="flex items-start gap-3">
             <input type="checkbox" class="mt-0.5 accent-accent" />
-            <span><strong>Avoid red flags</strong> — clients who can't explain what they want, projects with zero familiarity technologies, and "exposure" offers.</span>
+            <span><strong class="text-white">avoid red flags</strong> — clients who can't explain what they want, and exposure-only offers.</span>
           </li>
         </ul>
       </section>
 
       <!-- Path 4: Deep Dive -->
-      <section class="border border-border rounded-lg p-6 md:p-8 bg-surface/20">
-        <div class="flex items-start gap-3 mb-4">
-          <span class="flex-shrink-0 w-8 h-8 rounded-full bg-accent/10 border border-accent/30 flex items-center justify-center text-sm font-mono text-accent">4</span>
-          <div>
-            <h2 class="text-lg font-semibold text-text-dark font-mono">The "Fake But Real" Project</h2>
-            <p class="text-xs text-muted mt-0.5">Build something that isn't a real business but operates with real-world complexity.</p>
-          </div>
-        </div>
-        <ul class="space-y-3 text-sm">
-          <li class="flex items-start gap-3 text-text">
+      <section class="space-y-4 border-t border-border/40 pt-8">
+        <h2 class="text-[10px] uppercase text-white tracking-widest mb-4">// 4. the "fake but real" project</h2>
+        <ul class="space-y-3 pl-4 text-text-muted list-none">
+          <li class="flex items-start gap-3">
             <input type="checkbox" class="mt-0.5 accent-accent" />
-            <span><strong>Real users</strong> — even if it's just 10 people. Feedback from real users is irreplaceable.</span>
+            <span><strong class="text-white">real users</strong> — even if it's just 10 people. feedback from real users is irreplaceable.</span>
           </li>
-          <li class="flex items-start gap-3 text-text">
+          <li class="flex items-start gap-3">
             <input type="checkbox" class="mt-0.5 accent-accent" />
-            <span><strong>Real data</strong> — PostgreSQL (not hardcoded JSON), with proper schema design and indexing.</span>
+            <span><strong class="text-white">real data</strong> — postgresql (not hardcoded json), with proper schema design and indexing.</span>
           </li>
-          <li class="flex items-start gap-3 text-text">
+          <li class="flex items-start gap-3">
             <input type="checkbox" class="mt-0.5 accent-accent" />
-            <span><strong>Real failures</strong> — simulate database downtime, network errors, bad inputs. Add circuit breakers and retry logic.</span>
+            <span><strong class="text-white">real failures</strong> — simulate database downtime, network errors, bad inputs. add retry logic.</span>
           </li>
-          <li class="flex items-start gap-3 text-text">
+          <li class="flex items-start gap-3">
             <input type="checkbox" class="mt-0.5 accent-accent" />
-            <span><strong>Real maintenance</strong> — come back after 3 months and refactor. The ability to recognize past mistakes is growth.</span>
+            <span><strong class="text-white">real maintenance</strong> — come back after 3 months and refactor.</span>
           </li>
-          <li class="flex items-start gap-3 text-text">
+          <li class="flex items-start gap-3">
             <input type="checkbox" class="mt-0.5 accent-accent" />
-            <span><strong>Stress-test your code</strong> — <code class="text-accent text-xs">docker stop your-db-container</code>. Watch how your app behaves. Does it crash? Return 500? Queue for retry?</span>
+            <span><strong class="text-white">stress-test code</strong> — stop the database container. watch how your app behaves.</span>
           </li>
         </ul>
       </section>
 
       <!-- Presenting Experience -->
-      <section class="border border-border rounded-lg p-6 md:p-8 bg-surface/20">
-        <div class="flex items-start gap-3 mb-4">
-          <span class="flex-shrink-0 w-8 h-8 rounded-full bg-accent/10 border border-accent/30 flex items-center justify-center text-sm font-mono text-accent">5</span>
-          <div>
-            <h2 class="text-lg font-semibold text-text-dark font-mono">Package &amp; Present Your Work</h2>
-            <p class="text-xs text-muted mt-0.5">Communicate what you've built so hiring managers understand the depth.</p>
-          </div>
-        </div>
-        <ul class="space-y-3 text-sm">
-          <li class="flex items-start gap-3 text-text">
+      <section class="space-y-4 border-t border-border/40 pt-8">
+        <h2 class="text-[10px] uppercase text-white tracking-widest mb-4">// 5. package &amp; present your work</h2>
+        <ul class="space-y-3 pl-4 text-text-muted list-none">
+          <li class="flex items-start gap-3">
             <input type="checkbox" class="mt-0.5 accent-accent" />
-            <span><strong>Pin 3-4 repos on GitHub</strong> that show depth, not breadth. Each needs a comprehensive README with architecture decisions.</span>
+            <span><strong class="text-white">pin 3-4 repos on github</strong> that show depth. each needs a comprehensive readme with architecture decisions.</span>
           </li>
-          <li class="flex items-start gap-3 text-text">
+          <li class="flex items-start gap-3">
             <input type="checkbox" class="mt-0.5 accent-accent" />
-            <span><strong>Include ARCHITECTURE.md or DEPLOYMENT.md</strong> for complex projects. Ensure CI passes and code is linted.</span>
+            <span><strong class="text-white">include architecture.md</strong> for complex projects. ensure ci passes and code is linted.</span>
           </li>
-          <li class="flex items-start gap-3 text-text">
+          <li class="flex items-start gap-3">
             <input type="checkbox" class="mt-0.5 accent-accent" />
-            <span><strong>Write specific resume bullets</strong> — not "Built a URL shortener in Node.js" but "Designed and deployed a URL shortener handling 1K+ daily redirects with collision-resistant encoding and PostgreSQL persistence."</span>
+            <span><strong class="text-white">write specific resume bullets</strong> — describe metrics, tech, and exact constraints solved.</span>
           </li>
-          <li class="flex items-start gap-3 text-text">
+          <li class="flex items-start gap-3">
             <input type="checkbox" class="mt-0.5 accent-accent" />
-            <span><strong>Prepare 3-5 STAR stories</strong> — Situation, Task, Action, Result. Be specific: "reduced response time from 800ms to 45ms by adding indexing and Redis caching."</span>
+            <span><strong class="text-white">prepare 3-5 star stories</strong> — situation, task, action, result. be metric-specific.</span>
           </li>
-          <li class="flex items-start gap-3 text-text">
+          <li class="flex items-start gap-3">
             <input type="checkbox" class="mt-0.5 accent-accent" />
-            <span><strong>Build in public</strong> — share projects, failures, and learnings on Twitter, dev.to, or Hashnode. Teach what you learn.</span>
+            <span><strong class="text-white">build in public</strong> — share projects, failures, and learnings. teach what you learn.</span>
           </li>
-          <li class="flex items-start gap-3 text-text">
+          <li class="flex items-start gap-3">
             <input type="checkbox" class="mt-0.5 accent-accent" />
-            <span><strong>Ship regularly</strong> — 4 completed projects beat 20 unfinished ones. Done is better than perfect.</span>
+            <span><strong class="text-white">ship regularly</strong> — done is always better than perfect.</span>
           </li>
         </ul>
       </section>
 
       <!-- Print actions bar -->
-      <div class="flex justify-center pt-4 pb-8 border-t border-border">
+      <div class="flex justify-center pt-8 border-t border-border/40 lowercase">
         <button
           onclick="window.print()"
-          class="px-6 py-3 bg-accent hover:bg-accent-hover text-white text-sm font-medium rounded transition-all whitespace-nowrap cursor-pointer"
+          class="text-accent hover:text-white underline cursor-pointer text-xs font-mono"
         >
-          Save as PDF (Print)
+          [save as pdf (print)]
         </button>
       </div>
     </div>
@@ -251,13 +214,15 @@ const pageUrl = "https://devdami.varityweb.com/checklist/build-experience";
       break-inside: avoid;
       border-color: #ddd !important;
       background: #fafafa !important;
+      margin-top: 1.5rem !important;
+      padding-top: 1.5rem !important;
     }
     #checklist-content section h2,
     #checklist-content section div {
       color: black !important;
     }
-    #checklist-content .text-text,
-    #checklist-content .text-muted {
+    #checklist-content span,
+    #checklist-content strong {
       color: #333 !important;
     }
     #checklist-content .text-accent {
@@ -267,19 +232,18 @@ const pageUrl = "https://devdami.varityweb.com/checklist/build-experience";
     button[onclick*="window.print()"] {
       display: none !important;
     }
-    .max-w-blog {
-      max-width: 100% !important;
+    .max-w-md {
+      max-w: 100% !important;
     }
   }
 </style>
 
 <script>
-  // Handle the email gate: subscribe then show download
+  // Handle the email gate
   const form = document.getElementById('pdf-form');
-  const emailInput = document.getElementById('pdf-email');
+  const emailInput = document.getElementById('pdf-email') as HTMLInputElement;
   const statusEl = document.getElementById('pdf-status');
   const gate = document.getElementById('email-gate');
-  const content = document.getElementById('checklist-content');
 
   if (form && emailInput && statusEl && gate) {
     form.addEventListener('submit', async (e) => {
@@ -288,8 +252,10 @@ const pageUrl = "https://devdami.varityweb.com/checklist/build-experience";
       if (!email) return;
 
       const btn = form.querySelector('button');
-      btn.disabled = true;
-      btn.textContent = 'Sending...';
+      if (btn) {
+        btn.disabled = true;
+        btn.textContent = 'sending...';
+      }
 
       try {
         const res = await fetch('/api/subscribe', {
@@ -300,23 +266,24 @@ const pageUrl = "https://devdami.varityweb.com/checklist/build-experience";
         const data = await res.json();
 
         if (res.ok) {
-          // Hide gate, content was already visible
           gate.style.display = 'none';
-          statusEl.textContent = '✓ You\'re subscribed! Use the button below to save as PDF.';
+          statusEl.textContent = '✓ subscribed! use the button below to save as pdf.';
           statusEl.classList.remove('hidden');
         } else {
-          statusEl.textContent = data.error || 'Something went wrong.';
+          statusEl.textContent = data.error || 'something went wrong.';
           statusEl.className = 'mt-2 text-xs font-mono text-red-400';
           statusEl.classList.remove('hidden');
         }
       } catch {
-        statusEl.textContent = 'Network error. The checklist is still available below.';
+        statusEl.textContent = 'network error. the checklist is still available below.';
         statusEl.className = 'mt-2 text-xs font-mono text-red-400';
         statusEl.classList.remove('hidden');
       }
 
-      btn.disabled = false;
-      btn.textContent = 'Download PDF';
+      if (btn) {
+        btn.disabled = false;
+        btn.textContent = '[subscribe & download]';
+      }
     });
   }
 </script>

@@ -105,16 +105,12 @@ const personSchema = {
       <main class="flex-1 mx-auto w-full max-w-content px-4 sm:px-6 pt-6 pb-12 md:px-8 md:pt-8 md:pb-16 lg:px-12">
         <slot />
       </main>
-      <footer class="border-t border-border/50">
-        <div class="mx-auto w-full max-w-content px-6 py-8 md:px-10 lg:px-16">
-          <div class="flex items-center justify-between">
-            <p class="text-sm text-muted">
-              &copy; {new Date().getFullYear()} Damilare Osibanjo. Built with Astro.
-            </p>
-            <p class="text-xs text-muted hidden sm:block">
-              Press <kbd class="px-1.5 py-0.5 bg-border/30 rounded mx-1">Ctrl</kbd> + <kbd class="px-1.5 py-0.5 bg-border/30 rounded mx-1">K</kbd> to search
-            </p>
-          </div>
+      <footer class="w-full max-w-md mx-auto py-8 px-4 text-center text-[10px] text-text-muted font-mono border-t border-border/20 lowercase">
+        <div>
+          &copy; {new Date().getFullYear()} damilare osibanjo · built with astro
+        </div>
+        <div class="mt-2 text-[9px]">
+          press <kbd class="px-1 py-0.5 bg-surface border border-border/40 rounded">ctrl</kbd> + <kbd class="px-1 py-0.5 bg-surface border border-border/40 rounded">k</kbd> to search
         </div>
       </footer>
     </div>

@@ -4,29 +4,32 @@ import { Search, FileText, Github, Linkedin, Mail, ExternalLink, Code, User } fr
 
 const searchItems = [
   {
-    category: "Pages",
+    category: "pages",
     items: [
-      { title: "Home", url: "/", icon: FileText, description: "Overview and projects" },
-      { title: "About", url: "/about", icon: User, description: "Learn about Damilare" },
-      { title: "Blog", url: "/blog", icon: FileText, description: "Articles and thoughts" },
+      { title: "home", url: "/", icon: FileText, description: "overview and projects" },
+      { title: "about", url: "/about", icon: User, description: "learn about damilare" },
+      { title: "blog", url: "/blog", icon: FileText, description: "articles and thoughts" },
+      { title: "wiki", url: "/wiki", icon: FileText, description: "personal wiki" },
+      { title: "uses", url: "/uses", icon: Code, description: "development setup" },
+      { title: "resume", url: "/resume", icon: User, description: "work experience and projects" },
     ]
   },
   {
-    category: "Projects",
+    category: "projects",
     items: [
-      { title: "Carv", url: "https://github.com/dev-dami/carv", icon: Code, description: "Systems programming language that compiles to C", external: true },
-      { title: "Ignite", url: "https://github.com/dev-dami/ignite", icon: Code, description: "Bun-first local execution framework", external: true },
-      { title: "Qirrel", url: "https://github.com/dev-dami/Qirrel", icon: Code, description: "NLP framework for text analysis", external: true },
-      { title: "gim", url: "https://github.com/dev-dami/gim", icon: Code, description: "System metrics CLI tool in Rust", external: true },
-      { title: "Zario", url: "https://github.com/dev-dami/zario", icon: Code, description: "Fast logging solution for TypeScript", external: true },
+      { title: "carv", url: "https://github.com/dev-dami/carv", icon: Code, description: "systems programming language that compiles to c", external: true },
+      { title: "ignite", url: "https://github.com/dev-dami/ignite", icon: Code, description: "bun-first local execution framework", external: true },
+      { title: "qirrel", url: "https://github.com/dev-dami/Qirrel", icon: Code, description: "nlp framework for text analysis", external: true },
+      { title: "gim", url: "https://github.com/dev-dami/gim", icon: Code, description: "system metrics cli tool in rust", external: true },
+      { title: "zario", url: "https://github.com/dev-dami/zario", icon: Code, description: "fast logging solution for typescript", external: true },
     ]
   },
   {
-    category: "Connect",
+    category: "connect",
     items: [
-      { title: "GitHub", url: "https://github.com/dev-dami", icon: Github, description: "@dev-dami", external: true },
-      { title: "LinkedIn", url: "https://www.linkedin.com/in/damilare-osibanjo/", icon: Linkedin, description: "Professional profile", external: true },
-      { title: "Email", url: "mailto:dami@varityweb.com", icon: Mail, description: "dami@varityweb.com", external: true },
+      { title: "github", url: "https://github.com/dev-dami", icon: Github, description: "@dev-dami", external: true },
+      { title: "linkedin", url: "https://www.linkedin.com/in/damilare-osibanjo/", icon: Linkedin, description: "professional profile", external: true },
+      { title: "email", url: "mailto:dami@varityweb.com", icon: Mail, description: "dami@varityweb.com", external: true },
     ]
   }
 ];
@@ -108,7 +111,7 @@ export default function CommandPalette() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 bg-bg/60 backdrop-blur-sm"
+            className="fixed inset-0 z-50 bg-bg/70 backdrop-blur-xs"
             onClick={() => {
               setIsOpen(false);
               setQuery("");
@@ -117,14 +120,14 @@ export default function CommandPalette() {
           
           <div className="fixed inset-0 z-50 flex items-start justify-center pt-24 px-4 pointer-events-none">
             <motion.div
-              initial={{ opacity: 0, scale: 0.96, y: -20 }}
+              initial={{ opacity: 0, scale: 0.98, y: -10 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.96, y: -20 }}
-              transition={{ duration: 0.15, ease: "easeOut" }}
-              className="relative w-full max-w-2xl pointer-events-auto rounded-xl border border-border/80 bg-surface/98 backdrop-blur-xl shadow-2xl overflow-hidden"
+              exit={{ opacity: 0, scale: 0.98, y: -10 }}
+              transition={{ duration: 0.12, ease: "easeOut" }}
+              className="relative w-full max-w-md pointer-events-auto border border-border/60 bg-surface/98 backdrop-blur-md shadow-2xl overflow-hidden font-mono"
             >
-              <div className="flex items-center gap-3 px-4 py-3 border-b border-border/50">
-                <Search className="w-5 h-5 text-text-muted" />
+              <div className="flex items-center gap-3 px-4 py-3 border-b border-border/40">
+                <Search className="w-4 h-4 text-text-muted" />
                 <input
                   ref={inputRef}
                   type="text"
@@ -134,50 +137,47 @@ export default function CommandPalette() {
                     setSelectedIndex(0);
                   }}
                   onKeyDown={handleKeyDown}
-                  placeholder="Search pages, projects, or links..."
-                  className="flex-1 bg-transparent text-text-dark placeholder:text-text-muted outline-none text-base"
+                  placeholder="search..."
+                  className="flex-1 bg-transparent text-white placeholder:text-text-muted outline-none text-xs lowercase"
                 />
-                <kbd className="hidden sm:inline-flex items-center gap-1 px-2 py-1 text-xs text-text-muted bg-border/30 rounded">
-                  <span>ESC</span>
+                <kbd className="hidden sm:inline-flex items-center gap-1 px-1.5 py-0.5 text-[9px] text-text-muted bg-border/20 rounded">
+                  <span>esc</span>
                 </kbd>
               </div>
 
-              <div className="max-h-96 overflow-y-auto py-2">
+              <div className="max-h-80 overflow-y-auto py-2">
                 {filteredItems.length === 0 ? (
-                  <div className="px-4 py-8 text-center text-text-muted">
-                    <p>No results found for "{query}"</p>
+                  <div className="px-4 py-8 text-center text-text-muted text-xs">
+                    <p>no results found for "{query}"</p>
                   </div>
                 ) : (
                   filteredItems.map((category, categoryIndex) => (
                     <div key={category.category} className="mb-2">
-                      <div className="px-4 py-2 text-xs font-medium text-text-muted uppercase tracking-wider">
-                        {category.category}
+                      <div className="px-4 py-1.5 text-[9px] font-semibold text-text-muted uppercase tracking-wider">
+                        // {category.category}
                       </div>
                       {category.items.map((item, itemIndex) => {
                         const flatIndex = flatItems.indexOf(item);
                         const Icon = item.icon;
                         return (
-                          <motion.button
+                          <button
                             key={item.title}
-                            initial={{ opacity: 0, x: -10 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ delay: itemIndex * 0.03 }}
                             onClick={() => handleSelect(item.url, item.external)}
-                            className={`w-full px-4 py-3 flex items-center gap-3 text-left transition-colors ${
+                            className={`w-full px-4 py-2 flex items-center gap-3 text-left transition-colors lowercase text-xs ${
                               flatIndex === selectedIndex 
-                                ? "bg-accent/20 text-text-dark" 
-                                : "text-text hover:bg-surface/50"
+                                ? "bg-border/40 text-white" 
+                                : "text-text-muted hover:bg-surface/50"
                             }`}
                           >
-                            <Icon className={`w-5 h-5 ${flatIndex === selectedIndex ? "text-accent" : "text-text-muted"}`} />
+                            <Icon className={`w-3.5 h-3.5 ${flatIndex === selectedIndex ? "text-accent" : "text-text-muted"}`} />
                             <div className="flex-1 min-w-0">
-                              <div className="flex items-center gap-2">
-                                <span className="font-medium text-text-dark">{item.title}</span>
-                                {item.external && <ExternalLink className="w-3 h-3 text-text-muted" />}
+                              <div className="flex items-center gap-1.5">
+                                <span className="font-semibold text-white">{item.title}</span>
+                                {item.external && <ExternalLink className="w-3 h-3 text-text-muted/60" />}
                               </div>
-                              <p className="text-sm text-text-muted truncate">{item.description}</p>
+                              <p className="text-[10px] text-text-muted truncate mt-0.5">{item.description}</p>
                             </div>
-                          </motion.button>
+                          </button>
                         );
                       })}
                     </div>
@@ -185,15 +185,15 @@ export default function CommandPalette() {
                 )}
               </div>
 
-              <div className="px-4 py-2 border-t border-border/50 bg-surface/50">
-                <div className="flex items-center gap-4 text-xs text-text-muted">
+              <div className="px-4 py-2 border-t border-border/40 bg-surface/30">
+                <div className="flex items-center gap-4 text-[9px] text-text-muted">
                   <span className="flex items-center gap-1">
-                    <kbd className="px-1.5 py-0.5 bg-border/30 rounded text-text">↑</kbd>
-                    <kbd className="px-1.5 py-0.5 bg-border/30 rounded text-text">↓</kbd>
+                    <kbd className="px-1 py-0.5 bg-border/20 rounded text-text-muted">↑</kbd>
+                    <kbd className="px-1 py-0.5 bg-border/20 rounded text-text-muted">↓</kbd>
                     <span>to navigate</span>
                   </span>
                   <span className="flex items-center gap-1">
-                    <kbd className="px-1.5 py-0.5 bg-border/30 rounded text-text">↵</kbd>
+                    <kbd className="px-1.5 py-0.5 bg-border/20 rounded text-text-muted">enter</kbd>
                     <span>to select</span>
                   </span>
                 </div>

@@ -17,129 +17,98 @@ export const prerender = true;
   <body class="min-h-screen bg-bg text-text font-mono antialiased">
 
     <!-- Toolbar (hidden on print) -->
-    <div class="no-print sticky top-0 z-50 border-b border-border bg-surface/90 backdrop-blur px-6 py-3 flex items-center justify-between">
-      <a href="/" class="text-xs font-mono text-muted hover:text-accent transition-colors">← back</a>
-      <div class="flex items-center gap-3">
-        <span class="text-xs font-mono text-muted">resume_v1.0</span>
+    <div class="no-print border-b border-border/40 py-4 max-w-md mx-auto flex items-center justify-between text-xs font-mono">
+      <a href="/" class="text-text-muted hover:text-white transition-colors">← back</a>
+      <div class="flex items-center gap-4">
+        <span class="text-text-muted">resume_v1.0</span>
         <button
           onclick="window.print()"
-          class="px-4 py-1.5 text-xs font-mono bg-accent hover:bg-accent-hover text-black transition-colors rounded-sm"
+          class="hover:text-white text-text-muted transition-colors uppercase"
         >
-          Download PDF
+          [print]
         </button>
       </div>
     </div>
 
     <!-- Resume Content -->
-    <div class="resume-page mx-auto max-w-3xl px-8 py-12 md:py-16">
+    <div class="resume-page mx-auto max-w-md px-4 py-16 font-mono text-xs text-text leading-relaxed">
 
       <!-- Header -->
-      <header class="mb-8 pb-6 border-b border-border">
-        <h1 class="text-2xl md:text-3xl font-semibold tracking-tight text-white mb-1">
-          Damilare Osibanjo
+      <header class="mb-12 pb-6 border-b border-border/40 text-center">
+        <h1 class="text-sm font-semibold tracking-widest text-white uppercase mb-2">
+          damilare osibanjo
         </h1>
-        <p class="text-sm text-accent font-mono mb-3">Backend &amp; Systems Engineer</p>
-        <div class="flex flex-wrap gap-x-4 gap-y-1 text-xs font-mono text-muted">
-          <a href="mailto:dami@varityweb.com" class="hover:text-accent transition-colors">
+        <p class="text-text-muted lowercase mb-4">backend &amp; systems engineer</p>
+        <div class="flex flex-col gap-1 text-[10px] text-text-muted lowercase">
+          <a href="mailto:dami@varityweb.com" class="hover:text-white transition-colors">
             dami@varityweb.com
           </a>
-          <a href="https://github.com/dev-dami" target="_blank" class="hover:text-accent transition-colors">
+          <a href="https://github.com/dev-dami" target="_blank" class="hover:text-white transition-colors">
             github.com/dev-dami
           </a>
-          <a href="https://www.linkedin.com/in/damilare-osibanjo/" target="_blank" class="hover:text-accent transition-colors">
+          <a href="https://www.linkedin.com/in/damilare-osibanjo/" target="_blank" class="hover:text-white transition-colors">
             linkedin.com/in/damilare-osibanjo
-          </a>
-          <a href="https://devdami.varityweb.com/" target="_blank" class="hover:text-accent transition-colors">
-            devdami.varityweb.com
           </a>
         </div>
       </header>
 
       <!-- Summary -->
-      <section class="mb-8">
-        <h2 class="resume-section-heading">// summary</h2>
-        <p class="text-sm text-text leading-relaxed">
+      <section class="mb-12">
+        <h2 class="text-[10px] uppercase text-white tracking-widest mb-4">// summary</h2>
+        <p class="text-text-muted lowercase">
           17-year-old systems and backend programmer with 5+ years of experience building
           low-level infrastructure, compilers, and developer tooling. Proficient in TypeScript,
           Rust, Go, and C. Focused on correctness, performance, and systems that scale.
-          Currently building Xelvo — a compiler and runtime project.
         </p>
       </section>
 
       <!-- Projects / Work -->
-      <section class="mb-8">
-        <h2 class="resume-section-heading">// projects</h2>
-        <div class="space-y-5">
+      <section class="mb-12">
+        <h2 class="text-[10px] uppercase text-white tracking-widest mb-4">// selected projects</h2>
+        <div class="space-y-6">
 
-          <div class="resume-entry">
-            <div class="flex items-start justify-between flex-wrap gap-1 mb-1">
-              <span class="text-white text-sm font-semibold">karion_os</span>
-              <span class="text-xs text-muted font-mono">Rust · x86 · 2024</span>
+          <div class="space-y-1">
+            <div class="flex items-start justify-between flex-wrap gap-1">
+              <span class="text-white">karion_os</span>
+              <span class="text-text-muted">rust · x86 · 2024</span>
             </div>
-            <p class="text-xs text-text-muted leading-relaxed">
+            <p class="text-text-muted">
               Bare-metal x86 OS kernel written in Rust. Unix-like shell, block filesystem,
               text editor, BASIC interpreter, and games. Ported from C — borrow checker
               caught data races and enforced exhaustive interrupt handling at compile time.
             </p>
           </div>
 
-          <div class="resume-entry">
-            <div class="flex items-start justify-between flex-wrap gap-1 mb-1">
-              <span class="text-white text-sm font-semibold">carv</span>
-              <span class="text-xs text-muted font-mono">Go · Compiler Design · 2024</span>
+          <div class="space-y-1">
+            <div class="flex items-start justify-between flex-wrap gap-1">
+              <span class="text-white">carv</span>
+              <span class="text-text-muted">go · compiler · 2024</span>
             </div>
-            <p class="text-xs text-text-muted leading-relaxed">
+            <p class="text-text-muted">
               Statically-typed systems language that compiles to C. Ownership-based memory
-              model, pipe operators, async/await support, and a full module system. Lexer,
-              parser, type checker, and code generation all hand-written in Go.
+              model, pipe operators, async/await support, and a full module system.
             </p>
           </div>
 
-          <div class="resume-entry">
-            <div class="flex items-start justify-between flex-wrap gap-1 mb-1">
-              <div class="flex items-center gap-2">
-                <span class="text-white text-sm font-semibold">zario</span>
-                <span class="px-1 py-px text-xs font-mono text-accent border border-accent/40 leading-none">npm</span>
-              </div>
-              <span class="text-xs text-muted font-mono">TypeScript · Bun · 2024</span>
+          <div class="space-y-1">
+            <div class="flex items-start justify-between flex-wrap gap-1">
+              <span class="text-white">zario</span>
+              <span class="text-text-muted">typescript · bun · 2024</span>
             </div>
-            <p class="text-xs text-text-muted leading-relaxed">
+            <p class="text-text-muted">
               Minimal fast logging library for TypeScript. Zero external dependencies — multiple
               transports, child loggers, async non-blocking writes, structured JSON output.
-              Published on npm; replaces dd-tinylog with a leaner API.
             </p>
           </div>
 
-          <div class="resume-entry">
-            <div class="flex items-start justify-between flex-wrap gap-1 mb-1">
-              <span class="text-white text-sm font-semibold">ignite</span>
-              <span class="text-xs text-muted font-mono">TypeScript · Docker · 2024</span>
+          <div class="space-y-1">
+            <div class="flex items-start justify-between flex-wrap gap-1">
+              <span class="text-white">ignite</span>
+              <span class="text-text-muted">typescript · docker · 2024</span>
             </div>
-            <p class="text-xs text-text-muted leading-relaxed">
+            <p class="text-text-muted">
               Bun-first local execution framework for JS/TS microservices. Provides
               Docker-based isolation as a secure sandbox for AI-generated and untrusted code.
-            </p>
-          </div>
-
-          <div class="resume-entry">
-            <div class="flex items-start justify-between flex-wrap gap-1 mb-1">
-              <span class="text-white text-sm font-semibold">qirrel</span>
-              <span class="text-xs text-muted font-mono">TypeScript · NLP · 2024</span>
-            </div>
-            <p class="text-xs text-text-muted leading-relaxed">
-              Extensible NLP framework for fast, structured text analysis. Tokenization,
-              entity extraction, LLM enrichment, caching, and MCP agent integration.
-            </p>
-          </div>
-
-          <div class="resume-entry">
-            <div class="flex items-start justify-between flex-wrap gap-1 mb-1">
-              <span class="text-white text-sm font-semibold">gim</span>
-              <span class="text-xs text-muted font-mono">Rust · CLI · 2024</span>
-            </div>
-            <p class="text-xs text-text-muted leading-relaxed">
-              High-performance system metrics CLI. Monitors CPU, memory, disk, and network
-              in real-time with modular design and multiple output formats (table, JSON, CSV).
             </p>
           </div>
 
@@ -147,46 +116,36 @@ export const prerender = true;
       </section>
 
       <!-- Skills -->
-      <section class="mb-8">
-        <h2 class="resume-section-heading">// skills</h2>
-        <div class="space-y-2 text-xs font-mono">
-          <div class="flex gap-2">
-            <span class="text-muted w-28 shrink-0">Languages</span>
-            <span class="text-text">TypeScript, Rust, Go, C, Python, Lua</span>
+      <section class="mb-12 border-t border-border/40 pt-8">
+        <h2 class="text-[10px] uppercase text-white tracking-widest mb-4">// skills</h2>
+        <div class="space-y-2 text-text-muted">
+          <div>
+            <span class="text-white">languages:</span> typescript, rust, go, c, python, lua
           </div>
-          <div class="flex gap-2">
-            <span class="text-muted w-28 shrink-0">Runtimes</span>
-            <span class="text-text">Node.js, Bun</span>
+          <div>
+            <span class="text-white">runtimes:</span> node.js, bun
           </div>
-          <div class="flex gap-2">
-            <span class="text-muted w-28 shrink-0">Databases</span>
-            <span class="text-text">PostgreSQL, MongoDB, Redis</span>
+          <div>
+            <span class="text-white">databases:</span> postgresql, mongodb, redis
           </div>
-          <div class="flex gap-2">
-            <span class="text-muted w-28 shrink-0">Infrastructure</span>
-            <span class="text-text">Linux, Git, Docker, Kubernetes</span>
-          </div>
-          <div class="flex gap-2">
-            <span class="text-muted w-28 shrink-0">Focus areas</span>
-            <span class="text-text">Systems programming, compiler design, distributed systems, backend infrastructure</span>
+          <div>
+            <span class="text-white">infrastructure:</span> linux, git, docker, kubernetes
           </div>
         </div>
       </section>
 
       <!-- Education -->
-      <section class="mb-8">
-        <h2 class="resume-section-heading">// education</h2>
-        <div class="space-y-3 text-sm">
-          <div>
-            <div class="flex items-start justify-between flex-wrap gap-1">
-              <span class="text-white font-semibold">Self-directed learning</span>
-              <span class="text-xs text-muted font-mono">2019 – present</span>
-            </div>
-            <p class="text-xs text-text-muted mt-1 leading-relaxed">
-              Open source contributions, systems experiments, and compiler development.
-              Built working OS kernel, compiler, and distributed tooling from scratch.
-            </p>
+      <section class="border-t border-border/40 pt-8">
+        <h2 class="text-[10px] uppercase text-white tracking-widest mb-4">// education</h2>
+        <div>
+          <div class="flex items-start justify-between flex-wrap gap-1">
+            <span class="text-white">Self-directed learning</span>
+            <span class="text-text-muted">2019 – present</span>
           </div>
+          <p class="text-text-muted mt-1 leading-relaxed">
+            Open source contributions, systems experiments, and compiler development.
+            Built working OS kernel, compiler, and distributed tooling from scratch.
+          </p>
         </div>
       </section>
 
@@ -196,27 +155,6 @@ export const prerender = true;
 </html>
 
 <style>
-  .resume-section-heading {
-    font-size: 0.65rem;
-    font-family: var(--font-mono);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--color-accent);
-    margin-bottom: 1rem;
-    padding-bottom: 0.375rem;
-    border-bottom: 1px solid var(--color-border);
-  }
-
-  .resume-entry {
-    padding-left: 0.75rem;
-    border-left: 2px solid var(--color-border);
-    transition: border-left-color 0.15s ease;
-  }
-
-  .resume-entry:hover {
-    border-left-color: var(--color-accent);
-  }
-
   /* ── Print styles ─────────────────────────────── */
   @media print {
     @page {

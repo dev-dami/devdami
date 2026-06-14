@@ -1,6 +1,5 @@
 import * as React from "react";
 import { motion } from "framer-motion";
-import { Send } from "lucide-react";
 
 export default function ContactForm() {
   const [formData, setFormData] = React.useState({
@@ -31,97 +30,98 @@ export default function ContactForm() {
         setFormData({ name: "", email: "", subject: "", message: "" });
         setTimeout(() => setStatus("idle"), 3000);
       } else {
-        setErrorMsg(body.error || "Something went wrong");
+        setErrorMsg(body.error || "something went wrong");
         setStatus("error");
         setTimeout(() => setStatus("idle"), 8000);
       }
     } catch {
-      setErrorMsg("Could not reach the server — check your connection");
+      setErrorMsg("could not reach server — check your connection");
       setStatus("error");
       setTimeout(() => setStatus("idle"), 8000);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      <div className="grid sm:grid-cols-2 gap-4">
+    <form onSubmit={handleSubmit} className="space-y-6 text-left lowercase font-mono">
+      <div className="space-y-4">
         <div>
-          <label htmlFor="name" className="block text-sm text-text mb-1">Name</label>
+          <label htmlFor="name" className="block text-[10px] text-white uppercase tracking-wider">// name</label>
           <input
             type="text"
             id="name"
             value={formData.name}
             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
             required
-            className="w-full px-4 py-2.5 rounded-lg border border-border/80 bg-surface/50 text-text placeholder:text-text-muted focus:outline-none focus:border-accent/50 focus:ring-1 focus:ring-accent/50 transition-all"
-            placeholder="Your name"
+            className="w-full px-1 py-2 bg-transparent border-b border-border/60 text-xs text-text placeholder:text-text-muted focus:outline-none focus:border-white transition-colors"
+            placeholder="your name"
           />
         </div>
         <div>
-          <label htmlFor="email" className="block text-sm text-text mb-1">Email</label>
+          <label htmlFor="email" className="block text-[10px] text-white uppercase tracking-wider">// email</label>
           <input
             type="email"
             id="email"
             value={formData.email}
             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
             required
-            className="w-full px-4 py-2.5 rounded-lg border border-border/80 bg-surface/50 text-text placeholder:text-text-muted focus:outline-none focus:border-accent/50 focus:ring-1 focus:ring-accent/50 transition-all"
+            className="w-full px-1 py-2 bg-transparent border-b border-border/60 text-xs text-text placeholder:text-text-muted focus:outline-none focus:border-white transition-colors"
             placeholder="your@email.com"
           />
         </div>
+        <div>
+          <label htmlFor="subject" className="block text-[10px] text-white uppercase tracking-wider">// subject</label>
+          <input
+            type="text"
+            id="subject"
+            value={formData.subject}
+            onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
+            required
+            className="w-full px-1 py-2 bg-transparent border-b border-border/60 text-xs text-text placeholder:text-text-muted focus:outline-none focus:border-white transition-colors"
+            placeholder="what's this about?"
+          />
+        </div>
+        <div>
+          <label htmlFor="message" className="block text-[10px] text-white uppercase tracking-wider">// message</label>
+          <textarea
+            id="message"
+            value={formData.message}
+            onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+            required
+            rows={4}
+            className="w-full px-1 py-2 bg-transparent border-b border-border/60 text-xs text-text placeholder:text-text-muted focus:outline-none focus:border-white transition-colors resize-none"
+            placeholder="your message..."
+          />
+        </div>
       </div>
-      <div>
-        <label htmlFor="subject" className="block text-sm text-text mb-1">Subject</label>
-        <input
-          type="text"
-          id="subject"
-          value={formData.subject}
-          onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-          required
-          className="w-full px-4 py-2.5 rounded-lg border border-border/80 bg-surface/50 text-text placeholder:text-text-muted focus:outline-none focus:border-accent/50 focus:ring-1 focus:ring-accent/50 transition-all"
-          placeholder="What's this about?"
-        />
+      
+      <div className="pt-2 text-center">
+        <button
+          type="submit"
+          disabled={status === "loading"}
+          className="text-accent hover:text-white underline cursor-pointer text-xs font-mono"
+        >
+          {status === "loading" ? (
+            <span>[sending...]</span>
+          ) : (
+            <span>[send message]</span>
+          )}
+        </button>
       </div>
-      <div>
-        <label htmlFor="message" className="block text-sm text-text mb-1">Message</label>
-        <textarea
-          id="message"
-          value={formData.message}
-          onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-          required
-          rows={5}
-          className="w-full px-4 py-2.5 rounded-lg border border-border/80 bg-surface/50 text-text placeholder:text-text-muted focus:outline-none focus:border-accent/50 focus:ring-1 focus:ring-accent/50 transition-all resize-none"
-          placeholder="Your message..."
-        />
-      </div>
-      <button
-        type="submit"
-        disabled={status === "loading"}
-        className="inline-flex items-center gap-2 px-6 py-3 text-sm font-medium rounded-lg bg-accent hover:bg-accent-hover text-white transition-all shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
-      >
-        {status === "loading" ? (
-          <span>Sending...</span>
-        ) : (
-          <>
-            <Send className="w-4 h-4" />
-            <span>Send Message</span>
-          </>
-        )}
-      </button>
+
       {status === "success" && (
         <motion.p
-          initial={{ opacity: 0, y: -10 }}
+          initial={{ opacity: 0, y: -5 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-sm text-green-400"
+          className="text-[10px] text-green-400 text-center mt-2"
         >
-          Message sent successfully! I'll get back to you soon.
+          message sent successfully!
         </motion.p>
       )}
       {status === "error" && (
         <motion.p
-          initial={{ opacity: 0, y: -10 }}
+          initial={{ opacity: 0, y: -5 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-sm text-red-400"
+          className="text-[10px] text-red-400 text-center mt-2"
         >
           {errorMsg}
         </motion.p>
