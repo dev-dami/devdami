@@ -36,7 +36,7 @@ const languageCount = uniqueLanguages.size;
   <div class="max-w-xl mx-auto py-16 font-mono text-xs text-text leading-relaxed">
     <!-- Page Header -->
     <header class="mb-12 text-center">
-      <a href="/" class="text-text-muted hover:text-white transition-colors block mb-4">&lt;- home</a>
+      <a href="/" class="text-text-muted hover:text-white transition-all duration-150 block mb-4">&lt;- home</a>
       <h1 class="text-sm font-semibold tracking-widest text-white uppercase mb-2">/projects</h1>
       <p class="text-text-muted lowercase">
         systems-level open-source work — kernels, compilers, emulators, runtimes, and tools
@@ -53,13 +53,13 @@ const languageCount = uniqueLanguages.size;
     </header>
 
     <!-- Project list -->
-    <div class="space-y-8">
+    <div class="grid grid-cols-1 gap-4 w-full">
       {projects.map((p) => {
         const stats = statsMap.get(p.slug)!;
         return (
-          <article class="group">
+          <article class="group relative overflow-hidden bg-surface/30 border border-border/40 hover:border-accent/40 rounded-lg p-5 transition-all duration-500 ease-out flex flex-col justify-between min-h-[100px] text-left">
             <div class="flex items-baseline justify-between mb-1 lowercase">
-              <h2 class="text-sm font-semibold text-white group-hover:text-accent transition-colors">
+              <h2 class="text-sm font-semibold text-white group-hover:text-accent transition-colors duration-150">
                 <a href={`/projects/${p.slug}`} class="hover:underline">{p.name}</a>
               </h2>
               <div class="flex items-center gap-2 text-[10px] text-text-muted">
@@ -67,7 +67,7 @@ const languageCount = uniqueLanguages.size;
                 {stats.stars !== null && <span>★{stats.stars}</span>}
               </div>
             </div>
-            <p class="text-text-muted mt-1 mb-2 leading-relaxed lowercase font-mono">
+            <p class="text-text-muted mt-1 mb-3 leading-relaxed lowercase font-mono">
               {p.description}
             </p>
             <div class="flex flex-wrap items-center gap-3 text-[10px] text-text-muted lowercase font-mono">
