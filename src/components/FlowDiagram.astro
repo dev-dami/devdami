@@ -77,13 +77,13 @@ const highlightStyles: Record<string, string> = {
               <div class="flex flex-col items-center gap-2 min-w-0">
                 {/* Main step box */}
                 <div
-                  class={`border ${highlight} rounded-lg px-4 py-3 text-center transition-colors`}
+                  class={`border ${highlight} rounded-sm px-3 py-2 text-center transition-colors`}
                 >
-                  <div class="text-[13px] font-mono text-text-dark font-semibold leading-snug whitespace-nowrap">
+                  <div class="text-[12px] font-mono text-text-dark font-semibold leading-snug max-w-[130px] mx-auto whitespace-normal">
                     {step.label}
                   </div>
                   {step.sublabel && (
-                    <div class="text-[11px] font-mono text-muted mt-1 leading-snug whitespace-nowrap">
+                    <div class="text-[10px] font-mono text-muted mt-1 leading-snug max-w-[130px] mx-auto whitespace-normal">
                       {step.sublabel}
                     </div>
                   )}
@@ -134,13 +134,13 @@ const highlightStyles: Record<string, string> = {
                             </>
                           )}
                           <div
-                            class={`border ${highlightStyles[child.highlight ?? 'default']} rounded-lg px-4 py-3 text-center transition-colors`}
+                            class={`border ${highlightStyles[child.highlight ?? 'default']} rounded-sm px-3 py-2 text-center transition-colors`}
                           >
-                            <div class="text-[13px] font-mono text-text-dark font-semibold leading-snug whitespace-nowrap">
+                            <div class="text-[12px] font-mono text-text-dark font-semibold leading-snug max-w-[130px] mx-auto whitespace-normal">
                               {child.label}
                             </div>
                             {child.sublabel && (
-                              <div class="text-[11px] font-mono text-muted mt-1 leading-snug whitespace-nowrap">
+                              <div class="text-[10px] font-mono text-muted mt-1 leading-snug max-w-[130px] mx-auto whitespace-normal">
                                 {child.sublabel}
                               </div>
                             )}

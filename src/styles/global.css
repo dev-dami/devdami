@@ -20,16 +20,16 @@
   --radius: 0.125rem;
 
   --color-bg:           #050505;
-  --color-surface:      #0b0b0b;
-  --color-border:       #1a1a1a;
-  --color-border-subtle: #111111;
-  --color-text:         #a3a3a3;
-  --color-text-dark:    #ffffff;
-  --color-text-muted:   #525252;
-  --color-accent:       #e5e5e5;
-  --color-accent-hover: #ffffff;
+  --color-surface:      #0d0c0a;
+  --color-border:       #24221f;
+  --color-border-subtle: #1a1917;
+  --color-text:         #b8b2a9;
+  --color-text-dark:    #f4ebd0;
+  --color-text-muted:   #615c54;
+  --color-accent:       #f4ebd0;
+  --color-accent-hover: #fffdfa;
 
-  --bg-gradient: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.01) 0%, transparent 80%);
+  --bg-gradient: radial-gradient(circle at 50% 50%, rgba(244, 235, 208, 0.01) 0%, transparent 80%);
 }
 
 /* ============================================

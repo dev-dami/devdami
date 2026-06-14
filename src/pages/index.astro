@@ -1,57 +1,14 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import LandingPage from "../components/LandingPage";
+import { projects } from "../data/projects";
+import { getCollection } from "astro:content";
+
 export const prerender = true;
+
+const posts = (await getCollection("blog")).sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 ---
 
 <Layout>
-  <!-- Main Center-Aligned minimal view -->
-  <div class="flex flex-col items-center justify-center min-h-[70vh] py-16 text-center max-w-sm mx-auto font-mono">
-    <!-- Bio header -->
-    <header class="mb-12">
-      <h1 class="text-xl font-medium text-white tracking-tight lowercase">
-        damilare
-      </h1>
-      <p class="text-xs text-text-muted mt-1 lowercase">
-        builds things
-      </p>
-    </header>
-
-    <!-- Main Navigation List (theo/t3.gg style) -->
-    <nav class="flex flex-col items-center gap-6 w-full mb-16 text-sm">
-      <a href="/projects" class="text-text hover:text-white transition-colors duration-200 lowercase">
-        dami.projects
-      </a>
-      <a href="/blog" class="text-text hover:text-white transition-colors duration-200 lowercase">
-        dami.code (blog)
-      </a>
-      <a href="/uses" class="text-text hover:text-white transition-colors duration-200 lowercase">
-        dami.uses
-      </a>
-      <a href="/about" class="text-text hover:text-white transition-colors duration-200 lowercase">
-        dami.about
-      </a>
-      <a href="/wiki" class="text-text hover:text-white transition-colors duration-200 lowercase">
-        dami.wiki
-      </a>
-      <a href="/resume" class="text-text hover:text-white transition-colors duration-200 lowercase">
-        dami.resume
-      </a>
-      <a href="/contact" class="text-text hover:text-white transition-colors duration-200 lowercase">
-        dami.contact
-      </a>
-    </nav>
-
-    <!-- Footer links -->
-    <footer class="w-full pt-8 border-t border-border/40 flex justify-center gap-6 text-xs text-text-muted">
-      <a href="https://github.com/dev-dami" target="_blank" class="hover:text-white transition-colors duration-200 lowercase">
-        gh
-      </a>
-      <a href="https://www.linkedin.com/in/damilare-osibanjo/" target="_blank" class="hover:text-white transition-colors duration-200 lowercase">
-        linkedin
-      </a>
-      <a href="mailto:dami@varityweb.com" class="hover:text-white transition-colors duration-200 lowercase">
-        email
-      </a>
-    </footer>
-  </div>
+  <LandingPage client:load projects={projects} posts={posts} />
 </Layout>

@@ -1,11 +1,17 @@
 import * as React from "react";
 
 export default function Navbar() {
+  const [isHome, setIsHome] = React.useState(true);
+
+  React.useEffect(() => {
+    setIsHome(window.location.pathname === "/");
+  }, []);
+
   return (
     <nav className="w-full max-w-md mx-auto pt-8 pb-4 px-4 font-mono text-xs text-center lowercase">
       <div className="flex flex-col items-center gap-3">
         <a href="/" className="font-semibold text-white tracking-tight hover:text-accent transition-colors">
-          damilare
+          {isHome ? "damilare" : "<- damilare"}
         </a>
         <div className="flex flex-wrap justify-center gap-x-4 gap-y-2 text-text-muted">
           <a href="/projects" className="hover:text-white transition-colors">
@@ -28,6 +34,12 @@ export default function Navbar() {
           </a>
           <a href="/contact" className="hover:text-white transition-colors">
             contact
+          </a>
+          <a href="https://github.com/dev-dami" target="_blank" className="hover:text-white transition-colors">
+            gh
+          </a>
+          <a href="https://www.linkedin.com/in/damilare-osibanjo/" target="_blank" className="hover:text-white transition-colors">
+            in
           </a>
         </div>
       </div>

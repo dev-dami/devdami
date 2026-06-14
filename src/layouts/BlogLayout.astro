@@ -67,10 +67,10 @@ const relatedPosts = allPosts
   {/* JSON-LD Structured Data */}
   <script type="application/ld+json" set:html={JSON.stringify(blogPostingSchema)} />
 
-  <article class="mx-auto max-w-md py-16 font-mono text-xs text-text leading-relaxed">
+  <article class="mx-auto max-w-2xl py-16 font-mono text-xs text-text leading-relaxed px-4">
     <!-- Header -->
     <header class="mb-12 text-center">
-      <a href="/blog" class="text-text-muted hover:text-white transition-colors block mb-4">← back to blog</a>
+      <a href="/blog" class="text-text-muted hover:text-white transition-colors block mb-4">&lt;- back to blog</a>
       <h1 class="text-base font-semibold text-white lowercase mb-4 leading-snug">
         {frontmatter.title}
       </h1>
