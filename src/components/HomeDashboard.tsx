@@ -51,25 +51,29 @@ export default function HomeDashboard() {
 
   return (
     <div className="flex flex-col items-center justify-center w-full py-4 text-center max-w-xl mx-auto font-mono">
-      {/* Header with Avatar and Blinking status */}
-      <header className="mb-8 flex flex-col items-center">
-        <div className="relative group mb-4">
+      {/* Header with Avatar at the side */}
+      <header className="mb-8 flex items-center gap-4 text-left w-full">
+        <div className="relative group flex-shrink-0">
           <div className="absolute -inset-0.5 bg-gradient-to-r from-accent/20 to-accent/40 rounded-full blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-pulse"></div>
           <img
             src="/icon.png"
             alt="damilare osibanjo"
             className="relative w-16 h-16 rounded-full object-cover border border-border/80"
           />
-          <span className="absolute bottom-0.5 right-0.5 block h-3 w-3 rounded-full bg-green-500 ring-2 ring-bg animate-pulse"></span>
         </div>
 
-        <h1 className="text-lg font-semibold tracking-wider text-white lowercase mt-1">
-          damilare
-        </h1>
-        {/* Typewriter quote subtitle */}
-        <p className="text-[10px] text-text-muted mt-2 lowercase min-h-[24px] max-w-sm px-4 leading-relaxed cursor-block">
-          {quoteText}
-        </p>
+        <div className="flex flex-col justify-center min-h-[64px]">
+          <h1 className="text-base font-semibold tracking-wider text-white lowercase">
+            damilare
+          </h1>
+          {/* Typewriter quote subtitle with live status dot */}
+          <div className="flex items-start gap-2 mt-1 min-h-[32px] sm:min-h-[24px]">
+            <span className="h-1.5 w-1.5 rounded-full bg-green-500 animate-pulse flex-shrink-0 mt-1"></span>
+            <p className="text-[10px] text-text-muted lowercase leading-relaxed cursor-block max-w-md">
+              {quoteText}
+            </p>
+          </div>
+        </div>
       </header>
 
       {/* Main Navigation Bento Grid */}
