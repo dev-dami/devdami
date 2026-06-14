@@ -19,64 +19,74 @@ const pageUrl = "https://devdami.varityweb.com/wiki";
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
       <!-- Left 2 columns: Wiki Main Content -->
       <div class="md:col-span-2 space-y-6">
-        <!-- Biography -->
+        <!-- Biography & Early Life -->
         <section id="biography" class="bg-surface/30 border border-border/40 hover:border-accent/40 rounded-lg p-5 transition-all duration-500 ease-out space-y-4">
-          <h2 class="text-[10px] uppercase text-white tracking-widest">// 1. biography</h2>
+          <h2 class="text-[10px] uppercase text-white tracking-widest">// 1. biography & early life</h2>
           <p class="text-text-muted lowercase">
-            Damilare Osibanjo is a systems and software programmer. He began his programming journey at approximately age 12, developing games on Roblox using Lua. This laid the foundation for his work in low-level engineering.
+            Damilare Osibanjo (born 2008 in Nigeria) is a self-taught systems programmer, application security researcher, and compiler engineer. He is known for building systems tools, custom programming language compilers, cycle-accurate emulators, and disclosing critical security vulnerabilities in modern AI orchestrators.
           </p>
           <p class="text-text-muted lowercase">
-            At age 14, he transitioned to Python, building automation tools and APIs. During this period, his interest shifted toward understanding internal system behaviors — memory consumption, concurrency mechanics, and OS-level operations.
+            Osibanjo began programming at age 12, initially developing online environments and custom scripting behaviors in Lua on the Roblox platform. This early phase provided him with exposure to event loops, shared state synchronization, and script execution mechanics. At age 14, he transitioned to Python scripting, where he spent roughly two years building automation tools, web scrapers, and backend APIs.
           </p>
           <p class="text-text-muted lowercase">
-            By age 16, he began designing compilers, runtime tools, and studying memory-safety in Rust, Go, and C.
+            By age 15, Osibanjo grew dissatisfied with high-level runtime abstractions, garbage collectors, and unexplained memory overhead. He shifted his focus to low-level systems programming, teaching himself the fundamentals of operating systems, assembly language, memory management, and compilers. He subsequently transitioned to systems languages including Rust, Go, C, and Zig.
           </p>
         </section>
 
         <!-- Notable Works -->
         <section id="notable-works" class="bg-surface/30 border border-border/40 hover:border-accent/40 rounded-lg p-5 transition-all duration-500 ease-out space-y-4">
           <h2 class="text-[10px] uppercase text-white tracking-widest">// 2. notable works</h2>
-          <ul class="space-y-4">
-            <li class="group">
-              <span class="text-white font-semibold lowercase">carv:</span>
+          
+          <div class="space-y-4">
+            <div>
+              <h3 class="text-white font-semibold lowercase">// carv language</h3>
               <p class="text-text-muted mt-1 leading-relaxed lowercase">
-                An opinionated systems programming language compiling to C for ARM Cortex-M targets. Implements Pratt parsing, ownership tracking, and a custom async/await runtime.
+                Carv is an opinionated, statically-typed systems programming language designed to compile down to C99 specifically targeting ARM Cortex-M0–M7 microcontrollers as well as native host targets (x86_64). The compiler is written in ~6,250 lines of Go and features a custom Pratt parser, type inference, ownership tracking, borrow checking, state-machine based async/await, closures with environment capture, interfaces with vtable dispatch, and an arena allocator runtime.
               </p>
-            </li>
-            <li class="group">
-              <span class="text-white font-semibold lowercase">cve-2026-33017:</span>
+            </div>
+
+            <div class="border-t border-border/20 pt-4">
+              <h3 class="text-white font-semibold lowercase">// cve-2026-33017 (langflow rce)</h3>
               <p class="text-text-muted mt-1 leading-relaxed lowercase">
-                Discovered a remote code execution vulnerability in Langflow. Reached arbitrary exec() execution through an exploit chain of components with zero sandboxing.
+                Osibanjo discovered and disclosed CVE-2026-33017, a critical CVSS 9.8 remote code execution (RCE) vulnerability in Langflow (an open-source AI agent workflow platform). The vulnerability allowed unauthenticated attackers to execute arbitrary code server-side by abusing an unauthenticated endpoint (`POST /api/v1/build_public_tmp/&#123;flow_id&#125;/flow`) that processed node graphs. By injecting arbitrary Python code into Custom Component node definitions, the payload bypassed the frontend validator and executed code directly via the server's raw `exec()` sink without sandboxing.
               </p>
-            </li>
-            <li class="group">
-              <span class="text-white font-semibold lowercase">game boy emulator:</span>
+            </div>
+
+            <div class="border-t border-border/20 pt-4">
+              <h3 class="text-white font-semibold lowercase">// karion os kernel</h3>
               <p class="text-text-muted mt-1 leading-relaxed lowercase">
-                A cycle-accurate Game Boy emulator written in Zig. Built from scratch with zero dependencies, exploring memory-mapped I/O and interrupt handling.
+                Karion OS is a hobby bare-metal x86 operating system kernel written in Rust (transitioned from an initial C codebase). Built as a `no_std` Rust static library, it implements its own VGA text driver, GDT (Global Descriptor Table), IDT (Interrupt Descriptor Table), PIC (Programmable Interrupt Controller), memory paging, physical memory allocator, and a heap coalescing allocator. The kernel features a Unix-like shell, custom block filesystem, a text editor, a BASIC interpreter, and built-in text games.
               </p>
-            </li>
-          </ul>
+            </div>
+
+            <div class="border-t border-border/20 pt-4">
+              <h3 class="text-white font-semibold lowercase">// gbemu (game boy emulator)</h3>
+              <p class="text-text-muted mt-1 leading-relaxed lowercase">
+                A cycle-accurate Game Boy emulator written in Zig with zero external dependencies. The project implements cycle-accurate CPU instruction emulation, memory-mapped I/O, scanline PPU rendering, timer synchronization, and MBC1 memory bank controller support. The codebase explores hardware edge cases, audio wave channel quirks, and OAM DMA timing.
+              </p>
+            </div>
+          </div>
         </section>
 
         <!-- Technical Skills -->
         <section id="skills" class="bg-surface/30 border border-border/40 hover:border-accent/40 rounded-lg p-5 transition-all duration-500 ease-out space-y-4">
           <h2 class="text-[10px] uppercase text-white tracking-widest">// 3. technical skills</h2>
-          <ul class="space-y-2.5 text-text-muted">
-            <li class="flex items-center gap-2">
-              <span class="text-white font-semibold min-w-[90px] lowercase">systems:</span>
-              <span class="lowercase">rust, go, c, zig</span>
+          <ul class="space-y-3 text-text-muted">
+            <li class="flex items-start gap-2">
+              <span class="text-white font-semibold min-w-[100px] lowercase block">systems:</span>
+              <span class="lowercase">rust (safe/unsafe, no_std), zig (allocators, comptime), c (c99/c11, pointers), go (concurrency, internals)</span>
             </li>
-            <li class="flex items-center gap-2">
-              <span class="text-white font-semibold min-w-[90px] lowercase">backend:</span>
-              <span class="lowercase">typescript, node.js, python, bun</span>
+            <li class="flex items-start gap-2">
+              <span class="text-white font-semibold min-w-[100px] lowercase block">compilers:</span>
+              <span class="lowercase">lexical analysis, pratt parsing, abstract syntax trees (ast), type checking, borrow checkers, arena allocation runtimes, c codegen</span>
             </li>
-            <li class="flex items-center gap-2">
-              <span class="text-white font-semibold min-w-[90px] lowercase">compilers:</span>
-              <span class="lowercase">pratt parsing, ir design, codegen</span>
+            <li class="flex items-start gap-2">
+              <span class="text-white font-semibold min-w-[100px] lowercase block">security:</span>
+              <span class="lowercase">application pentesting, source code auditing, static analysis, command injection exploit chains, sandboxing mitigation (gvisor, firecracker)</span>
             </li>
-            <li class="flex items-center gap-2">
-              <span class="text-white font-semibold min-w-[90px] lowercase">infra:</span>
-              <span class="lowercase">linux, docker, git, postgresql</span>
+            <li class="flex items-start gap-2">
+              <span class="text-white font-semibold min-w-[100px] lowercase block">backend & dev:</span>
+              <span class="lowercase">typescript, node.js, bun, python, linux infrastructure, docker, git, postgresql</span>
             </li>
           </ul>
         </section>
@@ -85,7 +95,7 @@ const pageUrl = "https://devdami.varityweb.com/wiki";
         <section id="philosophy" class="bg-surface/30 border border-border/40 hover:border-accent/40 rounded-lg p-5 transition-all duration-500 ease-out space-y-4">
           <h2 class="text-[10px] uppercase text-white tracking-widest">// 4. philosophy</h2>
           <p class="text-text-muted leading-relaxed lowercase">
-            Damilare advocates for understanding systems at the lowest feasible level of abstraction. Working close to the hardware fundamentally changes how one designs at the application layer. Explicit, readable code is always preferred over clever indirection.
+            Osibanjo advocates for understanding systems at the lowest feasible level of abstraction. He believes that working close to the hardware fundamentally changes how one designs at the application layer. His programming principles center around zero-dependency software, explicit code layouts, local-first computing, and avoiding implicit framework behaviors in favor of boring, predictable, and measurable code.
           </p>
         </section>
       </div>
@@ -125,7 +135,7 @@ const pageUrl = "https://devdami.varityweb.com/wiki";
           <div class="text-white text-[10px] uppercase tracking-wider font-semibold">// contents</div>
           <ul class="space-y-1.5 text-[11px] text-text-muted">
             <li class="hover:translate-x-1 transition-transform duration-150">
-              1. <a href="#biography" class="hover:text-white underline">biography</a>
+              1. <a href="#biography" class="hover:text-white underline">biography & early life</a>
             </li>
             <li class="hover:translate-x-1 transition-transform duration-150">
               2. <a href="#notable-works" class="hover:text-white underline">notable works</a>
