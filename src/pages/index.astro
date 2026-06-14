@@ -1,14 +1,9 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import LandingPage from "../components/LandingPage";
-import { projects } from "../data/projects";
-import { getCollection } from "astro:content";
-
+import HomeDashboard from "../components/HomeDashboard";
 export const prerender = true;
-
-const posts = (await getCollection("blog")).sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 ---
 
 <Layout>
-  <LandingPage client:load projects={projects} posts={posts} />
+  <HomeDashboard client:load />
 </Layout>

@@ -112,6 +112,22 @@ const personSchema = {
       </footer>
     </div>
     <CommandPalette client:load />
+
+    <script>
+      import { WebHaptics } from "web-haptics";
+      const haptics = new WebHaptics();
+
+      document.addEventListener("click", (e) => {
+        const target = e.target as HTMLElement;
+        if (target.closest("a") || target.closest("button")) {
+          try {
+            haptics.trigger("selection");
+          } catch (err) {
+            // Silence vibration errors on unsupported platforms
+          }
+        }
+      });
+    </script>
   </body>
 </html>
 
