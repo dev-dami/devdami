@@ -13,68 +13,79 @@ const yearsCoding = computeYearsCoding(2022);
 ---
 
 <Layout>
-  <!-- Hero Section -->
-  <section class="py-8 md:py-12 relative overflow-hidden">
-    <HeroStars />
-    <div class="flex flex-col md:flex-row items-start md:items-center gap-4 mb-6">
-<img
-  src="https://avatars.githubusercontent.com/u/141376183"
-  alt="Damilare Osibanjo - Backend & Systems Engineer"
-  class="w-20 h-20 md:w-24 md:h-24 rounded-lg object-cover ring-1 ring-accent/30 shadow-xl shadow-accent/5 transition-transform hover:scale-105"
-  loading="lazy"
-  width="80"
-  height="80"
-/>
-      <div class="flex-1">
-        <h1 class="text-2xl md:text-3xl lg:text-4xl font-semibold tracking-tight text-text-dark">
-          Damilare Osibanjo
-        </h1>
-        <p class="text-xs text-muted font-mono tracking-widest mt-1 uppercase">
-          17 years old · Systems &amp; Software Programmer
-        </p>
-        <p class="text-sm md:text-base text-white mt-2 font-mono tracking-wide cursor-block">
-          <span class="text-accent opacity-60">&gt;</span> Backend &amp; Systems Engineer
-        </p>
-        <p class="max-w-2xl text-sm md:text-base text-text leading-relaxed mt-2">
-          Building distributed infrastructure, runtime tools, and developer experiences.
-          TypeScript is currently my favourite language.
-        </p>
+  <!-- Main Center-Aligned minimal view -->
+  <div class="flex flex-col items-center justify-center min-h-[70vh] py-16 text-center max-w-sm mx-auto font-mono">
+    <!-- Bio header -->
+    <header class="mb-12">
+      <h1 class="text-xl font-medium text-white tracking-tight lowercase">
+        damilare
+      </h1>
+      <p class="text-xs text-text-muted mt-1 lowercase">
+        builds things
+      </p>
+    </header>
 
-        <!-- Animated Quote -->
-        <div class="mt-3 h-8 flex items-center overflow-hidden">
-          <p class="text-text-muted border-l-2 border-accent/60 pl-3 text-sm animate-fade-slide min-h-[1.5rem] font-mono">
-            "Simplicity is the ultimate sophistication."
-          </p>
-        </div>
-      </div>
-    </div>
+    <!-- Main Navigation List (theo/t3.gg style) -->
+    <nav class="flex flex-col items-center gap-6 w-full mb-16 text-sm">
+      <a href="#projects" class="text-text hover:text-white transition-colors duration-200 lowercase">
+        dami.projects
+      </a>
+      <a href="/blog" class="text-text hover:text-white transition-colors duration-200 lowercase">
+        dami.code (blog)
+      </a>
+      <a href="/uses" class="text-text hover:text-white transition-colors duration-200 lowercase">
+        dami.uses
+      </a>
+      <a href="/about" class="text-text hover:text-white transition-colors duration-200 lowercase">
+        dami.about
+      </a>
+      <a href="/wiki" class="text-text hover:text-white transition-colors duration-200 lowercase">
+        dami.wiki
+      </a>
+      <a href="/resume" class="text-text hover:text-white transition-colors duration-200 lowercase">
+        dami.resume
+      </a>
+    </nav>
 
-    <div class="flex flex-wrap items-center gap-2">
-      <a href="#projects" class="inline-flex items-center justify-center px-4 py-2 text-sm font-medium rounded-lg bg-accent hover:bg-accent-hover text-white transition-all shadow-lg">
-        View Projects
+    <!-- Footer links -->
+    <footer class="w-full pt-8 border-t border-border/40 flex justify-center gap-6 text-xs text-text-muted">
+      <a href="https://github.com/dev-dami" target="_blank" class="hover:text-white transition-colors duration-200 lowercase">
+        gh
       </a>
-      <a href="/blog" class="inline-flex items-center justify-center px-4 py-2 text-sm font-medium rounded-lg border border-border/80 bg-surface/50 text-text hover:text-text-dark hover:border-accent/50 transition-all">
-        Blog
+      <a href="https://www.linkedin.com/in/damilare-osibanjo/" target="_blank" class="hover:text-white transition-colors duration-200 lowercase">
+        linkedin
       </a>
-      <a href="/uses" class="inline-flex items-center justify-center px-4 py-2 text-sm font-medium rounded-lg border border-border/80 bg-surface/50 text-text hover:text-text-dark hover:border-accent/50 transition-all">
-        Uses
+      <a href="mailto:dami@varityweb.com" class="hover:text-white transition-colors duration-200 lowercase">
+        email
       </a>
-      <a href="/about" class="inline-flex items-center justify-center px-4 py-2 text-sm font-medium rounded-lg border border-border/80 bg-surface/50 text-text hover:text-text-dark hover:border-accent/50 transition-all">
-        About Me
-      </a>
-      <div class="flex items-center gap-1 ml-1">
-        <a href="https://github.com/dev-dami" target="_blank" class="p-2 rounded-lg border border-border/80 bg-surface/50 text-text hover:text-text-dark hover:border-accent/50 transition-all" aria-label="GitHub">
-          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-        </a>
-        <a href="https://www.linkedin.com/in/damilare-osibanjo/" target="_blank" class="p-2 rounded-lg border border-border/80 bg-surface/50 text-text hover:text-text-dark hover:border-accent/50 transition-all" aria-label="LinkedIn">
-          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-        </a>
-        <a href="mailto:dami@varityweb.com" class="p-2 rounded-lg border border-border/80 bg-surface/50 text-text hover:text-text-dark hover:border-accent/50 transition-all" aria-label="Email">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-        </a>
-      </div>
+    </footer>
+  </div>
+
+  <!-- Smooth Projects & Contact sections positioned further below for deep scrolling if needed -->
+  <div class="max-w-md mx-auto mt-24 pt-16 border-t border-border/20 font-mono" id="projects">
+    <h2 class="text-xs text-text-muted uppercase tracking-widest mb-8 text-center">// selected work</h2>
+    <div class="space-y-8">
+      {projects.map(p => (
+        <article class="group relative">
+          <div class="flex items-baseline justify-between mb-1">
+            <h3 class="text-sm font-semibold text-white group-hover:text-accent transition-colors">
+              <a href={`/projects/${p.slug}`} class="hover:underline">{p.name}</a>
+            </h3>
+            <span class="text-[10px] text-text-muted">{p.number}</span>
+          </div>
+          <p class="text-xs text-text-muted leading-relaxed mb-2">{p.description}</p>
+          <div class="flex flex-wrap gap-2">
+            {p.tags.map(t => <span class="text-[9px] text-text-muted/60">#{t.toLowerCase()}</span>)}
+          </div>
+        </article>
+      ))}
     </div>
-  </section>
+  </div>
+
+  <div class="max-w-md mx-auto mt-24 pt-16 border-t border-border/20 font-mono">
+    <h2 class="text-xs text-text-muted uppercase tracking-widest mb-8 text-center">// connect</h2>
+    <ContactForm client:load />
+  </div>
 
   <script>
     // Rotating quotes typewriter animation
@@ -91,7 +102,7 @@ const yearsCoding = computeYearsCoding(2022);
     let quoteIndex = 0;
     let charIndex = 0;
     let isDeleting = false;
-    const quoteElement = document.querySelector('.animate-fade-slide');
+    const quoteElement = document.getElementById('rotating-quote');
 
     function type() {
       if (!quoteElement) return;
@@ -110,209 +121,19 @@ const yearsCoding = computeYearsCoding(2022);
 
       if (!isDeleting && charIndex === currentQuote.length) {
         isDeleting = true;
-        typeSpeed = 3000; // Wait at the end of the quote
+        typeSpeed = 3000;
       } else if (isDeleting && charIndex === 0) {
         isDeleting = false;
         quoteIndex = (quoteIndex + 1) % quotes.length;
-        typeSpeed = 500; // Wait before starting next quote
+        typeSpeed = 500;
       }
 
       setTimeout(type, typeSpeed);
     }
 
     if (quoteElement) {
-      // Remove the animation class since we are doing it via JS now
-      quoteElement.classList.remove('animate-fade-slide');
-      // Add a cursor effect
-      quoteElement.classList.add('border-r-2', 'border-accent', 'pr-1');
+      quoteElement.classList.add('border-r-2', 'border-white', 'pr-1');
       type();
     }
   </script>
-
-  <div class="my-6 border-t border-border/50"></div>
-
-  <!-- Skills Section -->
-  <section class="py-6">
-    <h2 class="text-xs font-mono tracking-widest text-muted uppercase mb-4 term-header">Technologies</h2>
-    <div class="flex flex-wrap gap-1.5">
-      {["TypeScript","Rust","Go","C","Python","Node.js","Bun","PostgreSQL","MongoDB","Redis","Linux","Git","Docker"].map(t => (
-        <span class="px-2 py-0.5 text-xs font-mono text-white bg-surface border border-border hover:border-accent hover:text-accent transition-all duration-150 cursor-default rounded-sm before:content-['['] before:text-accent/50 after:content-[']'] after:text-accent/50">{t}</span>
-      ))}
-    </div>
-  </section>
-
-  <div class="my-6 border-t border-border/50"></div>
-
-  <!-- Projects Section -->
-  <section id="projects" class="py-6">
-    <h2 class="text-xs font-mono tracking-widest text-muted uppercase mb-4 term-header">Projects</h2>
-
-    <div class="space-y-1.5">
-
-      {projects.map(p => (
-        <article class="group relative term-card rounded-sm border border-border bg-surface/10 px-4 py-3 transition-all duration-150 hover:bg-surface/30">
-          <div class="flex items-start gap-3">
-            <span class="text-xs font-mono text-accent/40 mt-0.5 select-none shrink-0 w-6">{p.number}</span>
-            <div class="flex-1 min-w-0">
-              <div class="flex items-center gap-2 mb-1">
-                <h3 class="text-sm font-semibold text-white group-hover:text-accent transition-colors font-mono">{p.name}</h3>
-                {p.npm && <span class="px-1 py-px text-xs font-mono text-accent border border-accent/40 leading-none">npm</span>}
-                {p.githubUrl && (
-                <a href={p.githubUrl} target="_blank" class="p-0.5 text-text-muted hover:text-accent transition-all z-10 relative" aria-label="View on GitHub">
-                  <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-                </a>
-                )}
-              </div>
-              <p class="text-xs text-white/70 leading-relaxed mb-2">{p.description}</p>
-              <div class="flex flex-wrap gap-1">
-                {p.tags.map(t => <span class="px-1.5 py-px text-xs font-mono text-text-muted border border-border/70">{t}</span>)}
-              </div>
-            </div>
-          </div>
-          <a href={`/projects/${p.slug}`} class="absolute inset-0" aria-label={`View ${p.name} project details`}></a>
-        </article>
-      ))}
-
-    </div>
-  </section>
-
-  <div class="my-8 border-t border-border/50"></div>
-
-  <!-- Open Letter Section -->
-  <section class="py-8">
-    <h2 class="text-xs font-mono tracking-widest text-muted uppercase mb-6 term-header">open_letter</h2>
-    <div class="term-card pl-6 py-1 max-w-2xl space-y-4">
-      <p class="text-xs font-mono text-muted uppercase tracking-widest">To whoever found this —</p>
-      <p class="text-sm text-text leading-relaxed font-mono">
-        I'm 17. I've been building software seriously for about five years. What started as scripting
-        game logic in Lua evolved into writing OS kernels in C and building compilers in Go.
-      </p>
-      <p class="text-sm text-text leading-relaxed font-mono">
-        I don't build projects to fill a portfolio. I built <span class="text-accent">karion_os</span> because
-        I wanted to understand what actually happens beneath the OS abstraction — bootloader sequences,
-        memory paging, context switching. I wrote <span class="text-accent">carv</span> because I wanted
-        a language with ownership semantics and pipe operators that compiled to C. I wrote
-        <span class="text-accent">gim</span> because the existing monitoring tools were too heavy.
-      </p>
-      <p class="text-sm text-text leading-relaxed font-mono">
-        The pattern is always the same: I run into a ceiling, I don't accept it, I build through it.
-      </p>
-      <p class="text-sm text-text leading-relaxed font-mono">
-        TypeScript for speed of thought. Rust when correctness isn't negotiable.
-        Go when I need to ship something that just runs. C when I need to be exact.
-      </p>
-      <p class="text-sm text-text leading-relaxed font-mono">
-        I'm not looking for someone to teach me fundamentals. I'm looking for hard problems —
-        distributed systems, runtimes, compilers, infrastructure — and a team that ships real software.
-      </p>
-      <p class="text-sm text-text leading-relaxed font-mono">
-        If you're building something that actually matters, let's talk.
-      </p>
-      <p class="text-sm text-accent font-mono mt-6">— Damilare</p>
-    </div>
-  </section>
-
-  <div class="my-8 border-t border-border/50"></div>
-
-  <!-- GitHub Contributions Section -->
-  <section class="py-8 overflow-hidden">
-    <h2 class="text-xs font-mono tracking-widest text-muted uppercase mb-6 term-header">GitHub Activity</h2>
-
-    <!-- GitHub Stats Bar -->
-    <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
-      <div class="rounded-md border border-border bg-surface/20 p-4 text-center">
-        <div class="text-xl font-bold text-accent font-mono">
-          {repoCount !== null ? `${repoCount}+` : "50+"}
-        </div>
-        <div class="text-xs font-mono text-text-muted uppercase tracking-wider mt-1">Repos</div>
-      </div>
-      <div class="rounded-md border border-border bg-surface/20 p-4 text-center">
-        <div class="text-xl font-bold text-accent font-mono">
-          {commitCount !== null ? `${commitCount >= 1000 ? `${(commitCount / 1000).toFixed(0)}k+` : `${commitCount}+`}` : "100+"}
-        </div>
-        <div class="text-xs font-mono text-text-muted uppercase tracking-wider mt-1">Commits</div>
-      </div>
-      <div class="rounded-md border border-border bg-surface/20 p-4 text-center">
-        <div class="text-xl font-bold text-accent font-mono">{yearsCoding}+</div>
-        <div class="text-xs font-mono text-text-muted uppercase tracking-wider mt-1">Yrs Coding</div>
-      </div>
-      <div class="rounded-md border border-border bg-surface/20 p-4 text-center">
-        <div class="text-xl font-bold text-accent font-mono">{projects.length}+</div>
-        <div class="text-xs font-mono text-text-muted uppercase tracking-wider mt-1">Projects</div>
-      </div>
-    </div>
-
-    <!-- Contribution Graph -->
-    <div class="rounded-md border border-border bg-surface/20 p-5 overflow-hidden">
-      <div class="overflow-x-auto pb-2">
-<img
-  src="https://ghchart.rshah.org/6b7280/dev-dami"
-  alt="Damilare Osibanjo's GitHub Contribution Graph"
-  class="min-w-[600px] md:min-w-0 w-full h-auto block"
-  loading="lazy"
-  width="600"
-  height="200"
-/>
-      </div>
-      <div class="mt-4 flex items-center justify-center gap-2 text-sm text-muted">
-        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-        </svg>
-        <a href="https://github.com/dev-dami" target="_blank" class="hover:text-accent transition-colors">@dev-dami</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Checklist CTA -->
-  <div class="my-8 border border-accent/30 bg-accent/5 rounded-lg p-6 md:p-8 text-center">
-    <h2 class="text-sm font-semibold text-text-dark font-mono mb-2">
-      Free PDF Checklist
-    </h2>
-    <p class="text-xs text-muted mb-4 max-w-md mx-auto">
-      Four proven paths to build programming experience when no one will hire you — distilled into a printable checklist.
-    </p>
-    <a
-      href="/checklist/build-experience"
-      class="inline-flex items-center justify-center px-5 py-2.5 bg-accent hover:bg-accent-hover text-white text-sm font-medium rounded transition-all"
-    >
-      Download the Build Experience Checklist →
-    </a>
-  </div>
-
-  <div class="my-8 border-t border-border/50"></div>
-
-  <!-- Contact Section -->
-  <section id="contact" class="py-8 overflow-hidden">
-    <h2 class="text-xs font-mono tracking-widest text-muted uppercase mb-4 term-header">Get in touch</h2>
-    <div class="grid lg:grid-cols-2 gap-8">
-      <div>
-        <p class="text-sm text-text leading-relaxed mb-6">
-          Available for freelance work and full-time opportunities. Let's build something great together.
-        </p>
-        <div class="space-y-4">
-          <a href="mailto:dami@varityweb.com" class="flex items-center gap-3 text-text hover:text-accent transition-colors">
-            <div class="w-10 h-10 rounded-lg border border-border/80 bg-surface/50 flex items-center justify-center">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-            </div>
-            <span>dami@varityweb.com</span>
-          </a>
-          <a href="https://www.linkedin.com/in/damilare-osibanjo/" target="_blank" class="flex items-center gap-3 text-text hover:text-accent transition-colors">
-            <div class="w-10 h-10 rounded-lg border border-border/80 bg-surface/50 flex items-center justify-center">
-              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-            </div>
-            <span>LinkedIn Profile</span>
-          </a>
-          <a href="https://github.com/dev-dami" target="_blank" class="flex items-center gap-3 text-text hover:text-accent transition-colors">
-            <div class="w-10 h-10 rounded-lg border border-border/80 bg-surface/50 flex items-center justify-center">
-              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-            </div>
-            <span>@dev-dami</span>
-          </a>
-        </div>
-      </div>
-      <div>
-        <ContactForm client:load />
-      </div>
-    </div>
-  </section>
 </Layout>
