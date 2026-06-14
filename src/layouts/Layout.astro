@@ -99,6 +99,7 @@ const personSchema = {
     <SpeedInsights />
   </head>
   <body class="min-h-screen bg-bg text-text font-body antialiased">
+    <canvas id="starstreak-canvas" aria-hidden="true"></canvas>
     <div class="flex flex-col min-h-screen">
       <Navbar client:load />
       <main class="flex-1 mx-auto w-full max-w-content px-4 sm:px-6 pt-6 pb-12 md:px-8 md:pt-8 md:pb-16 lg:px-12">
@@ -118,6 +119,32 @@ const personSchema = {
       </footer>
     </div>
     <CommandPalette client:load />
+
+  <script>
+    import RealisticStarfield from "my-constellation-bg";
+
+    const canvas = document.getElementById("starstreak-canvas");
+
+    if (canvas) {
+      new RealisticStarfield(canvas, {
+        starCount: 0,
+        backgroundColor: "transparent",
+        enableMeteors: true,
+        meteorInterval: 120000,
+        meteorAngle: 35,
+        enableTwinkle: false,
+        enableParallax: false,
+        enableNebula: false,
+        enableAurora: false,
+        enableClusters: false,
+        enablePulsate: false,
+        enableClickEffect: false,
+        enableTouch: false,
+        enableInteraction: false,
+        performanceMode: true,
+      });
+    }
+  </script>
   </body>
 </html>
 
@@ -130,6 +157,16 @@ const personSchema = {
   ::view-transition-new(root) {
     animation: none;
     mix-blend-mode: normal;
+  }
+
+  #starstreak-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+    pointer-events: none;
   }
 
   .nav-shrunk {
