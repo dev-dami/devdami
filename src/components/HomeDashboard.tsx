@@ -2,14 +2,13 @@ import * as React from "react";
 import { FolderCode, BookOpen, Library, Terminal, User, FileText, Mail, ArrowUpRight } from "lucide-react";
 
 const quotes = [
-  '"write the code yourself. it\'s not that hard, and you\'ll understand every line."',
-  '"magic is for wizards. your code should be boring and predictable."',
-  '"i run into a ceiling, i don\'t accept it, i build through it."',
-  '"typescript for speed of thought. rust when correctness isn\'t negotiable. go when i need to ship. c when i need to be exact."',
-  '"memory safety is nice, memory discipline is nicer."',
-  '"talk is cheap. show me the code."',
   '"simplicity is the ultimate sophistication."',
-  '"first, solve the problem. then, write the code."'
+  '"first, solve the problem. then, write the code."',
+  '"i use arch, by the way."',
+  '"memory safety is nice, memory discipline is nicer"',
+  '"code is like humor. when you have to explain it, it\'s bad."',
+  '"talk is cheap. show me the code."',
+  '"programs must be written for people to read, and only incidentally for machines to execute."'
 ];
 
 export default function HomeDashboard() {

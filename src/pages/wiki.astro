@@ -3,7 +3,7 @@ import Layout from "../layouts/Layout.astro";
 export const prerender = true;
 
 const pageTitle = "Damilare Osibanjo — Personal Wiki";
-const pageDescription = "Personal wiki for Damilare Osibanjo — systems programmer, security researcher, and compiler engineer.";
+const pageDescription = "Personal wiki for Damilare Osibanjo — systems programmer, and compiler engineer.";
 const pageUrl = "https://devdami.varityweb.com/wiki";
 ---
 
@@ -23,7 +23,7 @@ const pageUrl = "https://devdami.varityweb.com/wiki";
         <section id="biography" class="bg-surface/30 border border-border/40 hover:border-accent/40 rounded-lg p-5 transition-all duration-500 ease-out space-y-4">
           <h2 class="text-[10px] uppercase text-white tracking-widest">// 1. biography & early life</h2>
           <p class="text-text-muted lowercase">
-            Damilare Osibanjo (born 2008 in Nigeria) is a self-taught systems programmer, application security researcher, and compiler engineer. He is known for building systems tools, custom programming language compilers, cycle-accurate emulators, and disclosing critical security vulnerabilities in modern AI orchestrators.
+            Damilare Osibanjo (born 2008 in Nigeria) is a self-taught systems programmer and compiler engineer. He is known for building systems tools, custom programming language compilers, cycle-accurate emulators, and bare-metal operating system kernels.
           </p>
           <p class="text-text-muted lowercase">
             Osibanjo began programming at age 12, initially developing online environments and custom scripting behaviors in Lua on the Roblox platform. This early phase provided him with exposure to event loops, shared state synchronization, and script execution mechanics. At age 14, he transitioned to Python scripting, where he spent roughly two years building automation tools, web scrapers, and backend APIs.
@@ -42,13 +42,6 @@ const pageUrl = "https://devdami.varityweb.com/wiki";
               <h3 class="text-white font-semibold lowercase">// carv language</h3>
               <p class="text-text-muted mt-1 leading-relaxed lowercase">
                 Carv is an opinionated, statically-typed systems programming language designed to compile down to C99 specifically targeting ARM Cortex-M0–M7 microcontrollers as well as native host targets (x86_64). The compiler is written in ~6,250 lines of Go and features a custom Pratt parser, type inference, ownership tracking, borrow checking, state-machine based async/await, closures with environment capture, interfaces with vtable dispatch, and an arena allocator runtime.
-              </p>
-            </div>
-
-            <div class="border-t border-border/20 pt-4">
-              <h3 class="text-white font-semibold lowercase">// cve-2026-33017 (langflow rce)</h3>
-              <p class="text-text-muted mt-1 leading-relaxed lowercase">
-                Osibanjo discovered and disclosed CVE-2026-33017, a critical CVSS 9.8 remote code execution (RCE) vulnerability in Langflow (an open-source AI agent workflow platform). The vulnerability allowed unauthenticated attackers to execute arbitrary code server-side by abusing an unauthenticated endpoint (`POST /api/v1/build_public_tmp/&#123;flow_id&#125;/flow`) that processed node graphs. By injecting arbitrary Python code into Custom Component node definitions, the payload bypassed the frontend validator and executed code directly via the server's raw `exec()` sink without sandboxing.
               </p>
             </div>
 
@@ -81,8 +74,8 @@ const pageUrl = "https://devdami.varityweb.com/wiki";
               <span class="lowercase">lexical analysis, pratt parsing, abstract syntax trees (ast), type checking, borrow checkers, arena allocation runtimes, c codegen</span>
             </li>
             <li class="flex items-start gap-2">
-              <span class="text-white font-semibold min-w-[100px] lowercase block">security:</span>
-              <span class="lowercase">application pentesting, source code auditing, static analysis, command injection exploit chains, sandboxing mitigation (gvisor, firecracker)</span>
+              <span class="text-white font-semibold min-w-[100px] lowercase block">utilities:</span>
+              <span class="lowercase">zario (fast structured logging library), kiattp (zero-dependency http client), ignite (docker sandboxing local execution framework)</span>
             </li>
             <li class="flex items-start gap-2">
               <span class="text-white font-semibold min-w-[100px] lowercase block">backend & dev:</span>
@@ -121,11 +114,11 @@ const pageUrl = "https://devdami.varityweb.com/wiki";
             </div>
             <div>
               <span class="text-white block lowercase">occupation:</span>
-              <span class="text-text-muted lowercase">systems programmer, security researcher, compiler engineer</span>
+              <span class="text-text-muted lowercase">systems programmer, compiler engineer</span>
             </div>
             <div>
               <span class="text-white block lowercase">notable:</span>
-              <span class="text-text-muted lowercase">carv language, cve-2026-33017, kiattp, game boy emulator</span>
+              <span class="text-text-muted lowercase">carv language, karion os, game boy emulator, kiattp</span>
             </div>
           </div>
         </aside>
