@@ -127,17 +127,18 @@ const personSchema = {
 
     if (canvas) {
       new RealisticStarfield(canvas, {
-        starCount: 0,
+        starCount: 250,
         backgroundColor: "#050505",
         enableMeteors: true,
         meteorInterval: 10000,
         meteorAngle: 35,
-        enableTwinkle: false,
+        enableTwinkle: true,
+        twinkleIntensity: 0.4,
         enableParallax: false,
         enableNebula: false,
         enableAurora: false,
         enableClusters: false,
-        enablePulsate: false,
+        enablePulsate: true,
         enableClickEffect: false,
         enableTouch: false,
         enableInteraction: false,
