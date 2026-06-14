@@ -5,7 +5,7 @@
 
   const canvas = document.getElementById("hero-stars");
   if (canvas) {
-    new RealisticStarfield(canvas, {
+    const starfield = new RealisticStarfield(canvas, {
       starCount: 200,
       backgroundColor: "#050505",
       enableMeteors: false,
@@ -21,6 +21,18 @@
       enableInteraction: false,
       performanceMode: true,
     });
+
+    // Every 7s, shuffle star positions so they disappear
+    // and reappear somewhere else in the hero area
+    setInterval(() => {
+      const w = starfield.displayWidth;
+      const h = starfield.displayHeight;
+      if (!w || !h) return;
+      starfield.stars.forEach((star) => {
+        star.x = Math.random() * w;
+        star.y = Math.random() * h;
+      });
+    }, 7000);
   }
 </script>
 
