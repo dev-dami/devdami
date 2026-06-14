@@ -60,7 +60,7 @@ export default function HomeDashboard() {
             alt="damilare osibanjo"
             className="relative w-16 h-16 rounded-full object-cover border border-border/80"
           />
-          <span className="absolute bottom-0 right-0 block h-3 w-3 rounded-full bg-green-500 ring-2 ring-bg animate-pulse"></span>
+          <span className="absolute bottom-0.5 right-0.5 block h-3 w-3 rounded-full bg-green-500 ring-2 ring-bg animate-pulse"></span>
         </div>
 
         <h1 className="text-lg font-semibold tracking-wider text-white lowercase mt-1">
