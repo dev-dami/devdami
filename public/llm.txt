@@ -1,0 +1,34 @@
+# Damilare Osibanjo — Systems Programmer & Compiler Engineer
+Site URL: https://devdami.varityweb.com
+LLM.md: https://devdami.varityweb.com/llm.md
+
+## Profile Summary
+Damilare Osibanjo (born 2008) is a 17-year-old self-taught systems programmer, compiler engineer, and cybersecurity researcher. He builds low-level developer tooling, custom compilers, cycle-accurate emulators, and bare-metal OS kernels.
+
+## Core Projects
+- **Carv**: A statically-typed systems programming language compiling to C99 specifically targeting ARM Cortex-M microcontrollers and host x86_64 architectures. Developed in Go.
+- **Karion OS**: A bare-metal x86 operating system kernel written in Rust featuring a custom physical memory allocator, memory paging, a virtual shell, block filesystem, BASIC interpreter, text editor, and games.
+- **GBemu**: A cycle-accurate Game Boy emulator written in Zig with zero external dependencies, cycle-accurate CPU instruction emulation, scanline PPU rendering, and custom memory bank controller (MBC1) support.
+- **Zario**: A minimal, fast structured JSON logging library for TypeScript/Bun with child loggers, multiple transports, and non-blocking asynchronous writes.
+- **Ignite**: A Bun-first local execution framework for JS/TS microservices with Docker-based sandboxed isolation.
+- **Kiattp**: A zero-dependency, lightweight HTTP client.
+
+## Pages Index
+- Home: https://devdami.varityweb.com
+- About: https://devdami.varityweb.com/about/ (Biography, journey, timeline, and tech stack details)
+- Projects: https://devdami.varityweb.com/projects/ (Systems tools, compilers, and low-level code repositories)
+- Uses: https://devdami.varityweb.com/uses/ (HP Laptop 15-da0xxx, EndeavourOS/KDE Plasma 6, Neovim/tokyonight, Alacritty/tmux, dev languages & CLI tool stack)
+- Wiki: https://devdami.varityweb.com/wiki/ (Personal encyclopedia, Infobox context, biographic sections, and technical philosophy)
+- Blog: https://devdami.varityweb.com/blog/ (Technical writing on compilers, security research, and systems engineering)
+- Contact: https://devdami.varityweb.com/contact/ (Contact form and links to professional profiles)
+
+## Tech Stack
+- Languages: TypeScript, Rust, Go, C, Python, Lua, Zig
+- Runtimes: Node.js, Bun
+- Databases: PostgreSQL, MongoDB, Redis
+- Infrastructure: Linux, Git, Docker, Kubernetes
+
+## Contact Info
+- Email: dami@varityweb.com
+- GitHub: https://github.com/dev-dami
+- LinkedIn: https://www.linkedin.com/in/damilare-osibanjo/

@@ -31,7 +31,18 @@ export default defineConfig({
         },
     },
 
-    integrations: [mdx(), react(), sitemap()],
+    integrations: [
+        mdx(), 
+        react(), 
+        sitemap({
+            customPages: [
+                'https://devdami.varityweb.com/llm.txt',
+                'https://devdami.varityweb.com/llm.md',
+                'https://devdami.varityweb.com/llms.txt',
+                'https://devdami.varityweb.com/llms.md',
+            ]
+        })
+    ],
 
     markdown: {
         shikiConfig: {
