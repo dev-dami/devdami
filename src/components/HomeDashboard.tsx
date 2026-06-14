@@ -68,7 +68,7 @@ export default function HomeDashboard() {
         </h1>
         {/* Typewriter quote subtitle */}
         <p className="text-[10px] text-text-muted mt-2 lowercase min-h-[24px] max-w-sm px-4 leading-relaxed cursor-block">
-          builds things // {quoteText}
+          {quoteText}
         </p>
       </header>
 

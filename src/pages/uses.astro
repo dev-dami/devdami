@@ -9,7 +9,7 @@ const pageUrl = "https://devdami.varityweb.com/uses";
 ---
 
 <Layout title={pageTitle} description={pageDescription} canonical={pageUrl}>
-  <div class="max-w-xl mx-auto py-16 font-mono text-xs text-text leading-relaxed">
+  <div class="max-w-5xl mx-auto py-16 font-mono text-xs text-text leading-relaxed px-4">
     <header class="mb-12 text-center">
       <a href="/" class="text-text-muted hover:text-white transition-all duration-150 block mb-4">&lt;- home</a>
       <h1 class="text-sm font-semibold tracking-widest text-white uppercase mb-2">/uses</h1>
@@ -18,287 +18,290 @@ const pageUrl = "https://devdami.varityweb.com/uses";
       </p>
     </header>
 
-    <div class="space-y-6">
-      <!-- Hardware -->
-      <section class="bg-surface/30 border border-border/40 hover:border-accent/40 rounded-lg p-5 transition-all duration-500 ease-out space-y-4">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
+      <!-- Hardware (lg:col-span-2) -->
+      <section class="lg:col-span-2 bg-surface/30 border border-border/40 hover:border-accent/40 rounded-lg p-5 transition-all duration-500 ease-out space-y-4">
         <h2 class="text-[10px] uppercase text-white tracking-widest">// hardware</h2>
+        
         <div class="space-y-4">
           <div>
-            <span class="text-white lowercase block mb-1.5">machine:</span>
-            <ul class="space-y-1.5 pl-2">
-              <li class="group flex items-center gap-2.5 py-0.5 text-text-muted hover:text-white transition-colors duration-200">
-                <ToolIcon name="machine" />
-                <span>HP Laptop 15-da0xxx</span>
-              </li>
-              <li class="group flex items-center gap-2.5 py-0.5 text-text-muted hover:text-white transition-colors duration-200">
-                <ToolIcon name="cpu" />
-                <span>Intel Core i3-8130U @ 2.20GHz (4 cores)</span>
-              </li>
-              <li class="group flex items-center gap-2.5 py-0.5 text-text-muted hover:text-white transition-colors duration-200">
-                <ToolIcon name="ram" />
-                <span>8GB RAM</span>
-              </li>
-              <li class="group flex items-center gap-2.5 py-0.5 text-text-muted hover:text-white transition-colors duration-200">
-                <ToolIcon name="gpu" />
-                <span>Intel UHD Graphics 620</span>
-              </li>
-              <li class="group flex items-center gap-2.5 py-0.5 text-text-muted hover:text-white transition-colors duration-200">
-                <ToolIcon name="ssd" />
-                <span>~900GB SSD</span>
-              </li>
-            </ul>
+            <span class="text-white lowercase block mb-2">machine:</span>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              <div class="group flex items-center gap-2.5 p-2.5 bg-surface/20 border border-border/40 hover:border-accent/40 rounded transition-all duration-300">
+                <ToolIcon name="machine" className="w-4 h-4 flex-shrink-0" />
+                <span class="text-text-muted group-hover:text-text transition-colors duration-200">HP Laptop 15-da0xxx</span>
+              </div>
+              <div class="group flex items-center gap-2.5 p-2.5 bg-surface/20 border border-border/40 hover:border-accent/40 rounded transition-all duration-300">
+                <ToolIcon name="cpu" className="w-4 h-4 flex-shrink-0" />
+                <span class="text-text-muted group-hover:text-text transition-colors duration-200">Intel Core i3-8130U @ 2.20GHz (4 cores)</span>
+              </div>
+              <div class="group flex items-center gap-2.5 p-2.5 bg-surface/20 border border-border/40 hover:border-accent/40 rounded transition-all duration-300">
+                <ToolIcon name="ram" className="w-4 h-4 flex-shrink-0" />
+                <span class="text-text-muted group-hover:text-text transition-colors duration-200">8GB RAM</span>
+              </div>
+              <div class="group flex items-center gap-2.5 p-2.5 bg-surface/20 border border-border/40 hover:border-accent/40 rounded transition-all duration-300">
+                <ToolIcon name="gpu" className="w-4 h-4 flex-shrink-0" />
+                <span class="text-text-muted group-hover:text-text transition-colors duration-200">Intel UHD Graphics 620</span>
+              </div>
+              <div class="group flex items-center gap-2.5 p-2.5 bg-surface/20 border border-border/40 hover:border-accent/40 rounded transition-all duration-300">
+                <ToolIcon name="ssd" className="w-4 h-4 flex-shrink-0" />
+                <span class="text-text-muted group-hover:text-text transition-colors duration-200">~900GB SSD</span>
+              </div>
+            </div>
           </div>
+
           <div>
-            <span class="text-white lowercase block mb-1.5">peripherals & browser:</span>
-            <ul class="space-y-1.5 pl-2">
-              <li class="group flex items-center gap-2.5 py-0.5 text-text-muted hover:text-white transition-colors duration-200">
-                <ToolIcon name="firefox" />
-                <span>Firefox (daily driver browser)</span>
-              </li>
-              <li class="group flex items-center gap-2.5 py-0.5 text-text-muted hover:text-white transition-colors duration-200">
-                <ToolIcon name="keyboard" />
-                <span>Generic mechanical keyboard (Cherry MX Blue)</span>
-              </li>
-            </ul>
+            <span class="text-white lowercase block mb-2">peripherals & browser:</span>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              <div class="group flex items-center gap-2.5 p-2.5 bg-surface/20 border border-border/40 hover:border-accent/40 rounded transition-all duration-300">
+                <ToolIcon name="firefox" className="w-4 h-4 flex-shrink-0" />
+                <span class="text-text-muted group-hover:text-text transition-colors duration-200">Firefox (daily driver browser)</span>
+              </div>
+              <div class="group flex items-center gap-2.5 p-2.5 bg-surface/20 border border-border/40 hover:border-accent/40 rounded transition-all duration-300">
+                <ToolIcon name="keyboard" className="w-4 h-4 flex-shrink-0" />
+                <span class="text-text-muted group-hover:text-text transition-colors duration-200">Generic mechanical keyboard (Cherry MX Blue)</span>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      <!-- OS & Desktop -->
+      <!-- OS & Environment (lg:col-span-1) -->
       <section class="bg-surface/30 border border-border/40 hover:border-accent/40 rounded-lg p-5 transition-all duration-500 ease-out space-y-4">
         <h2 class="text-[10px] uppercase text-white tracking-widest">// os & environment</h2>
-        <ul class="space-y-1.5 pl-2">
-          <li class="group flex items-center gap-2.5 py-0.5 text-text-muted hover:text-white transition-colors duration-200">
-            <ToolIcon name="endeavouros" />
-            <span>OS: EndeavourOS (Arch Linux)</span>
-          </li>
-          <li class="group flex items-center gap-2.5 py-0.5 text-text-muted hover:text-white transition-colors duration-200">
-            <ToolIcon name="linux" />
-            <span>Kernel: Linux 7.0.9-arch1-1</span>
-          </li>
-          <li class="group flex items-center gap-2.5 py-0.5 text-text-muted hover:text-white transition-colors duration-200">
-            <ToolIcon name="kde" />
-            <span>DE: KDE Plasma 6</span>
-          </li>
-          <li class="group flex items-center gap-2.5 py-0.5 text-text-muted hover:text-white transition-colors duration-200">
-            <ToolIcon name="fish" />
-            <span>Shell: Fish with Starship prompt</span>
-          </li>
-          <li class="group flex items-center gap-2.5 py-0.5 text-text-muted hover:text-white transition-colors duration-200">
-            <ToolIcon name="kwin" />
-            <span>WM/DE: KWin</span>
-          </li>
-          <li class="group flex items-center gap-2.5 py-0.5 text-text-muted hover:text-white transition-colors duration-200">
-            <ToolIcon name="yay" />
-            <span>AUR Helper: yay</span>
-          </li>
-        </ul>
+        <div class="grid grid-cols-1 gap-2">
+          <div class="group flex items-center gap-2.5 p-2.5 bg-surface/20 border border-border/40 hover:border-accent/40 rounded transition-all duration-300">
+            <ToolIcon name="endeavouros" className="w-4 h-4 flex-shrink-0" />
+            <span class="text-text-muted group-hover:text-text transition-colors duration-200">OS: EndeavourOS (Arch Linux)</span>
+          </div>
+          <div class="group flex items-center gap-2.5 p-2.5 bg-surface/20 border border-border/40 hover:border-accent/40 rounded transition-all duration-300">
+            <ToolIcon name="linux" className="w-4 h-4 flex-shrink-0" />
+            <span class="text-text-muted group-hover:text-text transition-colors duration-200">Kernel: Linux 7.0.9-arch1-1</span>
+          </div>
+          <div class="group flex items-center gap-2.5 p-2.5 bg-surface/20 border border-border/40 hover:border-accent/40 rounded transition-all duration-300">
+            <ToolIcon name="kde" className="w-4 h-4 flex-shrink-0" />
+            <span class="text-text-muted group-hover:text-text transition-colors duration-200">DE: KDE Plasma 6</span>
+          </div>
+          <div class="group flex items-center gap-2.5 p-2.5 bg-surface/20 border border-border/40 hover:border-accent/40 rounded transition-all duration-300">
+            <ToolIcon name="fish" className="w-4 h-4 flex-shrink-0" />
+            <span class="text-text-muted group-hover:text-text transition-colors duration-200">Shell: Fish with Starship prompt</span>
+          </div>
+          <div class="group flex items-center gap-2.5 p-2.5 bg-surface/20 border border-border/40 hover:border-accent/40 rounded transition-all duration-300">
+            <ToolIcon name="kwin" className="w-4 h-4 flex-shrink-0" />
+            <span class="text-text-muted group-hover:text-text transition-colors duration-200">WM/DE: KWin</span>
+          </div>
+          <div class="group flex items-center gap-2.5 p-2.5 bg-surface/20 border border-border/40 hover:border-accent/40 rounded transition-all duration-300">
+            <ToolIcon name="yay" className="w-4 h-4 flex-shrink-0" />
+            <span class="text-text-muted group-hover:text-text transition-colors duration-200">AUR Helper: yay</span>
+          </div>
+        </div>
       </section>
 
-      <!-- Editor & Terminal -->
-      <section class="bg-surface/30 border border-border/40 hover:border-accent/40 rounded-lg p-5 transition-all duration-500 ease-out space-y-4">
+      <!-- Editor & Terminal (lg:col-span-2) -->
+      <section class="lg:col-span-2 bg-surface/30 border border-border/40 hover:border-accent/40 rounded-lg p-5 transition-all duration-500 ease-out space-y-4">
         <h2 class="text-[10px] uppercase text-white tracking-widest">// editor & terminal</h2>
         <div class="space-y-4">
           <div>
-            <span class="text-white lowercase block mb-1.5">neovim (daily driver):</span>
-            <ul class="space-y-1.5 pl-2">
-              <li class="group flex items-center gap-2.5 py-0.5 text-text-muted hover:text-white transition-colors duration-200">
-                <ToolIcon name="tokyonight" />
-                <span>tokyonight.nvim (theme)</span>
-              </li>
-              <li class="group flex items-center gap-2.5 py-0.5 text-text-muted hover:text-white transition-colors duration-200">
-                <ToolIcon name="telescope" />
-                <span>Telescope.nvim (fuzzy finder)</span>
-              </li>
-              <li class="group flex items-center gap-2.5 py-0.5 text-text-muted hover:text-white transition-colors duration-200">
-                <ToolIcon name="cmp" />
-                <span>nvim-cmp (autocompletion)</span>
-              </li>
-              <li class="group flex items-center gap-2.5 py-0.5 text-text-muted hover:text-white transition-colors duration-200">
-                <ToolIcon name="harpoon" />
-                <span>Harpoon (quick navigation)</span>
-              </li>
-              <li class="group flex items-center gap-2.5 py-0.5 text-text-muted hover:text-white transition-colors duration-200">
-                <ToolIcon name="tree" />
-                <span>nvim-tree (file explorer)</span>
-              </li>
-              <li class="group flex items-center gap-2.5 py-0.5 text-text-muted hover:text-white transition-colors duration-200">
-                <ToolIcon name="lualine" />
-                <span>lualine.nvim (statusline)</span>
-              </li>
-              <li class="group flex items-center gap-2.5 py-0.5 text-text-muted hover:text-white transition-colors duration-200">
-                <ToolIcon name="fugitive" />
-                <span>vim-fugitive (Git integration)</span>
-              </li>
-              <li class="group flex items-center gap-2.5 py-0.5 text-text-muted hover:text-white transition-colors duration-200">
-                <ToolIcon name="undotree" />
-                <span>undotree (undo history)</span>
-              </li>
-              <li class="group flex items-center gap-2.5 py-0.5 text-text-muted hover:text-white transition-colors duration-200">
-                <ToolIcon name="autopairs" />
-                <span>nvim-autopairs</span>
-              </li>
-              <li class="group flex items-center gap-2.5 py-0.5 text-text-muted hover:text-white transition-colors duration-200">
-                <ToolIcon name="comment" />
-                <span>comment.nvim</span>
-              </li>
-              <li class="group flex items-center gap-2.5 py-0.5 text-text-muted hover:text-white transition-colors duration-200">
-                <ToolIcon name="treesitter" />
-                <span>nvim-treesitter (syntax tree)</span>
-              </li>
-              <li class="group flex items-center gap-2.5 py-0.5 text-text-muted hover:text-white transition-colors duration-200">
-                <ToolIcon name="lsp" />
-                <span>lsp-zero.nvim (LSP management)</span>
-              </li>
-              <li class="group flex items-center gap-2.5 py-0.5 text-text-muted hover:text-white transition-colors duration-200">
-                <ToolIcon name="discord" />
-                <span>presence.nvim (Discord RPC)</span>
-              </li>
-            </ul>
+            <span class="text-white lowercase block mb-2">neovim (daily driver):</span>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              <div class="group flex items-center gap-2.5 p-2.5 bg-surface/20 border border-border/40 hover:border-accent/40 rounded transition-all duration-300">
+                <ToolIcon name="tokyonight" className="w-4 h-4 flex-shrink-0" />
+                <span class="text-text-muted group-hover:text-text transition-colors duration-200">tokyonight.nvim (theme)</span>
+              </div>
+              <div class="group flex items-center gap-2.5 p-2.5 bg-surface/20 border border-border/40 hover:border-accent/40 rounded transition-all duration-300">
+                <ToolIcon name="telescope" className="w-4 h-4 flex-shrink-0" />
+                <span class="text-text-muted group-hover:text-text transition-colors duration-200">Telescope.nvim (fuzzy finder)</span>
+              </div>
+              <div class="group flex items-center gap-2.5 p-2.5 bg-surface/20 border border-border/40 hover:border-accent/40 rounded transition-all duration-300">
+                <ToolIcon name="cmp" className="w-4 h-4 flex-shrink-0" />
+                <span class="text-text-muted group-hover:text-text transition-colors duration-200">nvim-cmp (autocompletion)</span>
+              </div>
+              <div class="group flex items-center gap-2.5 p-2.5 bg-surface/20 border border-border/40 hover:border-accent/40 rounded transition-all duration-300">
+                <ToolIcon name="harpoon" className="w-4 h-4 flex-shrink-0" />
+                <span class="text-text-muted group-hover:text-text transition-colors duration-200">Harpoon (quick navigation)</span>
+              </div>
+              <div class="group flex items-center gap-2.5 p-2.5 bg-surface/20 border border-border/40 hover:border-accent/40 rounded transition-all duration-300">
+                <ToolIcon name="tree" className="w-4 h-4 flex-shrink-0" />
+                <span class="text-text-muted group-hover:text-text transition-colors duration-200">nvim-tree (file explorer)</span>
+              </div>
+              <div class="group flex items-center gap-2.5 p-2.5 bg-surface/20 border border-border/40 hover:border-accent/40 rounded transition-all duration-300">
+                <ToolIcon name="lualine" className="w-4 h-4 flex-shrink-0" />
+                <span class="text-text-muted group-hover:text-text transition-colors duration-200">lualine.nvim (statusline)</span>
+              </div>
+              <div class="group flex items-center gap-2.5 p-2.5 bg-surface/20 border border-border/40 hover:border-accent/40 rounded transition-all duration-300">
+                <ToolIcon name="fugitive" className="w-4 h-4 flex-shrink-0" />
+                <span class="text-text-muted group-hover:text-text transition-colors duration-200">vim-fugitive (Git integration)</span>
+              </div>
+              <div class="group flex items-center gap-2.5 p-2.5 bg-surface/20 border border-border/40 hover:border-accent/40 rounded transition-all duration-300">
+                <ToolIcon name="undotree" className="w-4 h-4 flex-shrink-0" />
+                <span class="text-text-muted group-hover:text-text transition-colors duration-200">undotree (undo history)</span>
+              </div>
+              <div class="group flex items-center gap-2.5 p-2.5 bg-surface/20 border border-border/40 hover:border-accent/40 rounded transition-all duration-300">
+                <ToolIcon name="autopairs" className="w-4 h-4 flex-shrink-0" />
+                <span class="text-text-muted group-hover:text-text transition-colors duration-200">nvim-autopairs</span>
+              </div>
+              <div class="group flex items-center gap-2.5 p-2.5 bg-surface/20 border border-border/40 hover:border-accent/40 rounded transition-all duration-300">
+                <ToolIcon name="comment" className="w-4 h-4 flex-shrink-0" />
+                <span class="text-text-muted group-hover:text-text transition-colors duration-200">comment.nvim</span>
+              </div>
+              <div class="group flex items-center gap-2.5 p-2.5 bg-surface/20 border border-border/40 hover:border-accent/40 rounded transition-all duration-300">
+                <ToolIcon name="treesitter" className="w-4 h-4 flex-shrink-0" />
+                <span class="text-text-muted group-hover:text-text transition-colors duration-200">nvim-treesitter (syntax tree)</span>
+              </div>
+              <div class="group flex items-center gap-2.5 p-2.5 bg-surface/20 border border-border/40 hover:border-accent/40 rounded transition-all duration-300">
+                <ToolIcon name="lsp" className="w-4 h-4 flex-shrink-0" />
+                <span class="text-text-muted group-hover:text-text transition-colors duration-200">lsp-zero.nvim (LSP management)</span>
+              </div>
+              <div class="group flex items-center gap-2.5 p-2.5 bg-surface/20 border border-border/40 hover:border-accent/40 rounded transition-all duration-300 border-dashed">
+                <ToolIcon name="discord" className="w-4 h-4 flex-shrink-0" />
+                <span class="text-text-muted group-hover:text-text transition-colors duration-200">presence.nvim (Discord RPC)</span>
+              </div>
+            </div>
           </div>
+
           <div>
-            <span class="text-white lowercase block mb-1.5">terminal:</span>
-            <ul class="space-y-1.5 pl-2">
-              <li class="group flex items-center gap-2.5 py-0.5 text-text-muted hover:text-white transition-colors duration-200">
-                <ToolIcon name="alacritty" />
-                <span>Terminal: Alacritty (Dracula theme)</span>
-              </li>
-              <li class="group flex items-center gap-2.5 py-0.5 text-text-muted hover:text-white transition-colors duration-200">
-                <ToolIcon name="tmux" />
-                <span>Multiplexer: tmux 3.6b</span>
-              </li>
-              <li class="group flex items-center gap-2.5 py-0.5 text-text-muted hover:text-white transition-colors duration-200">
-                <ToolIcon name="font" />
-                <span>Font: Hack Nerd Font Mono</span>
-              </li>
-              <li class="group flex items-center gap-2.5 py-0.5 text-text-muted hover:text-white transition-colors duration-200">
-                <ToolIcon name="yazi" />
-                <span>File Manager: yazi (TUI)</span>
-              </li>
-            </ul>
+            <span class="text-white lowercase block mb-2">terminal:</span>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              <div class="group flex items-center gap-2.5 p-2.5 bg-surface/20 border border-border/40 hover:border-accent/40 rounded transition-all duration-300">
+                <ToolIcon name="alacritty" className="w-4 h-4 flex-shrink-0" />
+                <span class="text-text-muted group-hover:text-text transition-colors duration-200">Terminal: Alacritty (Dracula theme)</span>
+              </div>
+              <div class="group flex items-center gap-2.5 p-2.5 bg-surface/20 border border-border/40 hover:border-accent/40 rounded transition-all duration-300">
+                <ToolIcon name="tmux" className="w-4 h-4 flex-shrink-0" />
+                <span class="text-text-muted group-hover:text-text transition-colors duration-200">Multiplexer: tmux 3.6b</span>
+              </div>
+              <div class="group flex items-center gap-2.5 p-2.5 bg-surface/20 border border-border/40 hover:border-accent/40 rounded transition-all duration-300">
+                <ToolIcon name="font" className="w-4 h-4 flex-shrink-0" />
+                <span class="text-text-muted group-hover:text-text transition-colors duration-200">Font: Hack Nerd Font Mono</span>
+              </div>
+              <div class="group flex items-center gap-2.5 p-2.5 bg-surface/20 border border-border/40 hover:border-accent/40 rounded transition-all duration-300">
+                <ToolIcon name="yazi" className="w-4 h-4 flex-shrink-0" />
+                <span class="text-text-muted group-hover:text-text transition-colors duration-200">File Manager: yazi (TUI)</span>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      <!-- Languages & Runtimes -->
+      <!-- Languages & Runtimes (lg:col-span-1) -->
       <section class="bg-surface/30 border border-border/40 hover:border-accent/40 rounded-lg p-5 transition-all duration-500 ease-out space-y-4">
         <h2 class="text-[10px] uppercase text-white tracking-widest">// languages & runtimes</h2>
-        <ul class="space-y-1.5 pl-2">
-          <li class="group flex items-center gap-2.5 py-0.5 text-text-muted hover:text-white transition-colors duration-200">
-            <ToolIcon name="rust" />
-            <span>Rust (rustc 1.95.0 / cargo 1.95.0)</span>
-          </li>
-          <li class="group flex items-center gap-2.5 py-0.5 text-text-muted hover:text-white transition-colors duration-200">
-            <ToolIcon name="go" />
-            <span>Go (go 1.26.3)</span>
-          </li>
-          <li class="group flex items-center gap-2.5 py-0.5 text-text-muted hover:text-white transition-colors duration-200">
-            <ToolIcon name="zig" />
-            <span>Zig (zig 0.16.0)</span>
-          </li>
-          <li class="group flex items-center gap-2.5 py-0.5 text-text-muted hover:text-white transition-colors duration-200">
-            <ToolIcon name="typescript" />
-            <span>TypeScript (ts 6.0.2 / Node 24.14.0)</span>
-          </li>
-          <li class="group flex items-center gap-2.5 py-0.5 text-text-muted hover:text-white transition-colors duration-200">
-            <ToolIcon name="bun" />
-            <span>Bun (bun 1.3.14)</span>
-          </li>
-          <li class="group flex items-center gap-2.5 py-0.5 text-text-muted hover:text-white transition-colors duration-200">
-            <ToolIcon name="python" />
-            <span>Python (pyright LSP)</span>
-          </li>
-          <li class="group flex items-center gap-2.5 py-0.5 text-text-muted hover:text-white transition-colors duration-200">
-            <ToolIcon name="c" />
-            <span>C (gcc 14 / clang 19)</span>
-          </li>
-        </ul>
+        <div class="grid grid-cols-1 gap-2">
+          <div class="group flex items-center gap-2.5 p-2.5 bg-surface/20 border border-border/40 hover:border-accent/40 rounded transition-all duration-300">
+            <ToolIcon name="rust" className="w-4 h-4 flex-shrink-0" />
+            <span class="text-text-muted group-hover:text-text transition-colors duration-200">Rust (rustc 1.95.0 / cargo 1.95.0)</span>
+          </div>
+          <div class="group flex items-center gap-2.5 p-2.5 bg-surface/20 border border-border/40 hover:border-accent/40 rounded transition-all duration-300">
+            <ToolIcon name="go" className="w-4 h-4 flex-shrink-0" />
+            <span class="text-text-muted group-hover:text-text transition-colors duration-200">Go (go 1.26.3)</span>
+          </div>
+          <div class="group flex items-center gap-2.5 p-2.5 bg-surface/20 border border-border/40 hover:border-accent/40 rounded transition-all duration-300">
+            <ToolIcon name="zig" className="w-4 h-4 flex-shrink-0" />
+            <span class="text-text-muted group-hover:text-text transition-colors duration-200">Zig (zig 0.16.0)</span>
+          </div>
+          <div class="group flex items-center gap-2.5 p-2.5 bg-surface/20 border border-border/40 hover:border-accent/40 rounded transition-all duration-300">
+            <ToolIcon name="typescript" className="w-4 h-4 flex-shrink-0" />
+            <span class="text-text-muted group-hover:text-text transition-colors duration-200">TypeScript (ts 6.0.2 / Node 24.14.0)</span>
+          </div>
+          <div class="group flex items-center gap-2.5 p-2.5 bg-surface/20 border border-border/40 hover:border-accent/40 rounded transition-all duration-300">
+            <ToolIcon name="bun" className="w-4 h-4 flex-shrink-0" />
+            <span class="text-text-muted group-hover:text-text transition-colors duration-200">Bun (bun 1.3.14)</span>
+          </div>
+          <div class="group flex items-center gap-2.5 p-2.5 bg-surface/20 border border-border/40 hover:border-accent/40 rounded transition-all duration-300">
+            <ToolIcon name="python" className="w-4 h-4 flex-shrink-0" />
+            <span class="text-text-muted group-hover:text-text transition-colors duration-200">Python (pyright LSP)</span>
+          </div>
+          <div class="group flex items-center gap-2.5 p-2.5 bg-surface/20 border border-border/40 hover:border-accent/40 rounded transition-all duration-300">
+            <ToolIcon name="c" className="w-4 h-4 flex-shrink-0" />
+            <span class="text-text-muted group-hover:text-text transition-colors duration-200">C (gcc 14 / clang 19)</span>
+          </div>
+        </div>
       </section>
 
-      <!-- CLI Tools -->
-      <section class="bg-surface/30 border border-border/40 hover:border-accent/40 rounded-lg p-5 transition-all duration-500 ease-out space-y-4">
+      <!-- CLI Tools (lg:col-span-2) -->
+      <section class="lg:col-span-2 bg-surface/30 border border-border/40 hover:border-accent/40 rounded-lg p-5 transition-all duration-500 ease-out space-y-4">
         <h2 class="text-[10px] uppercase text-white tracking-widest">// cli tools</h2>
-        <ul class="space-y-1.5 pl-2">
-          <li class="group flex items-center gap-2.5 py-0.5 text-text-muted hover:text-white transition-colors duration-200">
-            <ToolIcon name="git" />
-            <span>git & lazygit</span>
-          </li>
-          <li class="group flex items-center gap-2.5 py-0.5 text-text-muted hover:text-white transition-colors duration-200">
-            <ToolIcon name="docker" />
-            <span>docker & compose</span>
-          </li>
-          <li class="group flex items-center gap-2.5 py-0.5 text-text-muted hover:text-white transition-colors duration-200">
-            <ToolIcon name="ripgrep" />
-            <span>ripgrep (rg)</span>
-          </li>
-          <li class="group flex items-center gap-2.5 py-0.5 text-text-muted hover:text-white transition-colors duration-200">
-            <ToolIcon name="fd" />
-            <span>fd</span>
-          </li>
-          <li class="group flex items-center gap-2.5 py-0.5 text-text-muted hover:text-white transition-colors duration-200">
-            <ToolIcon name="fzf" />
-            <span>fzf</span>
-          </li>
-          <li class="group flex items-center gap-2.5 py-0.5 text-text-muted hover:text-white transition-colors duration-200">
-            <ToolIcon name="bat" />
-            <span>bat</span>
-          </li>
-          <li class="group flex items-center gap-2.5 py-0.5 text-text-muted hover:text-white transition-colors duration-200">
-            <ToolIcon name="eza" />
-            <span>eza</span>
-          </li>
-          <li class="group flex items-center gap-2.5 py-0.5 text-text-muted hover:text-white transition-colors duration-200">
-            <ToolIcon name="btop" />
-            <span>btop</span>
-          </li>
-          <li class="group flex items-center gap-2.5 py-0.5 text-text-muted hover:text-white transition-colors duration-200">
-            <ToolIcon name="jq" />
-            <span>jq</span>
-          </li>
-          <li class="group flex items-center gap-2.5 py-0.5 text-text-muted hover:text-white transition-colors duration-200">
-            <ToolIcon name="zoxide" />
-            <span>zoxide (z)</span>
-          </li>
-        </ul>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+          <div class="group flex items-center gap-2.5 p-2.5 bg-surface/20 border border-border/40 hover:border-accent/40 rounded transition-all duration-300">
+            <ToolIcon name="git" className="w-4 h-4 flex-shrink-0" />
+            <span class="text-text-muted group-hover:text-text transition-colors duration-200">git & lazygit</span>
+          </div>
+          <div class="group flex items-center gap-2.5 p-2.5 bg-surface/20 border border-border/40 hover:border-accent/40 rounded transition-all duration-300">
+            <ToolIcon name="docker" className="w-4 h-4 flex-shrink-0" />
+            <span class="text-text-muted group-hover:text-text transition-colors duration-200">docker & compose</span>
+          </div>
+          <div class="group flex items-center gap-2.5 p-2.5 bg-surface/20 border border-border/40 hover:border-accent/40 rounded transition-all duration-300">
+            <ToolIcon name="ripgrep" className="w-4 h-4 flex-shrink-0" />
+            <span class="text-text-muted group-hover:text-text transition-colors duration-200">ripgrep (rg)</span>
+          </div>
+          <div class="group flex items-center gap-2.5 p-2.5 bg-surface/20 border border-border/40 hover:border-accent/40 rounded transition-all duration-300">
+            <ToolIcon name="fd" className="w-4 h-4 flex-shrink-0" />
+            <span class="text-text-muted group-hover:text-text transition-colors duration-200">fd</span>
+          </div>
+          <div class="group flex items-center gap-2.5 p-2.5 bg-surface/20 border border-border/40 hover:border-accent/40 rounded transition-all duration-300">
+            <ToolIcon name="fzf" className="w-4 h-4 flex-shrink-0" />
+            <span class="text-text-muted group-hover:text-text transition-colors duration-200">fzf</span>
+          </div>
+          <div class="group flex items-center gap-2.5 p-2.5 bg-surface/20 border border-border/40 hover:border-accent/40 rounded transition-all duration-300">
+            <ToolIcon name="bat" className="w-4 h-4 flex-shrink-0" />
+            <span class="text-text-muted group-hover:text-text transition-colors duration-200">bat</span>
+          </div>
+          <div class="group flex items-center gap-2.5 p-2.5 bg-surface/20 border border-border/40 hover:border-accent/40 rounded transition-all duration-300">
+            <ToolIcon name="eza" className="w-4 h-4 flex-shrink-0" />
+            <span class="text-text-muted group-hover:text-text transition-colors duration-200">eza</span>
+          </div>
+          <div class="group flex items-center gap-2.5 p-2.5 bg-surface/20 border border-border/40 hover:border-accent/40 rounded transition-all duration-300">
+            <ToolIcon name="btop" className="w-4 h-4 flex-shrink-0" />
+            <span class="text-text-muted group-hover:text-text transition-colors duration-200">btop</span>
+          </div>
+          <div class="group flex items-center gap-2.5 p-2.5 bg-surface/20 border border-border/40 hover:border-accent/40 rounded transition-all duration-300">
+            <ToolIcon name="jq" className="w-4 h-4 flex-shrink-0" />
+            <span class="text-text-muted group-hover:text-text transition-colors duration-200">jq</span>
+          </div>
+          <div class="group flex items-center gap-2.5 p-2.5 bg-surface/20 border border-border/40 hover:border-accent/40 rounded transition-all duration-300">
+            <ToolIcon name="zoxide" className="w-4 h-4 flex-shrink-0" />
+            <span class="text-text-muted group-hover:text-text transition-colors duration-200">zoxide (z)</span>
+          </div>
+        </div>
       </section>
 
-      <!-- Key Configs -->
+      <!-- Configurations (lg:col-span-1) -->
       <section class="bg-surface/30 border border-border/40 hover:border-accent/40 rounded-lg p-5 transition-all duration-500 ease-out space-y-4">
         <h2 class="text-[10px] uppercase text-white tracking-widest">// configurations</h2>
-        <ul class="space-y-1.5 pl-2">
-          <li class="group flex items-center gap-2.5 py-0.5 text-text-muted hover:text-white transition-colors duration-200">
-            <ToolIcon name="lsp" />
-            <span>Leader key: space</span>
-          </li>
-          <li class="group flex items-center gap-2.5 py-0.5 text-text-muted hover:text-white transition-colors duration-200">
-            <ToolIcon name="font" />
-            <span>Relative line numbers, 4-space tabs</span>
-          </li>
-          <li class="group flex items-center gap-2.5 py-0.5 text-text-muted hover:text-white transition-colors duration-200">
-            <ToolIcon name="telescope" />
-            <span>space+ff: Telescope find files</span>
-          </li>
-          <li class="group flex items-center gap-2.5 py-0.5 text-text-muted hover:text-white transition-colors duration-200">
-            <ToolIcon name="ripgrep" />
-            <span>space+fw: Telescope live grep</span>
-          </li>
-          <li class="group flex items-center gap-2.5 py-0.5 text-text-muted hover:text-white transition-colors duration-200">
-            <ToolIcon name="tree" />
-            <span>space+e: Toggle file explorer</span>
-          </li>
-          <li class="group flex items-center gap-2.5 py-0.5 text-text-muted hover:text-white transition-colors duration-200">
-            <ToolIcon name="harpoon" />
-            <span>space+h: Harpoon quick menu</span>
-          </li>
-          <li class="group flex items-center gap-2.5 py-0.5 text-text-muted hover:text-white transition-colors duration-200">
-            <ToolIcon name="tmux" />
-            <span>Ctrl+s / Ctrl+b: tmux prefix</span>
-          </li>
-          <li class="group flex items-center gap-2.5 py-0.5 text-text-muted hover:text-white transition-colors duration-200">
-            <ToolIcon name="alacritty" />
-            <span>ll: eza -la, cat: bat, grep: rg</span>
-          </li>
-        </ul>
+        <div class="grid grid-cols-1 gap-2">
+          <div class="group flex items-center gap-2.5 p-2.5 bg-surface/20 border border-border/40 hover:border-accent/40 rounded transition-all duration-300">
+            <ToolIcon name="lsp" className="w-4 h-4 flex-shrink-0" />
+            <span class="text-text-muted group-hover:text-text transition-colors duration-200">Leader key: space</span>
+          </div>
+          <div class="group flex items-center gap-2.5 p-2.5 bg-surface/20 border border-border/40 hover:border-accent/40 rounded transition-all duration-300">
+            <ToolIcon name="font" className="w-4 h-4 flex-shrink-0" />
+            <span class="text-text-muted group-hover:text-text transition-colors duration-200">Relative line numbers, 4-space tabs</span>
+          </div>
+          <div class="group flex items-center gap-2.5 p-2.5 bg-surface/20 border border-border/40 hover:border-accent/40 rounded transition-all duration-300">
+            <ToolIcon name="telescope" className="w-4 h-4 flex-shrink-0" />
+            <span class="text-text-muted group-hover:text-text transition-colors duration-200">space+ff: Telescope find files</span>
+          </div>
+          <div class="group flex items-center gap-2.5 p-2.5 bg-surface/20 border border-border/40 hover:border-accent/40 rounded transition-all duration-300">
+            <ToolIcon name="ripgrep" className="w-4 h-4 flex-shrink-0" />
+            <span class="text-text-muted group-hover:text-text transition-colors duration-200">space+fw: Telescope live grep</span>
+          </div>
+          <div class="group flex items-center gap-2.5 p-2.5 bg-surface/20 border border-border/40 hover:border-accent/40 rounded transition-all duration-300">
+            <ToolIcon name="tree" className="w-4 h-4 flex-shrink-0" />
+            <span class="text-text-muted group-hover:text-text transition-colors duration-200">space+e: Toggle file explorer</span>
+          </div>
+          <div class="group flex items-center gap-2.5 p-2.5 bg-surface/20 border border-border/40 hover:border-accent/40 rounded transition-all duration-300">
+            <ToolIcon name="harpoon" className="w-4 h-4 flex-shrink-0" />
+            <span class="text-text-muted group-hover:text-text transition-colors duration-200">space+h: Harpoon quick menu</span>
+          </div>
+          <div class="group flex items-center gap-2.5 p-2.5 bg-surface/20 border border-border/40 hover:border-accent/40 rounded transition-all duration-300">
+            <ToolIcon name="tmux" className="w-4 h-4 flex-shrink-0" />
+            <span class="text-text-muted group-hover:text-text transition-colors duration-200">Ctrl+s / Ctrl+b: tmux prefix</span>
+          </div>
+          <div class="group flex items-center gap-2.5 p-2.5 bg-surface/20 border border-border/40 hover:border-accent/40 rounded transition-all duration-300">
+            <ToolIcon name="bash" className="w-4 h-4 flex-shrink-0" />
+            <span class="text-text-muted group-hover:text-text transition-colors duration-200">ll: eza -la, cat: bat, grep: rg</span>
+          </div>
+        </div>
       </section>
     </div>
   </div>

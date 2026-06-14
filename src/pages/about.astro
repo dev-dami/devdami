@@ -4,7 +4,7 @@ export const prerender = true;
 ---
 
 <Layout title="About — Damilare Osibanjo" description="About Damilare Osibanjo — a 17-year-old systems and backend programmer focused on cybersecurity, low-level engineering, and high-performance infrastructure." canonical="https://devdami.varityweb.com/about/">
-  <div class="max-w-xl mx-auto py-16 font-mono text-xs text-text leading-relaxed">
+  <div class="max-w-5xl mx-auto py-16 font-mono text-xs text-text leading-relaxed px-4">
     <!-- Header -->
     <header class="mb-12 text-center">
       <a href="/" class="text-text-muted hover:text-white transition-all duration-150 block mb-4">&lt;- home</a>
@@ -12,108 +12,183 @@ export const prerender = true;
       <p class="text-text-muted lowercase">Damilare Osibanjo — systems & backend programmer</p>
     </header>
 
-    <div class="space-y-6">
-      <!-- Story -->
-      <section class="bg-surface/30 border border-border/40 hover:border-accent/40 rounded-lg p-5 transition-all duration-500 ease-out space-y-4">
-        <h2 class="text-[10px] uppercase text-white tracking-widest">// bio</h2>
-        <div class="space-y-4 lowercase text-text-muted">
-          <p class="transition-colors duration-300">
-            I started building before I understood what "software engineering" meant. Around age 12, I was creating Roblox games. At the time, it was just experimentation — modifying mechanics, scripting behaviors in Lua, trying to understand how virtual systems responded to logic.
-          </p>
-          <p class="transition-colors duration-300">
-            That phase lasted roughly a year or two. What it really gave me was exposure to structured logic and the idea that systems operate on rules. If you understand those rules, you can shape outcomes.
-          </p>
-          <p class="transition-colors duration-300">
-            Around 14, I transitioned into Python scripting, which I worked with for approximately three years. That's when programming became serious. I started building tools, automation scripts, and backend-style experiments. I learned about APIs, data handling, scripting workflows, and basic infrastructure patterns.
-          </p>
-          <p class="transition-colors duration-300">
-            But more importantly, I started asking different questions:
-          </p>
-          <ul class="space-y-1.5 pl-4 text-text-muted list-disc list-inside">
-            <li>Why does this consume so much memory?</li>
-            <li>What actually happens when multiple processes run?</li>
-            <li>Why does concurrency fail in subtle ways?</li>
-            <li>How does the operating system coordinate everything underneath?</li>
-          </ul>
-          <p class="transition-colors duration-300">
-            The curiosity shifted from "how do I build this?" to "how does this work internally?"
-          </p>
-          <p class="transition-colors duration-300">
-            By 15–16, I was moving deeper into backend systems and infrastructure thinking. I explored databases, authentication systems, logging architecture, and performance trade-offs. Clean design, maintainability, and security started to matter.
-          </p>
-          <p class="transition-colors duration-300">
-            Eventually, abstraction wasn't enough. I wanted more control. That's when I began working with Rust, Go, C, and TypeScript — focusing on backend services, systems-level thinking, and secure software design. Systems programming forced discipline. You cannot ignore performance costs, ownership, or undefined behavior.
-          </p>
-          <p class="transition-colors duration-300">
-            Now at 17, my focus sits at the intersection of cybersecurity, systems programming, backend infrastructure, and performance-aware architecture.
-          </p>
-        </div>
-      </section>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
+      <!-- Main Content (Bio & Tech Stack) -->
+      <div class="md:col-span-2 space-y-6">
+        <!-- Biography -->
+        <section class="bg-surface/30 border border-border/40 hover:border-accent/40 rounded-lg p-6 transition-all duration-500 ease-out space-y-4">
+          <h2 class="text-[10px] uppercase text-white tracking-widest">// bio</h2>
+          <div class="space-y-4 lowercase text-text-muted">
+            <p class="transition-colors duration-300">
+              I started building before I understood what "software engineering" meant. Around age 12, I was creating Roblox games. At the time, it was just experimentation — modifying mechanics, scripting behaviors in Lua, trying to understand how virtual systems responded to logic.
+            </p>
+            <p class="transition-colors duration-300">
+              That phase lasted roughly a year or two. What it really gave me was exposure to structured logic and the idea that systems operate on rules. If you understand those rules, you can shape outcomes.
+            </p>
+            <p class="transition-colors duration-300">
+              Around 14, I transitioned into Python scripting, which I worked with for approximately three years. That's when programming became serious. I started building tools, automation scripts, and backend-style experiments. I learned about APIs, data handling, scripting workflows, and basic infrastructure patterns.
+            </p>
+            <p class="transition-colors duration-300">
+              But more importantly, I started asking different questions:
+            </p>
+            <ul class="space-y-1.5 pl-4 text-text-muted list-disc list-inside">
+              <li>Why does this consume so much memory?</li>
+              <li>What actually happens when multiple processes run?</li>
+              <li>Why does concurrency fail in subtle ways?</li>
+              <li>How does the operating system coordinate everything underneath?</li>
+            </ul>
+            <p class="transition-colors duration-300">
+              The curiosity shifted from "how do I build this?" to "how does this work internally?"
+            </p>
+            <p class="transition-colors duration-300">
+              By 15–16, I was moving deeper into backend systems and infrastructure thinking. I explored databases, authentication systems, logging architecture, and performance trade-offs. Clean design, maintainability, and security started to matter.
+            </p>
+            <p class="transition-colors duration-300">
+              Eventually, abstraction wasn't enough. I wanted more control. That's when I began working with Rust, Go, C, and TypeScript — focusing on backend services, systems-level thinking, and secure software design. Systems programming forced discipline. You cannot ignore performance costs, ownership, or undefined behavior.
+            </p>
+            <p class="transition-colors duration-300">
+              Now at 17, my focus sits at the intersection of cybersecurity, systems programming, backend infrastructure, and performance-aware architecture.
+            </p>
+          </div>
+        </section>
 
-      <!-- Timeline -->
-      <section class="bg-surface/30 border border-border/40 hover:border-accent/40 rounded-lg p-5 transition-all duration-500 ease-out space-y-4">
-        <h2 class="text-[10px] uppercase text-white tracking-widest">// timeline</h2>
-        <div class="space-y-4 lowercase">
-          <div class="group flex items-start gap-3">
-            <span class="text-text-muted min-w-[70px]">age 12:</span>
-            <div>
-              <span class="text-white">first experiments</span>
-              <p class="text-text-muted mt-0.5">roblox game development, lua scripting</p>
+        <!-- Tech Stack -->
+        <section class="bg-surface/30 border border-border/40 hover:border-accent/40 rounded-lg p-6 transition-all duration-500 ease-out space-y-4">
+          <h2 class="text-[10px] uppercase text-white tracking-widest">// tech.stack</h2>
+          <div class="space-y-3 lowercase text-text-muted">
+            <div class="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
+              <span class="text-white min-w-[90px] font-semibold">languages:</span>
+              <span>typescript, rust, go, c, python, lua</span>
+            </div>
+            <div class="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
+              <span class="text-white min-w-[90px] font-semibold">runtimes:</span>
+              <span>node.js, bun</span>
+            </div>
+            <div class="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
+              <span class="text-white min-w-[90px] font-semibold">databases:</span>
+              <span>postgresql, mongodb, redis</span>
+            </div>
+            <div class="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
+              <span class="text-white min-w-[90px] font-semibold">infra:</span>
+              <span>linux, git, docker, kubernetes</span>
             </div>
           </div>
-          <div class="group flex items-start gap-3">
-            <span class="text-text-muted min-w-[70px]">age 14:</span>
-            <div>
-              <span class="text-white">python journey</span>
-              <p class="text-text-muted mt-0.5">automation scripts, apis, backend experiments</p>
-            </div>
-          </div>
-          <div class="group flex items-start gap-3">
-            <span class="text-text-muted min-w-[70px]">age 15-16:</span>
-            <div>
-              <span class="text-white">backend & infrastructure</span>
-              <p class="text-text-muted mt-0.5">databases, auth systems, logging architecture</p>
-            </div>
-          </div>
-          <div class="group flex items-start gap-3">
-            <span class="text-text-muted min-w-[70px]">age 16-17:</span>
-            <div>
-              <span class="text-white">systems programming</span>
-              <p class="text-text-muted mt-0.5">rust, go, c - memory safety, concurrency</p>
-            </div>
-          </div>
-          <div class="group flex items-start gap-3">
-            <span class="text-text-muted min-w-[70px]">present:</span>
-            <div>
-              <span class="text-white">building xelvo</span>
-              <p class="text-text-muted mt-0.5">compiler development, runtime tools</p>
-            </div>
-          </div>
-        </div>
-      </section>
+        </section>
+      </div>
 
-      <!-- Tech Stack -->
-      <section class="bg-surface/30 border border-border/40 hover:border-accent/40 rounded-lg p-5 transition-all duration-500 ease-out space-y-4">
-        <h2 class="text-[10px] uppercase text-white tracking-widest">// tech.stack</h2>
-        <div class="space-y-3 lowercase text-text-muted">
-          <div class="flex items-center gap-3">
-            <span class="text-white min-w-[90px]">languages:</span>
-            <span>typescript, rust, go, c, python, lua</span>
+      <!-- Sidebar (Timeline Widget) -->
+      <aside class="space-y-6">
+        <section class="bg-surface/40 border border-border/60 hover:border-accent/40 rounded-lg p-6 transition-all duration-500 ease-out space-y-5">
+          <h2 class="text-[10px] uppercase text-white tracking-widest">// timeline</h2>
+          
+          <div class="relative pl-4 border-l border-border/60 ml-2 space-y-6">
+            <!-- Present / 2026 -->
+            <div class="relative group">
+              <div class="absolute -left-[21px] top-1 h-2 w-2 rounded-full border border-accent bg-bg group-hover:bg-accent transition-colors duration-200"></div>
+              <div class="space-y-0.5">
+                <div class="flex items-center gap-2">
+                  <span class="text-white font-semibold">2026</span>
+                  <span class="text-[9px] text-accent lowercase">(present)</span>
+                </div>
+                <div class="text-[11px] text-white lowercase">building xelvo</div>
+                <div class="text-[10px] text-text-muted lowercase leading-relaxed">
+                  compiler development, runtime tools
+                </div>
+              </div>
+            </div>
+
+            <!-- 2025 / Age 17 -->
+            <div class="relative group">
+              <div class="absolute -left-[21px] top-1 h-2 w-2 rounded-full border border-border bg-bg group-hover:bg-accent transition-colors duration-200"></div>
+              <div class="space-y-0.5">
+                <div class="flex items-center gap-2">
+                  <span class="text-white font-semibold">2025</span>
+                  <span class="text-[9px] text-text-muted lowercase">(age 17)</span>
+                </div>
+                <div class="text-[11px] text-white lowercase">systems & compiler research</div>
+                <div class="text-[10px] text-text-muted lowercase leading-relaxed">
+                  designing carv language specifications and ARM target compilations
+                </div>
+              </div>
+            </div>
+
+            <!-- 2024 / Age 16-17 -->
+            <div class="relative group">
+              <div class="absolute -left-[21px] top-1 h-2 w-2 rounded-full border border-border bg-bg group-hover:bg-accent transition-colors duration-200"></div>
+              <div class="space-y-0.5">
+                <div class="flex items-center gap-2">
+                  <span class="text-white font-semibold">2024</span>
+                  <span class="text-[9px] text-text-muted lowercase">(age 16-17)</span>
+                </div>
+                <div class="text-[11px] text-white lowercase">systems programming</div>
+                <div class="text-[10px] text-text-muted lowercase leading-relaxed">
+                  rust, go, c — memory safety, concurrency, writing karion os kernel
+                </div>
+              </div>
+            </div>
+
+            <!-- 2023 / Age 15-16 -->
+            <div class="relative group">
+              <div class="absolute -left-[21px] top-1 h-2 w-2 rounded-full border border-border bg-bg group-hover:bg-accent transition-colors duration-200"></div>
+              <div class="space-y-0.5">
+                <div class="flex items-center gap-2">
+                  <span class="text-white font-semibold">2023</span>
+                  <span class="text-[9px] text-text-muted lowercase">(age 15-16)</span>
+                </div>
+                <div class="text-[11px] text-white lowercase">backend & infrastructure</div>
+                <div class="text-[10px] text-text-muted lowercase leading-relaxed">
+                  databases, auth systems, structured logging architecture (zario)
+                </div>
+              </div>
+            </div>
+
+            <!-- 2022 / Age 14 -->
+            <div class="relative group">
+              <div class="absolute -left-[21px] top-1 h-2 w-2 rounded-full border border-border bg-bg group-hover:bg-accent transition-colors duration-200"></div>
+              <div class="space-y-0.5">
+                <div class="flex items-center gap-2">
+                  <span class="text-white font-semibold">2022</span>
+                  <span class="text-[9px] text-text-muted lowercase">(age 14)</span>
+                </div>
+                <div class="text-[11px] text-white lowercase">python journey</div>
+                <div class="text-[10px] text-text-muted lowercase leading-relaxed">
+                  automation scripts, API integrations, backend-style experiments
+                </div>
+              </div>
+            </div>
+
+            <!-- 2021 / Age 13 -->
+            <div class="relative group">
+              <div class="absolute -left-[21px] top-1 h-2 w-2 rounded-full border border-border bg-bg group-hover:bg-accent transition-colors duration-200"></div>
+              <div class="space-y-0.5">
+                <div class="flex items-center gap-2">
+                  <span class="text-white font-semibold">2021</span>
+                  <span class="text-[9px] text-text-muted lowercase">(age 13)</span>
+                </div>
+                <div class="text-[11px] text-white lowercase">logic expansion</div>
+                <div class="text-[10px] text-text-muted lowercase leading-relaxed">
+                  scaling game mechanics, event-driven loops, scripting complexities
+                </div>
+              </div>
+            </div>
+
+            <!-- 2020 / Age 12 -->
+            <div class="relative group">
+              <div class="absolute -left-[21px] top-1 h-2 w-2 rounded-full border border-border bg-bg group-hover:bg-accent transition-colors duration-200"></div>
+              <div class="space-y-0.5">
+                <div class="flex items-center gap-2">
+                  <span class="text-white font-semibold">2020</span>
+                  <span class="text-[9px] text-text-muted lowercase">(age 12)</span>
+                </div>
+                <div class="text-[11px] text-white lowercase">first experiments</div>
+                <div class="text-[10px] text-text-muted lowercase leading-relaxed">
+                  roblox game development, lua scripting, learning conditional logic
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="flex items-center gap-3">
-            <span class="text-white min-w-[90px]">runtimes:</span>
-            <span>node.js, bun</span>
-          </div>
-          <div class="flex items-center gap-3">
-            <span class="text-white min-w-[90px]">databases:</span>
-            <span>postgresql, mongodb, redis</span>
-          </div>
-          <div class="flex items-center gap-3">
-            <span class="text-white min-w-[90px]">infra:</span>
-            <span>linux, git, docker, kubernetes</span>
-          </div>
-        </div>
-      </section>
+        </section>
+      </aside>
     </div>
   </div>
 </Layout>
