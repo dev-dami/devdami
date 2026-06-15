@@ -123,6 +123,17 @@ export const projects: Project[] = [
     language: "TypeScript",
     license: "MIT",
   },
+  {
+    slug: "brpc",
+    name: "brpc",
+    number: "11",
+    description:
+      "Small, fast JSON-RPC framework over multiplexed TCP streams. Binary framing, ring buffer flow control, TLS, compression. No Protobuf, no codegen, no dependencies.",
+    tags: ["C", "RPC", "Networking", "Systems"],
+    githubUrl: "https://github.com/dev-dami/brpc",
+    language: "C",
+    license: "MIT",
+  },
 ];
 
 export function getProject(slug: string): Project | undefined {

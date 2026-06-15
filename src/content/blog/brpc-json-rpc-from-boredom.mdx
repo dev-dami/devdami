@@ -1,0 +1,500 @@
+---
+title: "I Was Bored, So I Built a Faster RPC Framework in C"
+description: "JSON-RPC 2.0 over multiplexed TCP streams. No Protobuf. No codegen. No dependencies. Just C, OpenSSL, and a dumb amount of free time on a Sunday."
+date: 2026-06-15
+tags: ["c", "rpc", "systems", "networking", "json"]
+series:
+  name: "Systems Programming Journey"
+  order: 7
+repo: "brpc"
+
+takeaways: |
+  gRPC is heavy — Protobuf codegen, HTTP/2 complexity, tens of microseconds RTT. brpc strips it down to JSON-RPC 2.0 over custom binary framing with multiplexed streams
+  The wire protocol is 10 bytes: stream ID, frame type, flags, payload length. Binary framing over TCP gives you multiplexing without HTTP/2 baggage
+  Custom arena-based JSON parser (json_hotpath) hits 6.75M msg/s parse and 7.79M msg/s serialize — fast enough that JSON overhead is negligible
+  Zero dependencies beyond optional OpenSSL and zlib. No build-time code generation. Human-readable payloads that show up clean in packet captures
+  The uncomfortable truth: the best way to learn networking is to build a protocol from scratch and watch it fall apart under load
+---
+
+I was bored.
+
+Not the kind of boredom where you scroll through your phone. The kind where you stare at your terminal and think "I wonder how fast I could make JSON-RPC go."
+
+gRPC is great. Protobuf is fast. HTTP/2 multiplexing is elegant. But every time I set up a new microservice project, I spend 20 minutes wrestling with `.proto` files, codegen, and build scripts before I write a single line of business logic.
+
+I wanted something lighter. Something I could drop into a project and have working in five minutes. Something that runs at C speed without the C++ ecosystem.
+
+So I built brpc.
+
+## What It Is
+
+brpc is a JSON-RPC 2.0 framework over multiplexed TCP streams. Custom binary framing. Ring buffer flow control. TLS. Compression. Python bindings. 157 tests.
+
+All in ~200KB of C.
+
+import FlowDiagram from "../../components/FlowDiagram.astro";
+
+<FlowDiagram
+  title="brpc Architecture — Layer Stack"
+  steps={[
+    {
+      label: "Application",
+      sublabel: "your code",
+    },
+    {
+      label: "brpc_rpc",
+      sublabel: "JSON-RPC 2.0",
+    },
+    {
+      label: "json_hotpath",
+      sublabel: "arena parser",
+    },
+    {
+      label: "brpc_channel",
+      sublabel: "multiplexed TCP",
+      children: [
+        { label: "brpc_frame", sublabel: "10-byte header" },
+        { label: "brpc_stream", sublabel: "ring buffers" },
+        { label: "brpc_compress", sublabel: "zlib" },
+      ],
+    },
+    {
+      label: "brpc_tls",
+      sublabel: "OpenSSL",
+    },
+    {
+      label: "TCP / Event Loop",
+      sublabel: "fd, wants_read, wants_write",
+    },
+  ]}
+/>
+
+The layering is clean. Each component does one thing. The application talks to `brpc_rpc`, which serializes JSON, which hands bytes to `brpc_channel`, which frames them, which writes them to TCP.
+
+## The Wire Protocol
+
+Every frame on the wire is exactly 10 bytes of header plus payload:
+
+```
+Offset  Size  Field
+0       4     Stream ID (LE uint32)
+4       1     Frame Type (DATA=0, HEADERS=1, SETTINGS=2, RST_STREAM=3, PING=4)
+5       1     Flags (END_STREAM=0x01, COMPRESSED=0x02, PRIORITY=0x04)
+6       4     Payload Length (LE uint32)
+10      N     Payload
+```
+
+That's it. No magic bytes. No length-prefixed variable headers. No HPACK. Just a clean 10-byte header that maps directly to a struct:
+
+```c
+typedef struct {
+    uint32_t stream_id;
+    uint8_t  frame_type;
+    uint8_t  flags;
+    uint32_t payload_len;
+} brpc_frame_header;
+```
+
+Encoding a frame is a struct copy:
+
+```c
+int brpc_frame_encode(const brpc_frame_header *hdr, const uint8_t *payload,
+                      uint8_t *out, size_t out_len) {
+    if (out_len < BRPC_FRAME_HEADER_SIZE + hdr->payload_len) return -1;
+
+    memcpy(out, &hdr->stream_id, 4);
+    out[4] = hdr->frame_type;
+    out[5] = hdr->flags;
+    memcpy(out + 6, &hdr->payload_len, 4);
+    if (hdr->payload_len > 0 && payload)
+        memcpy(out + BRPC_FRAME_HEADER_SIZE, payload, hdr->payload_len);
+
+    return BRPC_FRAME_HEADER_SIZE + (int)hdr->payload_len;
+}
+```
+
+Decoding is the reverse — read 10 bytes, cast to struct, advance pointer by payload_len:
+
+```c
+int brpc_frame_decode(const uint8_t *data, size_t len, brpc_frame_header *out) {
+    if (len < BRPC_FRAME_HEADER_SIZE) return -1;
+
+    memcpy(&out->stream_id, data, 4);
+    out->frame_type = data[4];
+    out->flags = data[5];
+    memcpy(&out->payload_len, data + 6, 4);
+
+    if (len < BRPC_FRAME_HEADER_SIZE + out->payload_len) return -1;
+    return BRPC_FRAME_HEADER_SIZE + (int)out->payload_len;
+}
+```
+
+The frame type field covers everything: data frames, headers, settings negotiation, stream reset, and pings. The flags field is a bitfield. Payload length is always present, even for empty frames.
+
+Compare this to HTTP/2's frame header, which also uses 9 bytes but requires HPACK table management, priority trees, and stream dependency tracking. brpc doesn't have any of that. Streams are independent. No dependency trees. No priority scheduling. Just round-robin or whatever your event loop decides.
+
+## The Channel and Stream Lifecycle
+
+A channel is a single TCP connection with multiplexed bidirectional streams. Streams are created lazily, used for one RPC call, and destroyed when done:
+
+<FlowDiagram
+  title="Stream Lifecycle — One RPC Call"
+  steps={[
+    {
+      label: "TCP Connect",
+      sublabel: "socket()",
+    },
+    {
+      label: "SETTINGS",
+      sublabel: "exchange limits",
+    },
+    {
+      label: "Create Stream",
+      sublabel: "alloc ring buffers",
+    },
+    {
+      label: "Send Request",
+      sublabel: "DATA frame",
+    },
+    {
+      label: "Recv Response",
+      sublabel: "DATA frame",
+    },
+    {
+      label: "END_STREAM",
+      sublabel: "cleanup",
+    },
+  ]}
+  loopback="next call"
+/>
+
+Each stream has its own ring buffer for reading and writing:
+
+```c
+typedef struct {
+    uint8_t  data[BRPC_RING_SIZE];
+    size_t   head;
+    size_t   tail;
+    size_t   count;
+    uint32_t window_size;
+    uint32_t window_used;
+} brpc_ring;
+```
+
+Writing to the ring buffer is a single memcpy with wraparound:
+
+```c
+int brpc_ring_write(brpc_ring *ring, const uint8_t *data, size_t len) {
+    if (ring->count + len > BRPC_RING_SIZE) return -1;
+    if (ring->window_used + len > ring->window_size) return -1;
+
+    size_t first = BRPC_RING_SIZE - ring->head;
+    if (first >= len) {
+        memcpy(ring->data + ring->head, data, len);
+    } else {
+        memcpy(ring->data + ring->head, data, first);
+        memcpy(ring->data, data + first, len - first);
+    }
+    ring->head = (ring->head + len) % BRPC_RING_SIZE;
+    ring->count += len;
+    ring->window_used += len;
+    return (int)len;
+}
+```
+
+Reading is the mirror — copy out, advance tail, shrink count:
+
+```c
+int brpc_ring_read(brpc_ring *ring, uint8_t *out, size_t len) {
+    if (ring->count < len) return -1;
+
+    size_t first = BRPC_RING_SIZE - ring->tail;
+    if (first >= len) {
+        memcpy(out, ring->data + ring->tail, len);
+    } else {
+        memcpy(out, ring->data + ring->tail, first);
+        memcpy(out + first, ring->data, len - first);
+    }
+    ring->tail = (ring->tail + len) % BRPC_RING_SIZE;
+    ring->count -= len;
+    ring->window_used -= len;
+    return (int)len;
+}
+```
+
+When `window_used >= window_size`, the sender stops. When the receiver reads data and frees buffer space, it sends a WINDOW_UPDATE. Zero allocation during steady-state operation. The buffers are pre-allocated when the stream is created. No malloc in the hot path.
+
+The SETTINGS handshake happens immediately after TCP connect:
+
+```
+Client -> Server: SETTINGS frame (max_concurrent_streams, window_size, compress_algo)
+Server -> Client: SETTINGS frame (acknowledgment + server settings)
+```
+
+Both sides exchange their limits. If either side violates them, the other sends RST_STREAM. No ambiguity.
+
+## JSON-RPC 2.0
+
+The RPC layer sits on top of the channel. Server setup is three lines:
+
+```c
+brpc_server *server = brpc_server_new("0.0.0.0", 8080);
+brpc_rpc_register_method(server, "math.add", math_add_handler);
+brpc_rpc_register_method(server, "math.multiply", math_mul_handler);
+brpc_server_listen(server);
+```
+
+A handler is a plain function:
+
+```c
+void math_add_handler(brpc_rpc_request *req, brpc_rpc_response *res) {
+    int a = req->params[0].value.integer;
+    int b = req->params[1].value.integer;
+    brpc_rpc_response setResult(res, a + b);
+}
+```
+
+Client side is one call:
+
+```c
+brpc_channel *channel = brpc_channel_new("localhost", 8080);
+
+brpc_json params;
+brpc_json_array(&params);
+brpc_json_array_push_int(&params, 1);
+brpc_json_array_push_int(&params, 2);
+
+brpc_json result;
+int err = brpc_rpc_call_timeout(channel, "math.add", &params, &result, 1000);
+// result == {"jsonrpc":"2.0","result":3,"id":1}
+```
+
+Request:
+```json
+{"jsonrpc":"2.0","method":"math.add","params":[1,2],"id":1}
+```
+
+Response:
+```json
+{"jsonrpc":"2.0","result":3,"id":1}
+```
+
+Error:
+```json
+{"jsonrpc":"2.0","error":{"code":-32600,"message":"Invalid Request"},"id":1}
+```
+
+Timeouts are enforced per-call. If the call doesn't complete within 1000ms, it returns an error. The stream is cleaned up automatically.
+
+## The Full RPC Round-Trip
+
+Here's what happens when you call `brpc_rpc_call_timeout`:
+
+<FlowDiagram
+  title="RPC Round-Trip — What Happens in 2.4μs"
+  steps={[
+    {
+      label: "Serialize",
+      sublabel: "json_hotpath",
+    },
+    {
+      label: "Frame",
+      sublabel: "10-byte header",
+    },
+    {
+      label: "Write",
+      sublabel: "ring buffer → TCP",
+    },
+    {
+      label: "Network",
+      sublabel: "kernel send/recv",
+    },
+    {
+      label: "Read",
+      sublabel: "TCP → ring buffer",
+    },
+    {
+      label: "Unframe",
+      sublabel: "parse header",
+    },
+    {
+      label: "Parse",
+      sublabel: "json_hotpath",
+    },
+  ]}
+  annotations={[
+    { at: 0, text: "JSON serialize request object" },
+    { at: 3, text: "kernel handles可靠 delivery" },
+    { at: 6, text: "parse response JSON" },
+  ]}
+/>
+
+Each step is under 0.3 microseconds. The bottleneck is the network hop, not the framework.
+
+## The JSON Parser: json_hotpath
+
+I didn't want to use an external JSON library. I wanted something optimized for RPC parsing — small allocations, streaming writes, arena-based lifetime.
+
+json_hotpath is the result:
+
+- **Arena parser**: Parse a JSON string into a tree in a single allocation. Free everything at once with `arena_free()`.
+- **Streaming writer**: Write JSON incrementally. No intermediate buffer. Write directly to the output stream.
+- **Hot-path optimized**: The parser is designed for the common case — small objects with string keys and numeric values.
+
+The arena works like this:
+
+```c
+brpc_arena arena;
+brpc_arena_init(&arena, 4096); // 4KB initial block
+
+brpc_json *tree = brpc_json_parse(&arena, json_string, json_len);
+// tree is allocated from arena — no individual mallocs
+
+// ... use tree ...
+
+brpc_arena_free(&arena); // free everything at once
+```
+
+The streaming writer avoids buffering the entire response:
+
+```c
+brpc_json_writer writer;
+brpc_json_writer_init(&writer, fd); // write directly to socket fd
+
+brpc_json_writer_object_start(&writer);
+brpc_json_writer_key(&writer, "jsonrpc");
+brpc_json_writer_string(&writer, "2.0");
+brpc_json_writer_key(&writer, "result");
+brpc_json_writer_int(&writer, result_value);
+brpc_json_writer_key(&writer, "id");
+brpc_json_writer_int(&writer, request_id);
+brpc_json_writer_object_end(&writer);
+// bytes sent to fd as they're written — no intermediate buffer
+```
+
+Performance on an Intel i7-8xxx, `cc -O2`:
+
+| Operation | Latency | Throughput |
+|---|---|---|
+| JSON parse (28B) | 0.1 us | 6.75M msg/s |
+| JSON serialize (small) | 0.1 us | 7.79M msg/s |
+| Frame encode (128B) | 0.1 us | 12.5M/s |
+| Stream write (1KB) | <0.1 us | 24.1M/s |
+| **Channel round-trip** | **2.4 us** | **413K/s** |
+
+A full RPC round-trip — serialize request, frame it, send over TCP, receive, unframe, parse response — takes 2.4 microseconds. That's 413,000 requests per second on a single thread.
+
+For comparison, gRPC on the same hardware typically achieves 10-50 microseconds per round-trip. The overhead isn't in the wire protocol — it's in the HTTP/2 framing, HPACK compression, and Protobuf serialization layers.
+
+## TLS and Compression
+
+Both are optional. If you don't need TLS, don't compile it in. If you don't need compression, don't negotiate it.
+
+TLS uses OpenSSL:
+
+```c
+brpc_tls_config tls = {
+    .cert_file = "server.crt",
+    .key_file = "server.key",
+    .verify_mode = BRPC_TLS_VERIFY_PEER,
+};
+brpc_channel_enable_tls(channel, &tls);
+```
+
+Compression uses zlib:
+
+```c
+brpc_compress_config compress = {
+    .algo = BRPC_COMPRESS_ZLIB,
+    .level = 6,
+};
+brpc_channel_enable_compress(channel, &compress);
+```
+
+Both are negotiated during the SETTINGS handshake. If the client doesn't support compression, the server sends uncompressed frames. If the client doesn't support TLS, the connection stays plaintext.
+
+## Python Bindings
+
+The C library exposes a clean API that's easy to wrap. I built Python bindings using ctypes:
+
+```python
+from brpc import Channel
+
+channel = Channel("localhost", 8080)
+result = channel.rpc("math.add", [1, 2])
+print(result)  # 3
+```
+
+There's also an asyncio wrapper for async applications:
+
+```python
+import asyncio
+from brpc import AsyncChannel
+
+async def main():
+    channel = AsyncChannel("localhost", 8080)
+    result = await channel.rpc("math.add", [1, 2])
+    print(result)
+
+asyncio.run(main())
+```
+
+And a full server in Python:
+
+```python
+from brpc import Server
+
+def add_handler(params):
+    return params[0] + params[1]
+
+def mul_handler(params):
+    return params[0] * params[1]
+
+server = Server("0.0.0.0", 8080)
+server.register("math.add", add_handler)
+server.register("math.multiply", mul_handler)
+server.listen()
+```
+
+The ctypes bindings mean zero compilation required on the Python side. Just `pip install brpc` and import.
+
+## The Uncomfortable Truth
+
+I built this in about 9 hours. From first commit to polished README. All 14 commits happened on a single Sunday.
+
+The funny thing about building a network protocol from scratch is how much of it is just plumbing. TCP handles reliable delivery. Your event loop handles concurrency. The framing layer is just a struct cast. The ring buffer is just an array with head and tail pointers.
+
+The actual hard parts — the parts where I spent real time — were:
+
+1. **Flow control edge cases.** What happens when the sender fills the window and the receiver hasn't read anything? What happens when RST_STREAM arrives while a write is in progress? What happens when the SETTINGS handshake fails?
+
+2. **Stream lifecycle management.** When is a stream dead? When both sides send END_STREAM? When either side sends RST_STREAM? What about half-closed streams? What about streams that are created but never used?
+
+3. **Timeout enforcement.** The timeout isn't just "did the call complete in N ms?" It's "did the TCP connect complete, the SETTINGS handshake finish, the request serialize, the frame send, the response receive, the frame parse, and the response deserialize — all within N ms?" Each of those steps can fail independently.
+
+4. **The Python bindings.** ctypes is great until you need to pass complex structures. The GIL means you can't truly parallelize RPC calls without threading. The asyncio wrapper needs careful thread management.
+
+## When NOT to Use brpc
+
+I'm going to be honest about this:
+
+- **Don't use it for internet-facing services.** There's no authentication, no authorization, no rate limiting. It's designed for trusted networks — internal microservices, edge devices, localhost IPC.
+- **Don't use it if you need cross-language interop.** Currently only C and Python. Go and Rust bindings are planned but not done.
+- **Don't use it if you need backward-compatible protocol versioning.** The wire format is marked experimental until v1.0.
+- **Don't use it if you need HTTP/2 compatibility.** This is a custom protocol, not HTTP/2. Load balancers won't know what to do with it.
+
+## What's Next
+
+The roadmap:
+
+- **v0.3** — Stable wire format with backward compatibility guarantees
+- **v1.0** — Production stable
+- **Post v1.0** — Rust bindings, Go bindings
+
+I'm not sure I'll finish it. I built it because I was bored, and boredom isn't a sustainable motivation engine. But the code is there, the tests pass, and the benchmarks are honest.
+
+If you want to see the full source, it's at [github.com/dev-dami/brpc](https://github.com/dev-dami/brpc).
+
+---
+
+*Current state: 114 C tests, 43 Python tests, MIT licensed, zero external dependencies beyond OpenSSL and zlib. Channel round-trip latency of 2.4 microseconds. Peak RSS of 2MB. All benchmarks on Intel i7-8xxx, Linux 7.x, single thread, cc -O2.*

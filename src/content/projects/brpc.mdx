@@ -1,0 +1,75 @@
+---
+title: "brpc"
+description: "Small, fast JSON-RPC over multiplexed streams for trusted networks"
+---
+
+## Architecture
+
+brpc is a lightweight RPC framework built on JSON-RPC 2.0 over multiplexed TCP streams. It targets trusted networks — internal microservices, edge devices, localhost IPC — where gRPC is overkill and raw TCP is too low-level.
+
+### Components
+
+- **Channel** — Single TCP connection with multiplexed bidirectional streams, TLS, and compression
+- **Frame** — 10-byte binary header (stream ID + type + flags + payload length) for zero-overhead framing
+- **Stream** — Bidirectional ring buffers with window-based flow control per stream
+- **RPC** — JSON-RPC 2.0 method dispatch, request/response serialization, per-call timeouts
+- **json_hotpath** — Arena-based JSON parser and streaming writer for hot-path performance
+- **TLS** — OpenSSL-based encryption (optional, compile-time selectable)
+- **Compression** — zlib with negotiated compression via SETTINGS handshake (optional)
+- **Profiling** — Microsecond-granularity timing for RPC calls
+- **Stats** — Byte, frame, and stream counters for observability
+
+### Performance
+
+Benchmarked on Intel i7-8xxx, Linux 7.x, `cc -O2`, single thread:
+
+| Operation | Latency | Throughput |
+|---|---|---|
+| JSON parse (28B) | 0.1 us | 6.75M msg/s |
+| JSON serialize (small) | 0.1 us | 7.79M msg/s |
+| Frame encode (128B) | 0.1 us | 12.5M/s |
+| Stream write (1KB) | <0.1 us | 24.1M/s |
+| Channel round-trip | 2.4 us | 413K/s |
+
+Peak RSS: 2MB for all components.
+
+### Wire Protocol
+
+Every frame is 10 bytes of header plus payload:
+
+```
+Offset  Size  Field
+0       4     Stream ID (LE uint32)
+4       1     Frame Type (DATA/HEADERS/SETTINGS/RST_STREAM/PING)
+5       1     Flags (END_STREAM/COMPRESSED/PRIORITY)
+6       4     Payload Length (LE uint32)
+```
+
+No magic bytes. No variable-length headers. No HPACK. Clean binary framing that maps directly to a C struct.
+
+### Python Bindings
+
+Sync (ctypes) and asyncio wrappers included. Zero compilation required on the Python side:
+
+```python
+from brpc import Channel
+
+channel = Channel("localhost", 8080)
+result = channel.rpc("math.add", [1, 2])
+```
+
+## Building
+
+```bash
+git clone https://github.com/dev-dami/brpc
+cd brpc
+make
+```
+
+Requires a C99 compiler. OpenSSL is optional (for TLS). zlib is optional (for compression). Python bindings require Python 3.8+.
+
+Tests: `make test` runs 114 C tests and 43 Python tests (157 total).
+
+## Blog
+
+Read about the motivation and architecture in [I Was Bored, So I Built a Faster RPC Framework in C](/blog/brpc-json-rpc-from-boredom).
