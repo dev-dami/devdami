@@ -379,7 +379,7 @@ Performance on an Intel i7-8xxx, `cc -O2`:
 | JSON parse (28B) | 0.1 us | 6.75M msg/s |
 | JSON serialize (small) | 0.1 us | 7.79M msg/s |
 | Frame encode (128B) | 0.1 us | 12.5M/s |
-| Stream write (1KB) | <0.1 us | 24.1M/s |
+| Stream write (1KB) | &lt;0.1 us | 24.1M/s |
 | **Channel round-trip** | **2.4 us** | **413K/s** |
 
 A full RPC round-trip — serialize request, frame it, send over TCP, receive, unframe, parse response — takes 2.4 microseconds. That's 413,000 requests per second on a single thread.
