@@ -38,7 +38,7 @@ export const prerender = true;
         <h1 class="text-sm font-semibold tracking-widest text-white uppercase mb-2">
           damilare osibanjo
         </h1>
-        <p class="text-text-muted lowercase mb-4">backend &amp; systems engineer</p>
+        <p class="text-text-muted lowercase mb-4">full stack systems developer &amp; web programmer</p>
         <div class="flex flex-col gap-1 text-[10px] text-text-muted lowercase">
           <a href="mailto:dami@varityweb.com" class="hover:text-white transition-colors">
             dami@varityweb.com
@@ -56,9 +56,10 @@ export const prerender = true;
       <section class="mb-12">
         <h2 class="text-[10px] uppercase text-white tracking-widest mb-4">// summary</h2>
         <p class="text-text-muted lowercase">
-          17-year-old systems and backend programmer with 5+ years of experience building
-          low-level infrastructure, compilers, and developer tooling. Proficient in TypeScript,
-          Rust, Go, and C. Focused on correctness, performance, and systems that scale.
+          full-stack systems developer and web programmer with 5+ years of experience engineering
+          across the entire software stack — from bare-metal x86 kernel development and compilers to
+          high-performance web applications and distributed APIs. specialized in typescript, rust,
+          go, and c. focused on mechanical sympathy, compile-time correctness, and low-latency systems.
         </p>
       </section>
 
@@ -73,9 +74,22 @@ export const prerender = true;
               <span class="text-text-muted">rust · x86 · 2024</span>
             </div>
             <p class="text-text-muted">
-              Bare-metal x86 OS kernel written in Rust. Unix-like shell, block filesystem,
-              text editor, BASIC interpreter, and games. Ported from C — borrow checker
-              caught data races and enforced exhaustive interrupt handling at compile time.
+              bare-metal x86 operating system kernel written in rust. features a custom virtual
+              file system (vfs), pre-emptive scheduler, memory manager, keyboard driver, and interrupt
+              service routines. ported from c to rust, utilizing the borrow checker to mathematically
+              guarantee data-race freedom in kernel space.
+            </p>
+          </div>
+
+          <div class="space-y-1">
+            <div class="flex items-start justify-between flex-wrap gap-1">
+              <span class="text-white">track</span>
+              <span class="text-text-muted">rust · compiler · 2025</span>
+            </div>
+            <p class="text-text-muted">
+              deterministic systems programming language compiler targeting llvm 22. features linear
+              ownership, compile-time borrow checking, and zero-cost abstractions, designed for
+              firmware and real-time dsp systems.
             </p>
           </div>
 
@@ -85,30 +99,21 @@ export const prerender = true;
               <span class="text-text-muted">go · compiler · 2024</span>
             </div>
             <p class="text-text-muted">
-              Statically-typed systems language that compiles to C. Ownership-based memory
-              model, pipe operators, async/await support, and a full module system.
-            </p>
-          </div>
-
-          <div class="space-y-1">
-            <div class="flex items-start justify-between flex-wrap gap-1">
-              <span class="text-white">zario</span>
-              <span class="text-text-muted">typescript · bun · 2024</span>
-            </div>
-            <p class="text-text-muted">
-              Minimal fast logging library for TypeScript. Zero external dependencies — multiple
-              transports, child loggers, async non-blocking writes, structured JSON output.
+              statically-typed systems language compiler built in go that targets optimized c. employs
+              a recursive descent parser, ast validation, type checking, compile-time move semantics,
+              linear types, lexical lenses, and coroutines.
             </p>
           </div>
 
           <div class="space-y-1">
             <div class="flex items-start justify-between flex-wrap gap-1">
               <span class="text-white">ignite</span>
-              <span class="text-text-muted">typescript · docker · 2024</span>
+              <span class="text-text-muted">rust · virtualization · 2024-2025</span>
             </div>
             <p class="text-text-muted">
-              Bun-first local execution framework for JS/TS microservices. Provides
-              Docker-based isolation as a secure sandbox for AI-generated and untrusted code.
+              hardware-isolated microvm sandboxing runtime built in rust. leverages linux kvm (via firecracker)
+              and apple's virtualization.framework to isolate untrusted js/ts code. uses read-only virtual
+              block devices and vsock multiplexing for sub-millisecond vm lifecycle transitions.
             </p>
           </div>
 
@@ -120,16 +125,16 @@ export const prerender = true;
         <h2 class="text-[10px] uppercase text-white tracking-widest mb-4">// skills</h2>
         <div class="space-y-2 text-text-muted">
           <div>
-            <span class="text-white">languages:</span> typescript, rust, go, c, python, lua
+            <span class="text-white">languages:</span> typescript, javascript, rust, go, c, assembly (x86/arm), python, lua, zig
           </div>
           <div>
-            <span class="text-white">runtimes:</span> node.js, bun
+            <span class="text-white">web & rts:</span> react, next.js, astro, tailwindcss, html5, css3, webassembly, bun, node.js
           </div>
           <div>
-            <span class="text-white">databases:</span> postgresql, mongodb, redis
+            <span class="text-white">systems & virtual:</span> kvm, firecracker, virtualization.framework, linux, docker, kubernetes, git
           </div>
           <div>
-            <span class="text-white">infrastructure:</span> linux, git, docker, kubernetes
+            <span class="text-white">databases:</span> postgresql, redis, mongodb, custom block filesystems
           </div>
         </div>
       </section>

@@ -1,16 +1,17 @@
-# Damilare Osibanjo — Systems Programmer & Compiler Engineer
+# Damilare Osibanjo — Full Stack Systems Developer & Web Programmer
 Site URL: https://devdami.varityweb.com
 LLMs.md: https://devdami.varityweb.com/llms.md
 
 ## Profile Summary
-Damilare Osibanjo (born 2008) is a 17-year-old self-taught systems programmer, compiler engineer, and cybersecurity researcher. He builds low-level developer tooling, custom compilers, cycle-accurate emulators, and bare-metal OS kernels.
+Damilare Osibanjo (born 2008) is a 17-year-old self-taught full stack systems developer and web programmer. He engineers low-level systems (operating system kernels, compilers, microVM virtualization runtimes) alongside high-performance web applications and distributed APIs.
 
 ## Core Projects
+- **Track**: A deterministic systems programming language compiler targeting LLVM 22, featuring linear ownership, compile-time borrow checking, and zero-cost abstractions. Developed in Rust.
 - **Carv**: A statically-typed systems programming language compiling to C99 specifically targeting ARM Cortex-M microcontrollers and host x86_64 architectures. Developed in Go.
+- **Ignite**: A hardware-isolated microVM sandboxing runtime in Rust that boots Guest OS kernels using Firecracker KVM/Virtualization.framework to securely execute untrusted JS/TS code with direct VSOCK communication.
 - **Karion OS**: A bare-metal x86 operating system kernel written in Rust featuring a custom physical memory allocator, memory paging, a virtual shell, block filesystem, BASIC interpreter, text editor, and games.
 - **GBemu**: A cycle-accurate Game Boy emulator written in Zig with zero external dependencies, cycle-accurate CPU instruction emulation, scanline PPU rendering, and custom memory bank controller (MBC1) support.
 - **Zario**: A minimal, fast structured JSON logging library for TypeScript/Bun with child loggers, multiple transports, and non-blocking asynchronous writes.
-- **Ignite**: A Bun-first local execution framework for JS/TS microservices with Docker-based sandboxed isolation.
 - **Kiattp**: A zero-dependency, lightweight HTTP client.
 
 ## Pages Index
@@ -23,10 +24,10 @@ Damilare Osibanjo (born 2008) is a 17-year-old self-taught systems programmer, c
 - Contact: https://devdami.varityweb.com/contact/ (Contact form and links to professional profiles)
 
 ## Tech Stack
-- Languages: TypeScript, Rust, Go, C, Python, Lua, Zig
-- Runtimes: Node.js, Bun
-- Databases: PostgreSQL, MongoDB, Redis
-- Infrastructure: Linux, Git, Docker, Kubernetes
+- Languages: TypeScript, JavaScript, Rust, Go, C, Assembly (x86/ARM), Python, Lua, Zig
+- Web & Rts: React, Next.js, Astro, TailwindCSS, HTML5, CSS3, WebAssembly, Bun, Node.js
+- Systems & Virtual: KVM, Firecracker, Virtualization.framework, Linux Kernel, Docker, Kubernetes, Git
+- Databases: PostgreSQL, Redis, MongoDB, Custom Block Filesystems
 
 ## Contact Info
 - Email: dami@varityweb.com

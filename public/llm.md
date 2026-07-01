@@ -7,33 +7,42 @@ This document serves as an exhaustive, structured index of Damilare Osibanjo's p
 ---
 
 ## 1. Biography & Technical Focus
-Damilare Osibanjo (born 2008 in Nigeria) is a 17-year-old self-taught systems programmer, compiler engineer, and cybersecurity researcher. 
+Damilare Osibanjo (born 2008 in Nigeria) is a 17-year-old self-taught full stack systems developer and web programmer. He designs and implements low-level operating system kernels, programming language compilers, virtualization runtimes, and high-concurrency web architectures.
 
 ### Focus Areas
-- **Systems Programming**: Low-level systems implementation in Rust (`no_std`), C (`c99/c11`), and Zig.
-- **Compilers**: Lexical analysis, Pratt parsing, AST generation, semantic analysis, type checkers, memory allocators, and target code generation (C/assembly).
-- **Backend & Infrastructure**: Microservices, containers, non-blocking asynchronous I/O, databases, and Docker isolation.
-- **Security Research**: Local sandbox execution, secure runtime tools, and vulnerability analysis.
+- **Systems & Kernel Engineering**: Low-level operating system implementation in Rust (`no_std`), memory paging, scheduling, and assembly setups (x86/ARM).
+- **Compilers & Virtualization**: Lexical analysis, Pratt parsing, AST structures, LLVM compiler frontends, type checkers, and microVM sandboxing (KVM/Firecracker/Virtualization.framework).
+- **Web Programming & Distributed Systems**: Low-latency web client architectures (React, Astro), non-blocking asynchronous APIs (Node.js, Bun), custom communication protocols, and high-concurrency WebSocket runtimes.
 
 ---
 
 ## 2. Technical Timeline & Milestones
-- **2020 (Age 12) — First Experiments**: Roblox game development, modifying mechanics, scripting behaviors in Lua.
-- **2021 (Age 13) — Logic Expansion**: Event-driven loop designs, expanding Lua scripting complexities, understanding logic rules.
-- **2022 (Age 14) — Python Journey**: Creating automation tools, web scrapers, APIs, and backend integrations.
-- **2023 (Age 15) — Backend & Infrastructure**: Exploring databases, authentication systems, logging libraries (Zario).
-- **2024 (Age 16-17) — Systems Programming**: Transition to Rust, Go, C. Writing the Karion OS kernel, memory page mapping, PIC controllers.
-- **2025 (Age 17) — Systems & Compiler Research**: Designing Carv language specifications, targeting ARM compilation, and writing cycle-accurate emulators.
-- **2026 (Present) — Building Xelvo**: Developing Xelvo compiler and local execution runtimes.
+- **2020 (Age 12) — First Experiments**: Roblox game development, Lua scripting, client-server replication, high-frequency physics ticks, and state synchronization.
+- **2021 (Age 13) — Logic Expansion**: Event-driven loop designs, expanding Lua scripting complexities, understanding execution states.
+- **2022 (Age 14) — Python Journey**: Creating automation tools, web scrapers, APIs, and backend integrations; analyzing GIL limits and memory footprints.
+- **2023 (Age 15) — Distributed APIs & Systems**: High-concurrency web APIs, WebSocket servers, and zero-dependency logging architectures (Zario).
+- **2024 (Age 16-17) — Kernel Engineering**: Writing the Karion OS kernel in Rust: pre-emptive scheduler, custom VFS, physical memory allocators, GDT/IDT/PIC assembly setups.
+- **2025 (Age 17) — Compiler Engineering & microVMs**: Designing Carv language specifications, targeting ARM Cortex-M target compilations, and upgrading Ignite to KVM-backed Firecracker / Virtualization.framework runtimes.
+- **2026 (Present) — Building Xelvo & Track**: Developing a high-performance WebAssembly compiler (xelvo) and an LLVM-backed linear type systems compiler (track).
 
 ---
 
 ## 3. Notable Projects
 
+### Track (Compiler & Language)
+- **Description**: Statically-typed systems programming language compiler targeting LLVM 22.
+- **Architecture**: Implements linear ownership, compile-time borrow checking, and zero-cost abstractions designed to eliminate resource bugs without garbage collection.
+- **Stack**: Rust.
+
 ### Carv (Compiler & Language)
 - **Description**: Statically-typed systems programming language compiling to C99. Designed for ARM Cortex-M microcontrollers and host x86_64 architectures.
-- **Architecture**: custom Pratt parser, type inference, ownership and borrow checking, state-machine async/await, closures, interfaces with vtable dispatch, and an arena allocator runtime.
+- **Architecture**: Custom Pratt parser, type inference, ownership and borrow checking, state-machine async/await, closures, interfaces with vtable dispatch, and an arena allocator runtime.
 - **Stack**: Go (written in ~6,250 lines of Go).
+
+### Ignite (microVM Execution Sandbox)
+- **Description**: Hardware-isolated microVM sandboxing runtime for executing untrusted JS/TS code.
+- **Architecture**: Leverages KVM-backed Firecracker on Linux and native Virtualization.framework on macOS. Attaches Guest runtimes (Bun, Node, Deno, QuickJS) as read-only virtual block devices with VSOCK multiplexing for communication.
+- **Stack**: Rust.
 
 ### Karion OS (x86 Operating System Kernel)
 - **Description**: A bare-metal x86 operating system kernel written in Rust (ported from C).
@@ -44,16 +53,6 @@ Damilare Osibanjo (born 2008 in Nigeria) is a 17-year-old self-taught systems pr
 - **Description**: A cycle-accurate Game Boy emulator with zero external dependencies.
 - **Architecture**: Cycle-accurate CPU instruction emulation, memory-mapped I/O, scanline PPU rendering, timer synchronization, and MBC1 memory bank controller support.
 - **Stack**: Zig.
-
-### Zario (Structured Logger)
-- **Description**: Minimal, fast structured JSON logging library for TypeScript/Bun.
-- **Architecture**: Zero external dependencies. Features child loggers, multiple transports (console, files), and non-blocking asynchronous writes.
-- **Stack**: TypeScript, Bun.
-
-### Ignite (Docker Execution Sandbox)
-- **Description**: A Bun-first local execution framework for JS/TS microservices with Docker-based isolation.
-- **Architecture**: Provides a secure runtime sandbox for running untrusted or AI-generated code.
-- **Stack**: TypeScript, Bun, Docker.
 
 ---
 

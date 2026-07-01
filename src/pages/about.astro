@@ -3,13 +3,13 @@ import Layout from "../layouts/Layout.astro";
 export const prerender = true;
 ---
 
-<Layout title="About — Damilare Osibanjo" description="About Damilare Osibanjo — a 17-year-old systems and backend programmer focused on cybersecurity, low-level engineering, and high-performance infrastructure." canonical="https://devdami.varityweb.com/about/">
+<Layout title="About — Damilare Osibanjo" description="About Damilare Osibanjo — full stack systems developer and web programmer focused on compilers, virtualization runtime security, and low-latency web architectures." canonical="https://devdami.varityweb.com/about/">
   <div class="max-w-5xl mx-auto py-16 font-mono text-xs text-text leading-relaxed px-4">
     <!-- Header -->
     <header class="mb-12 text-center">
       <a href="/" class="text-text-muted hover:text-white transition-all duration-150 block mb-4">&lt;- home</a>
       <h1 class="text-sm font-semibold tracking-widest text-white uppercase mb-2">// about.me</h1>
-      <p class="text-text-muted lowercase">Damilare Osibanjo — systems & backend programmer</p>
+      <p class="text-text-muted lowercase">Damilare Osibanjo — full stack systems developer & web programmer</p>
     </header>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
@@ -20,34 +20,25 @@ export const prerender = true;
           <h2 class="text-[10px] uppercase text-white tracking-widest">// bio</h2>
           <div class="space-y-4 lowercase text-text-muted">
             <p class="transition-colors duration-300">
-              I started building before I understood what "software engineering" meant. Around age 12, I was creating Roblox games. At the time, it was just experimentation — modifying mechanics, scripting behaviors in Lua, trying to understand how virtual systems responded to logic.
+              I started programming by exploring mechanical limits and systems boundaries rather than just writing application code. At age 12, I was building environments in Roblox, writing Lua scripts that handled client-server replication, high-frequency physics ticks, event loop orchestration, and state synchronization. It taught me that all computing behaves according to precise rules.
             </p>
             <p class="transition-colors duration-300">
-              That phase lasted roughly a year or two. What it really gave me was exposure to structured logic and the idea that systems operate on rules. If you understand those rules, you can shape outcomes.
+              By age 14, I moved to Python to build automation systems, non-blocking network scrapers, and data pipelines. Exploring concurrency led me to study the mechanics of OS threads, physical memory footprints, and the bottlenecks of the Python Global Interpreter Lock (GIL). I realized that high-level abstractions often hide the actual cost of execution.
             </p>
             <p class="transition-colors duration-300">
-              Around 14, I transitioned into Python scripting, which I worked with for approximately three years. That's when programming became serious. I started building tools, automation scripts, and backend-style experiments. I learned about APIs, data handling, scripting workflows, and basic infrastructure patterns.
+              To gain fine-grained control over execution, memory, and performance, I moved down the stack to Rust, Go, C, and Zig, while simultaneously building high-performance web applications using TypeScript and modern web architectures. Systems programming and web programming are not separate worlds to me; they require the same attention to mechanical sympathy, latency, and correctness.
             </p>
             <p class="transition-colors duration-300">
-              But more importantly, I started asking different questions:
+              Over the last few years, my work has focused on building foundational software:
             </p>
             <ul class="space-y-1.5 pl-4 text-text-muted list-disc list-inside">
-              <li>Why does this consume so much memory?</li>
-              <li>What actually happens when multiple processes run?</li>
-              <li>Why does concurrency fail in subtle ways?</li>
-              <li>How does the operating system coordinate everything underneath?</li>
+              <li><strong>operating system kernels:</strong> wrote Karion OS, an x86 kernel in Rust, implementing physical memory management, virtual paging, pre-emptive scheduling, and a custom virtual filesystem (VFS).</li>
+              <li><strong>compilers & runtimes:</strong> built Carv (a systems language targeting ARM and x86 architectures compiling to C) and Track (a systems language compiler targeting LLVM 22 using linear types and compile-time borrow checking).</li>
+              <li><strong>low-latency virtualization:</strong> upgraded Ignite into a hardware-isolated microVM sandboxing runtime in Rust utilizing KVM (Firecracker) and Virtualization.framework for secure execution of untrusted scripts.</li>
+              <li><strong>distributed web backends:</strong> built brpc (a zero-dependency multiplexed TCP JSON-RPC library in C) and custom web tooling leveraging Bun, Node.js, and TypeScript.</li>
             </ul>
             <p class="transition-colors duration-300">
-              The curiosity shifted from "how do I build this?" to "how does this work internally?"
-            </p>
-            <p class="transition-colors duration-300">
-              By 15–16, I was moving deeper into backend systems and infrastructure thinking. I explored databases, authentication systems, logging architecture, and performance trade-offs. Clean design, maintainability, and security started to matter.
-            </p>
-            <p class="transition-colors duration-300">
-              Eventually, abstraction wasn't enough. I wanted more control. That's when I began working with Rust, Go, C, and TypeScript — focusing on backend services, systems-level thinking, and secure software design. Systems programming forced discipline. You cannot ignore performance costs, ownership, or undefined behavior.
-            </p>
-            <p class="transition-colors duration-300">
-              Now at 17, my focus sits at the intersection of cybersecurity, systems programming, backend infrastructure, and performance-aware architecture.
+              I operate across the full stack. Whether I am writing kernel interrupt routines, optimizing LLVM intermediate representation (IR), configuring virtual block devices, or building responsive, animation-rich web UIs with React and Astro, my goal is to design software that is secure, correct, and performant by default.
             </p>
           </div>
         </section>
@@ -58,19 +49,19 @@ export const prerender = true;
           <div class="space-y-3 lowercase text-text-muted">
             <div class="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
               <span class="text-white min-w-[90px] font-semibold">languages:</span>
-              <span>typescript, rust, go, c, python, lua</span>
+              <span>typescript, javascript, rust, go, c, assembly (x86/arm), python, lua, zig</span>
             </div>
             <div class="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
-              <span class="text-white min-w-[90px] font-semibold">runtimes:</span>
-              <span>node.js, bun</span>
+              <span class="text-white min-w-[90px] font-semibold">web & rts:</span>
+              <span>react, next.js, astro, tailwindcss, bun, node.js, webassembly</span>
+            </div>
+            <div class="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
+              <span class="text-white min-w-[90px] font-semibold">systems/infra:</span>
+              <span>kvm, firecracker, virtualization.framework, linux kernel, docker, kubernetes, git</span>
             </div>
             <div class="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
               <span class="text-white min-w-[90px] font-semibold">databases:</span>
-              <span>postgresql, mongodb, redis</span>
-            </div>
-            <div class="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
-              <span class="text-white min-w-[90px] font-semibold">infra:</span>
-              <span>linux, git, docker, kubernetes</span>
+              <span>postgresql, redis, mongodb, custom block filesystems</span>
             </div>
           </div>
         </section>
@@ -90,9 +81,9 @@ export const prerender = true;
                   <span class="text-white font-semibold">2026</span>
                   <span class="text-[9px] text-accent lowercase">(present)</span>
                 </div>
-                <div class="text-[11px] text-white lowercase">building xelvo</div>
+                <div class="text-[11px] text-white lowercase">building xelvo & track</div>
                 <div class="text-[10px] text-text-muted lowercase leading-relaxed">
-                  compiler development, runtime tools
+                  developing high-performance WebAssembly compiler (xelvo) and LLVM-backed linear type compiler (track)
                 </div>
               </div>
             </div>
@@ -105,9 +96,9 @@ export const prerender = true;
                   <span class="text-white font-semibold">2025</span>
                   <span class="text-[9px] text-text-muted lowercase">(age 17)</span>
                 </div>
-                <div class="text-[11px] text-white lowercase">systems & compiler research</div>
+                <div class="text-[11px] text-white lowercase">compiler engineering & microVMs</div>
                 <div class="text-[10px] text-text-muted lowercase leading-relaxed">
-                  designing carv language specifications and ARM target compilations
+                  designing carv compiler spec, and upgrading Ignite to KVM-backed Firecracker / Virtualization.framework runtimes
                 </div>
               </div>
             </div>
@@ -120,9 +111,9 @@ export const prerender = true;
                   <span class="text-white font-semibold">2024</span>
                   <span class="text-[9px] text-text-muted lowercase">(age 16-17)</span>
                 </div>
-                <div class="text-[11px] text-white lowercase">systems programming</div>
+                <div class="text-[11px] text-white lowercase">kernel engineering</div>
                 <div class="text-[10px] text-text-muted lowercase leading-relaxed">
-                  rust, go, c — memory safety, concurrency, writing karion os kernel
+                  writing Karion OS kernel in Rust: pre-emptive scheduler, custom VFS, GDT/IDT/PIC assembly setups
                 </div>
               </div>
             </div>
@@ -135,9 +126,9 @@ export const prerender = true;
                   <span class="text-white font-semibold">2023</span>
                   <span class="text-[9px] text-text-muted lowercase">(age 15-16)</span>
                 </div>
-                <div class="text-[11px] text-white lowercase">backend & infrastructure</div>
+                <div class="text-[11px] text-white lowercase">distributed APIs & systems</div>
                 <div class="text-[10px] text-text-muted lowercase leading-relaxed">
-                  databases, auth systems, structured logging architecture (zario)
+                  high-concurrency web APIs, WebSocket servers, and zero-dependency logging architectures (zario)
                 </div>
               </div>
             </div>

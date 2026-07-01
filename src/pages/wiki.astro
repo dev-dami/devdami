@@ -3,7 +3,7 @@ import Layout from "../layouts/Layout.astro";
 export const prerender = true;
 
 const pageTitle = "Damilare Osibanjo — Personal Wiki";
-const pageDescription = "Personal wiki for Damilare Osibanjo — systems programmer, and compiler engineer.";
+const pageDescription = "Personal wiki for Damilare Osibanjo — full stack systems developer and web programmer.";
 const pageUrl = "https://devdami.varityweb.com/wiki";
 ---
 
@@ -23,13 +23,13 @@ const pageUrl = "https://devdami.varityweb.com/wiki";
         <section id="biography" class="bg-surface/30 border border-border/40 hover:border-accent/40 rounded-lg p-5 transition-all duration-500 ease-out space-y-4">
           <h2 class="text-[10px] uppercase text-white tracking-widest">// 1. biography & early life</h2>
           <p class="text-text-muted lowercase">
-            Damilare Osibanjo (born 2008 in Nigeria) is a self-taught systems programmer and compiler engineer. He is known for building systems tools, custom programming language compilers, cycle-accurate emulators, and bare-metal operating system kernels.
+            Damilare Osibanjo (born 2008 in Nigeria) is a self-taught full stack systems developer and web programmer. He specializes in low-level operating system kernels, custom compilers, microVM virtualization runtimes, and high-concurrency web architectures.
           </p>
           <p class="text-text-muted lowercase">
-            Osibanjo began programming at age 12, initially developing online environments and custom scripting behaviors in Lua on the Roblox platform. This early phase provided him with exposure to event loops, shared state synchronization, and script execution mechanics. At age 14, he transitioned to Python scripting, where he spent roughly two years building automation tools, web scrapers, and backend APIs.
+            Osibanjo began programming at age 12, initially developing online environments and custom scripting behaviors in Lua on the Roblox platform. This early phase provided him with exposure to client-server network replication, high-frequency physics ticks, event loops, and state synchronization. At age 14, he transitioned to Python, building automation tools, non-blocking network scrapers, and concurrency-focused APIs while analyzing GIL limits and memory footprints.
           </p>
           <p class="text-text-muted lowercase">
-            By age 15, Osibanjo grew dissatisfied with high-level runtime abstractions, garbage collectors, and unexplained memory overhead. He shifted his focus to low-level systems programming, teaching himself the fundamentals of operating systems, assembly language, memory management, and compilers. He subsequently transitioned to systems languages including Rust, Go, C, and Zig.
+            By age 15, Osibanjo grew dissatisfied with high-level runtime abstractions, garbage collectors, and unexplained memory overhead. He shifted his focus to systems programming, teaching himself the fundamentals of operating systems, assembly language, memory management, and compilers. He subsequently transitioned to systems languages including Rust, Go, C, and Zig, while developing high-performance web frontends and microservices in TypeScript.
           </p>
         </section>
 
@@ -39,9 +39,23 @@ const pageUrl = "https://devdami.varityweb.com/wiki";
           
           <div class="space-y-4">
             <div>
+              <h3 class="text-white font-semibold lowercase">// track language</h3>
+              <p class="text-text-muted mt-1 leading-relaxed lowercase">
+                Track is a deterministic systems programming language compiler targeting LLVM 22. It features linear ownership, compile-time borrow checking, and zero-cost abstractions designed to eliminate resource management bugs without a garbage collector or runtime.
+              </p>
+            </div>
+
+            <div class="border-t border-border/20 pt-4">
               <h3 class="text-white font-semibold lowercase">// carv language</h3>
               <p class="text-text-muted mt-1 leading-relaxed lowercase">
-                Carv is an opinionated, statically-typed systems programming language designed to compile down to C99 specifically targeting ARM Cortex-M0–M7 microcontrollers as well as native host targets (x86_64). The compiler is written in ~6,250 lines of Go and features a custom Pratt parser, type inference, ownership tracking, borrow checking, state-machine based async/await, closures with environment capture, interfaces with vtable dispatch, and an arena allocator runtime.
+                Carv is an opinionated, statically-typed systems programming language designed to compile down to C99 specifically targeting ARM Cortex-M microcontrollers as well as native host targets (x86_64). The compiler is written in ~6,250 lines of Go and features a custom Pratt parser, type inference, ownership tracking, borrow checking, state-machine based async/await, closures with environment capture, interfaces with vtable dispatch, and an arena allocator runtime.
+              </p>
+            </div>
+
+            <div class="border-t border-border/20 pt-4">
+              <h3 class="text-white font-semibold lowercase">// ignite sandbox</h3>
+              <p class="text-text-muted mt-1 leading-relaxed lowercase">
+                Ignite is a hardware-isolated microVM sandboxing runtime written in Rust. It utilizes KVM-backed Firecracker on Linux and Apple's Virtualization.framework on macOS to isolate untrusted code. Runtimes (Bun, Node.js, Deno, QuickJS) and user code are attached as read-only virtual block devices with VSOCK multiplexing for communication.
               </p>
             </div>
 
@@ -66,20 +80,24 @@ const pageUrl = "https://devdami.varityweb.com/wiki";
           <h2 class="text-[10px] uppercase text-white tracking-widest">// 3. technical skills</h2>
           <ul class="space-y-3 text-text-muted">
             <li class="flex items-start gap-2">
-              <span class="text-white font-semibold min-w-[100px] lowercase block">systems:</span>
-              <span class="lowercase">rust (safe/unsafe, no_std), zig (allocators, comptime), c (c99/c11, pointers), go (concurrency, internals)</span>
+              <span class="text-white font-semibold min-w-[100px] lowercase block">languages:</span>
+              <span class="lowercase">typescript, javascript, rust, go, c, assembly (x86/arm), python, lua, zig</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-white font-semibold min-w-[100px] lowercase block">web & rts:</span>
+              <span class="lowercase">react, next.js, astro, tailwindcss, html5, css3, webassembly, bun, node.js</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-white font-semibold min-w-[100px] lowercase block">systems & VM:</span>
+              <span class="lowercase">kvm, firecracker, virtualization.framework, linux kernel, docker, kubernetes, git</span>
             </li>
             <li class="flex items-start gap-2">
               <span class="text-white font-semibold min-w-[100px] lowercase block">compilers:</span>
-              <span class="lowercase">lexical analysis, pratt parsing, abstract syntax trees (ast), type checking, borrow checkers, arena allocation runtimes, c codegen</span>
+              <span class="lowercase">lexical analysis, pratt parsing, abstract syntax trees (ast), type checking, borrow checkers, arena allocators, llvm intermediate representation (ir)</span>
             </li>
             <li class="flex items-start gap-2">
-              <span class="text-white font-semibold min-w-[100px] lowercase block">utilities:</span>
-              <span class="lowercase">zario (fast structured logging library), kiattp (zero-dependency http client), ignite (docker sandboxing local execution framework)</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-white font-semibold min-w-[100px] lowercase block">backend & dev:</span>
-              <span class="lowercase">typescript, node.js, bun, python, linux infrastructure, docker, git, postgresql</span>
+              <span class="text-white font-semibold min-w-[100px] lowercase block">databases:</span>
+              <span class="lowercase">postgresql, redis, mongodb, custom block filesystems</span>
             </li>
           </ul>
         </section>
@@ -104,7 +122,7 @@ const pageUrl = "https://devdami.varityweb.com/wiki";
               class="w-20 h-20 rounded-full object-cover border border-border/60 mb-3"
             />
             <span class="text-white font-semibold text-xs lowercase">damilare osibanjo</span>
-            <span class="text-[10px] text-text-muted mt-0.5 lowercase">systems developer</span>
+            <span class="text-[10px] text-text-muted mt-0.5 lowercase">full stack systems developer & web programmer</span>
           </div>
           
           <div class="space-y-3 text-[10px]">
@@ -114,11 +132,11 @@ const pageUrl = "https://devdami.varityweb.com/wiki";
             </div>
             <div>
               <span class="text-white block lowercase">occupation:</span>
-              <span class="text-text-muted lowercase">systems programmer, compiler engineer</span>
+              <span class="text-text-muted lowercase">full stack systems developer, web programmer</span>
             </div>
             <div>
               <span class="text-white block lowercase">notable:</span>
-              <span class="text-text-muted lowercase">carv language, karion os, game boy emulator, kiattp</span>
+              <span class="text-text-muted lowercase">track compiler, carv language, ignite sandbox, karion os, game boy emulator</span>
             </div>
           </div>
         </aside>
