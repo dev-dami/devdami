@@ -50,10 +50,10 @@ export const projects: Project[] = [
     name: "ignite",
     number: "04",
     description:
-      "Bun-first local execution framework for JS/TS microservices with Docker-based isolation. Secure sandbox for AI-generated and untrusted code.",
-    tags: ["TypeScript", "Bun", "Docker", "Sandbox"],
+      "Secure sandbox execution for JS/TS services inside hardware-isolated microVMs. Supports native Firecracker on Linux and Virtualization.framework on macOS.",
+    tags: ["Rust", "microVM", "Sandbox", "Firecracker"],
     githubUrl: "https://github.com/dev-dami/ignite",
-    language: "TypeScript",
+    language: "Rust",
     license: "MIT",
   },
   {
@@ -132,6 +132,17 @@ export const projects: Project[] = [
     tags: ["C", "RPC", "Networking", "Systems"],
     githubUrl: "https://github.com/dev-dami/brpc",
     language: "C",
+    license: "MIT",
+  },
+  {
+    slug: "track",
+    name: "track",
+    number: "12",
+    description:
+      "A systems programming language for deterministic software featuring linear ownership, compile-time borrow checking, and zero-cost abstractions.",
+    tags: ["Rust", "Compiler", "Language Design", "Systems"],
+    githubUrl: "https://github.com/dev-dami/track",
+    language: "Rust",
     license: "MIT",
   },
 ];

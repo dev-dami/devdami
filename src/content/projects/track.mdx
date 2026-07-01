@@ -1,0 +1,74 @@
+---
+title: "track"
+description: "A systems programming language for deterministic software with linear ownership"
+---
+
+## Overview
+
+Track is a systems programming language designed for deterministic software. It targets bare-metal firmware, audio DSP, robotics, and other real-time systems where dynamic allocation is prohibited and deterministic memory behavior is a hard requirement.
+
+It combines linear ownership, compile-time borrow checking, and zero-cost abstractions to eliminate resource management bugs without a garbage collector, runtime, or lifetime annotations.
+
+### Key Features
+
+- **Linear ownership** — Prevents use-after-free, double-free, and leaks.
+- **Automatic cleanup** — Resources are automatically freed at scope exit — no manual `free` calls needed.
+- **Borrow references** — Compile-time checked shared access ensuring memory safety.
+- **Lexical lenses** — Scoped mutable access without ownership transfer.
+- **Pattern matching** — Exhaustive matching over enums and unions.
+- **Compile-time macros** — Fast compile-time code generation with `@macro`.
+- **LLVM backend** — High-performance native machine code generation.
+- **Tooling** — Includes the **Yard** package manager and a full **LSP server** (`track-lsp`) providing diagnostics, auto-completion, and hover documentation.
+
+### Example
+
+```rust
+fn main() -> void {
+    print("hello, track!");
+}
+
+// Linear types prevent leaks
+let mut v: Vec = vec_init(16);
+vec_push(&mut v, 42);
+// v is automatically freed when spent
+
+// Lexical lenses for scoped mutable access
+let user = User { name: "Alice", age: 30 };
+with user -> u {
+    u.age = 31;
+}
+// user is restored to Active
+```
+
+## Getting Started
+
+### Prerequisites
+
+- Rust 2021 edition
+- LLVM 22 development libraries
+
+### Build and Install
+
+```bash
+git clone https://github.com/dev-dami/track.git
+cd track
+./install.sh
+```
+
+### Run a Program
+
+```bash
+track build hello.trk
+./hello
+```
+
+### Package Management
+
+Initialize a new project and build it with Yard:
+
+```bash
+track yard init my_project
+track yard add <package>
+track yard build
+track yard run
+```

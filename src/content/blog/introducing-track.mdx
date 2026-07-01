@@ -1,0 +1,85 @@
+---
+title: "Introducing Track: Deterministic Systems Programming with Linear Ownership"
+description: "A deep dive into Track, a new systems programming language designed for real-time systems, alongside Ignite's migration to hardware-isolated microVMs."
+date: 2026-07-01
+tags: ["systems", "compiler", "rust", "microvm"]
+repo: "track"
+---
+
+## The Search for Zero-Cost Determinism
+
+In systems programming, memory safety and resource management are the ultimate battlegrounds. Traditionally, we have chosen between two extremes:
+1. **Manual Memory Management (C/C++)**: Unmatched performance and control, but prone to double-frees, use-after-frees, and memory leaks.
+2. **Garbage Collection (Go/Java)**: Memory safe, but introduces unpredictable pauses (stop-the-world) and runtime overhead that makes it unsuitable for hard real-time systems.
+
+Rust introduced compile-time borrow checking with lifetime annotations. While extremely powerful, lifetime annotations can significantly increase cognitive load and complicate language ergonomics.
+
+This is why we built **Track** — a systems programming language that achieves deterministic resource management without a garbage collector, runtime, or lifetime annotations.
+
+---
+
+## Core Concepts of Track
+
+### 1. Linear Ownership
+
+In Track, variables have linear ownership. By default, every resource is owned by a single variable, and ownership must be explicitly managed. When a variable goes out of scope, the compiler automatically generates the cleanup code:
+
+```rust
+// Linear types prevent leaks
+let mut v: Vec = vec_init(16);
+vec_push(&mut v, 42);
+// v is automatically freed here without manual free calls!
+```
+
+### 2. Lexical Lenses
+
+For cases where you need temporary mutable access without transfer of ownership, Track introduces **Lexical Lenses**. Lenses guarantee scoped access and restore the original state when the block exits:
+
+```rust
+let user = User { name: "Alice", age: 30 };
+with user -> u {
+    u.age = 31;
+}
+// user is automatically restored to Active status
+```
+
+### 3. Native Code Generation
+
+The Track compiler is written in Rust and targets **LLVM 22**, compiling down to high-performance native machine code. This makes it ideal for bare-metal firmware, audio DSP, robotics, and kernel development.
+
+---
+
+## Upgrading Ignite: From Containers to MicroVMs
+
+Alongside Track, we have also rolled out a massive upgrade to **Ignite**, our secure sandbox execution framework.
+
+Previously, Ignite relied on Bun and Docker-based isolation. However, to execute completely untrusted code (like AI-agent-generated scripts) in multi-tenant environments, container isolation is not enough.
+
+The upgraded Ignite shifts from containers to **hardware-isolated microVMs** with zero external VM dependencies:
+- **Dual-Hypervisor Core**: Automatically targets KVM-backed Firecracker on Linux and macOS's native Virtualization.framework.
+- **Host-Reliant Disk Mounts**: The guest microVM has no shell, utility utilities, or library environments. Language runtimes (Bun, Node, Deno, QuickJS) are compiled on the host and attached as read-only virtual block devices.
+- **VSOCK Multiplexing**: Bypasses network interfaces entirely, streaming stdout/stderr/exit codes back to the host via low-latency virtual sockets.
+
+---
+
+## Conclusion & Getting Started
+
+Both Track and the upgraded Ignite are open source. You can build and install Track today:
+
+```bash
+git clone https://github.com/dev-dami/track.git
+cd track
+./install.sh
+track build hello.trk
+./hello
+```
+
+Or run untrusted scripts securely using Ignite:
+
+```bash
+ignite init sandbox-env
+cd sandbox-env
+ignite run .
+```
+
+*Subscribe to the newsletter below to get technical updates on compiler design and systems architecture.*
