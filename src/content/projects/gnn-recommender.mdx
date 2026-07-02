@@ -1,0 +1,70 @@
+---
+title: "gnn-recommender"
+description: "Graph Neural Network recommendation system built from scratch with LightGCN, BPR loss, and 9 advanced techniques"
+---
+
+## Overview
+
+gnn-recommender is a complete, production-quality Graph Neural Network recommendation system built from scratch in PyTorch. The model models users and items (movies) as a bipartite interaction graph, propagating similarity signals through neighborhood aggregation to solve the cold-start and extreme sparsity problems of collaborative filtering.
+
+The core implementation simplifies traditional GCNs by stripping away feature transformations and nonlinear activations (e.g., ReLU, BatchNorm) as pioneered by the LightGCN paper. Neighborhood aggregation is executed using optimized sparse matrix multiplication (`torch.sparse.mm`).
+
+## Key Features
+
+- **LightGCN from scratch** — Bypasses PyTorch Geometric/DGL to implement raw, layer-wise sparse message passing.
+- **BPR Loss** — Bayesian Personalized Ranking for implicit feedback, training the model to rank observed user-item interactions over unobserved ones.
+- **9 Advanced Techniques**:
+  - **Self-Supervised Graph Learning** — Graph contrastive learning (InfoNCE loss) with edge and node perturbation.
+  - **UltraGCN** — Kernel-approximation shortcut that skips layer-wise propagation for massive scalability.
+  - **Dropout Variants** — Edge and node dropout for structural regularization.
+  - **Explainability** — Gradient attribution and multi-hop graph path tracing.
+  - **Temporal Gating** — Recency-based sinusoidal time encoding for active users.
+  - **Knowledge Graph Augmentation** — Injecting item semantic genre co-occurrence to construct auxiliary edges.
+  - **Mixed Precision & Multi-GPU** — FP16 training with autocast and DistributedDataParallel synchronization.
+- **Full Benchmarking Suite** — Custom metric evaluation for Recall@K, Precision@K, NDCG@K, MAP, and HitRate.
+
+## Performance
+
+Benchmarked against published research on **MovieLens 100K** (92% sparse):
+
+| Model | Recall@10 | NDCG@10 | HitRate@10 |
+|:---|:---:|:---:|:---:|
+| Popularity Baseline | 0.052 | 0.028 | 0.310 |
+| Matrix Factorization (SVD) | 0.083 | 0.054 | 0.420 |
+| **LightGCN (Ours)** | **0.120** | **0.127** | **0.555** |
+| **LightGCN + KG Aug (Ours)** | **0.138** | **0.148** | **0.610** |
+
+Our implementation matches the original LightGCN paper and, with Knowledge Graph augmentation, reaches SimGCL-level performance (0.138 Recall@10) without the contrastive training complexity.
+
+## Getting Started
+
+### Prerequisites
+
+- Python 3.11+
+- PyTorch 2.0+
+- PyYAML, Seaborn, Matplotlib, TensorBoard
+
+### Installation & Training
+
+```bash
+# Clone the repository
+git clone https://github.com/dev-dami/gnn-recommender.git
+cd gnn-recommender
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Train the base model
+python -m src.main
+```
+
+### Running Tests
+
+The repository includes a comprehensive test suite of 15 unit tests:
+
+```bash
+python tests/test_model.py
+python tests/test_metrics.py
+python tests/test_bpr.py
+python tests/test_advanced.py
+```

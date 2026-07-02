@@ -35,10 +35,11 @@ export const prerender = true;
               <li><strong>operating system kernels:</strong> wrote Karion OS, an x86 kernel in Rust, implementing physical memory management, virtual paging, pre-emptive scheduling, and a custom virtual filesystem (VFS).</li>
               <li><strong>compilers & runtimes:</strong> built Carv (a systems language targeting ARM and x86 architectures compiling to C) and Track (a systems language compiler targeting LLVM 22 using linear types and compile-time borrow checking).</li>
               <li><strong>low-latency virtualization:</strong> upgraded Ignite into a hardware-isolated microVM sandboxing runtime in Rust utilizing KVM (Firecracker) and Virtualization.framework for secure execution of untrusted scripts.</li>
+              <li><strong>deep learning & recommendations:</strong> built gnn-recommender, a graph neural network recommendation engine from scratch in PyTorch, integrating LightGCN, self-supervised learning, and knowledge graph augmentation.</li>
               <li><strong>distributed web backends:</strong> built brpc (a zero-dependency multiplexed TCP JSON-RPC library in C) and custom web tooling leveraging Bun, Node.js, and TypeScript.</li>
             </ul>
             <p class="transition-colors duration-300">
-              I operate across the full stack. Whether I am writing kernel interrupt routines, optimizing LLVM intermediate representation (IR), configuring virtual block devices, or building responsive, animation-rich web UIs with React and Astro, my goal is to design software that is secure, correct, and performant by default.
+              I operate across the full stack. Whether I am writing kernel interrupt routines, optimizing LLVM intermediate representation (IR), configuring virtual block devices, training graph neural networks, or building responsive, animation-rich web UIs with React and Astro, my goal is to design software that is secure, correct, and performant by default.
             </p>
           </div>
         </section>
@@ -58,6 +59,10 @@ export const prerender = true;
             <div class="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
               <span class="text-white min-w-[90px] font-semibold">systems/infra:</span>
               <span>kvm, firecracker, virtualization.framework, linux kernel, docker, kubernetes, git</span>
+            </div>
+            <div class="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
+              <span class="text-white min-w-[90px] font-semibold">ai/ml:</span>
+              <span>pytorch, tensorboard, graph neural networks (gnns), contrastive learning</span>
             </div>
             <div class="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
               <span class="text-white min-w-[90px] font-semibold">databases:</span>
@@ -96,9 +101,9 @@ export const prerender = true;
                   <span class="text-white font-semibold">2025</span>
                   <span class="text-[9px] text-text-muted lowercase">(age 17)</span>
                 </div>
-                <div class="text-[11px] text-white lowercase">compiler engineering & microVMs</div>
+                <div class="text-[11px] text-white lowercase">deep learning & compiler engineering</div>
                 <div class="text-[10px] text-text-muted lowercase leading-relaxed">
-                  designing carv compiler spec, and upgrading Ignite to KVM-backed Firecracker / Virtualization.framework runtimes
+                  implementing gnn recommender engines from scratch, designing carv compiler, and building firecracker runtimes
                 </div>
               </div>
             </div>

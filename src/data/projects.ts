@@ -145,6 +145,17 @@ export const projects: Project[] = [
     language: "Rust",
     license: "MIT",
   },
+  {
+    slug: "gnn-recommender",
+    name: "gnn-recommender",
+    number: "13",
+    description:
+      "A graph neural network-based recommendation system built from scratch in PyTorch. Implements LightGCN, BPR loss, and 9 advanced techniques including knowledge graph augmentation, temporal gating, and self-supervised contrastive learning.",
+    tags: ["PyTorch", "GNN", "Recommendation Systems", "AI/ML"],
+    githubUrl: "https://github.com/dev-dami/gnn-recommender",
+    language: "Python",
+    license: "MIT",
+  },
 ];
 
 export function getProject(slug: string): Project | undefined {
