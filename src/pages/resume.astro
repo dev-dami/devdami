@@ -17,29 +17,48 @@ export const prerender = true;
   <body class="min-h-screen bg-bg text-text font-mono antialiased">
 
     <!-- Toolbar (hidden on print) -->
-    <div class="no-print border-b border-border/40 py-4 max-w-md mx-auto flex items-center justify-between text-xs font-mono">
+    <div class="no-print border-b border-border/40 py-4 max-w-4xl mx-auto flex items-center justify-between text-xs font-mono px-4">
       <a href="/" class="text-text-muted hover:text-white transition-colors">&lt;- back</a>
       <div class="flex items-center gap-4">
-        <span class="text-text-muted">resume_v1.0</span>
+        <button
+          onclick="
+            navigator.clipboard.writeText(window.location.href);
+            this.innerText = '[copied!]';
+            setTimeout(() => this.innerText = '[copy link]', 2000);
+          "
+          class="hover:text-white text-text-muted transition-colors uppercase"
+        >
+          [copy link]
+        </button>
         <button
           onclick="window.print()"
           class="hover:text-white text-text-muted transition-colors uppercase"
         >
-          [print]
+          [print / pdf]
         </button>
       </div>
     </div>
 
     <!-- Resume Content -->
-    <div class="resume-page mx-auto max-w-md px-4 py-16 font-mono text-xs text-text leading-relaxed">
+    <div class="resume-page mx-auto max-w-4xl px-4 py-16 font-mono text-xs text-text leading-relaxed">
 
       <!-- Header -->
-      <header class="mb-12 pb-6 border-b border-border/40 text-center">
-        <h1 class="text-sm font-semibold tracking-widest text-white uppercase mb-2">
-          damilare osibanjo
-        </h1>
-        <p class="text-text-muted lowercase mb-4">full stack systems developer &amp; web programmer</p>
-        <div class="flex flex-col gap-1 text-[10px] text-text-muted lowercase">
+      <header class="mb-12 pb-8 border-b border-border/40 flex flex-col md:flex-row md:items-end justify-between gap-6">
+        <div>
+          <div class="flex items-center gap-3 mb-3 no-print">
+            <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[9px] font-semibold uppercase tracking-wider">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              active for opportunities
+            </span>
+          </div>
+          <h1 class="text-xl md:text-2xl font-bold tracking-widest text-white uppercase mb-2">
+            damilare osibanjo
+          </h1>
+          <p class="text-text-muted lowercase text-[10px] md:text-[11px]">
+            full stack systems developer &amp; deep learning engineer
+          </p>
+        </div>
+        <div class="flex flex-col gap-1.5 text-left md:text-right text-[10px] text-text-muted lowercase">
           <a href="mailto:dami@varityweb.com" class="hover:text-white transition-colors">
             dami@varityweb.com
           </a>
@@ -52,122 +71,195 @@ export const prerender = true;
         </div>
       </header>
 
-      <!-- Summary -->
-      <section class="mb-12">
-        <h2 class="text-[10px] uppercase text-white tracking-widest mb-4">// summary</h2>
-        <p class="text-text-muted lowercase">
-          full-stack systems developer and web programmer with 5+ years of experience engineering
-          across the entire software stack — from bare-metal x86 kernel development and compilers to
-          high-performance web applications and distributed APIs. specialized in typescript, rust,
-          go, and c. focused on mechanical sympathy, compile-time correctness, and low-latency systems.
-        </p>
-      </section>
-
-      <!-- Projects / Work -->
-      <section class="mb-12">
-        <h2 class="text-[10px] uppercase text-white tracking-widest mb-4">// selected projects</h2>
-        <div class="space-y-6">
-
-          <div class="space-y-1">
-            <div class="flex items-start justify-between flex-wrap gap-1">
-              <span class="text-white">karion_os</span>
-              <span class="text-text-muted">rust · x86 · 2024</span>
-            </div>
-            <p class="text-text-muted">
-              bare-metal x86 operating system kernel written in rust. features a custom virtual
-              file system (vfs), pre-emptive scheduler, memory manager, keyboard driver, and interrupt
-              service routines. ported from c to rust, utilizing the borrow checker to mathematically
-              guarantee data-race freedom in kernel space.
+      <!-- Main Layout Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+        
+        <!-- Left Side: Summary, Experience/Projects, Education -->
+        <div class="md:col-span-2 space-y-12">
+          
+          <!-- Summary -->
+          <section class="space-y-4">
+            <h2 class="text-[10px] uppercase text-white tracking-widest border-b border-border/40 pb-2">// summary</h2>
+            <p class="text-text-muted lowercase">
+              full-stack systems developer and deep learning engineer with 5+ years of self-directed research and implementation. specializing in compilers, kernel programming, microvm virtualization, and graph neural networks. focused on mechanical sympathy, compile-time correctness, and low-latency systems.
             </p>
-          </div>
+          </section>
 
-          <div class="space-y-1">
-            <div class="flex items-start justify-between flex-wrap gap-1">
-              <span class="text-white">track</span>
-              <span class="text-text-muted">rust · compiler · 2025</span>
-            </div>
-            <p class="text-text-muted">
-              deterministic systems programming language compiler targeting llvm 22. features linear
-              ownership, compile-time borrow checking, and zero-cost abstractions, designed for
-              firmware and real-time dsp systems.
-            </p>
-          </div>
+          <!-- Featured Projects -->
+          <section class="space-y-6">
+            <h2 class="text-[10px] uppercase text-white tracking-widest border-b border-border/40 pb-2">// featured projects</h2>
+            <div class="space-y-6">
 
-          <div class="space-y-1">
-            <div class="flex items-start justify-between flex-wrap gap-1">
-              <span class="text-white">gnn-recommender</span>
-              <span class="text-text-muted">python · pytorch · 2025</span>
-            </div>
-            <p class="text-text-muted">
-              graph neural network-based recommendation system built from scratch in pytorch. implements
-              lightgcn (sparse matrix propagation), bpr loss, and 9 advanced algorithms (self-supervised
-              contrastive learning, ultragcn, temporal gating, knowledge graphs, and multi-gpu distributed training).
-            </p>
-          </div>
+              <div class="space-y-2">
+                <div class="flex items-start justify-between flex-wrap gap-1">
+                  <span class="text-white font-semibold">karion_os</span>
+                  <span class="text-text-muted">rust · assembly · x86 · 2024</span>
+                </div>
+                <p class="text-text-muted lowercase">
+                  bare-metal x86 operating system kernel written in rust. features a custom virtual
+                  file system (vfs), pre-emptive scheduler, physical/virtual memory manager, keyboard driver, and interrupt
+                  service routines. ported from c to rust, utilizing the borrow checker to mathematically
+                  guarantee data-race freedom in kernel space.
+                </p>
+              </div>
 
-          <div class="space-y-1">
-            <div class="flex items-start justify-between flex-wrap gap-1">
-              <span class="text-white">carv</span>
-              <span class="text-text-muted">go · compiler · 2024</span>
-            </div>
-            <p class="text-text-muted">
-              statically-typed systems language compiler built in go that targets optimized c. employs
-              a recursive descent parser, ast validation, type checking, compile-time move semantics,
-              linear types, lexical lenses, and coroutines.
-            </p>
-          </div>
+              <div class="space-y-2">
+                <div class="flex items-start justify-between flex-wrap gap-1">
+                  <span class="text-white font-semibold">gnn-recommender</span>
+                  <span class="text-text-muted">python · pytorch · deep learning · 2025</span>
+                </div>
+                <p class="text-text-muted lowercase">
+                  graph neural network-based recommendation system built from scratch in pytorch. implements
+                  lightgcn (sparse matrix message passing), bpr loss, and 9 advanced algorithms (self-supervised
+                  contrastive learning, ultragcn, temporal gating, knowledge graphs, and multi-gpu distributed training).
+                  matches/exceeds paper baselines on movielens.
+                </p>
+              </div>
 
-          <div class="space-y-1">
-            <div class="flex items-start justify-between flex-wrap gap-1">
-              <span class="text-white">ignite</span>
-              <span class="text-text-muted">rust · virtualization · 2024-2025</span>
+              <div class="space-y-2">
+                <div class="flex items-start justify-between flex-wrap gap-1">
+                  <span class="text-white font-semibold">track</span>
+                  <span class="text-text-muted">rust · compiler · llvm · 2025</span>
+                </div>
+                <p class="text-text-muted lowercase">
+                  deterministic systems programming language compiler targeting llvm 22. features linear
+                  ownership, compile-time borrow checking, and zero-cost abstractions, designed for
+                  firmware and real-time dsp systems.
+                </p>
+              </div>
+
+              <div class="space-y-2">
+                <div class="flex items-start justify-between flex-wrap gap-1">
+                  <span class="text-white font-semibold">ignite</span>
+                  <span class="text-text-muted">rust · virtualization · kvm · 2024-2025</span>
+                </div>
+                <p class="text-text-muted lowercase">
+                  hardware-isolated microvm sandboxing runtime built in rust. leverages linux kvm (via firecracker)
+                  and apple's virtualization.framework to isolate untrusted js/ts code. uses read-only virtual
+                  block devices and vsock multiplexing for sub-millisecond vm lifecycle transitions.
+                </p>
+              </div>
+
+              <div class="space-y-2">
+                <div class="flex items-start justify-between flex-wrap gap-1">
+                  <span class="text-white font-semibold">carv</span>
+                  <span class="text-text-muted">go · compiler · c99 · 2024</span>
+                </div>
+                <p class="text-text-muted lowercase">
+                  statically-typed systems language compiler built in go that targets optimized c. employs
+                  a recursive descent parser, ast validation, type checking, compile-time move semantics,
+                  linear types, lexical lenses, and coroutines.
+                </p>
+              </div>
+
             </div>
-            <p class="text-text-muted">
-              hardware-isolated microvm sandboxing runtime built in rust. leverages linux kvm (via firecracker)
-              and apple's virtualization.framework to isolate untrusted js/ts code. uses read-only virtual
-              block devices and vsock multiplexing for sub-millisecond vm lifecycle transitions.
-            </p>
-          </div>
+          </section>
+
+          <!-- Additional Projects -->
+          <section class="space-y-4">
+            <h2 class="text-[10px] uppercase text-white tracking-widest border-b border-border/40 pb-2">// other projects & tools</h2>
+            <div class="space-y-4">
+              
+              <div class="space-y-1">
+                <div class="flex items-start justify-between flex-wrap gap-1">
+                  <span class="text-white font-semibold">brpc</span>
+                  <span class="text-text-muted">c · networking · 2024</span>
+                </div>
+                <p class="text-text-muted lowercase">
+                  zero-dependency json-rpc 2.0 framework over multiplexed tcp streams in c99. implements binary framing, ring buffer flow control, and tls/zlib options. includes python bindings and 157 unit tests.
+                </p>
+              </div>
+
+              <div class="space-y-1">
+                <div class="flex items-start justify-between flex-wrap gap-1">
+                  <span class="text-white font-semibold">gbemu</span>
+                  <span class="text-text-muted">zig · emulator · 2024</span>
+                </div>
+                <p class="text-text-muted lowercase">
+                  dependency-free, cycle-accurate game boy emulator written in zig. features custom cpu, ppu scanline rendering, timer synchronization, and cartridge mbc1 mapper support.
+                </p>
+              </div>
+
+              <div class="space-y-1">
+                <div class="flex items-start justify-between flex-wrap gap-1">
+                  <span class="text-white font-semibold">qirrel</span>
+                  <span class="text-text-muted">typescript · nlp · 2024</span>
+                </div>
+                <p class="text-text-muted lowercase">
+                  extensible nlp framework in typescript for structured text analysis. features custom tokenization, entity extraction, llm cache-enrichment, and mcp agent integrations.
+                </p>
+              </div>
+
+            </div>
+          </section>
 
         </div>
-      </section>
 
-      <!-- Skills -->
-      <section class="mb-12 border-t border-border/40 pt-8">
-        <h2 class="text-[10px] uppercase text-white tracking-widest mb-4">// skills</h2>
-        <div class="space-y-2 text-text-muted">
-          <div>
-            <span class="text-white">languages:</span> typescript, javascript, rust, go, c, assembly (x86/arm), python, lua, zig
-          </div>
-          <div>
-            <span class="text-white">web & rts:</span> react, next.js, astro, tailwindcss, html5, css3, webassembly, bun, node.js
-          </div>
-          <div>
-            <span class="text-white">systems & virtual:</span> kvm, firecracker, virtualization.framework, linux, docker, kubernetes, git
-          </div>
-          <div>
-            <span class="text-white">ai/ml:</span> pytorch, tensorboard, graph neural networks (gnns), contrastive learning
-          </div>
-          <div>
-            <span class="text-white">databases:</span> postgresql, redis, mongodb, custom block filesystems
-          </div>
-        </div>
-      </section>
+        <!-- Right Side: Skills, Education -->
+        <div class="space-y-12">
+          
+          <!-- Skills Grid -->
+          <section class="space-y-6">
+            <h2 class="text-[10px] uppercase text-white tracking-widest border-b border-border/40 pb-2">// skills</h2>
+            
+            <div class="space-y-4">
+              
+              <div class="space-y-1">
+                <span class="text-white font-semibold uppercase text-[9px] tracking-wider block">[languages]</span>
+                <span class="text-text-muted lowercase">typescript, javascript, rust, go, c, assembly (x86/arm), python, lua, zig, sql</span>
+              </div>
 
-      <!-- Education -->
-      <section class="border-t border-border/40 pt-8">
-        <h2 class="text-[10px] uppercase text-white tracking-widest mb-4">// education</h2>
-        <div>
-          <div class="flex items-start justify-between flex-wrap gap-1">
-            <span class="text-white">Self-directed learning</span>
-            <span class="text-text-muted">2019 – present</span>
-          </div>
-          <p class="text-text-muted mt-1 leading-relaxed">
-            Open source contributions, systems experiments, and compiler development.
-            Built working OS kernel, compiler, and distributed tooling from scratch.
-          </p>
+              <div class="space-y-1">
+                <span class="text-white font-semibold uppercase text-[9px] tracking-wider block">[systems & virtualization]</span>
+                <span class="text-text-muted lowercase">kvm, firecracker, virtualization.framework, linux, docker, kubernetes, git</span>
+              </div>
+
+              <div class="space-y-1">
+                <span class="text-white font-semibold uppercase text-[9px] tracking-wider block">[ai / deep learning]</span>
+                <span class="text-text-muted lowercase">pytorch, tensorboard, graph neural networks (gnns), contrastive learning, temporal gating</span>
+              </div>
+
+              <div class="space-y-1">
+                <span class="text-white font-semibold uppercase text-[9px] tracking-wider block">[web & runtimes]</span>
+                <span class="text-text-muted lowercase">react, next.js, astro, tailwindcss, webassembly, bun, node.js, html5/css3</span>
+              </div>
+
+              <div class="space-y-1">
+                <span class="text-white font-semibold uppercase text-[9px] tracking-wider block">[databases]</span>
+                <span class="text-text-muted lowercase">postgresql, redis, mongodb, custom block filesystems</span>
+              </div>
+
+            </div>
+          </section>
+
+          <!-- Education -->
+          <section class="space-y-4">
+            <h2 class="text-[10px] uppercase text-white tracking-widest border-b border-border/40 pb-2">// education</h2>
+            <div class="space-y-2">
+              <div class="flex items-start justify-between flex-wrap gap-1">
+                <span class="text-white font-semibold">self-directed learning</span>
+                <span class="text-text-muted">2019 – present</span>
+              </div>
+              <p class="text-text-muted mt-1 leading-relaxed lowercase">
+                open source contributions, systems research, and compiler engineering. built working kernel, compilers, and cloud virtualization runtimes from scratch.
+              </p>
+            </div>
+          </section>
+
+          <!-- Stats / Meta -->
+          <section class="space-y-4 no-print border-t border-border/25 pt-6">
+            <h2 class="text-[10px] uppercase text-white tracking-widest border-b border-border/40 pb-2">// credentials_meta</h2>
+            <div class="space-y-1.5 text-[10px] text-text-muted lowercase">
+              <div>status: active_search</div>
+              <div>version: 1.2.0</div>
+              <div>built_with: astro + tailwind</div>
+              <div>last_update: 2026-07-02</div>
+            </div>
+          </section>
+
         </div>
-      </section>
+
+      </div>
 
     </div>
 
@@ -178,7 +270,7 @@ export const prerender = true;
   /* ── Print styles ─────────────────────────────── */
   @media print {
     @page {
-      margin: 1.5cm 2cm;
+      margin: 1.2cm 1.5cm;
       size: A4;
     }
 
@@ -192,13 +284,18 @@ export const prerender = true;
       background-image: none !important;
     }
 
-    body::after {
-      display: none !important;
-    }
-
     .resume-page {
       max-width: 100% !important;
       padding: 0 !important;
+    }
+
+    .grid {
+      display: block !important;
+    }
+
+    .grid > div {
+      margin-bottom: 2rem !important;
+      width: 100% !important;
     }
 
     a {
@@ -206,36 +303,18 @@ export const prerender = true;
       text-decoration: none !important;
     }
 
-    h1 {
+    h1, h2, span, p, div {
       color: #111 !important;
     }
 
-    h2.resume-section-heading {
-      color: #4b5563 !important;
-      border-bottom-color: #d1d5db !important;
+    h2 {
+      border-bottom: 1px solid #ddd !important;
+      margin-bottom: 1rem !important;
+      padding-bottom: 0.25rem !important;
     }
 
-    .text-white,
-    .text-text,
-    .text-text-muted,
-    .text-muted {
-      color: #333 !important;
-    }
-
-    .text-accent {
-      color: #4b5563 !important;
-    }
-
-    .border-border {
-      border-color: #e5e7eb !important;
-    }
-
-    .resume-entry {
-      border-left-color: #d1d5db !important;
-    }
-
-    .border-accent\/40 {
-      border-color: #4b5563 !important;
+    .border-border, .border-border\/40 {
+      border-color: #eee !important;
     }
   }
 </style>
